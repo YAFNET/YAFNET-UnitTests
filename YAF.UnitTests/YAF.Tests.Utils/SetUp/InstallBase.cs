@@ -1,27 +1,32 @@
 ﻿/* Yet Another Forum.NET
- *
- * Copyright (C) Jaben Cargman
+ * Copyright (C) 2003-2005 Bjørnar Henden
+ * Copyright (C) 2006-2013 Jaben Cargman
+ * Copyright (C) 2014 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
- * documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
- * the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and 
- * to permit persons to whom the Software is furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions 
- * of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED 
- * TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL 
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
- * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
- * DEALINGS IN THE SOFTWARE.
-*/
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+
+ * http://www.apache.org/licenses/LICENSE-2.0
+
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 
 namespace YAF.Tests.Utils.SetUp
 {
     using System.IO;
     using System.Net;
+    using System.Threading;
     using System.Xml;
 
     using ICSharpCode.SharpZipLib.Zip;
@@ -30,9 +35,10 @@ namespace YAF.Tests.Utils.SetUp
 
     using NUnit.Framework;
 
-    using WatiN.Core;
-    using WatiN.Core.Native.Windows;
+    using OpenQA.Selenium;
+    using OpenQA.Selenium.Chrome;
 
+    using YAF.Tests.Utils.Extensions;
     using YAF.Types.Extensions;
 
     /// <summary>
@@ -46,7 +52,7 @@ namespace YAF.Tests.Utils.SetUp
         /// <value>
         /// The IE instance.
         /// </value>
-        public IE IEInstance { get; set; }
+        public ChromeDriver ChromeDriver { get; set; }
 
         /// <summary>
         /// Gets or sets the SMTP server.
@@ -104,29 +110,11 @@ namespace YAF.Tests.Utils.SetUp
             var fastZip = new FastZip();
 
             fastZip.ExtractZip(
-                installZip, applicationPath, FastZip.Overwrite.Always, null, null, "YetAnotherForum.NET", false);
-
-            foreach (string dirPath in
-                Directory.GetDirectories(
-                    Path.Combine(applicationPath, "YetAnotherForum.NET"), "*", SearchOption.AllDirectories))
-            {
-                Directory.CreateDirectory(
-                    dirPath.Replace(Path.Combine(applicationPath, "YetAnotherForum.NET"), applicationPath));
-            }
-
-            foreach (string newPath in
-                Directory.GetFiles(
-                    Path.Combine(applicationPath, "YetAnotherForum.NET"), "*.*", SearchOption.AllDirectories))
-            {
-                File.Move(
-                    newPath, newPath.Replace(Path.Combine(applicationPath, "YetAnotherForum.NET"), applicationPath));
-            }
-
-            Directory.Delete(Path.Combine(applicationPath, "YetAnotherForum.NET"), true);
+                installZip, applicationPath, FastZip.Overwrite.Always, null, null, null, false);
 
             // Rename Web.config
             File.Copy(
-                Path.Combine(applicationPath, "recommended-NET-web.config"), Path.Combine(applicationPath, "web.config"));
+                Path.Combine(applicationPath, "recommended.web.config"), Path.Combine(applicationPath, "web.config"));
 
             // Create Website in IIS
             IISManager.CreateIISApplication(TestConfig.TestApplicationName, applicationPath);
@@ -176,18 +164,26 @@ namespace YAF.Tests.Utils.SetUp
             xmlMailConfig.GetElementsByTagName("smtp")[0].Attributes["from"].Value = TestConfig.TestForumMail;
 
             xmlMailConfig.Save(Path.Combine(applicationPath, "mail.config"));
+            
+            // Copy db.config
+            File.Copy(@"..\..\testfiles\db.config", Path.Combine(applicationPath, "db.config"), true);
 
             // Inject Custom.sql file
             File.Copy(@"..\..\testfiles\custom.sql", Path.Combine(applicationPath, "install\\custom.sql"));
 
+            Directory.CreateDirectory(Path.Combine(applicationPath, "App_Data"));
+
+            // Copy empty database file to test folder
+            File.Copy(@"..\..\testfiles\Database.mdf", Path.Combine(applicationPath, "App_Data\\Database.mdf"));
+
+            // Setup DB
+            DBManager.AttachDatabase(TestConfig.TestDatabase, Path.Combine(applicationPath, "App_Data\\Database.mdf"));
+            
             if (TestConfig.UseTestMailServer)
             {
                 // Launch Mail Server
                 this.SmtpServer = SimpleSmtpServer.Start(TestConfig.TestMailPort.ToType<int>());
             }
-
-            // Setup DB
-            DBManager.AttachDatabase(TestConfig.TestDatabase, Path.Combine(applicationPath, "App_Data\\Database.mdf"));
 
             this.SetupWebsite();
         }
@@ -227,7 +223,7 @@ namespace YAF.Tests.Utils.SetUp
 
             Directory.Delete(applicationPath, true);
 
-            this.IEInstance.Close();
+            this.ChromeDriver.Close();
         }
 
         /// <summary>
@@ -235,43 +231,43 @@ namespace YAF.Tests.Utils.SetUp
         /// </summary>
         private void SetupWebsite()
         {
-            this.IEInstance = new IE();
+            this.ChromeDriver = new ChromeDriver();
 
-            this.IEInstance.GoTo("{0}install/default.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.ChromeDriver.Navigate().GoToUrl("{0}install/default.aspx".FormatWith(TestConfig.TestForumUrl));
 
-            this.IEInstance.ShowWindow(NativeMethods.WindowShowStyle.Maximize);
-
-            this.IEInstance.WaitForComplete(5000);
+            Thread.Sleep(5000);
 
             // Enter Config Password
-            this.IEInstance.TextField(Find.ById("InstallWizard_txtEnteredPassword")).TypeText(TestConfig.ConfigPassword);
-            this.IEInstance.Button(Find.ById("InstallWizard_StepNavigationTemplateContainerID_StepNextButton")).Click();
+            this.ChromeDriver.FindElementById("InstallWizard_txtEnteredPassword").SendKeys(TestConfig.ConfigPassword);
+            this.ChromeDriver.FindElementById("InstallWizard_StepNavigationTemplateContainerID_StepNextButton").Click();
 
-            this.IEInstance.Button(Find.ById("InstallWizard_StepNavigationTemplateContainerID_StepPreviousButton")).Click();
+            this.ChromeDriver.FindElementById("InstallWizard_StepNavigationTemplateContainerID_StepPreviousButton").Click();
 
-            this.IEInstance.RadioButton(Find.ById("InstallWizard_rblYAFDatabase_1")).Click();
+            this.ChromeDriver.FindElementById("InstallWizard_rblYAFDatabase_1").Click();
 
             // Enter YAF Database Connection
-            this.IEInstance.TextField(Find.ById("InstallWizard_Parameter1_Value")).TypeText(TestConfig.DatabaseServer);
+            var serverInput = this.ChromeDriver.FindElement(By.Id("InstallWizard_Parameter1_Value"), 300);
+            serverInput.Clear();
+            serverInput.SendKeys(TestConfig.DatabaseServer);
 
-            this.IEInstance.TextField(Find.ById("InstallWizard_Parameter2_Value")).TypeText(TestConfig.TestDatabase);
+            this.ChromeDriver.FindElementById("InstallWizard_Parameter2_Value").SendKeys(TestConfig.TestDatabase);
 
             // Test Database Conncection
-            this.IEInstance.Button(Find.ById("InstallWizard_btnTestDBConnection")).Click();
+            this.ChromeDriver.FindElementById("InstallWizard_btnTestDBConnection").Click();
 
-            Assert.IsTrue(this.IEInstance.ContainsText("Connection Succeeded"), "Database Connection Is Wrong");
+            Assert.IsTrue(this.ChromeDriver.PageSource.Contains("Connection Succeeded"), "Database Connection Is Wrong");
 
-            this.IEInstance.Button(Find.ById("InstallWizard_StepNavigationTemplateContainerID_StepNextButton")).Click();
+            this.ChromeDriver.FindElementById("InstallWizard_StepNavigationTemplateContainerID_StepNextButton").Click();
 
             // Test Mail Setup
-            this.IEInstance.TextField(Find.ById("InstallWizard_txtTestFromEmail")).TypeText(TestConfig.TestForumMail);
+            this.ChromeDriver.FindElementById("InstallWizard_txtTestFromEmail").SendKeys(TestConfig.TestForumMail);
 
-            this.IEInstance.TextField(Find.ById("InstallWizard_txtTestToEmail")).TypeText("receiver@there.com");
+            this.ChromeDriver.FindElementById("InstallWizard_txtTestToEmail").SendKeys("receiver@there.com");
 
-            this.IEInstance.Button(Find.ById("InstallWizard_btnTestSmtp")).Click();
+            this.ChromeDriver.FindElementById("InstallWizard_btnTestSmtp").Click();
 
             Assert.IsTrue(
-                this.IEInstance.ContainsText("Mail Sent. Verify it's received at your entered email address."),
+                this.ChromeDriver.PageSource.Contains("Mail Sent. Verify it's received at your entered email address."),
                 "Mail Send Failed");
 
             if (TestConfig.UseTestMailServer)
@@ -290,38 +286,38 @@ namespace YAF.Tests.Utils.SetUp
             }
 
             // Now continue to Initialize Database
-            this.IEInstance.Button(Find.ById("InstallWizard_StepNavigationTemplateContainerID_StepNextButton")).Click();
+            this.ChromeDriver.FindElementById("InstallWizard_StepNavigationTemplateContainerID_StepNextButton").Click();
 
             // Initialize Database
-            this.IEInstance.Button(Find.ById("InstallWizard_StepNavigationTemplateContainerID_StepNextButton")).ClickNoWait();
+            this.ChromeDriver.FindElementById("InstallWizard_StepNavigationTemplateContainerID_StepNextButton").Click();
 
-            this.IEInstance.WaitUntilContainsText("Create Board", 300);
+            Thread.Sleep(3000);
 
-            Assert.IsTrue(this.IEInstance.ContainsText("Create Board"));
+            Assert.IsTrue(this.ChromeDriver.PageSource.Contains("Create Board"));
 
             // Board Settings
-            this.IEInstance.TextField(Find.ById("InstallWizard_TheForumName")).TypeText(TestConfig.TestApplicationName);
-            this.IEInstance.TextField(Find.ById("InstallWizard_ForumEmailAddress")).TypeText(TestConfig.TestForumMail);
+            this.ChromeDriver.FindElementById("InstallWizard_TheForumName").SendKeys(TestConfig.TestApplicationName);
+            this.ChromeDriver.FindElementById("InstallWizard_ForumEmailAddress").SendKeys(TestConfig.TestForumMail);
 
             // Admin User
-            this.IEInstance.TextField(Find.ById("InstallWizard_UserName")).TypeText(TestConfig.AdminUserName);
-            this.IEInstance.TextField(Find.ById("InstallWizard_AdminEmail")).TypeText(TestConfig.TestForumMail);
-            this.IEInstance.TextField(Find.ById("InstallWizard_Password1")).TypeText(TestConfig.AdminPassword);
-            this.IEInstance.TextField(Find.ById("InstallWizard_Password2")).TypeText(TestConfig.AdminPassword);
-            this.IEInstance.TextField(Find.ById("InstallWizard_SecurityQuestion")).TypeText(TestConfig.AdminPassword);
-            this.IEInstance.TextField(Find.ById("InstallWizard_SecurityAnswer")).TypeText(TestConfig.AdminPassword);
+            this.ChromeDriver.FindElementById("InstallWizard_UserName").SendKeys(TestConfig.AdminUserName);
+            this.ChromeDriver.FindElementById("InstallWizard_AdminEmail").SendKeys(TestConfig.TestForumMail);
+            this.ChromeDriver.FindElementById("InstallWizard_Password1").SendKeys(TestConfig.AdminPassword);
+            this.ChromeDriver.FindElementById("InstallWizard_Password2").SendKeys(TestConfig.AdminPassword);
+            this.ChromeDriver.FindElementById("InstallWizard_SecurityQuestion").SendKeys(TestConfig.AdminPassword);
+            this.ChromeDriver.FindElementById("InstallWizard_SecurityAnswer").SendKeys(TestConfig.AdminPassword);
 
-            this.IEInstance.Button(Find.ById("InstallWizard_StepNavigationTemplateContainerID_StepNextButton")).ClickNoWait();
+            this.ChromeDriver.FindElementById("InstallWizard_StepNavigationTemplateContainerID_StepNextButton").Click();
 
-            this.IEInstance.WaitUntilContainsText("Setup/Upgrade Finished", 300);
+            Thread.Sleep(3000);
 
-            Assert.IsTrue(this.IEInstance.ContainsText("Setup/Upgrade Finished"));
+            Assert.IsTrue(this.ChromeDriver.PageSource.Contains("Setup Finished"));
 
-            this.IEInstance.Button(Find.ById("InstallWizard_FinishNavigationTemplateContainerID_FinishButton")).ClickNoWait();
+            this.ChromeDriver.FindElementById("InstallWizard_FinishNavigationTemplateContainerID_FinishButton").Click();
 
-            this.IEInstance.WaitUntilContainsText("Welcome Guest!", 300);
+            Thread.Sleep(3000);
 
-            Assert.IsTrue(this.IEInstance.ContainsText("Welcome Guest!"), "Installation failed");
+            Assert.IsTrue(this.ChromeDriver.PageSource.Contains("Welcome Guest!"), "Installation failed");
         }
     }
 }

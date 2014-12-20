@@ -1,31 +1,33 @@
 ﻿/* Yet Another Forum.NET
- *
- * Copyright (C) Jaben Cargman
+ * Copyright (C) 2003-2005 Bjørnar Henden
+ * Copyright (C) 2006-2013 Jaben Cargman
+ * Copyright (C) 2014 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
- * documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
- * the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and 
- * to permit persons to whom the Software is furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions 
- * of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED 
- * TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL 
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
- * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
- * DEALINGS IN THE SOFTWARE.
-*/
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+
+ * http://www.apache.org/licenses/LICENSE-2.0
+
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 
 namespace YAF.Tests.UserTests.UserSettings
 {
-    using System.Text.RegularExpressions;
-
     using NUnit.Framework;
 
-    using WatiN.Core;
-    using WatiN.Core.Native.Windows;
+    using OpenQA.Selenium;
+    using OpenQA.Selenium.Chrome;
 
     using YAF.Tests.Utils;
     using YAF.Types.Extensions;
@@ -47,9 +49,7 @@ namespace YAF.Tests.UserTests.UserSettings
         [TestFixtureSetUp]
         public void SetUpTest()
         {
-            this.browser = !TestConfig.UseExistingInstallation ? TestSetup._testBase.IEInstance : new IE();
-
-            this.browser.ShowWindow(NativeMethods.WindowShowStyle.Maximize);
+            this.Driver = !TestConfig.UseExistingInstallation ? TestSetup._testBase.ChromeDriver : new ChromeDriver();
 
             Assert.IsTrue(this.LoginUser(), "Login failed");
         }
@@ -69,51 +69,59 @@ namespace YAF.Tests.UserTests.UserSettings
         [Test]
         public void Change_User_Password_Test()
         {
-            this.browser.GoTo(
-                "{0}{1}cp_changepassword.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+            this.Driver.Navigate()
+                .GoToUrl(
+                    "{0}{1}cp_changepassword.aspx".FormatWith(
+                        TestConfig.TestForumUrl,
+                        TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(
-                this.browser.ContainsText("Change Password"),
+                this.Driver.PageSource.Contains("Change Password"),
                 "Change Password is not available for that User");
 
             // Enter Old Password
-            this.browser.TextField(Find.ById(new Regex("_ChangePasswordContainerID_CurrentPassword")))
-                .TypeText(TestConfig.TestUserPassword);
+            this.Driver.FindElement(By.XPath("//input[contains(@id,'_ChangePasswordContainerID_CurrentPassword')]"))
+                .SendKeys(TestConfig.TestUserPassword);
 
             // Enter New Password
-            this.browser.TextField(Find.ById(new Regex("_ChangePasswordContainerID_NewPassword")))
-                .TypeText("{0}ABCDEF".FormatWith(TestConfig.TestUserPassword));
-            this.browser.TextField(Find.ById(new Regex("_ChangePasswordContainerID_ConfirmNewPassword")))
-                .TypeText("{0}ABCDEF".FormatWith(TestConfig.TestUserPassword));
+            this.Driver.FindElement(By.XPath("//input[contains(@id,'_ChangePasswordContainerID_NewPassword')]"))
+                .SendKeys("{0}ABCDEF".FormatWith(TestConfig.TestUserPassword));
+            this.Driver.FindElement(By.XPath("//input[contains(@id,'_ChangePasswordContainerID_ConfirmNewPassword')]"))
+                .SendKeys("{0}ABCDEF".FormatWith(TestConfig.TestUserPassword));
 
             // Submit
-            this.browser.Button(Find.ById(new Regex("_ChangePasswordContainerID_ChangePasswordPushButton"))).Click();
+            this.Driver.FindElement(
+                By.XPath("//input[contains(@id,'_ChangePasswordContainerID_ChangePasswordPushButton')]")).Click();
 
             Assert.IsTrue(
-                this.browser.ContainsText("Password has been successfully changed."),
+                this.Driver.PageSource.Contains("Password has been successfully changed."),
                 "Changing Password Failed");
 
-            this.browser.Button(Find.ById(new Regex("_SuccessContainerID_ContinuePushButton"))).Click();
+            this.Driver.FindElement(By.XPath("//input[contains(@id,'_SuccessContainerID_ContinuePushButton')]")).Click();
 
             // Now Change Password Back to Default Password
-            this.browser.GoTo(
-                "{0}{1}cp_changepassword.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+            this.Driver.Navigate()
+                .GoToUrl(
+                    "{0}{1}cp_changepassword.aspx".FormatWith(
+                        TestConfig.TestForumUrl,
+                        TestConfig.ForumUrlRewritingPrefix));
 
             // Enter Old Password
-            this.browser.TextField(Find.ById(new Regex("_ChangePasswordContainerID_CurrentPassword")))
-                .TypeText("{0}ABCDEF".FormatWith(TestConfig.TestUserPassword));
+            this.Driver.FindElement(By.XPath("//input[contains(@id,'_ChangePasswordContainerID_CurrentPassword')]"))
+                .SendKeys("{0}ABCDEF".FormatWith(TestConfig.TestUserPassword));
 
             // Enter New Password
-            this.browser.TextField(Find.ById(new Regex("_ChangePasswordContainerID_NewPassword")))
-                .TypeText(TestConfig.TestUserPassword);
-            this.browser.TextField(Find.ById(new Regex("_ChangePasswordContainerID_ConfirmNewPassword")))
-                .TypeText(TestConfig.TestUserPassword);
+            this.Driver.FindElement(By.XPath("//input[contains(@id,'_ChangePasswordContainerID_NewPassword')]"))
+                .SendKeys(TestConfig.TestUserPassword);
+            this.Driver.FindElement(By.XPath("//input[contains(@id,'_ChangePasswordContainerID_ConfirmNewPassword')]"))
+                .SendKeys(TestConfig.TestUserPassword);
 
             // Submit
-            this.browser.Button(Find.ById(new Regex("_ChangePasswordContainerID_ChangePasswordPushButton"))).Click();
+            this.Driver.FindElement(
+                By.XPath("//input[contains(@id,'_ChangePasswordContainerID_ChangePasswordPushButton')]")).Click();
 
             Assert.IsTrue(
-                this.browser.ContainsText("Password has been successfully changed."),
+                this.Driver.PageSource.Contains("Password has been successfully changed."),
                 "Changing Password Failed");
         }
     }

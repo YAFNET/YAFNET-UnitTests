@@ -1,33 +1,35 @@
 ﻿/* Yet Another Forum.NET
- *
- * Copyright (C) Jaben Cargman
+ * Copyright (C) 2003-2005 Bjørnar Henden
+ * Copyright (C) 2006-2013 Jaben Cargman
+ * Copyright (C) 2014 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
- * documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
- * the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and 
- * to permit persons to whom the Software is furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions 
- * of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED 
- * TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL 
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
- * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
- * DEALINGS IN THE SOFTWARE.
-*/
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+
+ * http://www.apache.org/licenses/LICENSE-2.0
+
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 
 namespace YAF.Tests.UserTests.Authentification
 {
     using System;
-    using System.Text.RegularExpressions;
 
     using NUnit.Framework;
 
-    using WatiN.Core;
-    using WatiN.Core.Exceptions;
-    using WatiN.Core.Native.Windows;
+    using OpenQA.Selenium;
+    using OpenQA.Selenium.Chrome;
 
     using YAF.Tests.Utils;
     using YAF.Types.Extensions;
@@ -41,7 +43,7 @@ namespace YAF.Tests.UserTests.Authentification
         /// <summary>
         /// The Browser Instance
         /// </summary>
-        private IE browser;
+        private ChromeDriver driver;
 
         /// <summary>
         /// Gets or sets TestContext.
@@ -54,36 +56,35 @@ namespace YAF.Tests.UserTests.Authentification
         [TearDown]
         public void TearDown()
         {
-            this.browser.GoTo(TestConfig.TestForumUrl);
-
-            this.browser.ShowWindow(NativeMethods.WindowShowStyle.Maximize);
+            this.driver.Navigate().GoToUrl(TestConfig.TestForumUrl);
 
             try
             {
-                this.browser.Link(Find.ById("forum_ctl01_LogOutButton")).Click();
+                this.driver.FindElement(By.XPath("//a[contains(@id,'forum_ctl01_LogOutButton')]")).Click();
 
-                this.browser.Button(Find.ById("forum_ctl02_OkButton")).Click();
+                this.driver.FindElementById("forum_ctl02_OkButton").Click();
 
-                Assert.IsTrue(this.browser.ContainsText("Welcome Guest"), "Logout Failed");
+                Assert.IsTrue(this.driver.PageSource.Contains("Welcome Guest"), "Logout Failed");
 
-                this.browser.Close();
+                this.driver.Quit();
             }
-            catch (ElementNotFoundException)
+            catch (Exception)
             {
-                this.browser.Close();
+                this.driver.Quit();
             }
         }
 
         /// <summary>
         /// Register Random Test User Test
         /// </summary>
+        [Category("Authentifcation")]
         [Test]
         public void Register_Random_New_User_Test()
         {
-            this.browser = !TestConfig.UseExistingInstallation ? TestSetup._testBase.IEInstance : new IE();
+            this.driver = !TestConfig.UseExistingInstallation ? TestSetup._testBase.ChromeDriver : new ChromeDriver();
 
-            this.browser.GoTo(
-                "{0}{1}register.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+            this.driver.Navigate()
+                .GoToUrl("{0}{1}register".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             // Create New Random Test User
             var random = new Random();
@@ -91,92 +92,113 @@ namespace YAF.Tests.UserTests.Authentification
             var userName = "TestUser{0}".FormatWith(random.Next());
             var email = "{0}@test.com".FormatWith(userName.ToLower());
 
-            this.browser.ShowWindow(NativeMethods.WindowShowStyle.Maximize);
-
             // Check if Registrations are Disabled
-            Assert.IsFalse(this.browser.ContainsText("You tried to enter an area where you didn't have access"), "Registrations are disabled");
+            Assert.IsFalse(
+                this.driver.PageSource.Contains("You tried to enter an area where you didn't have access"),
+                "Registrations are disabled");
 
             // Accept the Rules
-            if (this.browser.ContainsText("Forum Rules"))
+            if (this.driver.PageSource.Contains("Forum Rules"))
             {
-                this.browser.Button(Find.ById("forum_ctl04_Login1_LoginButton")).Click();
-                this.browser.Refresh();
+                this.driver.FindElementById("forum_ctl04_Login1_LoginButton").Click();
+                this.driver.Navigate().Refresh();
             }
 
-            Assert.IsFalse(this.browser.ContainsText("Security Image"), "Captchas needs to be disabled in order to run the tests");
+            Assert.IsFalse(
+                this.driver.PageSource.Contains("Security Image"),
+                "Captchas needs to be disabled in order to run the tests");
 
             // Fill the Register Page
-            this.browser.TextField(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_UserName"))).TypeText(
-                userName);
+            this.driver.FindElement(By.Id("forum_ctl04_CreateUserWizard1_CreateUserStepContainer_UserName"))
+                .SendKeys(userName);
 
-            if (this.browser.ContainsText("Display Name"))
+            if (this.driver.PageSource.Contains("Display Name"))
             {
-                this.browser.TextField(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_DisplayName"))).TypeText(userName);
+                this.driver.FindElement(By.Id("forum_ctl04_CreateUserWizard1_CreateUserStepContainer_DisplayName"))
+                    .SendKeys(userName);
             }
 
-            this.browser.TextField(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_Password"))).TypeText(TestConfig.TestUserPassword);
-            this.browser.TextField(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_ConfirmPassword"))).TypeText(TestConfig.TestUserPassword);
-            this.browser.TextField(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_Email"))).TypeText(email);
-            this.browser.TextField(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_Question"))).TypeText(TestConfig.TestUserPassword);
-            this.browser.TextField(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_Answer"))).TypeText(TestConfig.TestUserPassword);
+            this.driver.FindElement(By.Id("forum_ctl04_CreateUserWizard1_CreateUserStepContainer_Password"))
+                .SendKeys(TestConfig.TestUserPassword);
+            this.driver.FindElement(By.Id("forum_ctl04_CreateUserWizard1_CreateUserStepContainer_ConfirmPassword"))
+                .SendKeys(TestConfig.TestUserPassword);
+            this.driver.FindElement(By.Id("forum_ctl04_CreateUserWizard1_CreateUserStepContainer_Email"))
+                .SendKeys(email);
+            this.driver.FindElement(By.Id("forum_ctl04_CreateUserWizard1_CreateUserStepContainer_Question"))
+                .SendKeys(TestConfig.TestUserPassword);
+            this.driver.FindElement(By.Id("forum_ctl04_CreateUserWizard1_CreateUserStepContainer_Answer"))
+                .SendKeys(TestConfig.TestUserPassword);
 
             // Create User
-            this.browser.Button(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_StepNextButton"))).Click();
+            this.driver.FindElement(By.Id("forum_ctl04_CreateUserWizard1_CreateUserStepContainer_StepNextButton"))
+                .Click();
 
-            Assert.IsTrue(this.browser.ContainsText("Forum Preferences"), "Registration failed");
+            Assert.IsTrue(this.driver.PageSource.Contains("Forum Preferences"), "Registration failed");
 
-            this.browser.Button(Find.ById(new Regex("ProfileNextButton"))).Click();
+            this.driver.FindElement(By.Id("forum_ctl04_CreateUserWizard1_ctl04_ProfileNextButton")).Click();
 
-            Assert.IsTrue(this.browser.ContainsText("Logged in as:"), "Registration failed");
+            Assert.IsTrue(this.driver.PageSource.Contains("Logged in as:"), "Registration failed");
         }
 
         /// <summary>
         /// Register Random Test User Test
         /// </summary>
+        [Category("Authentifcation")]
         [Test]
         public void Register_Bot_User_Test()
         {
-            this.browser = !TestConfig.UseExistingInstallation ? TestSetup._testBase.IEInstance : new IE();
+            this.driver = !TestConfig.UseExistingInstallation ? TestSetup._testBase.ChromeDriver : new ChromeDriver();
 
-            this.browser.GoTo(
-                "{0}{1}register.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+            this.driver.Navigate()
+                .GoToUrl("{0}{1}register.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
-            var userName = "aqiuliqemi";
-            var email = "ikocec@coveryourpills.org";
-
-            this.browser.ShowWindow(NativeMethods.WindowShowStyle.Maximize);
+            const string USERNAME = "aqiuliqemi";
+            const string EMAIL = "ikocec@coveryourpills.org";
 
             // Check if Registrations are Disabled
-            Assert.IsFalse(this.browser.ContainsText("You tried to enter an area where you didn't have access"), "Registrations are disabled");
+            Assert.IsFalse(
+                this.driver.PageSource.Contains("You tried to enter an area where you didn't have access"),
+                "Registrations are disabled");
 
             // Accept the Rules
-            if (this.browser.ContainsText("Forum Rules"))
+            if (this.driver.PageSource.Contains("Forum Rules"))
             {
-                this.browser.Button(Find.ById("forum_ctl04_Login1_LoginButton")).Click();
-                this.browser.Refresh();
+                this.driver.FindElementById("forum_ctl04_Login1_LoginButton").Click();
+                this.driver.Navigate().Refresh();
             }
 
-            Assert.IsFalse(this.browser.ContainsText("Security Image"), "Captchas needs to be disabled in order to run the tests");
+            Assert.IsFalse(
+                this.driver.PageSource.Contains("Security Image"),
+                "Captchas needs to be disabled in order to run the tests");
 
             // Fill the Register Page
-            this.browser.TextField(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_UserName"))).TypeText(
-                userName);
+            this.driver.FindElement(By.Id("forum_ctl04_CreateUserWizard1_CreateUserStepContainer_UserName"))
+                .SendKeys(USERNAME);
 
-            if (this.browser.ContainsText("Display Name"))
+            if (this.driver.PageSource.Contains("Display Name"))
             {
-                this.browser.TextField(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_DisplayName"))).TypeText(userName);
+                this.driver.FindElement(By.Id("forum_ctl04_CreateUserWizard1_CreateUserStepContainer_DisplayName"))
+                    .SendKeys(USERNAME);
             }
 
-            this.browser.TextField(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_Password"))).TypeText(TestConfig.TestUserPassword);
-            this.browser.TextField(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_ConfirmPassword"))).TypeText(TestConfig.TestUserPassword);
-            this.browser.TextField(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_Email"))).TypeText(email);
-            this.browser.TextField(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_Question"))).TypeText(TestConfig.TestUserPassword);
-            this.browser.TextField(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_Answer"))).TypeText(TestConfig.TestUserPassword);
+            this.driver.FindElement(By.Id("forum_ctl04_CreateUserWizard1_CreateUserStepContainer_Password"))
+                .SendKeys(TestConfig.TestUserPassword);
+            this.driver.FindElement(By.Id("forum_ctl04_CreateUserWizard1_CreateUserStepContainer_ConfirmPassword"))
+                .SendKeys(TestConfig.TestUserPassword);
+            this.driver.FindElement(By.Id("forum_ctl04_CreateUserWizard1_CreateUserStepContainer_Email"))
+                .SendKeys(EMAIL);
+            this.driver.FindElement(By.Id("forum_ctl04_CreateUserWizard1_CreateUserStepContainer_Question"))
+                .SendKeys(TestConfig.TestUserPassword);
+            this.driver.FindElement(By.Id("forum_ctl04_CreateUserWizard1_CreateUserStepContainer_Answer"))
+                .SendKeys(TestConfig.TestUserPassword);
 
             // Create User
-            this.browser.Button(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_StepNextButton"))).Click();
+            this.driver.FindElement(
+                By.XPath("//input[contains(@id,'CreateUserWizard1_CreateUserStepContainer_StepNextButton')]")).Click();
 
-            Assert.IsTrue(this.browser.ContainsText("Sorry Spammers are not allowed in the Forum!"), "Spam Check Failed");
+            Assert.IsTrue(
+                this.driver.PageSource.Contains("Sorry Spammers are not allowed in the Forum!"),
+                "Spam Check Failed");
         }
     }
 }

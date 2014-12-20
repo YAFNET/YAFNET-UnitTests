@@ -1,34 +1,38 @@
 ﻿/* Yet Another Forum.NET
- *
- * Copyright (C) Jaben Cargman
+ * Copyright (C) 2003-2005 Bjørnar Henden
+ * Copyright (C) 2006-2013 Jaben Cargman
+ * Copyright (C) 2014 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
- * documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
- * the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and 
- * to permit persons to whom the Software is furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions 
- * of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED 
- * TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL 
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
- * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
- * DEALINGS IN THE SOFTWARE.
-*/
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+
+ * http://www.apache.org/licenses/LICENSE-2.0
+
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 
 namespace YAF.Tests.UserTests.Content
 {
-    using System.Text.RegularExpressions;
     using System.Threading;
 
     using NUnit.Framework;
 
-    using WatiN.Core;
-    using WatiN.Core.Native.Windows;
+    using OpenQA.Selenium;
+    using OpenQA.Selenium.Chrome;
 
     using YAF.Tests.Utils;
+    using YAF.Tests.Utils.Extensions;
     using YAF.Types.Extensions;
 
     /// <summary>
@@ -48,9 +52,7 @@ namespace YAF.Tests.UserTests.Content
         [TestFixtureSetUp]
         public void SetUpTest()
         {
-            this.browser = !TestConfig.UseExistingInstallation ? TestSetup._testBase.IEInstance : new IE();
-
-            this.browser.ShowWindow(NativeMethods.WindowShowStyle.Maximize);
+            this.Driver = !TestConfig.UseExistingInstallation ? TestSetup._testBase.ChromeDriver : new ChromeDriver();
 
             Assert.IsTrue(this.LoginUser(), "Login failed");
         }
@@ -68,17 +70,18 @@ namespace YAF.Tests.UserTests.Content
         /// Create a new reply in a topic.
         /// </summary>
         [Test]
-        [NUnit.Framework.Description("Create a new reply in a topic.")]
+        [Description("Create a new reply in a topic.")]
         public void Post_Reply_Test()
         {
             // Go to Post New Topic
-            this.browser.GoTo(
-                "{0}{2}postst{1}.aspx".FormatWith(
-                    TestConfig.TestForumUrl,
-                    TestConfig.TestTopicID,
-                    TestConfig.ForumUrlRewritingPrefix));
+            this.Driver.Navigate()
+                .GoToUrl(
+                    "{0}{2}postst{1}.aspx".FormatWith(
+                        TestConfig.TestForumUrl,
+                        TestConfig.TestTopicID,
+                        TestConfig.ForumUrlRewritingPrefix));
 
-            if (this.browser.ContainsText("You've passed an invalid value to the forum."))
+            if (this.Driver.PageSource.Contains("You've passed an invalid value to the forum."))
             {
                 // Topic doesnt exist create a topic first
                 Assert.IsTrue(this.CreateNewTestTopic(), "Topic Creating failed");
@@ -87,19 +90,20 @@ namespace YAF.Tests.UserTests.Content
                 Thread.Sleep(31000);
             }
 
-            this.browser.Link(Find.ById(new Regex("_PostReplyLink1"))).Click();
+            this.Driver.FindElement(By.XPath("//a[contains(@id,'_PostReplyLink1')]")).Click();
 
-            Assert.IsTrue(this.browser.ContainsText("Post a reply"), "Post Reply not possible");
+            Assert.IsTrue(this.Driver.PageSource.Contains("Post a reply"), "Post Reply not possible");
 
             // Create New Reply
-            this.browser.TextField(Find.ById(new Regex("_YafTextEditor")))
-                .TypeText("This is a Test Reply in an Test Topic Created by an automated Unit Test");
+            this.Driver.FindElement(By.XPath("//textarea[contains(@id,'_YafTextEditor')]"))
+                .SendKeys("This is a Test Reply in an Test Topic Created by an automated Unit Test");
 
             // Post New Topic
-            this.browser.Link(Find.ById(new Regex("_PostReply"))).Click();
+            this.Driver.FindElement(By.XPath("//a[contains(@id,'_PostReply')]")).Click();
 
             Assert.IsTrue(
-                this.browser.ContainsText("This is a Test Reply in an Test Topic Created by an automated Unit Test"),
+                this.Driver.PageSource.Contains(
+                    "This is a Test Reply in an Test Topic Created by an automated Unit Test"),
                 "Reply Message failed");
         }
 
@@ -107,17 +111,18 @@ namespace YAF.Tests.UserTests.Content
         /// Post a reply with quoting a Message test.
         /// </summary>
         [Test]
-        [NUnit.Framework.Description("Post a reply with quoting a Message test.")]
+        [Description("Post a reply with quoting a Message test.")]
         public void Post_Reply_With_Quote_Test()
         {
             // Go to Post New Topic
-            this.browser.GoTo(
-                "{0}{2}postst{1}.aspx".FormatWith(
-                    TestConfig.TestForumUrl,
-                    TestConfig.TestTopicID,
-                    TestConfig.ForumUrlRewritingPrefix));
+            this.Driver.Navigate()
+                .GoToUrl(
+                    "{0}{2}postst{1}.aspx".FormatWith(
+                        TestConfig.TestForumUrl,
+                        TestConfig.TestTopicID,
+                        TestConfig.ForumUrlRewritingPrefix));
 
-            if (this.browser.ContainsText("You've passed an invalid value to the forum."))
+            if (this.Driver.PageSource.Contains("You've passed an invalid value to the forum."))
             {
                 // Topic doesnt exist create a topic first
                 Assert.IsTrue(this.CreateNewTestTopic(), "Topic Creating failed");
@@ -126,25 +131,25 @@ namespace YAF.Tests.UserTests.Content
                 Thread.Sleep(60000);
             }
 
-            this.browser.Link(Find.ById(new Regex("_Quote_0"))).Click();
+            this.Driver.FindElement(By.XPath("//a[contains(@id,'_Quote_0')]")).Click();
 
-            Assert.IsTrue(this.browser.ContainsText("Post a reply"), "Post Reply not possible");
+            Assert.IsTrue(this.Driver.PageSource.Contains("Post a reply"), "Post Reply not possible");
 
             // Create New Reply
-            this.browser.TextField(Find.ById(new Regex("_YafTextEditor"))).AppendText("  Quoting Test");
+            this.Driver.FindElement(By.XPath("//textarea[contains(@id,'_YafTextEditor')]")).SendKeys("  Quoting Test");
 
             // Post New Topic
-            this.browser.Link(Find.ById(new Regex("_PostReply"))).Click();
+            this.Driver.FindElement(By.XPath("//a[contains(@id,'_PostReply')]")).Click();
 
-            Assert.IsTrue(this.browser.ContainsText("Quoting Test"), "Quoting Message Failed");
+            Assert.IsTrue(this.Driver.PageSource.Contains("Quoting Test"), "Quoting Message Failed");
         }
 
         /// <summary>
         /// Post 3 Replies and try to quote them with Multi Quoting via the "Multi Quote" Button test.
         /// </summary>
         [Test]
-        [NUnit.Framework.Description(
-            "Post 3 Replies and try to quote them with Multi Quoting via the \"Multi Quote\" Button test.")]
+        [Description("Post 3 Replies and try to quote them with Multi Quoting via the \"Multi Quote\" Button test.")]
+        [Ignore]
         public void Post_Reply_With_Multi_Quote_Test()
         {
             // First Creating a new test topic with the test user
@@ -154,90 +159,91 @@ namespace YAF.Tests.UserTests.Content
             Thread.Sleep(60000);
 
             // Post Replay A
-            this.browser.Link(Find.ById(new Regex("_PostReplyLink1"))).Click();
+            this.Driver.FindElement(By.XPath("//a[contains(@id,'_PostReplyLink1')]")).Click();
 
-            Assert.IsTrue(this.browser.ContainsText("Post a reply"), "Post Reply not possible");
+            Assert.IsTrue(this.Driver.PageSource.Contains("Post a reply"), "Post Reply not possible");
 
             // Create New Reply A
-            this.browser.TextField(Find.ById(new Regex("_YafTextEditor"))).TypeText("Test Reply A");
+            this.Driver.FindElement(By.XPath("//textarea[contains(@id,'_YafTextEditor')]")).SendKeys("Test Reply A");
 
             // Post New Message
-            this.browser.Link(Find.ById(new Regex("_PostReply"))).Click();
+            this.Driver.FindElement(By.XPath("//a[contains(@id,'_PostReply')]")).Click();
 
-            Assert.IsTrue(this.browser.ContainsText("Test Reply A"), "Reply Message failed");
+            Assert.IsTrue(this.Driver.PageSource.Contains("Test Reply A"), "Reply Message failed");
 
             // Wait 30 seconds to avoid post flood
             Thread.Sleep(60000);
             /////
 
             // Post Replay B
-            this.browser.Link(Find.ById(new Regex("_PostReplyLink1"))).Click();
+            this.Driver.FindElement(By.XPath("//a[contains(@id,'_PostReplyLink1')]")).Click();
 
-            Assert.IsTrue(this.browser.ContainsText("Post a reply"), "Post Reply not possible");
+            Assert.IsTrue(this.Driver.PageSource.Contains("Post a reply"), "Post Reply not possible");
 
             // Create New Reply B
-            this.browser.TextField(Find.ById(new Regex("_YafTextEditor"))).TypeText("Test Reply B");
+            this.Driver.FindElement(By.XPath("//textarea[contains(@id,'_YafTextEditor')]")).SendKeys("Test Reply B");
 
             // Post New Message
-            this.browser.Link(Find.ById(new Regex("_PostReply"))).Click();
+            this.Driver.FindElement(By.XPath("//a[contains(@id,'_PostReply')]")).Click();
 
-            Assert.IsTrue(this.browser.ContainsText("Test Reply B"), "Reply Message failed");
+            Assert.IsTrue(this.Driver.PageSource.Contains("Test Reply B"), "Reply Message failed");
 
             // Wait 30 seconds to avoid post flood
             Thread.Sleep(60000);
             /////
 
             // Post Replay C
-            this.browser.Link(Find.ById(new Regex("_PostReplyLink1"))).Click();
+            this.Driver.FindElement(By.XPath("//a[contains(@id,'_PostReplyLink1')]")).Click();
 
-            Assert.IsTrue(this.browser.ContainsText("Post a reply"), "Post Reply not possible");
+            Assert.IsTrue(this.Driver.PageSource.Contains("Post a reply"), "Post Reply not possible");
 
             // Create New Reply B
-            this.browser.TextField(Find.ById(new Regex("_YafTextEditor"))).TypeText("Test Reply C");
+            this.Driver.FindElement(By.XPath("//textarea[contains(@id,'_YafTextEditor')]")).SendKeys("Test Reply C");
 
             // Post New Message
-            this.browser.Link(Find.ById(new Regex("_PostReply"))).Click();
+            this.Driver.FindElement(By.XPath("//a[contains(@id,'_PostReply')]")).Click();
 
-            Assert.IsTrue(this.browser.ContainsText("Test Reply C"), "Reply Message failed");
+            Assert.IsTrue(this.Driver.PageSource.Contains("Test Reply C"), "Reply Message failed");
 
             // Wait 30 seconds to avoid post flood
             Thread.Sleep(60000);
             /////
 
-            // Find the MultiQuote Buttons for Post Replac A,B,C
+            // Find the MultiQuote Buttons for Post Replace A,B,C
             Assert.IsTrue(
-                this.browser.CheckBox(Find.ById(new Regex("_MultiQuote_1"))).Exists,
+                this.Driver.ElementExists(By.XPath("//input[contains(@id,'_MultiQuote_1')]")),
                 "MultiQuote Button of Post Replay A doesnt exists, or Quoting is disabled or not allowed");
 
             Assert.IsTrue(
-                this.browser.CheckBox(Find.ById(new Regex("_MultiQuote_2"))).Exists,
+                this.Driver.ElementExists(By.XPath("//input[contains(@id,'_MultiQuote_2')]")),
                 "MultiQuote Button of Post Replay A doesnt exists, or Quoting is disabled or not allowed");
 
             Assert.IsTrue(
-                this.browser.CheckBox(Find.ById(new Regex("_MultiQuote_3"))).Exists,
+                this.Driver.ElementExists(By.XPath("//input[contains(@id,'_MultiQuote_3')]")),
                 "MultiQuote Button of Post Replay A doesnt exists, or Quoting is disabled or not allowed");
 
-            this.browser.CheckBox(Find.ById(new Regex("_MultiQuote_1"))).Click();
-            this.browser.CheckBox(Find.ById(new Regex("_MultiQuote_2"))).Click();
-            this.browser.CheckBox(Find.ById(new Regex("_MultiQuote_3"))).Click();
+            this.Driver.FindElement(By.XPath("//input[contains(@id,'_MultiQuote_1')]")).Click();
+            this.Driver.FindElement(By.XPath("//input[contains(@id,'_MultiQuote_2')]")).Click();
+            this.Driver.FindElement(By.XPath("//input[contains(@id,'_MultiQuote_3')]")).Click();
 
-            this.browser.Link(Find.ById(new Regex("_Quote_3"))).Click();
+            this.Driver.FindElement(By.XPath("//a[contains(@id,'_Quote_3')]")).Click();
 
-            Assert.IsTrue(this.browser.ContainsText("Post a reply"), "Post Reply not possible");
+            Assert.IsTrue(this.Driver.PageSource.Contains("Post a reply"), "Post Reply not possible");
 
-            var editorContent = this.browser.TextField(Find.ById(new Regex("_YafTextEditor"))).Text;
+            var editorContent = this.Driver.FindElement(By.XPath("//textarea[contains(@id,'_YafTextEditor')]")).Text;
 
             Assert.IsTrue(editorContent.Contains("Test Reply A"), "Test Replay A quote not found");
             Assert.IsTrue(editorContent.Contains("Test Reply B"), "Test Replay B quote not found");
             Assert.IsTrue(editorContent.Contains("Test Reply C"), "Test Replay C quote not found");
 
             // Create New Reply
-            this.browser.TextField(Find.ById(new Regex("_YafTextEditor"))).AppendText("  Multi Quoting Test");
+            this.Driver.FindElement(By.XPath("//textarea[contains(@id,'_YafTextEditor')]"))
+                .SendKeys("  Multi Quoting Test");
 
             // Post New Topic
-            this.browser.Link(Find.ById(new Regex("_PostReply"))).Click();
+            this.Driver.FindElement(By.XPath("//a[contains(@id,'_PostReply')]")).Click();
 
-            Assert.IsTrue(this.browser.ContainsText("Multi Quoting Test"), "MultiQuoting Message Failed");
+            Assert.IsTrue(this.Driver.PageSource.Contains("Multi Quoting Test"), "MultiQuoting Message Failed");
         }
     }
 }

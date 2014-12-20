@@ -1,35 +1,42 @@
 ﻿/* Yet Another Forum.NET
- *
- * Copyright (C) Jaben Cargman
+ * Copyright (C) 2003-2005 Bjørnar Henden
+ * Copyright (C) 2006-2013 Jaben Cargman
+ * Copyright (C) 2014 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
- * documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
- * the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and 
- * to permit persons to whom the Software is furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions 
- * of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED 
- * TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL 
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
- * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
- * DEALINGS IN THE SOFTWARE.
-*/
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+
+ * http://www.apache.org/licenses/LICENSE-2.0
+
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 
 namespace YAF.Tests.UserTests.UserSettings
 {
     using System;
-    using System.Text.RegularExpressions;
-
-    using YAF.Types.Extensions;
+    using System.Threading;
 
     using netDumbster.smtp;
+
     using NUnit.Framework;
-    using WatiN.Core;
-    using WatiN.Core.Native.Windows;
+
+    using OpenQA.Selenium;
+    using OpenQA.Selenium.Chrome;
+
     using YAF.Tests.Utils;
+    using YAF.Tests.Utils.Extensions;
+    using YAF.Types.Extensions;
 
     /// <summary>
     /// The Email Notification tests.
@@ -48,16 +55,12 @@ namespace YAF.Tests.UserTests.UserSettings
         [TestFixtureSetUp]
         public void SetUpTest()
         {
-            this.browser = !TestConfig.UseExistingInstallation ? TestSetup._testBase.IEInstance : new IE();
+            this.Driver = !TestConfig.UseExistingInstallation ? TestSetup._testBase.ChromeDriver : new ChromeDriver();
 
             if (TestConfig.UseTestMailServer)
             {
-                this.testMailServer = !TestConfig.UseExistingInstallation
-                    ? TestSetup._testBase.SmtpServer
-                    : SimpleSmtpServer.Start(TestConfig.TestMailPort.ToType<int>());
+                this.TestMailServer = SimpleSmtpServer.Start(TestConfig.TestMailPort.ToType<int>());
             }
-
-            this.browser.ShowWindow(NativeMethods.WindowShowStyle.Maximize);
 
             Assert.IsTrue(this.LoginUser(), "Login failed");
         }
@@ -78,39 +81,42 @@ namespace YAF.Tests.UserTests.UserSettings
         public void Add_Watch_Topic_Test()
         {
             // Go to Test Topic
-            this.browser.GoTo(
-                "{0}{2}postst{1}.aspx".FormatWith(
-                    TestConfig.TestForumUrl,
-                    TestConfig.TestTopicID,
-                    TestConfig.ForumUrlRewritingPrefix));
+            this.Driver.Navigate()
+                .GoToUrl(
+                    "{0}{2}postst{1}.aspx".FormatWith(
+                        TestConfig.TestForumUrl,
+                        TestConfig.TestTopicID,
+                        TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsFalse(
-                this.browser.ContainsText("You've passed an invalid value to the forum."),
+                this.Driver.PageSource.Contains("You've passed an invalid value to the forum."),
                 "Test Topic Doesn't Exists");
 
+            // Get Topic Title
+            var topicTitle = this.Driver.FindElementByClassName("currentPageLink").Text;
+
             // Open Topic Options Menu
-            this.browser.Link(Find.ById(new Regex("_OptionsLink"))).Click();
+            this.Driver.FindElement(By.XPath("//a[contains(@id,'_OptionsLink')]")).Click();
 
             Assert.IsTrue(
-                this.browser.ContainsText("Watch this topic"),
+                this.Driver.PageSource.Contains("Watch this topic"),
                 "Watch Topic is disabled, or User already Watches that Topic");
 
-            this.browser.Div(Find.ById(new Regex("_OptionsMenu")))
-                .ElementsWithTag("li")
-                .First(Find.ByText(new Regex("Watch this topic")))
-                .Click();
+            this.Driver.FindElement(By.XPath("//li[contains(@title,'Watch this topic')]")).ClickAndWait();
 
-            Assert.IsTrue(this.browser.ContainsText("Notification"), "Watch topic failed");
+            Assert.IsTrue(this.Driver.PageSource.Contains("You will now be"), "Watch topic failed");
 
-            this.browser.GoTo(
-                "{0}{1}cp_subscriptions.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+            this.Driver.Navigate()
+                .GoToUrl(
+                    "{0}{1}cp_subscriptions.aspx".FormatWith(
+                        TestConfig.TestForumUrl,
+                        TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(
-                this.browser.ContainsText("Email Notification Preferences"),
+                this.Driver.PageSource.Contains("Email Notification Preferences"),
                 "Email Notification Preferences is not available for that User");
 
-            Assert.IsTrue(
-                this.browser.Link(Find.ByUrl(new Regex(@"yaf_postst{0}_".FormatWith(TestConfig.TestTopicID)))).Exists);
+            Assert.IsTrue(this.Driver.ElementExists(By.LinkText(topicTitle)));
         }
 
         /// <summary>
@@ -120,29 +126,27 @@ namespace YAF.Tests.UserTests.UserSettings
         public void Delete_Watch_Topic_Test()
         {
             // Go to Test Topic
-            this.browser.GoTo(
-                "{0}{2}postst{1}.aspx".FormatWith(
-                    TestConfig.TestForumUrl,
-                    TestConfig.TestTopicID,
-                    TestConfig.ForumUrlRewritingPrefix));
+            this.Driver.Navigate()
+                .GoToUrl(
+                    "{0}{2}postst{1}.aspx".FormatWith(
+                        TestConfig.TestForumUrl,
+                        TestConfig.TestTopicID,
+                        TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsFalse(
-                this.browser.ContainsText("You've passed an invalid value to the forum."),
+                this.Driver.PageSource.Contains("You've passed an invalid value to the forum."),
                 "Test Topic Doesn't Exists");
 
             // Open Topic Options Menu
-            this.browser.Link(Find.ById(new Regex("_OptionsLink"))).Click();
+            this.Driver.FindElement(By.XPath("//a[contains(@id,'_OptionsLink')]")).Click();
 
             Assert.IsTrue(
-                this.browser.ContainsText("Unwatch this topic"),
+                this.Driver.PageSource.Contains("Unwatch this topic"),
                 "Watch Topic is disabled, or User doesn't watch this topic");
 
-            this.browser.Div(Find.ById(new Regex("_OptionsMenu")))
-                .ElementsWithTag("li")
-                .First(Find.ByText(new Regex("Unwatch this topic")))
-                .Click();
+            this.Driver.FindElement(By.XPath("//li[contains(@title,'Unwatch this topic')]")).ClickAndWait();
 
-            Assert.IsTrue(this.browser.ContainsText("Notification"), "Unwatch topic failed");
+            Assert.IsTrue(this.Driver.PageSource.Contains("You will no longer"), "Unwatch topic failed");
         }
 
         /// <summary>
@@ -151,34 +155,40 @@ namespace YAF.Tests.UserTests.UserSettings
         [Test]
         public void Add_Watch_Forum_Test()
         {
-            this.browser.GoTo(
-                "{0}{2}topics{1}.aspx".FormatWith(
-                    TestConfig.TestForumUrl,
-                    TestConfig.TestForumID,
-                    TestConfig.ForumUrlRewritingPrefix));
+            this.Driver.Navigate()
+                .GoToUrl(
+                    "{0}{2}topics{1}.aspx".FormatWith(
+                        TestConfig.TestForumUrl,
+                        TestConfig.TestForumID,
+                        TestConfig.ForumUrlRewritingPrefix));
 
-            Assert.IsTrue(this.browser.ContainsText("New Topic"), "Test Forum with that ID doesn't exists");
+            Assert.IsTrue(this.Driver.PageSource.Contains("New Topic"), "Test Forum with that ID doesn't exists");
+
+            // Get Forum Title
+            var forumTitle = this.Driver.FindElementByClassName("currentPageLink").Text;
 
             Assert.IsTrue(
-                this.browser.ContainsText("Watch Forum"),
+                this.Driver.PageSource.Contains("Watch Forum"),
                 "Watch Forum is disabled, or User already Watches that Forum");
 
             // Watch the Test Forum
-            this.browser.Link(Find.ById(new Regex("_WatchForum"))).Click();
+            this.Driver.FindElement(By.XPath("//a[contains(@id,'_WatchForum')]")).ClickAndWait();
 
             Assert.IsTrue(
-                this.browser.ContainsText("You will now be notified when new posts are made in this forum."),
+                this.Driver.PageSource.Contains("You will now be notified when new posts are made in this forum."),
                 "Watch form failed");
 
-            this.browser.GoTo(
-                "{0}{1}cp_subscriptions.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+            this.Driver.Navigate()
+                .GoToUrl(
+                    "{0}{1}cp_subscriptions.aspx".FormatWith(
+                        TestConfig.TestForumUrl,
+                        TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(
-                this.browser.ContainsText("Email Notification Preferences"),
+                this.Driver.PageSource.Contains("Email Notification Preferences"),
                 "Email Notification Preferences is not available for that User");
 
-            Assert.IsTrue(
-                this.browser.Link(Find.ByUrl(new Regex(@"yaf_topics{0}_".FormatWith(TestConfig.TestForumID)))).Exists);
+            Assert.IsTrue(this.Driver.ElementExists(By.LinkText(forumTitle)));
         }
 
         /// <summary>
@@ -187,22 +197,23 @@ namespace YAF.Tests.UserTests.UserSettings
         [Test]
         public void Delete_Watch_Forum_Test()
         {
-            this.browser.GoTo(
-                "{0}{2}topics{1}.aspx".FormatWith(
-                    TestConfig.TestForumUrl,
-                    TestConfig.TestForumID,
-                    TestConfig.ForumUrlRewritingPrefix));
+            this.Driver.Navigate()
+                .GoToUrl(
+                    "{0}{2}topics{1}.aspx".FormatWith(
+                        TestConfig.TestForumUrl,
+                        TestConfig.TestForumID,
+                        TestConfig.ForumUrlRewritingPrefix));
 
-            Assert.IsTrue(this.browser.ContainsText("New Topic"), "Test Forum with that ID doesn't exists");
+            Assert.IsTrue(this.Driver.PageSource.Contains("New Topic"), "Test Forum with that ID doesn't exists");
 
             Assert.IsTrue(
-                this.browser.ContainsText("Unwatch Forum"),
+                this.Driver.PageSource.Contains("Unwatch Forum"),
                 "Watch Forum is disabled, or User doesn't watch that Forum");
 
-            this.browser.Link(Find.ById(new Regex("_WatchForum"))).Click();
+            this.Driver.FindElement(By.XPath("//a[contains(@id,'_WatchForum')]")).Click();
 
             Assert.IsTrue(
-                this.browser.ContainsText("You will no longer be notified when new posts are made in this forum."),
+                this.Driver.PageSource.Contains("You will no longer be notified when new posts are made in this forum."),
                 "Watch forum failed");
         }
 
@@ -212,39 +223,44 @@ namespace YAF.Tests.UserTests.UserSettings
         [Test]
         public void Receive_Email_On_New_Post_Test()
         {
-            Assert.IsTrue(TestConfig.UseTestMailServer, "This Test only works with the Test Mail Server Enabled");
+            /*Assert.IsTrue(TestConfig.UseTestMailServer, "This Test only works with the Test Mail Server Enabled");
 
             // Go to Test Topic
-            this.browser.GoTo(
+            this.Driver.Navigate().GoToUrl(
                 "{0}{2}postst{1}.aspx".FormatWith(
                     TestConfig.TestForumUrl,
                     TestConfig.TestTopicID,
                     TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsFalse(
-                this.browser.ContainsText("You've passed an invalid value to the forum."),
+                this.Driver.PageSource.Contains("You've passed an invalid value to the forum."),
                 "Test Topic Doesn't Exists");
 
             // Open Topic Options Menu
-            this.browser.Link(Find.ById(new Regex("_OptionsLink"))).Click();
+            this.Driver.FindElement(By.XPath("//a[contains(@id,'_OptionsLink')]")).Click();
 
-            if (this.browser.ContainsText("Watch this topic"))
-            {
-                this.browser.Div(Find.ById(new Regex("_OptionsMenu")))
-                    .ElementsWithTag("li")
-                    .First(Find.ByText(new Regex("Watch this topic")))
-                    .Click();
-            }
+            Assert.IsTrue(
+                this.Driver.PageSource.Contains("Watch this topic"),
+                "Watch Topic is disabled, or User already Watches that Topic");
 
-            this.LogoutUser(false);
+            this.Driver.FindElement(By.XPath("//li[contains(@title,'Watch this topic')]")).ClickAndWait();
+
+            Assert.IsTrue(this.Driver.PageSource.Contains("You will now be"), "Watch topic failed");
+
+            this.LogoutUser(false);*/
 
             // Login as Admin and Post A Reply in the Test Topic
-            Assert.IsTrue(this.LoginAdminUser(), "Login As Admin Failed");
+            this.LoginAdminUser();
 
             Assert.IsTrue(this.CreateNewReplyInTestTopic("Reply Message"), "Reply Message as Admin failed");
 
             // Check if an Email was received
-            SmtpMessage mail = this.testMailServer.ReceivedEmail[0];
+            while (this.TestMailServer.ReceivedEmailCount.Equals(0))
+            {
+                Thread.Sleep(5000);
+            }
+            
+            var mail = this.TestMailServer.ReceivedEmail[0];
 
             Assert.AreEqual(
                 "{0}@test.com".FormatWith(TestConfig.TestUserName.ToLower()),
@@ -271,21 +287,24 @@ namespace YAF.Tests.UserTests.UserSettings
         {
             Assert.IsTrue(TestConfig.UseTestMailServer, "This Test only works with the Test Mail Server Enabled");
 
-            this.browser.GoTo(
-                "{0}{1}cp_subscriptions.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+            this.Driver.Navigate()
+                .GoToUrl(
+                    "{0}{1}cp_subscriptions.aspx".FormatWith(
+                        TestConfig.TestForumUrl,
+                        TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(
-                this.browser.ContainsText("Email Notification Preferences"),
+                this.Driver.PageSource.Contains("Email Notification Preferences"),
                 "Email Notification Preferences is not available for that User");
 
             // Make sure the option Receive an email notification when you get a new private message?
-            var pmEmail = this.browser.CheckBox(Find.ById(new Regex("_PMNotificationEnabled")));
+            var pmEmail = this.Driver.FindElement(By.XPath("//input[contains(@id,'_PMNotificationEnabled')]"));
 
-            if (!pmEmail.Checked)
+            if (!pmEmail.Selected)
             {
                 pmEmail.Click();
 
-                this.browser.Button(Find.ById(new Regex("_SaveUser"))).Click();
+                this.Driver.FindElement(By.XPath("//input[contains(@id,'_SaveUser')]")).Click();
             }
 
             var testMessage = "This is an automated Test Message generated at {0}".FormatWith(DateTime.UtcNow);
@@ -293,7 +312,7 @@ namespace YAF.Tests.UserTests.UserSettings
             Assert.IsTrue(this.SendPrivateMessage(testMessage), "Test Message Send Failed");
 
             // Check if an Email was received
-            SmtpMessage mail = this.testMailServer.ReceivedEmail[0];
+            SmtpMessage mail = this.TestMailServer.ReceivedEmail[0];
 
             Assert.AreEqual(
                 "{0}@test.com".FormatWith(TestConfig.TestUserName.ToLower()),
@@ -322,20 +341,24 @@ namespace YAF.Tests.UserTests.UserSettings
         /// TODO : Receive the email digest test.
         /// </summary>
         [Test]
+        [Ignore]
         public void Receive_Email_Digest_Test()
         {
             Assert.IsTrue(TestConfig.UseTestMailServer, "This Test only works with the Test Mail Server Enabled");
 
             // Check if Digest is available and enabled
-            this.browser.GoTo(
-                "{0}{1}cp_subscriptions.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+            this.Driver.Navigate()
+                .GoToUrl(
+                    "{0}{1}cp_subscriptions.aspx".FormatWith(
+                        TestConfig.TestForumUrl,
+                        TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(
-                this.browser.ContainsText("Email Notification Preferences"),
+                this.Driver.PageSource.Contains("Email Notification Preferences"),
                 "Email Notification Preferences is not available for that User");
 
             Assert.IsTrue(
-                this.browser.ContainsText("Receive once daily digest/summary of activity?"),
+                this.Driver.PageSource.Contains("Receive once daily digest/summary of activity?"),
                 "Email Digest is not enabled in that Forum.");
         }
     }

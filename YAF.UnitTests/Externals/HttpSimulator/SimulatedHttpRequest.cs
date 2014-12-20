@@ -85,8 +85,8 @@ namespace HttpSimulator
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SimulatedHttpRequest"/> class.
-        /// Creates a new <see cref="SimulatedHttpRequest"/> instance.
+        /// Initializes a new instance of the <see cref="SimulatedHttpRequest" /> class.
+        /// Creates a new <see cref="SimulatedHttpRequest" /> instance.
         /// </summary>
         /// <param name="applicationPath">App virtual dir.</param>
         /// <param name="physicalAppPath">Physical Path to the app.</param>
@@ -97,6 +97,12 @@ namespace HttpSimulator
         /// <param name="host">Host.</param>
         /// <param name="port">Port to request.</param>
         /// <param name="verb">The HTTP Verb to use.</param>
+        /// <exception cref="System.ArgumentNullException">
+        /// host;Host cannot be null.
+        /// or
+        /// applicationPath;Can't create a request with a null application path. Try empty string.
+        /// </exception>
+        /// <exception cref="System.ArgumentException">Host cannot be empty.;host</exception>
         public SimulatedHttpRequest(
             string applicationPath, 
             string physicalAppPath, 

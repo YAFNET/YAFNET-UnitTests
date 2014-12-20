@@ -1,35 +1,38 @@
 ﻿/* Yet Another Forum.NET
- *
- * Copyright (C) Jaben Cargman
+ * Copyright (C) 2003-2005 Bjørnar Henden
+ * Copyright (C) 2006-2013 Jaben Cargman
+ * Copyright (C) 2014 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
- * documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
- * the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and 
- * to permit persons to whom the Software is furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions 
- * of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED 
- * TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL 
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
- * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
- * DEALINGS IN THE SOFTWARE.
-*/
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+
+ * http://www.apache.org/licenses/LICENSE-2.0
+
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 
 namespace YAF.Tests.UserTests.Features
 {
     using System.IO;
-    using System.Text.RegularExpressions;
 
     using NUnit.Framework;
 
-    using WatiN.Core;
-    using WatiN.Core.DialogHandlers;
-    using WatiN.Core.Native.Windows;
+    using OpenQA.Selenium;
+    using OpenQA.Selenium.Chrome;
 
     using YAF.Tests.Utils;
+    using YAF.Tests.Utils.Extensions;
     using YAF.Types.Extensions;
 
     /// <summary>
@@ -49,9 +52,7 @@ namespace YAF.Tests.UserTests.Features
         [TestFixtureSetUp]
         public void SetUpTest()
         {
-            this.browser = !TestConfig.UseExistingInstallation ? TestSetup._testBase.IEInstance : new IE();
-
-            this.browser.ShowWindow(NativeMethods.WindowShowStyle.Maximize);
+            this.Driver = !TestConfig.UseExistingInstallation ? TestSetup._testBase.ChromeDriver : new ChromeDriver();
 
             Assert.IsTrue(this.LoginUser(), "Login failed");
         }
@@ -71,35 +72,44 @@ namespace YAF.Tests.UserTests.Features
         [Test]
         public void Add_New_User_Album_Test()
         {
-            this.browser.GoTo(
-                "{0}{1}cp_profile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+            this.Driver.Navigate()
+                .GoToUrl(
+                    "{0}{1}cp_profile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
-            Assert.IsTrue(this.browser.ContainsText("Edit Albums"), "Albums Feature is not available for that User");
+            Assert.IsTrue(
+                this.Driver.PageSource.Contains("Edit Albums"),
+                "Albums Feature is not available for that User");
 
-            this.browser.Link(Find.ByUrl(new Regex(@"yaf_albums\.aspx\?"))).Click();
+            this.Driver.FindElementByLinkText("Edit Albums").Click();
 
-            Assert.IsTrue(this.browser.ContainsText("Album Images"), "Albums Feature is not available for that User");
+            Assert.IsTrue(
+                this.Driver.PageSource.Contains("Album Images"),
+                "Albums Feature is not available for that User");
 
             // Add New Album
-            var addAlbumButton = this.browser.Button(Find.ById(new Regex("_AddAlbum")));
+            var addAlbumButton = this.Driver.FindElement(By.XPath("//input[contains(@id,'_AddAlbum')]"));
 
             Assert.IsNotNull(addAlbumButton, "User has already reached max. Album Limit");
 
             addAlbumButton.Click();
 
             // Album Title
-            this.browser.TextField(Find.ById(new Regex("_txtTitle"))).TypeText("TestAlbum");
-            this.browser.Button(Find.ById(new Regex("UpdateTitle"))).Click();
+            this.Driver.FindElement(By.XPath("//input[contains(@id,'_txtTitle')]")).SendKeys("TestAlbum");
+            this.Driver.FindElement(By.XPath("//input[contains(@id,'UpdateTitle')]")).Click();
 
             // Test Image
             string filePath = Path.GetFullPath(@"..\..\testfiles\avatar.png");
-            this.browser.FileUpload(Find.ById(new Regex("_File"))).Set(filePath);
-            this.browser.Button(Find.ById(new Regex("_Upload"))).Click();
 
-            this.browser.Button(Find.ById(new Regex("_Back"))).Click();
+            var fileUpload = this.Driver.FindElement(By.XPath("//input[contains(@id,'_File')]"));
+            fileUpload.Click();
+            fileUpload.SendKeys(filePath);
+
+            this.Driver.FindElement(By.XPath("//input[contains(@id,'_Upload')]")).Click();
+
+            this.Driver.FindElement(By.XPath("//input[contains(@id,'_Back')]")).ClickAndWait();
 
             Assert.IsTrue(
-                this.browser.ContainsText("{0} Album: TestAlbum".FormatWith(TestConfig.TestUserName)),
+                this.Driver.PageSource.Contains("{0} Album: TestAlbum".FormatWith(TestConfig.TestUserName)),
                 "New Album Creating Failed");
         }
 
@@ -109,36 +119,44 @@ namespace YAF.Tests.UserTests.Features
         [Test]
         public void Delete_User_Album_Test()
         {
-            this.browser.GoTo(
-                "{0}{1}cp_profile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+            this.Driver.Navigate()
+                .GoToUrl(
+                    "{0}{1}cp_profile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
-            Assert.IsTrue(this.browser.ContainsText("Edit Albums"), "Albums Feature is not available for that User");
+            Assert.IsTrue(
+                this.Driver.PageSource.Contains("Edit Albums"),
+                "Albums Feature is not available for that User");
 
-            this.browser.Link(Find.ByUrl(new Regex(@"yaf_albums\.aspx\?"))).Click();
+            this.Driver.FindElementByLinkText("Edit Albums").Click();
 
-            Assert.IsTrue(this.browser.ContainsText("Album Images"), "Albums Feature is not available for that User");
+            Assert.IsTrue(
+                this.Driver.PageSource.Contains("Album Images"),
+                "Albums Feature is not available for that User");
 
             // Add New Album
-            var edit = this.browser.Button(Find.ById(new Regex("_Albums_Edit_0")));
+            var edit = this.Driver.FindElement(By.XPath("//input[contains(@id,'_Albums_Edit_0')]"));
 
             Assert.IsNotNull(edit, "Albums doesn't exists.");
 
             edit.Click();
 
-            Assert.IsTrue(this.browser.ContainsText("Add/Edit Album"));
+            Assert.IsTrue(this.Driver.PageSource.Contains("Add/Edit Album"));
 
-            var delete = this.browser.Button(Find.ById(new Regex("_Delete")));
+            this.Driver.FindElement(By.XPath("//input[contains(@id,'_Delete')]")).Click();
 
-            var confirmDialog = new ConfirmDialogHandler();
-            using (new UseDialogOnce(this.browser.DialogWatcher, confirmDialog))
-            {
-                delete.ClickNoWait();
-                confirmDialog.WaitUntilExists();
-                confirmDialog.OKButton.Click();
-                this.browser.WaitForComplete();
-            }
+            this.Driver.SwitchTo().Alert().Accept();
 
-            Assert.IsTrue(this.browser.ContainsText("Album Images"), "Album deleting failed");
+            this.Driver.Navigate()
+                .GoToUrl(
+                    "{0}{1}cp_profile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+
+            Assert.IsTrue(
+                this.Driver.PageSource.Contains("Edit Albums"),
+                "Albums Feature is not available for that User");
+
+            this.Driver.FindElementByLinkText("Edit Albums").Click();
+
+            Assert.IsTrue(this.Driver.PageSource.Contains("Album Images"), "Album deleting failed");
         }
 
         /// <summary>
@@ -147,28 +165,38 @@ namespace YAF.Tests.UserTests.Features
         [Test]
         public void Add_Additional_Image_Test()
         {
-            this.browser.GoTo(
-                "{0}{1}cp_profile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+            this.Driver.Navigate()
+                .GoToUrl(
+                    "{0}{1}cp_profile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
-            Assert.IsTrue(this.browser.ContainsText("Edit Albums"), "Albums Feature is not available for that User");
+            Assert.IsTrue(
+                this.Driver.PageSource.Contains("Edit Albums"),
+                "Albums Feature is not available for that User");
 
-            this.browser.Link(Find.ByUrl(new Regex(@"yaf_albums\.aspx\?"))).Click();
+            this.Driver.FindElementByLinkText("Edit Albums").Click();
 
-            Assert.IsTrue(this.browser.ContainsText("Album Images"), "Albums Feature is not available for that User");
+            Assert.IsTrue(
+                this.Driver.PageSource.Contains("Album Images"),
+                "Albums Feature is not available for that User");
 
-            Assert.IsNotNull(this.browser.Button(Find.ById(new Regex("_Albums_Edit_0"))), "Albums doesnt exists.");
+            Assert.IsTrue(
+                this.Driver.ElementExists(By.XPath("//input[contains(@id,'_Albums_Edit_0')]")),
+                "Albums doesnt exists.");
 
             // Edit Album
-            this.browser.Button(Find.ById(new Regex("_Albums_Edit_0"))).Click();
+            this.Driver.FindElement(By.XPath("//input[contains(@id,'_Albums_Edit_0')]")).Click();
 
-            Assert.IsTrue(this.browser.ContainsText("Add/Edit Album"));
+            Assert.IsTrue(this.Driver.PageSource.Contains("Add/Edit Album"));
 
             // Another Test Image
             string filePath = Path.GetFullPath(@"..\..\testfiles\testImage.jpg");
-            this.browser.FileUpload(Find.ById(new Regex("_File"))).Set(filePath);
-            this.browser.Button(Find.ById(new Regex("_Upload"))).Click();
+            var fileUpload = this.Driver.FindElement(By.XPath("//input[contains(@id,'_File')]"));
+            fileUpload.Click();
+            fileUpload.SendKeys(filePath);
 
-            Assert.IsTrue(this.browser.ContainsText("testImage.jpg"), "Image Adding Failed");
+            this.Driver.FindElement(By.XPath("//input[contains(@id,'_Upload')]")).Click();
+
+            Assert.IsTrue(this.Driver.PageSource.Contains("testImage.jpg"), "Image Adding Failed");
         }
 
         /// <summary>
@@ -177,37 +205,39 @@ namespace YAF.Tests.UserTests.Features
         [Test]
         public void Delete_Image_From_Album_Test()
         {
-            this.browser.GoTo(
-                "{0}{1}cp_profile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+            this.Driver.Navigate()
+                .GoToUrl(
+                    "{0}{1}cp_profile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
-            Assert.IsTrue(this.browser.ContainsText("Edit Albums"), "Albums Feature is not available for that User");
+            Assert.IsTrue(
+                this.Driver.PageSource.Contains("Edit Albums"),
+                "Albums Feature is not available for that User");
 
-            this.browser.Link(Find.ByUrl(new Regex(@"yaf_albums\.aspx\?"))).Click();
+            this.Driver.FindElementByLinkText("Edit Albums").Click();
 
-            Assert.IsTrue(this.browser.ContainsText("Album Images"), "Albums Feature is not available for that User");
+            Assert.IsTrue(
+                this.Driver.PageSource.Contains("Album Images"),
+                "Albums Feature is not available for that User");
 
-            Assert.IsNotNull(this.browser.Button(Find.ById(new Regex("_Albums_Edit_0"))), "Albums doesnt exists.");
+            Assert.IsTrue(
+                this.Driver.ElementExists(By.XPath("//input[contains(@id,'_Albums_Edit_0')]")),
+                "Albums doesnt exists.");
 
             // Edit Album
-            this.browser.Button(Find.ById(new Regex("_Albums_Edit_0"))).Click();
+            this.Driver.FindElement(By.XPath("//input[contains(@id,'_Albums_Edit_0')]")).Click();
 
             // Get The Images Count
-            var textOld = this.browser.Span(Find.ById(new Regex("_imagesInfo"))).InnerHtml;
+            var textOld = this.Driver.FindElement(By.XPath("//span[contains(@id,'_imagesInfo')]")).Text;
 
-            Assert.IsTrue(this.browser.ContainsText("Add/Edit Album"));
+            Assert.IsTrue(this.Driver.PageSource.Contains("Add/Edit Album"));
 
-            var delete = this.browser.Link(Find.ById(new Regex("_List_ImageDelete_0")));
+            this.Driver.FindElement(By.XPath("//a[contains(@id,'_List_ImageDelete_0')]")).Click();
 
-            var confirmDialog = new ConfirmDialogHandler();
-            using (new UseDialogOnce(this.browser.DialogWatcher, confirmDialog))
-            {
-                delete.ClickNoWait();
-                confirmDialog.WaitUntilExists();
-                confirmDialog.OKButton.Click();
-                this.browser.WaitForComplete();
-            }
+            this.Driver.SwitchTo().Alert().Accept();
 
-            var textNew = this.browser.Span(Find.ById(new Regex("_imagesInfo"))).InnerHtml;
+            this.Driver.Navigate().Refresh();
+
+            var textNew = this.Driver.FindElement(By.XPath("//span[contains(@id,'_imagesInfo')]")).Text;
 
             Assert.AreNotEqual(textNew, textOld, "Image deleting failed");
         }
@@ -218,35 +248,44 @@ namespace YAF.Tests.UserTests.Features
         [Test]
         public void Set_Image_As_Cover_Test()
         {
-            this.browser.GoTo(
-                "{0}{1}cp_profile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+            this.Driver.Navigate()
+                .GoToUrl(
+                    "{0}{1}cp_profile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
-            Assert.IsTrue(this.browser.ContainsText("Edit Albums"), "Albums Feature is not available for that User");
+            Assert.IsTrue(
+                this.Driver.PageSource.Contains("Edit Albums"),
+                "Albums Feature is not available for that User");
 
-            this.browser.Link(Find.ByUrl(new Regex(@"yaf_albums\.aspx\?"))).Click();
+            this.Driver.FindElementByLinkText("Edit Albums").Click();
 
-            Assert.IsTrue(this.browser.ContainsText("Album Images"), "Albums Feature is not available for that User");
+            Assert.IsTrue(
+                this.Driver.PageSource.Contains("Album Images"),
+                "Albums Feature is not available for that User");
 
-            Assert.IsNotNull(this.browser.Button(Find.ById(new Regex("_Albums_Edit_0"))), "Albums doesnt exists.");
+            Assert.IsTrue(
+                this.Driver.ElementExists(By.XPath("//input[contains(@id,'_Albums_Edit_0')]")),
+                "Albums doesnt exists.");
 
             // View Album
-            this.browser.Link(Find.ByUrl(new Regex(@"yaf_album\.aspx\?u"))).Click();
+            this.Driver.FindElement(By.XPath("//img[contains(@id,'_coverImage_0')]")).Click();
 
-            Assert.IsTrue(this.browser.ContainsText("Album Images"));
+            Assert.IsTrue(this.Driver.PageSource.Contains("Album Images"));
 
             // Set First Album Image as Cover
-            var setCoverButton = this.browser.Button(Find.ById(new Regex("_AlbumImages_SetCover_0")));
+            var setCoverButton = this.Driver.FindElement(By.XPath("//input[contains(@id,'_AlbumImages_SetCover_0')]"));
 
             Assert.AreEqual(
                 "Set as Cover",
-                this.browser.Button(Find.ById(new Regex("_AlbumImages_SetCover_0"))).Text,
+                this.Driver.FindElement(By.XPath("//input[contains(@id,'_AlbumImages_SetCover_0')]"))
+                    .GetAttribute("value"),
                 "Image is already Cover");
 
             setCoverButton.Click();
 
             Assert.AreEqual(
                 "Remove Cover",
-                this.browser.Button(Find.ById(new Regex("_AlbumImages_SetCover_0"))).Text,
+                this.Driver.FindElement(By.XPath("//input[contains(@id,'_AlbumImages_SetCover_0')]"))
+                    .GetAttribute("value"),
                 "Set as Cover Failed");
         }
 
@@ -256,35 +295,44 @@ namespace YAF.Tests.UserTests.Features
         [Test]
         public void Remove_Image_As_Cover_Test()
         {
-            this.browser.GoTo(
-                "{0}{1}cp_profile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+            this.Driver.Navigate()
+                .GoToUrl(
+                    "{0}{1}cp_profile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
-            Assert.IsTrue(this.browser.ContainsText("Edit Albums"), "Albums Feature is not available for that User");
+            Assert.IsTrue(
+                this.Driver.PageSource.Contains("Edit Albums"),
+                "Albums Feature is not available for that User");
 
-            this.browser.Link(Find.ByUrl(new Regex(@"yaf_albums\.aspx\?"))).Click();
+            this.Driver.FindElementByLinkText("Edit Albums").Click();
 
-            Assert.IsTrue(this.browser.ContainsText("Album Images"), "Albums Feature is not available for that User");
+            Assert.IsTrue(
+                this.Driver.PageSource.Contains("Album Images"),
+                "Albums Feature is not available for that User");
 
-            Assert.IsNotNull(this.browser.Button(Find.ById(new Regex("_Albums_Edit_0"))), "Albums doesnt exists.");
+            Assert.IsTrue(
+                this.Driver.ElementExists(By.XPath("//input[contains(@id,'_Albums_Edit_0')]")),
+                "Albums doesnt exists.");
 
             // View Album
-            this.browser.Link(Find.ByUrl(new Regex(@"yaf_album\.aspx\?u"))).Click();
+            this.Driver.FindElement(By.XPath("//img[contains(@id,'_coverImage_0')]")).Click();
 
-            Assert.IsTrue(this.browser.ContainsText("Album Images"));
+            Assert.IsTrue(this.Driver.PageSource.Contains("Album Images"));
 
-            // Set First Album Image as Cover
-            var setCoverButton = this.browser.Button(Find.ById(new Regex("_AlbumImages_SetCover_0")));
+            // Remove Cover from first Album Image
+            var setCoverButton = this.Driver.FindElement(By.XPath("//input[contains(@id,'_AlbumImages_SetCover_0')]"));
 
             Assert.AreEqual(
                 "Remove Cover",
-                this.browser.Button(Find.ById(new Regex("_AlbumImages_SetCover_0"))).Text,
+                this.Driver.FindElement(By.XPath("//input[contains(@id,'_AlbumImages_SetCover_0')]"))
+                    .GetAttribute("value"),
                 "Image is not set as Cover");
 
             setCoverButton.Click();
 
             Assert.AreEqual(
                 "Set as Cover",
-                this.browser.Button(Find.ById(new Regex("_AlbumImages_SetCover_0"))).Text,
+                this.Driver.FindElement(By.XPath("//input[contains(@id,'_AlbumImages_SetCover_0')]"))
+                    .GetAttribute("value"),
                 "Remove as Cover Failed");
         }
 
@@ -294,33 +342,43 @@ namespace YAF.Tests.UserTests.Features
         [Test]
         public void Edit_Image_Caption_Test()
         {
-            this.browser.GoTo(
-                "{0}{1}cp_profile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+            this.Driver.Navigate()
+                .GoToUrl(
+                    "{0}{1}cp_profile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
-            Assert.IsTrue(this.browser.ContainsText("Edit Albums"), "Albums Feature is not available for that User");
+            Assert.IsTrue(
+                this.Driver.PageSource.Contains("Edit Albums"),
+                "Albums Feature is not available for that User");
 
-            this.browser.Link(Find.ByUrl(new Regex(@"yaf_albums\.aspx\?"))).Click();
+            this.Driver.FindElementByLinkText("Edit Albums").Click();
 
-            Assert.IsTrue(this.browser.ContainsText("Album Images"), "Albums Feature is not available for that User");
+            Assert.IsTrue(
+                this.Driver.PageSource.Contains("Album Images"),
+                "Albums Feature is not available for that User");
 
-            Assert.IsNotNull(this.browser.Button(Find.ById(new Regex("_Albums_Edit_0"))), "Albums doesnt exists.");
+            Assert.IsTrue(
+                this.Driver.ElementExists(By.XPath("//input[contains(@id,'_Albums_Edit_0')]")),
+                "Albums doesnt exists.");
 
             // View Album
-            this.browser.Link(Find.ByUrl(new Regex(@"yaf_album\.aspx\?u"))).Click();
+            this.Driver.FindElement(By.XPath("//img[contains(@id,'_coverImage_0')]")).Click();
 
-            Assert.IsTrue(this.browser.ContainsText("Album Images"));
+            Assert.IsTrue(this.Driver.PageSource.Contains("Album Images"));
 
-            var imageTitleSpan = this.browser.Span(Find.ById(new Regex("spnTitle1")));
+            var imageTitleSpan =
+                this.Driver.FindElement(
+                    By.XPath(
+                        "//span[contains(@id,'AlbumImages_spnImageOwner_0')]/descendant::span[@class='albumtitle']"));
             imageTitleSpan.Click();
 
-            var imageTitleInput = this.browser.TextField(Find.ById(imageTitleSpan.Id.Replace("spn", "txt")));
-            imageTitleInput.TypeText("TestCaption");
+            var imageTitleInput = this.Driver.FindElementById(imageTitleSpan.GetAttribute("id").Replace("spn", "txt"));
+            imageTitleInput.SendKeys("TestCaption");
 
-            imageTitleInput.KeyPress((char)13);
+            imageTitleInput.SendKeys(Keys.Enter);
 
-            this.browser.Refresh();
+            this.Driver.Navigate().Refresh();
 
-            Assert.IsTrue(this.browser.ContainsText("TestCaption"), "Edit Caption Failed");
+            Assert.IsTrue(this.Driver.PageSource.Contains("TestCaption"), "Edit Caption Failed");
         }
 
         /// <summary>
@@ -329,33 +387,43 @@ namespace YAF.Tests.UserTests.Features
         [Test]
         public void Edit_Album_Name_Test()
         {
-            this.browser.GoTo(
-                "{0}{1}cp_profile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+            this.Driver.Navigate()
+                .GoToUrl(
+                    "{0}{1}cp_profile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
-            Assert.IsTrue(this.browser.ContainsText("Edit Albums"), "Albums Feature is not available for that User");
+            Assert.IsTrue(
+                this.Driver.PageSource.Contains("Edit Albums"),
+                "Albums Feature is not available for that User");
 
-            this.browser.Link(Find.ByUrl(new Regex(@"yaf_albums\.aspx\?"))).Click();
+            this.Driver.FindElementByLinkText("Edit Albums").Click();
 
-            Assert.IsTrue(this.browser.ContainsText("Album Images"), "Albums Feature is not available for that User");
+            Assert.IsTrue(
+                this.Driver.PageSource.Contains("Album Images"),
+                "Albums Feature is not available for that User");
 
-            Assert.IsNotNull(this.browser.Button(Find.ById(new Regex("_Albums_Edit_0"))), "Albums doesnt exists.");
+            Assert.IsTrue(
+                this.Driver.ElementExists(By.XPath("//input[contains(@id,'_Albums_Edit_0')]")),
+                "Albums doesnt exists.");
 
             // View Album
-            this.browser.Link(Find.ByUrl(new Regex(@"yaf_album\.aspx\?u"))).Click();
+            this.Driver.FindElement(By.XPath("//img[contains(@id,'_coverImage_0')]")).Click();
 
-            Assert.IsTrue(this.browser.ContainsText("Album Images"));
+            Assert.IsTrue(this.Driver.PageSource.Contains("Album Images"));
 
-            var imageTitleSpan = this.browser.Span(Find.ByClass("albumtitle"));
+            var imageTitleSpan = this.Driver.FindElementByClassName("albumtitle");
             imageTitleSpan.Click();
 
-            var imageTitleInput = this.browser.TextField(Find.ById(imageTitleSpan.Id.Replace("spn", "txt")));
-            imageTitleInput.TypeText("TestAlbumNameRandom");
+            var imageTitleInput = this.Driver.FindElementById(imageTitleSpan.GetAttribute("id").Replace("spn", "txt"));
+            imageTitleInput.Clear();
+            imageTitleInput.SendKeys("TestAlbumNameRandom");
 
-            imageTitleInput.KeyPress((char)13);
+            imageTitleInput.SendKeys(Keys.Enter);
 
-            this.browser.Refresh();
+            this.Driver.Navigate().Refresh();
 
-            Assert.IsTrue(this.browser.ContainsText("TestCaption"), "Edit Caption Failed");
+            Assert.IsTrue(
+                this.Driver.FindElementByClassName("albumtitle").Text.Contains("TestAlbumNameRandom"),
+                "Edit Caption Failed");
         }
     }
 }

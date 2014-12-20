@@ -1,33 +1,36 @@
 ﻿/* Yet Another Forum.NET
- *
- * Copyright (C) Jaben Cargman
+ * Copyright (C) 2003-2005 Bjørnar Henden
+ * Copyright (C) 2006-2013 Jaben Cargman
+ * Copyright (C) 2014 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
- * documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
- * the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and 
- * to permit persons to whom the Software is furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions 
- * of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED 
- * TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL 
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
- * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
- * DEALINGS IN THE SOFTWARE.
-*/
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+
+ * http://www.apache.org/licenses/LICENSE-2.0
+
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 
 namespace YAF.Tests.UserTests.Features
 {
-    using System.Text.RegularExpressions;
-
     using NUnit.Framework;
 
-    using WatiN.Core;
-    using WatiN.Core.Native.Windows;
+    using OpenQA.Selenium;
+    using OpenQA.Selenium.Chrome;
 
     using YAF.Tests.Utils;
+    using YAF.Tests.Utils.Extensions;
     using YAF.Types.Extensions;
 
     /// <summary>
@@ -47,9 +50,7 @@ namespace YAF.Tests.UserTests.Features
         [TestFixtureSetUp]
         public void SetUpTest()
         {
-            this.browser = !TestConfig.UseExistingInstallation ? TestSetup._testBase.IEInstance : new IE();
-
-            this.browser.ShowWindow(NativeMethods.WindowShowStyle.Maximize);
+            this.Driver = !TestConfig.UseExistingInstallation ? TestSetup._testBase.ChromeDriver : new ChromeDriver();
 
             Assert.IsTrue(this.LoginUser(), "Login failed");
         }
@@ -60,14 +61,17 @@ namespace YAF.Tests.UserTests.Features
         [TestFixtureTearDown]
         public void TearDownTest()
         {
-            this.browser.GoTo(
-                "{0}{1}cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+            this.Driver.Navigate()
+                .GoToUrl(
+                    "{0}{1}cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             // Switch Theme Back to Clean Slate
-            this.browser.SelectList(Find.ById(new Regex("_ProfileEditor_Theme"))).SelectByValue("cleanSlate.xml");
+            this.Driver.SelectDropDownByValue(
+                By.XPath("//select[contains(@id,'_ProfileEditor_Theme')]"),
+                "cleanSlate.xml");
 
             // Save the Profile Changes
-            this.browser.Button(Find.ById(new Regex("_ProfileEditor_UpdateProfile"))).Click();
+            this.Driver.FindElement(By.XPath("//input[contains(@id,'_ProfileEditor_UpdateProfile')]")).Click();
 
             this.LogoutUser();
         }
@@ -76,93 +80,108 @@ namespace YAF.Tests.UserTests.Features
         /// Check if all Mobile Pages work without throwing an Error Test.
         /// </summary>
         [Test]
-        [NUnit.Framework.Description("Check if all Mobile Pages work without throwing an Error Test.")]
+        [Description("Check if all Mobile Pages work without throwing an Error Test.")]
         public void Check_Mobile_Pages_Test()
         {
-            this.browser.GoTo(
-                "{0}{1}cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
-
-            Assert.IsTrue(this.browser.ContainsText("Edit Profile"), "Edit Profile is not available for that User");
+            this.Driver.Navigate()
+                .GoToUrl(
+                    "{0}{1}cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(
-                this.browser.ContainsText("Select your preferred theme"),
+                this.Driver.PageSource.Contains("Edit Profile"),
+                "Edit Profile is not available for that User");
+
+            Assert.IsTrue(
+                this.Driver.PageSource.Contains("Select your preferred theme"),
                 "Changing the Theme is disabled for Users");
 
             // Switch Theme to "Black Grey"
-            this.browser.SelectList(Find.ById(new Regex("_ProfileEditor_Theme"))).SelectByValue("YafMobile.xml");
+            this.Driver.SelectDropDownByValue(
+                By.XPath("//select[contains(@id,'_ProfileEditor_Theme')]"),
+                "YafMobile.xml");
 
             // Save the Profile Changes
-            this.browser.Button(Find.ById(new Regex("_ProfileEditor_UpdateProfile"))).Click();
+            this.Driver.FindElement(By.XPath("//input[contains(@id,'_ProfileEditor_UpdateProfile')]")).Click();
 
-            this.browser.Refresh();
+            this.Driver.Navigate().Refresh();
 
             Assert.IsNotNull(
-                this.browser.Link(Find.ByUrl(new Regex("Themes/Yafmobile/theme.css"))),
+                this.Driver.ElementExists(By.XPath("//link[contains(@href,'Themes/Yafmobile/theme.css')]")),
                 "Changing Forum Theme failed");
 
             // Now Check if each mobile page is displayed correctly
             // Check the main Page
-            this.browser.GoTo(TestConfig.TestForumUrl);
+            this.Driver.Navigate().GoToUrl(TestConfig.TestForumUrl);
 
             Assert.IsTrue(
-                !this.browser.ContainsText("Server Error") && !this.browser.ContainsText("Forum Error"),
+                !this.Driver.PageSource.Contains("Server Error") && !this.Driver.PageSource.Contains("Forum Error")
+                && !this.Driver.PageSource.Contains("NullReferenceException"),
                 "There is something wrong with the mobile forum page");
 
             // Check the forum Category Page
-            this.browser.GoTo(
-                "{0}{1}mytopics.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+            this.Driver.Navigate()
+                .GoToUrl("{0}{1}mytopics.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(
-                !this.browser.ContainsText("Server Error") && !this.browser.ContainsText("Forum Error"),
+                !this.Driver.PageSource.Contains("Server Error") && !this.Driver.PageSource.Contains("Forum Error")
+                && !this.Driver.PageSource.Contains("NullReferenceException"),
                 "There is something wrong with the Forums Category page");
 
             // Check the forum topic view Page
-            this.browser.GoTo(
-                "{0}{2}postst{1}.aspx".FormatWith(
-                    TestConfig.TestForumUrl,
-                    TestConfig.TestTopicID,
-                    TestConfig.ForumUrlRewritingPrefix));
+            this.Driver.Navigate()
+                .GoToUrl(
+                    "{0}{2}postst{1}.aspx".FormatWith(
+                        TestConfig.TestForumUrl,
+                        TestConfig.TestTopicID,
+                        TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(
-                !this.browser.ContainsText("Server Error") && !this.browser.ContainsText("Forum Error"),
+                !this.Driver.PageSource.Contains("Server Error") && !this.Driver.PageSource.Contains("Forum Error")
+                && !this.Driver.PageSource.Contains("NullReferenceException"),
                 "There is something wrong with the posts page");
 
             // Check My Topics Page
-            this.browser.GoTo(
-                "{0}{2}topics{1}.aspx".FormatWith(
-                    TestConfig.TestForumUrl,
-                    TestConfig.TestForumID,
-                    TestConfig.ForumUrlRewritingPrefix));
+            this.Driver.Navigate()
+                .GoToUrl(
+                    "{0}{2}topics{1}.aspx".FormatWith(
+                        TestConfig.TestForumUrl,
+                        TestConfig.TestForumID,
+                        TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(
-                !this.browser.ContainsText("Server Error") && !this.browser.ContainsText("Forum Error"),
+                !this.Driver.PageSource.Contains("Server Error") && !this.Driver.PageSource.Contains("Forum Error")
+                && !this.Driver.PageSource.Contains("NullReferenceException"),
                 "There is something wrong with the mobile forum category page");
 
             // Check the Post Message Page
-            this.browser.GoTo(
-                "{0}{2}postmessage.aspx?f={1}".FormatWith(
-                    TestConfig.TestForumUrl,
-                    TestConfig.TestForumID,
-                    TestConfig.ForumUrlRewritingPrefix));
+            this.Driver.Navigate()
+                .GoToUrl(
+                    "{0}{2}postmessage.aspx?f={1}".FormatWith(
+                        TestConfig.TestForumUrl,
+                        TestConfig.TestForumID,
+                        TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(
-                !this.browser.ContainsText("Server Error") && !this.browser.ContainsText("Forum Error"),
+                !this.Driver.PageSource.Contains("Server Error") && !this.Driver.PageSource.Contains("Forum Error")
+                && !this.Driver.PageSource.Contains("NullReferenceException"),
                 "There is something wrong with the mobile post message page");
 
             // Check the Send PM Page
-            this.browser.GoTo(
-                "{0}{1}pmessage.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+            this.Driver.Navigate()
+                .GoToUrl("{0}{1}pmessage.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(
-                !this.browser.ContainsText("Server Error") && !this.browser.ContainsText("Forum Error"),
+                !this.Driver.PageSource.Contains("Server Error") && !this.Driver.PageSource.Contains("Forum Error")
+                && !this.Driver.PageSource.Contains("NullReferenceException"),
                 "There is something wrong with the mobile send private message page");
 
             // Check the Profile Page
-            this.browser.GoTo(
-                "{0}{1}profile2.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+            this.Driver.Navigate()
+                .GoToUrl("{0}{1}profile2.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(
-                !this.browser.ContainsText("Server Error") && !this.browser.ContainsText("Forum Error"),
+                !this.Driver.PageSource.Contains("Server Error") && !this.Driver.PageSource.Contains("Forum Error")
+                && !this.Driver.PageSource.Contains("NullReferenceException"),
                 "There is something wrong with the mobile profile page");
         }
     }

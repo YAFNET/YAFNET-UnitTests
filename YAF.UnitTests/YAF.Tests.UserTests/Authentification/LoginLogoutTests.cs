@@ -1,33 +1,38 @@
 ﻿/* Yet Another Forum.NET
- *
- * Copyright (C) Jaben Cargman
+ * Copyright (C) 2003-2005 Bjørnar Henden
+ * Copyright (C) 2006-2013 Jaben Cargman
+ * Copyright (C) 2014 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
- * documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
- * the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and 
- * to permit persons to whom the Software is furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions 
- * of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED 
- * TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL 
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
- * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
- * DEALINGS IN THE SOFTWARE.
-*/
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+
+ * http://www.apache.org/licenses/LICENSE-2.0
+
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 
 namespace YAF.Tests.UserTests.Authentification
 {
-    using System.Text.RegularExpressions;
+    using System.Threading;
 
     using NUnit.Framework;
 
-    using WatiN.Core;
-    using WatiN.Core.Native.Windows;
+    using OpenQA.Selenium;
+    using OpenQA.Selenium.Chrome;
 
     using YAF.Tests.Utils;
+    using YAF.Tests.Utils.Extensions;
     using YAF.Types.Extensions;
 
     /// <summary>
@@ -37,14 +42,14 @@ namespace YAF.Tests.UserTests.Authentification
     public class LoginLogoutUserTests
     {
         /// <summary>
-        /// The Browser Instance
-        /// </summary>
-        private IE browser;
-
-        /// <summary>
-        /// Gets or sets TestContext.
+        /// Gets or sets the TestContext.
         /// </summary>
         public TestContext TestContext { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Browser Instance
+        /// </summary>
+        private ChromeDriver Driver { get; set; }
 
         /// <summary>
         /// Set Up
@@ -52,9 +57,7 @@ namespace YAF.Tests.UserTests.Authentification
         [TestFixtureSetUp]
         public void SetUp()
         {
-            this.browser = !TestConfig.UseExistingInstallation ? TestSetup._testBase.IEInstance : new IE();
-
-            this.browser.ShowWindow(NativeMethods.WindowShowStyle.Maximize);
+            this.Driver = !TestConfig.UseExistingInstallation ? TestSetup._testBase.ChromeDriver : new ChromeDriver();
         }
 
         /// <summary>
@@ -63,80 +66,101 @@ namespace YAF.Tests.UserTests.Authentification
         [TestFixtureTearDown]
         public void TearDown()
         {
-            this.browser.Close();
+            this.Driver.Quit();
         }
 
         /// <summary>
         /// Login via Login Page User Test
         /// </summary>
+        [Category("Authentifcation")]
         [Test]
         public void Login_Page_User_Test()
         {
-            this.browser.GoTo(
-                "{0}{1}login.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+            this.Driver.Navigate()
+                .GoToUrl("{0}{1}login".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
-            if (this.browser.Link(Find.ById(new Regex("_LogOutButton"))).Exists)
+            if (this.Driver.ElementExists(By.Id("forum_ctl01_LogOutButton")))
             {
                 // Logout First
-                this.browser.Link(Find.ById(new Regex("_LogOutButton"))).Click();
+                this.Driver.FindElement(By.Id("forum_ctl01_LogOutButton")).Click();
 
-                this.browser.Button(Find.ById(new Regex("_OkButton"))).Click();
+                this.Driver.FindElement(By.Id("forum_ctl02_OkButton")).Click();
             }
 
-            this.browser.GoTo(
-                "{0}{1}login.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+            this.Driver.Navigate()
+                .GoToUrl("{0}{1}login".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
-            this.browser.TextField(Find.ById(new Regex("Login1_UserName"))).TypeText(TestConfig.TestUserName);
-            this.browser.TextField(Find.ById(new Regex("Login1_Password"))).TypeText(TestConfig.TestUserPassword);
-            this.browser.Button(Find.ById(new Regex("Login1_LoginButton"))).Click();
+            this.Driver.FindElement(By.Id("forum_ctl04_Login1_UserName")).SendKeys(TestConfig.TestUserName);
+            this.Driver.FindElement(By.Id("forum_ctl04_Login1_Password")).SendKeys(TestConfig.TestUserPassword);
 
-            Assert.IsTrue(this.browser.Link(Find.ById(new Regex("_LogOutButton"))).Exists, "Login failed");
+            this.Driver.FindElement(By.Id("forum_ctl04_Login1_LoginButton")).Click();
+
+            Thread.Sleep(400);
+
+            Assert.IsTrue(this.Driver.PageSource.Contains("Logged in as"), "Login failed");
         }
 
         /// <summary>
         /// Login via Login Box User Test
         /// </summary>
+        [Category("Authentifcation")]
         [Test]
         public void Login_LoginBox_User_Test()
         {
-            this.browser.GoTo(TestConfig.TestForumUrl);
+            this.Driver.Navigate().GoToUrl(TestConfig.TestForumUrl);
 
-            if (this.browser.Link(Find.ById(new Regex("_LogOutButton"))).Exists)
+            if (this.Driver.ElementExists(By.Id("forum_ctl01_LogOutButton")))
             {
                 // Logout First
-                this.browser.Link(Find.ById(new Regex("_LogOutButton"))).Click();
+                this.Driver.FindElement(By.Id("forum_ctl01_LogOutButton")).Click();
 
-                this.browser.Button(Find.ById(new Regex("_OkButton"))).Click();
+                this.Driver.FindElement(By.Id("forum_ctl02_OkButton")).Click();
             }
 
-            this.browser.GoTo(TestConfig.TestForumUrl);
+            this.Driver.Navigate().GoToUrl(TestConfig.TestForumUrl);
 
-            this.browser.Link(Find.ByClass("LoginLink")).Click();
+            this.Driver.FindElement(By.CssSelector("li.menuAccount > a.LoginLink")).Click();
 
-            Assert.IsTrue(this.browser.TextField(Find.ById(new Regex("Login1_UserName"))).Exists, "Login Box is disabled in Host Settings");
+            Assert.IsTrue(
+                this.Driver.ElementExists(By.Id("forum_ctl02_Login1_UserName")),
+                "Login Box is disabled in Host Settings");
 
-            this.browser.TextField(Find.ById(new Regex("Login1_UserName"))).TypeText(TestConfig.TestUserName);
-            this.browser.TextField(Find.ById(new Regex("Login1_Password"))).TypeText(TestConfig.TestUserPassword);
-            this.browser.Button(Find.ById(new Regex("Login1_LoginButton"))).Click();
+            this.Driver.FindElement(By.Id("forum_ctl02_Login1_UserName")).Clear();
+            this.Driver.FindElement(By.Id("forum_ctl02_Login1_UserName")).SendKeys(TestConfig.TestUserName);
+            this.Driver.FindElement(By.Id("forum_ctl02_Login1_Password")).Clear();
+            this.Driver.FindElement(By.Id("forum_ctl02_Login1_Password")).SendKeys(TestConfig.TestUserPassword);
 
-            this.browser.Refresh();
+            this.Driver.FindElement(By.Id("forum_ctl02_Login1_LoginButton")).ClickAndWait();
 
-            Assert.IsTrue(this.browser.Link(Find.ById(new Regex("_LogOutButton"))).Exists, "Login failed");
+            Assert.IsTrue(this.Driver.ElementExists(By.Id("forum_ctl01_LogOutButton")), "Login failed");
         }
 
         /// <summary>
         /// Logout User Test
         /// </summary>
+        [Category("Authentifcation")]
         [Test]
         public void Logout_User_Test()
         {
-            this.browser.GoTo(TestConfig.TestForumUrl);
+            this.Driver.Navigate().GoToUrl(TestConfig.TestForumUrl);
 
-            this.browser.Link(Find.ById(new Regex("_LogOutButton"))).Click();
+            if (!this.Driver.ElementExists(By.Id("forum_ctl01_LogOutButton")))
+            {
+                // Login First
+                this.Driver.Navigate()
+                    .GoToUrl("{0}{1}login".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
-            this.browser.Button(Find.ById(new Regex("_OkButton"))).Click();
+                this.Driver.FindElement(By.Id("forum_ctl04_Login1_UserName")).SendKeys(TestConfig.TestUserName);
+                this.Driver.FindElement(By.Id("forum_ctl04_Login1_Password")).SendKeys(TestConfig.TestUserPassword);
 
-            Assert.IsTrue(this.browser.ContainsText("Welcome Guest"), "Logout Failed");
+                this.Driver.FindElement(By.Id("forum_ctl04_Login1_LoginButton")).ClickAndWait();
+            }
+
+            this.Driver.FindElement(By.Id("forum_ctl01_LogOutButton")).Click();
+
+            this.Driver.FindElement(By.Id("forum_ctl02_OkButton")).Click();
+
+            Assert.IsTrue(this.Driver.PageSource.Contains("Welcome Guest"), "Logout Failed");
         }
     }
 }

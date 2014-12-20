@@ -1,22 +1,26 @@
 /* Yet Another Forum.NET
- *
- * Copyright (C) Jaben Cargman
+ * Copyright (C) 2003-2005 Bjørnar Henden
+ * Copyright (C) 2006-2013 Jaben Cargman
+ * Copyright (C) 2014 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
- * documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
- * the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and 
- * to permit persons to whom the Software is furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions 
- * of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED 
- * TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL 
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
- * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
- * DEALINGS IN THE SOFTWARE.
-*/
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+
+ * http://www.apache.org/licenses/LICENSE-2.0
+
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 
 namespace YAF.Tests.CoreTests
 {
@@ -24,8 +28,8 @@ namespace YAF.Tests.CoreTests
 
     using NUnit.Framework;
 
-    using YAF.Core.Services;
     using YAF.Core.Services.CheckForSpam;
+    using YAF.Types.Extensions;
 
     /// <summary>
     /// The spam client tester.
@@ -62,18 +66,18 @@ namespace YAF.Tests.CoreTests
             Assert.IsTrue(
                 BlogSpamNet.CommentIsSpam(
                     new BlogSpamComment
-                    {
-                        comment =
-                            "beside the four [url=http://www.linkslondononline.com]links of london[/url] creatures and under [url=http://www.linkslondononline.com]links[/url] the feet of [url=http://www.linkslondononline.com]links of london jewellery[/url] the Seated [url=http://www.linkslondononline.com/sweetie-bracelets]sweetie bracelet[/url] One, as if seen through [url=http://www.linkslondononline.com/links-of-london-charms]links of london charm[/url] the transparent [url=http://www.linkslondononline.com/links-of-london-bracelets]links of london charm bracelet[/url] waters of the crystal sea",
-                        ip = "147.202.45.202",
-                        agent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)",
-                        email = "backthismailtojerry@fastmail.fm",
-                        link = "http://someone.finderinn.com",
-                        name = "someone",
-                        version = string.Empty,
-                        options = string.Empty,
-                        subject = string.Empty
-                    },
+                        {
+                            comment =
+                                "beside the four [url=http://www.linkslondononline.com]links of london[/url] creatures and under [url=http://www.linkslondononline.com]links[/url] the feet of [url=http://www.linkslondononline.com]links of london jewellery[/url] the Seated [url=http://www.linkslondononline.com/sweetie-bracelets]sweetie bracelet[/url] One, as if seen through [url=http://www.linkslondononline.com/links-of-london-charms]links of london charm[/url] the transparent [url=http://www.linkslondononline.com/links-of-london-bracelets]links of london charm bracelet[/url] waters of the crystal sea",
+                            ip = "147.202.45.202",
+                            agent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)",
+                            email = "backthismailtojerry@fastmail.fm",
+                            link = "http://someone.finderinn.com",
+                            name = "someone",
+                            version = string.Empty,
+                            options = string.Empty,
+                            subject = string.Empty
+                        },
                     false,
                     out result),
                 "This Comment should been True (SPAM)" + result);
@@ -117,7 +121,7 @@ namespace YAF.Tests.CoreTests
         {
             string responseText;
             Assert.IsTrue(
-                new StopForumSpam().IsBot("84.16.230.111", "krasnhello@mail.ru", "someone", out responseText),
+                new StopForumSpam().IsBot("84.16.230.111", "uuruznfdxw@gmail.com", "someone", out responseText),
                 "This should be a Bot" + responseText);
         }
 
@@ -136,19 +140,43 @@ namespace YAF.Tests.CoreTests
         }
 
         /// <summary>
-        /// A Test to Check for Bot via BotScout.com and StopForumSpam.com API
+        /// A Test to Check for Bot via BotScout.com or StopForumSpam.com API
         /// </summary>
         [Test]
-        [Description("A Test to Check for Bot via BotScout.com API and StopForumSpam.com API")]
+        [Description("A Test to Check for Bot via BotScout.com API or StopForumSpam.com API")]
         public void Check_For_Bot_Test()
         {
             string responseText, responseText2;
             var botScoutCheck = new BotScout().IsBot("84.16.230.111", "krasnhello@mail.ru", "someone", out responseText);
-            var stopForumSpamCheck = new StopForumSpam().IsBot("84.16.230.111", "krasnhello@mail.ru", "someone", out responseText2);
+            var stopForumSpamCheck = new StopForumSpam().IsBot(
+                "84.16.230.111",
+                "krasnhello@mail.ru",
+                "someone",
+                out responseText2);
 
-            Assert.IsTrue(
-                botScoutCheck && stopForumSpamCheck,
-                "This should be a Bot");
+            Assert.IsTrue(botScoutCheck | stopForumSpamCheck, "This should be a Bot");
+        }
+
+        /// <summary>
+        /// The report_ user_ as_ bot_ test.
+        /// </summary>
+        [Test]
+        public void Report_User_As_Bot_Test()
+        {
+            string responseText, responseText2;
+            var parameters = "username={0}&ip_addr={1}&email={2}&api_key={3}".FormatWith(
+                "someone",
+                "84.16.230.111",
+                "krasnhello@mail.ru",
+                "XXXXXXXXXXX");
+
+            var result = new HttpClient().PostRequest(
+                new Uri("http://www.stopforumspam.com/add.php"),
+                null,
+                5000,
+                parameters);
+
+            Assert.IsTrue(result.Equals("success"), result);
         }
     }
 }

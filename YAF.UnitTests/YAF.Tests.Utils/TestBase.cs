@@ -1,31 +1,37 @@
 ﻿/* Yet Another Forum.NET
- *
- * Copyright (C) Jaben Cargman
+ * Copyright (C) 2003-2005 Bjørnar Henden
+ * Copyright (C) 2006-2013 Jaben Cargman
+ * Copyright (C) 2014 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
- * documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
- * the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and 
- * to permit persons to whom the Software is furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions 
- * of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED 
- * TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL 
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
- * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
- * DEALINGS IN THE SOFTWARE.
-*/
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+
+ * http://www.apache.org/licenses/LICENSE-2.0
+
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 
 namespace YAF.Tests.Utils
 {
-    using System.Text.RegularExpressions;
+    using System;
 
     using netDumbster.smtp;
-    using WatiN.Core;
-    using WatiN.Core.Exceptions;
-    using WatiN.Core.Native.Windows;
+
+    using OpenQA.Selenium;
+    using OpenQA.Selenium.Chrome;
+
+    using YAF.Tests.Utils.Extensions;
     using YAF.Types.Extensions;
 
     /// <summary>
@@ -34,14 +40,14 @@ namespace YAF.Tests.Utils
     public class TestBase
     {
         /// <summary>
-        /// The IE Instance
+        /// Gets or sets the chrome driver Instance
         /// </summary>
-        protected IE browser;
+        protected ChromeDriver Driver { get; set; }
 
         /// <summary>
-        /// The Test Mail Server.
+        /// Gets or sets test Mail Server.
         /// </summary>
-        protected SimpleSmtpServer testMailServer;
+        protected SimpleSmtpServer TestMailServer { get; set; }
 
         /// <summary>
         /// Logins the admin user.
@@ -50,9 +56,9 @@ namespace YAF.Tests.Utils
         /// </returns>
         protected bool LoginAdminUser()
         {
-            TestHelper.LoginUser(this.browser, TestConfig.AdminUserName, TestConfig.AdminPassword);
+            TestHelper.LoginUser(this.Driver, TestConfig.AdminUserName, TestConfig.AdminPassword);
 
-            return this.browser.Link(Find.ById(new Regex("_LogOutButton"))).Exists;
+            return this.Driver.FindElement(By.XPath("//a[contains(@id,'_LogOutButton')]")) != null;
         }
 
         /// <summary>
@@ -77,13 +83,13 @@ namespace YAF.Tests.Utils
         protected bool LoginUser(string userName, string password)
         {
             // Login as Test User
-            var loginSucceed = TestHelper.LoginUser(this.browser, userName, password);
+            var loginSucceed = TestHelper.LoginUser(this.Driver, userName, password);
             if (!loginSucceed)
             {
-                TestHelper.RegisterStandardTestUser(this.browser, userName, password);
+                TestHelper.RegisterStandardTestUser(this.Driver, userName, password);
             }
 
-            return this.browser.Link(Find.ById(new Regex("_LogOutButton"))).Exists;
+            return this.Driver.FindElement(By.XPath("//a[contains(@id,'_LogOutButton')]")) != null;
         }
 
         /// <summary>
@@ -97,30 +103,28 @@ namespace YAF.Tests.Utils
         /// </returns>
         protected bool LogoutUser(bool closeBrowser = true)
         {
-            this.browser.GoTo(TestConfig.TestForumUrl);
-
-            this.browser.ShowWindow(NativeMethods.WindowShowStyle.Maximize);
+            this.Driver.Navigate().GoToUrl(TestConfig.TestForumUrl);
 
             try
             {
-                this.browser.Link(Find.ById(new Regex("_LogOutButton"))).Click();
+                this.Driver.FindElement(By.XPath("//a[contains(@id,'_LogOutButton')]")).Click();
 
-                this.browser.Button(Find.ById("forum_ctl02_OkButton")).Click();
+                this.Driver.ClickAndWaitUntilVisible(By.Id("forum_ctl02_OkButton"));
 
-                bool contains = this.browser.ContainsText("Welcome Guest");
+                bool contains = this.Driver.PageSource.Contains("Welcome Guest");
 
                 if (closeBrowser)
                 {
-                    this.browser.Close();
+                    this.Driver.Quit();
                 }
 
                 return contains;
             }
-            catch (ElementNotFoundException)
+            catch (NoSuchElementException)
             {
                 if (closeBrowser)
                 {
-                    this.browser.Close();
+                    this.Driver.Quit();
                 }
             }
 
@@ -136,26 +140,26 @@ namespace YAF.Tests.Utils
         /// </returns>
         protected bool CreateNewTestTopic()
         {
-            this.browser.GoTo(
+            this.Driver.Navigate().GoToUrl(
                 "{0}{2}postmessage.aspx?f={1}".FormatWith(
                     TestConfig.TestForumUrl,
                     TestConfig.TestForumID,
                     TestConfig.ForumUrlRewritingPrefix));
 
-            if (!this.browser.ContainsText("Post New Topic"))
+            if (!this.Driver.PageSource.Contains("Post New Topic"))
             {
                 return false;
             }
 
             // Create New Topic
-            this.browser.TextField(Find.ById(new Regex("_TopicSubjectTextBox"))).TypeText("Auto Created Test Topic");
+            this.Driver.FindElement(By.XPath("//input[contains(@id,'_TopicSubjectTextBox')]")).SendKeys("Auto Created Test Topic - {0}".FormatWith(DateTime.UtcNow));
 
-            this.browser.TextField(Find.ById(new Regex("_YafTextEditor"))).TypeText("This is a Test Message Created by an automated Unit Test");
+            this.Driver.FindElement(By.XPath("//textarea[contains(@id,'_YafTextEditor')]")).SendKeys("This is a Test Message Created by an automated Unit Test");
 
             // Post New Topic
-            this.browser.Link(Find.ById(new Regex("_PostReply"))).Click();
+            this.Driver.FindElement(By.XPath("//a[contains(@id,'_PostReply')]")).Click();
 
-            return this.browser.ContainsText("Next Topic");
+            return this.Driver.PageSource.Contains("Next Topic");
         }
 
         /// <summary>
@@ -168,31 +172,31 @@ namespace YAF.Tests.Utils
         protected bool CreateNewReplyInTestTopic(string message)
         {
             // Go to Post New Topic
-            this.browser.GoTo(
+            this.Driver.Navigate().GoToUrl(
                 "{0}{2}postst{1}.aspx".FormatWith(
                     TestConfig.TestForumUrl,
                     TestConfig.TestTopicID,
                     TestConfig.ForumUrlRewritingPrefix));
 
-            if (this.browser.ContainsText("You've passed an invalid value to the forum."))
+            if (this.Driver.PageSource.Contains("You've passed an invalid value to the forum."))
             {
                 return false;
             }
 
-            this.browser.Link(Find.ById(new Regex("_PostReplyLink1"))).Click();
+            this.Driver.FindElement(By.XPath("//a[contains(@id,'_PostReplyLink1')]")).Click();
 
-            if (!this.browser.ContainsText("Post a reply"))
+            if (!this.Driver.PageSource.Contains("Post a reply"))
             {
                 return false;
             }
 
             // Create New Reply
-            this.browser.TextField(Find.ById(new Regex("_YafTextEditor"))).TypeText(message);
+            this.Driver.FindElement(By.XPath("//textarea[contains(@id,'_YafTextEditor')]")).SendKeys(message);
 
             // Post New Topic
-            this.browser.Link(Find.ById(new Regex("_PostReply"))).Click();
+            this.Driver.FindElement(By.XPath("//a[contains(@id,'_PostReply')]")).ClickAndWait();
 
-            return this.browser.ContainsText(message);
+            return this.Driver.PageSource.Contains(message);
         }
 
         /// <summary>
@@ -202,19 +206,19 @@ namespace YAF.Tests.Utils
         /// <returns>If the Message was sent or not</returns>
         protected bool SendPrivateMessage(string testMessage)
         {
-            this.browser.GoTo(
+            this.Driver.Navigate().GoToUrl(
                 "{0}{1}pmessage.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             // Send a Message to Myself
-            this.browser.TextField(Find.ById(new Regex("_To"))).TypeText(TestConfig.TestUserName);
+            this.Driver.FindElement(By.XPath("//input[contains(@id,'_To')]")).SendKeys(TestConfig.TestUserName);
 
-            this.browser.TextField(Find.ById(new Regex("_PmSubjectTextBox"))).TypeText("Testmessage");
-            this.browser.TextField(Find.ById(new Regex("_YafTextEditor"))).TypeText(testMessage);
+            this.Driver.FindElement(By.XPath("//input[contains(@id,'_PmSubjectTextBox')]")).SendKeys("Testmessage");
+            this.Driver.FindElement(By.XPath("//textarea[contains(@id,'_YafTextEditor')]")).SendKeys(testMessage);
 
-            this.browser.Link(Find.ById(new Regex("_Save"))).Click();
+            this.Driver.FindElement(By.XPath("//a[contains(@id,'_Save')]")).Click();
 
             // Check if MessageBox is Shown
-            return this.browser.ContainsText("unread message(s)");
+            return this.Driver.PageSource.Contains("unread message(s)");
         }
     }
 }

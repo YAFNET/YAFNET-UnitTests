@@ -1,30 +1,33 @@
 ﻿/* Yet Another Forum.NET
- *
- * Copyright (C) Jaben Cargman
+ * Copyright (C) 2003-2005 Bjørnar Henden
+ * Copyright (C) 2006-2013 Jaben Cargman
+ * Copyright (C) 2014 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 3
- * of the License, or (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+
+ * http://www.apache.org/licenses/LICENSE-2.0
+
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 
 namespace YAF.Tests.Utils
 {
-    using System.Text.RegularExpressions;
+    using OpenQA.Selenium;
+    using OpenQA.Selenium.Chrome;
 
-    using WatiN.Core;
-    using WatiN.Core.Native.Windows;
-
+    using YAF.Tests.Utils.Extensions;
     using YAF.Types.Extensions;
 
     /// <summary>
@@ -41,60 +44,58 @@ namespace YAF.Tests.Utils
         /// <returns>
         /// If User was Registered or not
         /// </returns>
-        public static bool RegisterStandardTestUser(IE browser, string userName, string password)
+        public static bool RegisterStandardTestUser(ChromeDriver browser, string userName, string password)
         {
-            browser.GoTo("{0}{1}register.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+            browser.Navigate().GoToUrl("{0}{1}register.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             var email = "{0}@test.com".FormatWith(userName.ToLower());
 
-            browser.ShowWindow(NativeMethods.WindowShowStyle.Maximize);
-
             // Check if Registrations are Disabled
-            if (browser.ContainsText("You tried to enter an area where you didn't have access"))
+            if (browser.PageSource.Contains("You tried to enter an area where you didn't have access"))
             {
                 return false;
             }
 
             // Accept the Rules
-            if (browser.ContainsText("Forum Rules"))
+            if (browser.PageSource.Contains("Forum Rules"))
             {
-                browser.Button(Find.ById("forum_ctl04_Login1_LoginButton")).Click();
-                browser.Refresh();
+                browser.FindElementById("forum_ctl04_Login1_LoginButton").Click();
+                browser.Navigate().Refresh();
             }
 
-            if (browser.ContainsText("Security Image"))
+            if (browser.PageSource.Contains("Security Image"))
             {
                 return false;
             }
 
             // Fill the Register Page
-            browser.TextField(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_UserName"))).TypeText(
+            browser.FindElement(By.XPath("//input[contains(@id,'CreateUserWizard1_CreateUserStepContainer_UserName')]")).SendKeys(
                 userName);
 
-            if (browser.ContainsText("Display Name"))
+            if (browser.PageSource.Contains("Display Name"))
             {
-                browser.TextField(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_DisplayName"))).TypeText(userName);
+                browser.FindElement(By.XPath("//input[contains(@id,'CreateUserWizard1_CreateUserStepContainer_DisplayName')]")).SendKeys(userName);
             }
 
-            browser.TextField(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_Password"))).TypeText(password);
-            browser.TextField(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_ConfirmPassword"))).TypeText(password);
-            browser.TextField(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_Email"))).TypeText(email);
-            browser.TextField(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_Question"))).TypeText(password);
-            browser.TextField(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_Answer"))).TypeText(password);
+            browser.FindElement(By.XPath("//input[contains(@id,'CreateUserWizard1_CreateUserStepContainer_Password')]")).SendKeys(password);
+            browser.FindElement(By.XPath("//input[contains(@id,'CreateUserWizard1_CreateUserStepContainer_ConfirmPassword')]")).SendKeys(password);
+            browser.FindElement(By.XPath("//input[contains(@id,'CreateUserWizard1_CreateUserStepContainer_Email')]")).SendKeys(email);
+            browser.FindElement(By.XPath("//input[contains(@id,'CreateUserWizard1_CreateUserStepContainer_Question')]")).SendKeys(password);
+            browser.FindElement(By.XPath("//input[contains(@id,'CreateUserWizard1_CreateUserStepContainer_Answer')]")).SendKeys(password);
 
-            ////browser.TextField(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_tbCaptcha"))).TypeText(captcha);
+            ////browser.FindElement(By.XPath("CreateUserWizard1_CreateUserStepContainer_tbCaptcha")).SendKeys(captcha);
 
             // Create User
-            browser.Button(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_StepNextButton"))).Click();
+            browser.FindElement(By.XPath("//a[contains(@id,'CreateUserWizard1_CreateUserStepContainer_StepNextButton')]")).Click();
 
-            if (!browser.ContainsText("Forum Preferences"))
+            if (!browser.PageSource.Contains("Forum Preferences"))
             {
                 return false;
             }
 
-            browser.Button(Find.ById(new Regex("ProfileNextButton"))).Click();
+            browser.FindElement(By.XPath("//a[contains(@id,'ProfileNextButton')]")).Click();
 
-            return browser.Link(Find.ById(new Regex("_LogOutButton"))).Exists;
+            return browser.FindElement(By.XPath("//a[contains(@id,'LogOutButton')]")) != null;
         }
 
         /// <summary>
@@ -104,31 +105,29 @@ namespace YAF.Tests.Utils
         /// <param name="userName">Name of the user.</param>
         /// <param name="userPassword">The user password.</param>
         /// <returns>If User login was successfully or not</returns>
-        public static bool LoginUser(IE browser, string userName, string userPassword)
+        public static bool LoginUser(ChromeDriver browser, string userName, string userPassword)
         {
             // Login User
-            browser.GoTo("{0}{1}login.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+            browser.Navigate().GoToUrl("{0}{1}login.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             // Check If User is already Logged In
-            if (browser.Link(Find.ById(new Regex("_LogOutButton"))).Exists)
+            if (!browser.PageSource.Contains("Forum Login"))
             {
-                browser.Link(Find.ById("forum_ctl01_LogOutButton")).Click();
+                browser.FindElement(By.XPath("//a[contains(@id,'_LogOutButton')]")).ClickAndWait();
 
-                browser.Button(Find.ById("forum_ctl02_OkButton")).Click();
+                browser.FindElementById("forum_ctl02_OkButton").Click();
 
-                browser.GoTo("{0}{1}login.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                browser.Navigate().GoToUrl("{0}{1}login.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
             }
 
-            browser.ShowWindow(NativeMethods.WindowShowStyle.Maximize);
+            browser.FindElement(By.XPath("//input[contains(@id,'Login1_UserName')]")).SendKeys(userName);
+            browser.FindElement(By.XPath("//input[contains(@id,'Login1_Password')]")).SendKeys(userPassword);
 
-            browser.TextField(Find.ById(new Regex("Login1_UserName"))).TypeText(userName);
-            browser.TextField(Find.ById(new Regex("Login1_Password"))).TypeText(userPassword);
+            browser.FindElement(By.XPath("//input[contains(@id,'Login1_LoginButton')]")).ClickAndWait();
 
-            browser.Button(Find.ById(new Regex("LoginButton"))).ClickNoWait();
+            browser.Navigate().GoToUrl(TestConfig.TestForumUrl);
 
-            browser.GoTo(TestConfig.TestForumUrl);
-
-            return browser.Link(Find.ById(new Regex("LogOutButton"))).Exists;
+            return browser.ElementExists(By.XPath("//a[contains(@id,'LogOutButton')]"));
         }
     }
 }
