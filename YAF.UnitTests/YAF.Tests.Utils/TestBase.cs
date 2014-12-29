@@ -56,7 +56,7 @@ namespace YAF.Tests.Utils
         /// </returns>
         protected bool LoginAdminUser()
         {
-            TestHelper.LoginUser(this.Driver, TestConfig.AdminUserName, TestConfig.AdminPassword);
+            this.Driver.LoginUser(TestConfig.AdminUserName, TestConfig.AdminPassword);
 
             return this.Driver.FindElement(By.XPath("//a[contains(@id,'_LogOutButton')]")) != null;
         }
@@ -83,10 +83,11 @@ namespace YAF.Tests.Utils
         protected bool LoginUser(string userName, string password)
         {
             // Login as Test User
-            var loginSucceed = TestHelper.LoginUser(this.Driver, userName, password);
+            var loginSucceed = this.Driver.LoginUser(userName, password);
+
             if (!loginSucceed)
             {
-                TestHelper.RegisterStandardTestUser(this.Driver, userName, password);
+                this.Driver.RegisterUser(userName, password);
             }
 
             return this.Driver.FindElement(By.XPath("//a[contains(@id,'_LogOutButton')]")) != null;

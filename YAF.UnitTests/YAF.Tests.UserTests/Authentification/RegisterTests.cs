@@ -32,6 +32,7 @@ namespace YAF.Tests.UserTests.Authentification
     using OpenQA.Selenium.Chrome;
 
     using YAF.Tests.Utils;
+    using YAF.Tests.Utils.Extensions;
     using YAF.Types.Extensions;
 
     /// <summary>
@@ -83,61 +84,12 @@ namespace YAF.Tests.UserTests.Authentification
         {
             this.driver = !TestConfig.UseExistingInstallation ? TestSetup._testBase.ChromeDriver : new ChromeDriver();
 
-            this.driver.Navigate()
-                .GoToUrl("{0}{1}register".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
-
             // Create New Random Test User
             var random = new Random();
 
             var userName = "TestUser{0}".FormatWith(random.Next());
-            var email = "{0}@test.com".FormatWith(userName.ToLower());
 
-            // Check if Registrations are Disabled
-            Assert.IsFalse(
-                this.driver.PageSource.Contains("You tried to enter an area where you didn't have access"),
-                "Registrations are disabled");
-
-            // Accept the Rules
-            if (this.driver.PageSource.Contains("Forum Rules"))
-            {
-                this.driver.FindElementById("forum_ctl04_Login1_LoginButton").Click();
-                this.driver.Navigate().Refresh();
-            }
-
-            Assert.IsFalse(
-                this.driver.PageSource.Contains("Security Image"),
-                "Captchas needs to be disabled in order to run the tests");
-
-            // Fill the Register Page
-            this.driver.FindElement(By.Id("forum_ctl04_CreateUserWizard1_CreateUserStepContainer_UserName"))
-                .SendKeys(userName);
-
-            if (this.driver.PageSource.Contains("Display Name"))
-            {
-                this.driver.FindElement(By.Id("forum_ctl04_CreateUserWizard1_CreateUserStepContainer_DisplayName"))
-                    .SendKeys(userName);
-            }
-
-            this.driver.FindElement(By.Id("forum_ctl04_CreateUserWizard1_CreateUserStepContainer_Password"))
-                .SendKeys(TestConfig.TestUserPassword);
-            this.driver.FindElement(By.Id("forum_ctl04_CreateUserWizard1_CreateUserStepContainer_ConfirmPassword"))
-                .SendKeys(TestConfig.TestUserPassword);
-            this.driver.FindElement(By.Id("forum_ctl04_CreateUserWizard1_CreateUserStepContainer_Email"))
-                .SendKeys(email);
-            this.driver.FindElement(By.Id("forum_ctl04_CreateUserWizard1_CreateUserStepContainer_Question"))
-                .SendKeys(TestConfig.TestUserPassword);
-            this.driver.FindElement(By.Id("forum_ctl04_CreateUserWizard1_CreateUserStepContainer_Answer"))
-                .SendKeys(TestConfig.TestUserPassword);
-
-            // Create User
-            this.driver.FindElement(By.Id("forum_ctl04_CreateUserWizard1_CreateUserStepContainer_StepNextButton"))
-                .Click();
-
-            Assert.IsTrue(this.driver.PageSource.Contains("Forum Preferences"), "Registration failed");
-
-            this.driver.FindElement(By.Id("forum_ctl04_CreateUserWizard1_ctl04_ProfileNextButton")).Click();
-
-            Assert.IsTrue(this.driver.PageSource.Contains("Logged in as:"), "Registration failed");
+            Assert.IsTrue(this.driver.RegisterUser(userName, TestConfig.TestUserPassword), "Registration failed");
         }
 
         /// <summary>
@@ -148,9 +100,6 @@ namespace YAF.Tests.UserTests.Authentification
         public void Register_Bot_User_Test()
         {
             this.driver = !TestConfig.UseExistingInstallation ? TestSetup._testBase.ChromeDriver : new ChromeDriver();
-
-            this.driver.Navigate()
-                .GoToUrl("{0}{1}register.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             const string USERNAME = "aqiuliqemi";
             const string EMAIL = "ikocec@coveryourpills.org";
@@ -172,29 +121,35 @@ namespace YAF.Tests.UserTests.Authentification
                 "Captchas needs to be disabled in order to run the tests");
 
             // Fill the Register Page
-            this.driver.FindElement(By.Id("forum_ctl04_CreateUserWizard1_CreateUserStepContainer_UserName"))
+            this.driver.FindElement(
+                By.XPath("//input[contains(@id,'CreateUserWizard1_CreateUserStepContainer_UserName')]"))
                 .SendKeys(USERNAME);
 
             if (this.driver.PageSource.Contains("Display Name"))
             {
-                this.driver.FindElement(By.Id("forum_ctl04_CreateUserWizard1_CreateUserStepContainer_DisplayName"))
+                this.driver.FindElement(
+                    By.XPath("//input[contains(@id,'CreateUserWizard1_CreateUserStepContainer_DisplayName')]"))
                     .SendKeys(USERNAME);
             }
 
-            this.driver.FindElement(By.Id("forum_ctl04_CreateUserWizard1_CreateUserStepContainer_Password"))
+            this.driver.FindElement(
+                By.XPath("//input[contains(@id,'CreateUserWizard1_CreateUserStepContainer_Password')]"))
                 .SendKeys(TestConfig.TestUserPassword);
-            this.driver.FindElement(By.Id("forum_ctl04_CreateUserWizard1_CreateUserStepContainer_ConfirmPassword"))
+            this.driver.FindElement(
+                By.XPath("//input[contains(@id,'CreateUserWizard1_CreateUserStepContainer_ConfirmPassword')]"))
                 .SendKeys(TestConfig.TestUserPassword);
-            this.driver.FindElement(By.Id("forum_ctl04_CreateUserWizard1_CreateUserStepContainer_Email"))
-                .SendKeys(EMAIL);
-            this.driver.FindElement(By.Id("forum_ctl04_CreateUserWizard1_CreateUserStepContainer_Question"))
+            this.driver.FindElement(
+                By.XPath("//input[contains(@id,'CreateUserWizard1_CreateUserStepContainer_Email')]")).SendKeys(EMAIL);
+            this.driver.FindElement(
+                By.XPath("//input[contains(@id,'CreateUserWizard1_CreateUserStepContainer_Question')]"))
                 .SendKeys(TestConfig.TestUserPassword);
-            this.driver.FindElement(By.Id("forum_ctl04_CreateUserWizard1_CreateUserStepContainer_Answer"))
+            this.driver.FindElement(
+                By.XPath("//input[contains(@id,'CreateUserWizard1_CreateUserStepContainer_Answer')]"))
                 .SendKeys(TestConfig.TestUserPassword);
 
             // Create User
             this.driver.FindElement(
-                By.XPath("//input[contains(@id,'CreateUserWizard1_CreateUserStepContainer_StepNextButton')]")).Click();
+                By.XPath("//input[contains(@id,'_StepNextButton')]")).Click();
 
             Assert.IsTrue(
                 this.driver.PageSource.Contains("Sorry Spammers are not allowed in the Forum!"),

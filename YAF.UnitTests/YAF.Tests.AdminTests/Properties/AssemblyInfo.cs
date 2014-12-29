@@ -48,15 +48,3 @@ using NUnit.Framework;
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("b79415c9-f3c6-48a3-aba4-7e0e4d783ba7")]
-
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-//
-// You can specify all the values or you can default the Build and Revision Numbers 
-// by using the '*' as shown below:
-[assembly: AssemblyVersion("2.2.0.0")]
-[assembly: AssemblyFileVersion("2.2.0.0")]

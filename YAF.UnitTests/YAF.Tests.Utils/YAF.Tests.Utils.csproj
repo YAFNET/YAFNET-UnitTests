@@ -99,7 +99,7 @@
     <Compile Include="Provider.cs" />
     <Compile Include="SetUp\InstallBase.cs" />
     <Compile Include="TestBase.cs" />
-    <Compile Include="TestHelper.cs" />
+    <Compile Include="Extensions\RegisterLoginExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestConfig.cs" />
     <Compile Include="DBManager.cs" />
