@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014 Ingo Herbote
+ * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -169,7 +169,7 @@ namespace YAF.Tests.Utils
             get
             {
                 return GetConfigValueAsString("YAF.ReleaseDownloadUrl") ??
-                       "http://download.codeplex.com/Download?ProjectName=yafnet&amp;DownloadId=360275&amp;FileTime=129772788879000000&amp;Build=18678";
+                       "https://github.com/YAFNET/YAFNET/releases/download/v2.1.2/YAF-v2.1.2.0-Install.zip";
             }
         }
 
@@ -181,7 +181,7 @@ namespace YAF.Tests.Utils
             get
             {
                 return GetConfigValueAsString("YAF.LocalReleasePackageFile") ??
-                       @"..\..\testfiles\YAF-v2.1-RTW-BIN.zip";
+                       @"..\..\testfiles\YAF-v2.1.2.0-Install.zip";
             }
         }
 

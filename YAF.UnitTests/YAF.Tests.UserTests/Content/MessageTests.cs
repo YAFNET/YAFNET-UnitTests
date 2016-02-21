@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014 Ingo Herbote
+ * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -149,7 +149,7 @@ namespace YAF.Tests.UserTests.Content
         /// </summary>
         [Test]
         [Description("Post 3 Replies and try to quote them with Multi Quoting via the \"Multi Quote\" Button test.")]
-        [Ignore]
+        [Ignore("Doesnt work yet")]
         public void Post_Reply_With_Multi_Quote_Test()
         {
             // First Creating a new test topic with the test user
