@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2016 Ingo Herbote
+ * Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -45,7 +45,7 @@ namespace YAF.Tests.UserTests
         /// <summary>
         /// Download YAF, Create Application and setup the Database
         /// </summary>
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             _testBase = new InstallBase();
@@ -56,7 +56,7 @@ namespace YAF.Tests.UserTests
         /// <summary>
         /// The Tear Down
         /// </summary>
-        [TearDown]
+        [OneTimeTearDown]
         public void TearDown()
         {
             _testBase.TearDown();

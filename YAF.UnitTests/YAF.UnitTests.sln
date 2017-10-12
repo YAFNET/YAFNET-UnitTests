@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Tests.Utils", "YAF.Tests.Utils\YAF.Tests.Utils.csproj", "{E778E116-792B-4C78-8BD3-DE4844333C7D}"
 EndProject
@@ -74,5 +74,8 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{CE9FFE92-9A64-483C-9F11-A27F83C0E14C} = {D3EE5868-ADC6-4AF0-AFB3-F7F3D640D0F0}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DFC182D4-9D45-4D63-9509-BAB2BE939FB6}
 	EndGlobalSection
 EndGlobal

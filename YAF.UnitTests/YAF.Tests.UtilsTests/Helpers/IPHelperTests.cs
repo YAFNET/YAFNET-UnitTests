@@ -22,29 +22,31 @@
  * under the License.
  */
 
-namespace YAF.Tests.Utils.Extensions
+namespace YAF.Tests.UtilsTests.Helpers
 {
-    using System;
+    using NUnit.Framework;
 
-    using OpenQA.Selenium;
-    using OpenQA.Selenium.Support.UI;
+    using YAF.Utils.Helpers;
 
-    public class WaitFor
+    /// <summary>
+    /// YAF.Utils IPHelper Tests
+    /// </summary>
+    [TestFixture]
+    public class IPHelperTests
     {
-        public static void ElementPresent(IWebDriver browser, By locator)
+        /// <summary>
+        /// Converts a string to a IP Address test
+        /// </summary>
+        [Test]
+        [Description("Converts a string to a IP Address test")]
+        public void StringToIP_Test()
         {
-            Wait(browser, locator, TimeSpan.FromSeconds(10));
-        }
+            const string testMessage =
+                "2001:0db8:85a3:0000:0000:8a2e:0370:7334";
 
-        public static void ElementPresent(IWebDriver browser, By locator, TimeSpan timeSpan)
-        {
-            Wait(browser, locator, timeSpan);
-        }
+            ulong  ipAddress = 1340406161;
 
-        private static void Wait(IWebDriver browser, By locator, TimeSpan timespan)
-        {
-            IWait<IWebDriver> wait = new WebDriverWait(browser, timespan);
-            wait.Until(d => d.FindElement(locator));
+            Assert.AreEqual(ipAddress, IPHelper.StringToIP(testMessage.Split('.')));
         }
     }
 }

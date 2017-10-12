@@ -1,5 +1,5 @@
-﻿/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjørnar Henden
+/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bj�rnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
@@ -22,39 +22,43 @@
  * under the License.
  */
 
-namespace YAF.Tests.BasicTests
+namespace YAF.Tests.CoreTests
 {
     using System;
 
     using NUnit.Framework;
 
+    using YAF.Core.Services.CheckForSpam;
     using YAF.Types.Extensions;
+    using YAF.Utils.Helpers;
 
     /// <summary>
-    /// Object Extensions Tests
+    /// Different IP Address Tests.
     /// </summary>
     [TestFixture]
-    [Category("Basic Object Extensions Tests")]
-    public class ObjectExtensionsTests
+    public class IPAddressTests
     {
         /// <summary>
-        /// Convert Object To Type Test
+        /// Gets or sets TestContext.
+        /// </summary>
+        public TestContext TestContext { get; set; }
+
+        /// <summary>
+        /// A test to check the Akismet API Key
         /// </summary>
         [Test]
-        [Description("Convert Object To Type Test")]
-        public void ConvertObjectToType_Test()
+        [Description("A test to convert a String to an IP Address")]
+        public void StringToIp_Test()
         {
-            var guid = ObjectExtensions.ConvertObjectToType("3021ABAA-991E-4AC3-9169-5FEAED33AA0A", "System.Guid");
+            // IP v4 Address
+            //var ip = "79.228.254.119".Split('.');
 
-            Assert.IsTrue(guid is Guid, "object should be an System.Guid");
+            // IP v6 Address
+            var ip = "2001:0db8:0a0b:12f0:0000:0000:0000:0001".Split(':');
 
-            var int32 = ObjectExtensions.ConvertObjectToType("12345", "System.Int32");
-
-            Assert.IsTrue(int32 is int, "object should be an System.Int32");
-
-            var boolean = ObjectExtensions.ConvertObjectToType("True", "System.Boolean");
-
-            Assert.IsTrue(boolean is bool, "object should be an System.Boolean");
+            Assert.AreEqual(/*"1340407415"*/"15060037153926938625",
+                IPHelper.StringToIP(ip).ToString(),
+                IPHelper.StringToIP(ip).ToString());
         }
     }
 }

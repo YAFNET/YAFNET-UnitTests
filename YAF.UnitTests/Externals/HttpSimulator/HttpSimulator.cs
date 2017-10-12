@@ -179,10 +179,7 @@ namespace HttpSimulator
         /// </value>
         public string ApplicationPath
         {
-            get
-            {
-                return this.applicationPath;
-            }
+            get => this.applicationPath;
 
             set
             {

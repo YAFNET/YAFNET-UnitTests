@@ -22,29 +22,33 @@
  * under the License.
  */
 
-namespace YAF.Tests.Utils.Extensions
+namespace YAF.Tests.UtilsTests.Helpers
 {
-    using System;
+    using NUnit.Framework;
 
-    using OpenQA.Selenium;
-    using OpenQA.Selenium.Support.UI;
+    using YAF.Utils.Helpers;
 
-    public class WaitFor
+    /// <summary>
+    /// YAF.Utils UrlHelper Tests
+    /// </summary>
+    [TestFixture]
+    public class UrlHelperTests
     {
-        public static void ElementPresent(IWebDriver browser, By locator)
+        /// <summary>
+        /// Count all URLs Test
+        /// </summary>
+        [Test]
+        [Description("Count all URLs Test.")]
+        public void CountUrls_Test()
         {
-            Wait(browser, locator, TimeSpan.FromSeconds(10));
-        }
+            const string TestMessage =
+               @"Indeed, back to the drawing board. You might be against [url=http://supplementsbook.org/ketoslim/]Ketoslim[/url] for some reason. 
+                 Read More: [url = http://supplementsbook.org/ketoslim/]http://supplementsbook.org/ketoslim/[/url]";
 
-        public static void ElementPresent(IWebDriver browser, By locator, TimeSpan timeSpan)
-        {
-            Wait(browser, locator, timeSpan);
-        }
 
-        private static void Wait(IWebDriver browser, By locator, TimeSpan timespan)
-        {
-            IWait<IWebDriver> wait = new WebDriverWait(browser, timespan);
-            wait.Until(d => d.FindElement(locator));
+        Assert.AreEqual(
+                3,
+                UrlHelper.CountUrls(TestMessage));
         }
     }
 }

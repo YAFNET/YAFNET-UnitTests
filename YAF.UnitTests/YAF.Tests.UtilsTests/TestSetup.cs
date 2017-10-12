@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2016 Ingo Herbote
+ * Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -44,7 +44,7 @@ namespace YAF.Tests.UtilsTests
         /// <summary>
         /// Sets up the mocked YAF Forum instance
         /// </summary>
-        [SetUp]
+        [OneTimeSetUp]
         public void Preparations()
         {
             var _factory = new MockRepository(MockBehavior.Strict);
@@ -67,7 +67,7 @@ namespace YAF.Tests.UtilsTests
         /// <summary>
         /// Removes the fake providers.
         /// </summary>
-        [TearDown]
+        [OneTimeTearDown]
         public void TearDown()
         {
             Membership.Providers.RemoveMembershipProvider("MyMembershipProvider");

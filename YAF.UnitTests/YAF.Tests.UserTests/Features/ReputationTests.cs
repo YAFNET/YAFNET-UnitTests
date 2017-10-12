@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2016 Ingo Herbote
+ * Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -47,7 +47,7 @@ namespace YAF.Tests.UserTests.Features
         /// <summary>
         /// Login User Setup
         /// </summary>
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         public void SetUpTest()
         {
             this.Driver = !TestConfig.UseExistingInstallation ? TestSetup._testBase.ChromeDriver : new ChromeDriver();
@@ -58,7 +58,7 @@ namespace YAF.Tests.UserTests.Features
         /// <summary>
         /// Logout Test User
         /// </summary>
-        [TestFixtureTearDown]
+        [OneTimeTearDown]
         public void TearDownTest()
         {
             this.LogoutUser();
