@@ -147,25 +147,13 @@ namespace HttpSimulator
         ///   Gets the format exception.
         /// </summary>
         /// <value> The format exception. </value>
-        public NameValueCollection Form
-        {
-            get
-            {
-                return this.formVariables;
-            }
-        }
+        public NameValueCollection Form => this.formVariables;
 
         /// <summary>
         ///   Gets the headers.
         /// </summary>
         /// <value> The headers. </value>
-        public NameValueCollection Headers
-        {
-            get
-            {
-                return this.headers;
-            }
-        }
+        public NameValueCollection Headers => this.headers;
 
         #endregion
 
@@ -179,7 +167,7 @@ namespace HttpSimulator
         /// </returns>
         public override string GetAppPath()
         {
-            string appPath = base.GetAppPath();
+            var appPath = base.GetAppPath();
             return appPath;
         }
 
@@ -191,7 +179,7 @@ namespace HttpSimulator
         /// </returns>
         public override string GetAppPathTranslated()
         {
-            string path = base.GetAppPathTranslated();
+            var path = base.GetAppPathTranslated();
             return path;
         }
 
@@ -260,10 +248,9 @@ namespace HttpSimulator
         /// </returns>
         public override byte[] GetPreloadedEntityBody()
         {
-            string formText = this.formVariables.Keys.Cast<string>().Aggregate(
+            var formText = this.formVariables.Keys.Cast<string>().Aggregate(
                 string.Empty, 
-                (current, key) =>
-                string.Format("{0}{1}", current, string.Format("{0}={1}&", key, this.formVariables[key])));
+                (current, key) => $"{current}{$"{key}={this.formVariables[key]}&"}");
 
             return Encoding.UTF8.GetBytes(formText);
         }
@@ -292,8 +279,8 @@ namespace HttpSimulator
                 return null;
             }
 
-            string[][] headersArray = new string[this.headers.Count][];
-            for (int i = 0; i < this.headers.Count; i++)
+            var headersArray = new string[this.headers.Count][];
+            for (var i = 0; i < this.headers.Count; i++)
             {
                 headersArray[i] = new string[2];
                 headersArray[i][0] = this.headers.Keys[i];
@@ -311,7 +298,7 @@ namespace HttpSimulator
         /// </returns>
         public override string GetUriPath()
         {
-            string uriPath = base.GetUriPath();
+            var uriPath = base.GetUriPath();
             return uriPath;
         }
 

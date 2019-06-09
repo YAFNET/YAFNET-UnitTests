@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -29,7 +29,6 @@ namespace YAF.Tests.CoreTests
     using NUnit.Framework;
 
     using YAF.Core.Services.CheckForSpam;
-    using YAF.Types.Extensions;
 
     /// <summary>
     /// The spam client tester.
@@ -52,64 +51,6 @@ namespace YAF.Tests.CoreTests
             var service = new AkismetSpamClient("XXXX", new Uri("http://www.google.com"));
 
             Assert.AreEqual(false, service.VerifyApiKey(), "The Verify of the API Key should be false");
-        }
-
-        /// <summary>
-        /// A Test to Check for SPAM
-        /// </summary>
-        [Test]
-        [Description("A Test to Check for SPAM")]
-        public void Check_For_Spam_Test()
-        {
-            string result;
-
-            Assert.IsTrue(
-                BlogSpamNet.CommentIsSpam(
-                    new BlogSpamComment
-                        {
-                            comment =
-                                "beside the four [url=http://www.linkslondononline.com]links of london[/url] creatures and under [url=http://www.linkslondononline.com]links[/url] the feet of [url=http://www.linkslondononline.com]links of london jewellery[/url] the Seated [url=http://www.linkslondononline.com/sweetie-bracelets]sweetie bracelet[/url] One, as if seen through [url=http://www.linkslondononline.com/links-of-london-charms]links of london charm[/url] the transparent [url=http://www.linkslondononline.com/links-of-london-bracelets]links of london charm bracelet[/url] waters of the crystal sea",
-                            ip = "147.202.45.202",
-                            agent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)",
-                            email = "backthismailtojerry@fastmail.fm",
-                            link = "http://someone.finderinn.com",
-                            name = "someone",
-                            version = string.Empty,
-                            options = string.Empty,
-                            subject = string.Empty
-                        },
-                    false,
-                    out result),
-                "This Comment should been True (SPAM)" + result);
-        }
-
-        /// <summary>
-        /// A Test to Check for Harmless SPAM
-        /// </summary>
-        [Test]
-        [Description("A Test to Check for Harmless SPAM")]
-        public void Check_For_Harmless_Test()
-        {
-            string result;
-
-            Assert.IsFalse(
-                BlogSpamNet.CommentIsSpam(
-                    new BlogSpamComment
-                        {
-                            comment = "Test comment",
-                            ip = "127.0.0.1",
-                            agent =
-                                "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; Maxthon; .NET CLR 1.1.4322; .NET CLR 2.0.50727)",
-                            email = "johndoe@mydomain.com",
-                            link = "http://www.mydomain.com",
-                            name = "John Doe",
-                            version = string.Empty,
-                            options = "whitelist=127.0.0.1",
-                            subject = string.Empty
-                        },
-                    false,
-                    out result),
-                "This Comment should been False (No SPAM)" + result);
         }
 
         /// <summary>
@@ -164,11 +105,8 @@ namespace YAF.Tests.CoreTests
         public void Report_User_As_Bot_Test()
         {
             string responseText, responseText2;
-            var parameters = "username={0}&ip_addr={1}&email={2}&api_key={3}".FormatWith(
-                "someone",
-                "84.16.230.111",
-                "krasnhello@mail.ru",
-                "XXXXXXXXXXX");
+            var parameters =
+                $"username={"someone"}&ip_addr={"84.16.230.111"}&email={"krasnhello@mail.ru"}&api_key={"XXXXXXXXXXX"}";
 
             var result = new HttpClient().PostRequest(
                 new Uri("http://www.stopforumspam.com/add.php"),

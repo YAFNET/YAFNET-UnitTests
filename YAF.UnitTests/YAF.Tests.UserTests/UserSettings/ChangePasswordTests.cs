@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -30,7 +30,6 @@ namespace YAF.Tests.UserTests.UserSettings
     using OpenQA.Selenium.Chrome;
 
     using YAF.Tests.Utils;
-    using YAF.Types.Extensions;
 
     /// <summary>
     /// The user Change Password tests.
@@ -70,10 +69,7 @@ namespace YAF.Tests.UserTests.UserSettings
         public void Change_User_Password_Test()
         {
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}cp_changepassword.aspx".FormatWith(
-                        TestConfig.TestForumUrl,
-                        TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_changepassword.aspx");
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Change Password"),
@@ -85,9 +81,9 @@ namespace YAF.Tests.UserTests.UserSettings
 
             // Enter New Password
             this.Driver.FindElement(By.XPath("//input[contains(@id,'_ChangePasswordContainerID_NewPassword')]"))
-                .SendKeys("{0}ABCDEF".FormatWith(TestConfig.TestUserPassword));
+                .SendKeys($"{TestConfig.TestUserPassword}ABCDEF");
             this.Driver.FindElement(By.XPath("//input[contains(@id,'_ChangePasswordContainerID_ConfirmNewPassword')]"))
-                .SendKeys("{0}ABCDEF".FormatWith(TestConfig.TestUserPassword));
+                .SendKeys($"{TestConfig.TestUserPassword}ABCDEF");
 
             // Submit
             this.Driver.FindElement(
@@ -101,14 +97,11 @@ namespace YAF.Tests.UserTests.UserSettings
 
             // Now Change Password Back to Default Password
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}cp_changepassword.aspx".FormatWith(
-                        TestConfig.TestForumUrl,
-                        TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_changepassword.aspx");
 
             // Enter Old Password
             this.Driver.FindElement(By.XPath("//input[contains(@id,'_ChangePasswordContainerID_CurrentPassword')]"))
-                .SendKeys("{0}ABCDEF".FormatWith(TestConfig.TestUserPassword));
+                .SendKeys($"{TestConfig.TestUserPassword}ABCDEF");
 
             // Enter New Password
             this.Driver.FindElement(By.XPath("//input[contains(@id,'_ChangePasswordContainerID_NewPassword')]"))

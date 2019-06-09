@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -37,24 +37,12 @@ namespace YAF.Tests.Utils
         /// <summary>
         /// Gets the test forum ID.
         /// </summary>
-        public static int TestForumID
-        {
-            get
-            {
-                return GetConfigValueAsInt("YAF.TestForumID", 1);
-            }
-        }
+        public static int TestForumID => GetConfigValueAsInt("YAF.TestForumID", 1);
 
         /// <summary>
         /// Gets the test topic ID.
         /// </summary>
-        public static int TestTopicID
-        {
-            get
-            {
-                return GetConfigValueAsInt("YAF.TestTopicID", 1);
-            }
-        }
+        public static int TestTopicID => GetConfigValueAsInt("YAF.TestTopicID", 1);
 
         /// <summary>
         /// Gets a value indicating whether [use existing installation].
@@ -62,68 +50,32 @@ namespace YAF.Tests.Utils
         /// <value>
         ///   <c>true</c> if use existing installation; otherwise, <c>false</c>.
         /// </value>
-        public static bool UseExistingInstallation
-        {
-            get
-            {
-                return GetConfigValueAsBoolean("YAF.UseExistingInstallation", false);
-            }
-        }
+        public static bool UseExistingInstallation => GetConfigValueAsBoolean("YAF.UseExistingInstallation", false);
 
         /// <summary>
         /// Gets the config password.
         /// </summary>
-        public static string ConfigPassword
-        {
-            get
-            {
-                return GetConfigValueAsString("YAF.ConfigPassword") ?? "pass";
-            }
-        }
+        public static string ConfigPassword => GetConfigValueAsString("YAF.ConfigPassword") ?? "pass";
 
         /// <summary>
         /// Gets the test database.
         /// </summary>
-        public static string TestDatabase
-        {
-            get
-            {
-                return GetConfigValueAsString("YAF.TestDatabase") ?? "YAFNETTEST";
-            }
-        }
+        public static string TestDatabase => GetConfigValueAsString("YAF.TestDatabase") ?? "YAFNETTEST";
 
         /// <summary>
         /// Gets the database server.
         /// </summary>
-        public static string DatabaseServer
-        {
-            get
-            {
-                return GetConfigValueAsString("YAF.DatabaseServer") ?? "(local)";
-            }
-        }
+        public static string DatabaseServer => GetConfigValueAsString("YAF.DatabaseServer") ?? "(local)";
 
         /// <summary>
         /// Gets the install test site URL.
         /// </summary>
-        public static string InstallTestSiteURL
-        {
-            get
-            {
-                return "http://localhost/{0}/".FormatWith(TestApplicationName);
-            }
-        }
+        public static string InstallTestSiteURL => $"http://localhost/{TestApplicationName}/";
 
         /// <summary>
         /// Gets the test application pool.
         /// </summary>
-        public static string TestApplicationPool
-        {
-            get
-            {
-                return GetConfigValueAsString("YAF.TestApplicationPool") ?? "ASP.NET v4.0 Classic";
-            }
-        }
+        public static string TestApplicationPool => GetConfigValueAsString("YAF.TestApplicationPool") ?? "ASP.NET v4.0 Classic";
 
         /// <summary>
         /// Gets the name of the test application.
@@ -131,81 +83,41 @@ namespace YAF.Tests.Utils
         /// <value>
         /// The name of the test application.
         /// </value>
-        public static string TestApplicationName
-        {
-            get
-            {
-                return GetConfigValueAsString("YAF.TestApplicationName") ?? "YAFNETTEST";
-            }
-        }
+        public static string TestApplicationName => GetConfigValueAsString("YAF.TestApplicationName") ?? "YAFNETTEST";
 
         /// <summary>
         /// Gets the package location.
         /// </summary>
-        public static string PackageLocation
-        {
-            get
-            {
-                return GetConfigValueAsString("YAF.PackageLocation") ?? "Local";
-            }
-        }
+        public static string PackageLocation => GetConfigValueAsString("YAF.PackageLocation") ?? "Local";
 
         /// <summary>
         /// Gets the install physical path.
         /// </summary>
-        public static string InstallPhysicalPath
-        {
-            get
-            {
-                return GetConfigValueAsString("YAF.InstallPhysicalPath") ?? @"C:\Tests\";
-            }
-        }
+        public static string InstallPhysicalPath => GetConfigValueAsString("YAF.InstallPhysicalPath") ?? @"C:\Tests\";
 
         /// <summary>
         /// Gets the Release download URL.
         /// </summary>
-        public static string ReleaseDownloadUrl
-        {
-            get
-            {
-                return GetConfigValueAsString("YAF.ReleaseDownloadUrl") ??
-                       "https://github.com/YAFNET/YAFNET/releases/download/v2.1.2/YAF-v2.1.2.0-Install.zip";
-            }
-        }
+        public static string ReleaseDownloadUrl =>
+            GetConfigValueAsString("YAF.ReleaseDownloadUrl") ??
+            "https://github.com/YAFNET/YAFNET/releases/download/v2.1.2/YAF-v2.1.2.0-Install.zip";
 
         /// <summary>
         /// Gets the local release package file.
         /// </summary>
-        public static string LocalReleasePackageFile
-        {
-            get
-            {
-                return GetConfigValueAsString("YAF.LocalReleasePackageFile") ??
-                       @"..\..\testfiles\YAF-v2.1.2.0-Install.zip";
-            }
-        }
+        public static string LocalReleasePackageFile =>
+            GetConfigValueAsString("YAF.LocalReleasePackageFile") ??
+            @"..\..\testfiles\YAF-v2.1.2.0-Install.zip";
 
         /// <summary>
         /// Gets the name of the admin user.
         /// </summary>
-        public static string AdminUserName
-        {
-            get
-            {
-                return GetConfigValueAsString("YAF.AdminUserName") ?? "Admin";
-            }
-        }
+        public static string AdminUserName => GetConfigValueAsString("YAF.AdminUserName") ?? "Admin";
 
         /// <summary>
         /// Gets the admin password.
         /// </summary>
-        public static string AdminPassword
-        {
-            get
-            {
-                return GetConfigValueAsString("YAF.AdminPassword") ?? "AdminAdmin1234?!";
-            }
-        }
+        public static string AdminPassword => GetConfigValueAsString("YAF.AdminPassword") ?? "AdminAdmin1234?!";
 
         /// <summary>
         /// Gets the name of the test user.
@@ -213,24 +125,12 @@ namespace YAF.Tests.Utils
         /// <value>
         /// The name of the test user.
         /// </value>
-        public static string TestUserName
-        {
-            get
-            {
-                return GetConfigValueAsString("YAF.TestUserName") ?? "TestUser";
-            }
-        }
+        public static string TestUserName => GetConfigValueAsString("YAF.TestUserName") ?? "TestUser";
 
         /// <summary>
         /// Gets the test user password.
         /// </summary>
-        public static string TestUserPassword
-        {
-            get
-            {
-                return GetConfigValueAsString("YAF.TestUserPassword") ?? "TestUserTestUser1234?!";
-            }
-        }
+        public static string TestUserPassword => GetConfigValueAsString("YAF.TestUserPassword") ?? "TestUserTestUser1234?!";
 
         /// <summary>
         /// Gets the name of the test user 2.
@@ -238,48 +138,25 @@ namespace YAF.Tests.Utils
         /// <value>
         /// The name of the test user 2.
         /// </value>
-        public static string TestUserName2
-        {
-            get
-            {
-                return GetConfigValueAsString("YAF.TestUserName2") ?? "TestUser2";
-            }
-        }
+        public static string TestUserName2 => GetConfigValueAsString("YAF.TestUserName2") ?? "TestUser2";
 
         /// <summary>
         /// Gets the test user 2 password.
         /// </summary>
-        public static string TestUser2Password
-        {
-            get
-            {
-                return GetConfigValueAsString("YAF.TestUser2Password") ?? "TestUser2TestUser21234?!";
-            }
-        }
+        public static string TestUser2Password => GetConfigValueAsString("YAF.TestUser2Password") ?? "TestUser2TestUser21234?!";
 
         /// <summary>
         /// Gets Default Website Name.
         /// </summary>
-        public static string DefaultWebsiteName
-        {
-            get
-            {
-                return GetConfigValueAsString("YAF.DefaultWebsiteName") ?? "Default Web Site";
-            }
-        }
+        public static string DefaultWebsiteName => GetConfigValueAsString("YAF.DefaultWebsiteName") ?? "Default Web Site";
 
         /// <summary>
         /// Gets Test Forum Url.
         /// </summary>
-        public static string TestForumUrl
-        {
-            get
-            {
-                return !UseExistingInstallation
-                           ? InstallTestSiteURL
-                           : GetConfigValueAsString("YAF.TestForumUrl") ?? "http://localhost:63645/";
-            }
-        }
+        public static string TestForumUrl =>
+            !UseExistingInstallation
+                ? InstallTestSiteURL
+                : GetConfigValueAsString("YAF.TestForumUrl") ?? "http://localhost:63645/";
 
         /// <summary>
         /// Gets the forum URL rewriting prefix.
@@ -287,13 +164,7 @@ namespace YAF.Tests.Utils
         /// <value>
         /// The forum URL rewriting prefix.
         /// </value>
-        public static string ForumUrlRewritingPrefix
-        {
-            get
-            {
-                return GetConfigValueAsString("YAF.UrlRewritingPrefix") ?? "yaf_";
-            }
-        }
+        public static string ForumUrlRewritingPrefix => GetConfigValueAsString("YAF.UrlRewritingPrefix") ?? "yaf_";
 
         /// <summary>
         /// Gets a value indicating whether [use test mail server].
@@ -301,35 +172,17 @@ namespace YAF.Tests.Utils
         /// <value>
         ///   <c>true</c> if [use test mail server]; otherwise, <c>false</c>.
         /// </value>
-        public static bool UseTestMailServer
-        {
-            get
-            {
-                return GetConfigValueAsBoolean("YAF.UseTestMailServer", true);
-            }
-        }
+        public static bool UseTestMailServer => GetConfigValueAsBoolean("YAF.UseTestMailServer", true);
 
         /// <summary>
         /// Gets the test mail host.
         /// </summary>
-        public static string TestMailHost
-        {
-            get
-            {
-                return GetConfigValueAsString("YAF.TestMailHost") ?? "localhost";
-            }
-        }
+        public static string TestMailHost => GetConfigValueAsString("YAF.TestMailHost") ?? "localhost";
 
         /// <summary>
         /// Gets the test mail password.
         /// </summary>
-        public static string TestMailPassword
-        {
-            get
-            {
-                return GetConfigValueAsString("YAF.TestMailPassword") ?? "pass";
-            }
-        }
+        public static string TestMailPassword => GetConfigValueAsString("YAF.TestMailPassword") ?? "pass";
 
         /// <summary>
         /// Gets the name of the test mail user.
@@ -337,35 +190,17 @@ namespace YAF.Tests.Utils
         /// <value>
         /// The name of the test mail user.
         /// </value>
-        public static string TestMailUserName
-        {
-            get
-            {
-                return GetConfigValueAsString("YAF.TestMailUserName") ?? "forum@yafnettest.com";
-            }
-        }
+        public static string TestMailUserName => GetConfigValueAsString("YAF.TestMailUserName") ?? "forum@yafnettest.com";
 
         /// <summary>
         /// Gets the test mail port.
         /// </summary>
-        public static string TestMailPort
-        {
-            get
-            {
-                return GetConfigValueAsString("YAF.TestMailPort") ?? "25";
-            }
-        }
+        public static string TestMailPort => GetConfigValueAsString("YAF.TestMailPort") ?? "25";
 
         /// <summary>
         /// Gets the test forum mail.
         /// </summary>
-        public static string TestForumMail
-        {
-            get
-            {
-                return GetConfigValueAsString("YAF.TestForumMail") ?? "forum@yafnettest.com";
-            }
-        }
+        public static string TestForumMail => GetConfigValueAsString("YAF.TestForumMail") ?? "forum@yafnettest.com";
 
         /// <summary>
         /// Gets the config value as Int32.
@@ -377,7 +212,7 @@ namespace YAF.Tests.Utils
         /// </returns>
         public static int GetConfigValueAsInt(string configKey, int defaultValue)
         {
-            string value = GetConfigValueAsString(configKey);
+            var value = GetConfigValueAsString(configKey);
 
             return !string.IsNullOrEmpty(value) ? value.ToLower().ToType<int>() : defaultValue;
         }
@@ -390,7 +225,7 @@ namespace YAF.Tests.Utils
         /// <returns>Returns Boolean Value</returns>
         public static bool GetConfigValueAsBoolean(string configKey, bool defaultValue)
         {
-            string value = GetConfigValueAsString(configKey);
+            var value = GetConfigValueAsString(configKey);
 
             return !string.IsNullOrEmpty(value) ? Convert.ToBoolean(value.ToLower()) : defaultValue;
         }

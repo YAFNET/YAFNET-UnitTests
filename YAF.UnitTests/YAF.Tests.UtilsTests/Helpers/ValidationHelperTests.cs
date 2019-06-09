@@ -29,26 +29,22 @@ namespace YAF.Tests.UtilsTests.Helpers
     using YAF.Utils.Helpers;
 
     /// <summary>
-    /// YAF.Utils UrlHelper Tests
+    /// YAF.Utils.Helpers ValidationHelper Tests
     /// </summary>
     [TestFixture]
-    public class UrlHelperTests
+    public class ValidationHelperTests
     {
         /// <summary>
-        /// Count all URLs Test
+        /// Determines whether [is valid email test].
         /// </summary>
         [Test]
-        [Description("Count all URLs Test.")]
-        public void CountUrls_Test()
+        [Description("Determines whether [is valid email test]")]
+        public void IsValidEmail_Test()
         {
-            const string TestMessage =
-               @"Indeed, back to the drawing board. You might be against [url=http://supplementsbook.org/ketoslim/]Ketoslim[/url] for some reason. 
-                 Read More: [url = http://supplementsbook.org/ketoslim/]http://supplementsbook.org/ketoslim/[/url]";
+            const string TestEmail = "yaf@co.geauga.oh.us";
 
 
-        Assert.AreEqual(
-                3,
-                UrlHelper.CountUrls(TestMessage));
+            Assert.IsTrue(ValidationHelper.IsValidEmail(TestEmail), "Email address is not valid");
         }
     }
 }

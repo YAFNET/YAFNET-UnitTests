@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,7 +27,6 @@ namespace YAF.Tests.CoreTests.Formatting
     using NUnit.Framework;
 
     using YAF.Core;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
 
     /// <summary>
@@ -70,7 +69,7 @@ namespace YAF.Tests.CoreTests.Formatting
         {
             var testMessage = YafContext.Current.Get<ILocalization>().GetTextFormatted("LOGGED_IN_AS", "TestUser");
 
-            Assert.AreEqual("Logged in as: {0}".FormatWith("TestUser"), testMessage, testMessage);
+            Assert.AreEqual($"Logged in as: {"TestUser"}", testMessage, testMessage);
         }
 
         /// <summary>

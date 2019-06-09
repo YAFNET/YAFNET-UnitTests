@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -33,7 +33,6 @@ namespace YAF.Tests.AdminTests.Users
 
     using YAF.Tests.Utils;
     using YAF.Tests.Utils.Extensions;
-    using YAF.Types.Extensions;
 
     /// <summary>
     /// The Manage User Tests
@@ -74,8 +73,7 @@ namespace YAF.Tests.AdminTests.Users
         public void Delete_Random_Test_User_Test()
         {
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}admin_users.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}admin_users.aspx");
 
             // Search for TestUser
             var searchNameInput = this.Driver.FindElement(By.XPath("//input[contains(@id,'_name')]"));
@@ -101,8 +99,7 @@ namespace YAF.Tests.AdminTests.Users
         public void Add_User_To_Test_Role_Test()
         {
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}admin_users.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}admin_users.aspx");
 
             // Search for TestUser
             var searchNameInput = this.Driver.FindElement(By.XPath("//input[contains(@id,'_name')]"));
@@ -125,8 +122,7 @@ namespace YAF.Tests.AdminTests.Users
             this.Driver.FindElement(By.XPath("//input[contains(@id,'_GroupEditControl_Save')]")).Click();
 
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}admin_users.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}admin_users.aspx");
 
             // Search for TestUser
             searchNameInput = this.Driver.FindElement(By.XPath("//input[contains(@id,'_name')]"));

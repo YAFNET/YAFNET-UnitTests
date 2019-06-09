@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -32,7 +32,6 @@ namespace YAF.Tests.Utils
     using OpenQA.Selenium.Chrome;
 
     using YAF.Tests.Utils.Extensions;
-    using YAF.Types.Extensions;
 
     /// <summary>
     /// Unit TestBase.
@@ -112,7 +111,7 @@ namespace YAF.Tests.Utils
 
                 this.Driver.ClickAndWaitUntilVisible(By.Id("forum_ctl02_OkButton"));
 
-                bool contains = this.Driver.PageSource.Contains("Welcome Guest");
+                var contains = this.Driver.PageSource.Contains("Welcome Guest");
 
                 if (closeBrowser)
                 {
@@ -142,10 +141,7 @@ namespace YAF.Tests.Utils
         protected bool CreateNewTestTopic()
         {
             this.Driver.Navigate().GoToUrl(
-                "{0}{2}postmessage.aspx?f={1}".FormatWith(
-                    TestConfig.TestForumUrl,
-                    TestConfig.TestForumID,
-                    TestConfig.ForumUrlRewritingPrefix));
+                string.Format("{0}{2}postmessage.aspx?f={1}", TestConfig.TestForumUrl, TestConfig.TestForumID, TestConfig.ForumUrlRewritingPrefix));
 
             if (!this.Driver.PageSource.Contains("Post New Topic"))
             {
@@ -153,7 +149,8 @@ namespace YAF.Tests.Utils
             }
 
             // Create New Topic
-            this.Driver.FindElement(By.XPath("//input[contains(@id,'_TopicSubjectTextBox')]")).SendKeys("Auto Created Test Topic - {0}".FormatWith(DateTime.UtcNow));
+            this.Driver.FindElement(By.XPath("//input[contains(@id,'_TopicSubjectTextBox')]")).SendKeys(
+                $"Auto Created Test Topic - {DateTime.UtcNow}");
 
             this.Driver.FindElement(By.XPath("//textarea[contains(@id,'_YafTextEditor')]")).SendKeys("This is a Test Message Created by an automated Unit Test");
 
@@ -174,10 +171,7 @@ namespace YAF.Tests.Utils
         {
             // Go to Post New Topic
             this.Driver.Navigate().GoToUrl(
-                "{0}{2}postst{1}.aspx".FormatWith(
-                    TestConfig.TestForumUrl,
-                    TestConfig.TestTopicID,
-                    TestConfig.ForumUrlRewritingPrefix));
+                string.Format("{0}{2}postst{1}.aspx", TestConfig.TestForumUrl, TestConfig.TestTopicID, TestConfig.ForumUrlRewritingPrefix));
 
             if (this.Driver.PageSource.Contains("You've passed an invalid value to the forum."))
             {
@@ -208,7 +202,7 @@ namespace YAF.Tests.Utils
         protected bool SendPrivateMessage(string testMessage)
         {
             this.Driver.Navigate().GoToUrl(
-                "{0}{1}pmessage.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                $"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}pmessage.aspx");
 
             // Send a Message to Myself
             this.Driver.FindElement(By.XPath("//input[contains(@id,'_To')]")).SendKeys(TestConfig.TestUserName);

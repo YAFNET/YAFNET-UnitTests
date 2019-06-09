@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -50,7 +50,7 @@ namespace YAF.Tests.BasicTests
             const string ExpectedResult = "uNBoPpKz+S46wPPVCeIFyHW0lVE=";
             const string Salt = "UwB5AHMAdABlAG0ALgBCAHkAdABlAFsAXQA=";
 
-            string result = YafMembershipProvider.Hash(
+            var result = YafMembershipProvider.Hash(
                 TestPasswrd,
                 "SHA1",
                 Salt,
@@ -73,7 +73,7 @@ namespace YAF.Tests.BasicTests
             const string ExpectedResult = "CoUcFgjFpOK1mt+vYrDtQO6IZ9I=";
             const string Salt = "9LeeEZnXUE81gAzeWFXCvw==";
 
-            string result = YafMembershipProvider.Hash(
+            var result = YafMembershipProvider.Hash(
                 TestPasswrd,
                 "SHA1",
                 Salt,
@@ -95,7 +95,7 @@ namespace YAF.Tests.BasicTests
             const string TestPasswrd = ";Stupid12";
             const string ExpectedResult = "32ADF4DF9AE5B5184EDB8D8BA9D65AD9";
 
-            string result = YafMembershipProvider.Hash(
+            var result = YafMembershipProvider.Hash(
                 TestPasswrd,
                 "MD5",
                 string.Empty,
@@ -118,7 +118,7 @@ namespace YAF.Tests.BasicTests
             const string ExpectedResult = "8dCiTK3x/mjTG6p4uO72CzNG1mk=";
             const string Salt = "8tX6TMKiZtmA/GwOgpf6uw==";
 
-            string result = YafMembershipProvider.Hash(
+            var result = YafMembershipProvider.Hash(
                 TestPasswrd,
                 "SHA1",
                 Salt,
@@ -140,7 +140,7 @@ namespace YAF.Tests.BasicTests
             const string TestPasswrd = ";Stupid12";
             const string ExpectedResult = "fa679d16ac15713a5a305f45dce4295b241f6dd38e14f92daa330d599ce77d40";
 
-            string result = YafMembershipProvider.Hash(
+            var result = YafMembershipProvider.Hash(
                 TestPasswrd,
                 "SHA256",
                 string.Empty,

@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -34,7 +34,6 @@ namespace YAF.Tests.UserTests.UserSettings
 
     using YAF.Tests.Utils;
     using YAF.Tests.Utils.Extensions;
-    using YAF.Types.Extensions;
 
     /// <summary>
     /// The Private Message tests.
@@ -74,19 +73,19 @@ namespace YAF.Tests.UserTests.UserSettings
         public void Send_Private_Message_Test()
         {
             this.Driver.Navigate()
-                .GoToUrl("{0}{1}cp_pm.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_pm.aspx");
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Archive"),
                 "Private Message Function is not available for that User, or is disabled");
 
-            var testMessage = "This is an automated Test Message generated at {0}".FormatWith(DateTime.UtcNow);
+            var testMessage = $"This is an automated Test Message generated at {DateTime.UtcNow}";
 
             Assert.IsTrue(this.SendPrivateMessage(testMessage), "Test Message Send Failed");
 
             // Read Message
             this.Driver.Navigate()
-                .GoToUrl("{0}{1}cp_pm.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_pm.aspx");
 
             // Get First Message
             this.Driver.FindElementByLinkText("Testmessage").Click();
@@ -101,7 +100,7 @@ namespace YAF.Tests.UserTests.UserSettings
         public void Archive_Private_Message_Test()
         {
             this.Driver.Navigate()
-                .GoToUrl("{0}{1}cp_pm.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_pm.aspx");
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Archive"),
@@ -139,7 +138,7 @@ namespace YAF.Tests.UserTests.UserSettings
         public void Export_Private_Message_Test()
         {
             this.Driver.Navigate()
-                .GoToUrl("{0}{1}cp_pm.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_pm.aspx");
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Archive"),
@@ -178,7 +177,7 @@ namespace YAF.Tests.UserTests.UserSettings
         public void Delete_Private_Message_Test()
         {
             this.Driver.Navigate()
-                .GoToUrl("{0}{1}cp_pm.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_pm.aspx");
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Archive"),

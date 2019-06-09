@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -24,6 +24,7 @@
 
 namespace YAF.Tests.CoreTests
 {
+    using System.Collections.Specialized;
     using System.IO;
     using System.Web.Security;
 
@@ -33,36 +34,55 @@ namespace YAF.Tests.CoreTests
 
     using NUnit.Framework;
 
-    using YAF.Tests.Utils;
-
     /// <summary>
     /// Testing a YAF Installation
     /// </summary>
     [SetUpFixture]
     public class TestSetup
     {
+
+        
+        protected NameValueCollection _config;
+
+        protected MembershipCreateStatus _status = new MembershipCreateStatus();
+
         /// <summary>
         /// Sets up the mocked YAF Forum instance
         /// </summary>
         [OneTimeSetUp]
         public void Preparations()
         {
+
             var _factory = new MockRepository(MockBehavior.Strict);
+
             var _membership = _factory.Create<MembershipProvider>();
             var _roleProvider = _factory.Create<RoleProvider>();
 
-            Membership.ApplicationName = "YetAnotherForum";
+             Membership.ApplicationName = "YetAnotherForum";
 
-            Membership.Providers.AddMembershipProvider("MyMembershipProvider", _membership.Object);
+          //  Membership.Providers.AddMembershipProvider("MyMembershipProvider", _membership.Object);
 
-            Roles.Providers.AddRoleProvider("MyRoleProvider", _roleProvider.Object);
+            //Roles.Providers.AddRoleProvider("MyRoleProvider", _roleProvider.Object);
+
+            ////////////////////////////
+
+            var membershipMoq = new Mock<MembershipProvider>();
+            var membersRolehipMoq = new Mock<RoleProvider>();
+
+            membershipMoq.CallBase = true;
+
+            //Membership.Providers.AddMembershipProvider("MyMembershipProvider", membershipMoq.Object);
+            //Roles.Providers.AddRoleProvider("MyRoleProvider", membersRolehipMoq.Object);
+
+            ////////////////////////
 
             var currentPath = Path.GetFullPath(@"..\..\testfiles\forum\");
 
-            HttpSimulator simulator = new HttpSimulator("yaf/", currentPath);
+            var simulator = new HttpSimulator("yaf/", currentPath);
 
             simulator.SimulateRequest();
         }
+        
 
         /// <summary>
         /// Removes the fake providers.
@@ -70,9 +90,9 @@ namespace YAF.Tests.CoreTests
         [OneTimeTearDown]
         public void TearDown()
         {
-            Membership.Providers.RemoveMembershipProvider("MyMembershipProvider");
+           // Membership.Providers.RemoveMembershipProvider("MyMembershipProvider");
 
-            Roles.Providers.RemoveRoleProvider("MyRoleProvider");
+//            Roles.Providers.RemoveRoleProvider("MyRoleProvider");
         }
     }
 }

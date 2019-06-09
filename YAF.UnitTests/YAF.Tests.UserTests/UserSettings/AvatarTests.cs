@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -32,7 +32,6 @@ namespace YAF.Tests.UserTests.UserSettings
     using OpenQA.Selenium.Chrome;
 
     using YAF.Tests.Utils;
-    using YAF.Types.Extensions;
 
     /// <summary>
     /// The user Avatar tests.
@@ -73,8 +72,7 @@ namespace YAF.Tests.UserTests.UserSettings
         {
             // Go to Modify Avatar Page
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}cp_editavatar.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_editavatar.aspx");
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Modify Avatar"),
@@ -104,8 +102,7 @@ namespace YAF.Tests.UserTests.UserSettings
         {
             // Go to Modify Avatar Page
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}cp_editavatar.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_editavatar.aspx");
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Modify Avatar"),
@@ -132,8 +129,7 @@ namespace YAF.Tests.UserTests.UserSettings
         {
             // Go to Modify Avatar Page
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}cp_editavatar.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_editavatar.aspx");
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Modify Avatar"),
@@ -143,7 +139,7 @@ namespace YAF.Tests.UserTests.UserSettings
                 this.Driver.PageSource.Contains("Upload Avatar from Your Computer"),
                 "Upload Avatars disabled");
 
-            string filePath = Path.GetFullPath(@"..\..\testfiles\avatar.png");
+            var filePath = Path.GetFullPath(@"..\..\testfiles\avatar.png");
 
             // Enter Test Avatar
             var fileUpload = this.Driver.FindElement(By.XPath("//input[contains(@id,'_ProfileEditor_File')]"));

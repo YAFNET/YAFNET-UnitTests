@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -120,13 +120,13 @@ namespace YAF.Tests.Utils.SetUp
             IISManager.CreateIISApplication(TestConfig.TestApplicationName, applicationPath);
 
             // Add Config Password
-            XmlDocument xmlAppConfig = new XmlDocument();
+            var xmlAppConfig = new XmlDocument();
 
             xmlAppConfig.Load(Path.Combine(applicationPath, "app.config"));
 
-            XmlNode xNode = xmlAppConfig.CreateNode(XmlNodeType.Element, "add", string.Empty);
-            XmlAttribute xKey = xmlAppConfig.CreateAttribute("key");
-            XmlAttribute xValue = xmlAppConfig.CreateAttribute("value");
+            var xNode = xmlAppConfig.CreateNode(XmlNodeType.Element, "add", string.Empty);
+            var xKey = xmlAppConfig.CreateAttribute("key");
+            var xValue = xmlAppConfig.CreateAttribute("value");
 
             xKey.Value = "YAF.ConfigPassword";
             xValue.Value = TestConfig.ConfigPassword;
@@ -142,7 +142,7 @@ namespace YAF.Tests.Utils.SetUp
 
             xmlMailConfig.Load(Path.Combine(applicationPath, "mail.config"));
 
-            XmlNode xNetworkNode = xmlMailConfig.CreateNode(XmlNodeType.Element, "network", string.Empty);
+            var xNetworkNode = xmlMailConfig.CreateNode(XmlNodeType.Element, "network", string.Empty);
             var xhost = xmlMailConfig.CreateAttribute("host");
             var xport = xmlMailConfig.CreateAttribute("port");
             var xpassword = xmlMailConfig.CreateAttribute("password");
@@ -193,10 +193,10 @@ namespace YAF.Tests.Utils.SetUp
         /// </summary>
         public void TearDown()
         {
-            if (TestConfig.UseTestMailServer && this.SmtpServer != null)
+            if (TestConfig.UseTestMailServer)
             {
                 // Stop Mail Server
-                this.SmtpServer.Stop();
+                SmtpServer?.Stop();
             }
 
             if (TestConfig.UseExistingInstallation)
@@ -233,7 +233,7 @@ namespace YAF.Tests.Utils.SetUp
         {
             this.ChromeDriver = new ChromeDriver();
 
-            this.ChromeDriver.Navigate().GoToUrl("{0}install/default.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.ChromeDriver.Navigate().GoToUrl($"{TestConfig.TestForumUrl}install/default.aspx");
 
             Thread.Sleep(5000);
 
@@ -272,7 +272,7 @@ namespace YAF.Tests.Utils.SetUp
 
             if (TestConfig.UseTestMailServer)
             {
-                SmtpMessage mail = this.SmtpServer.ReceivedEmail[0];
+                var mail = this.SmtpServer.ReceivedEmail[0];
 
                 Assert.AreEqual("receiver@there.com", mail.ToAddresses[0].ToString(), "Receiver does not match");
                 Assert.IsTrue(mail.FromAddress.ToString().Contains(TestConfig.TestForumMail), "Sender does not match");

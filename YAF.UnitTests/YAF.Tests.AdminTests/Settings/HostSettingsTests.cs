@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -31,7 +31,6 @@ namespace YAF.Tests.AdminTests.Settings
 
     using YAF.Tests.Utils;
     using YAF.Tests.Utils.Extensions;
-    using YAF.Types.Extensions;
 
     /// <summary>
     /// The  Host Settings Tests
@@ -71,10 +70,7 @@ namespace YAF.Tests.AdminTests.Settings
         public void HostSettings_Saved_Correctly_Test()
         {
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}admin_hostsettings.aspx".FormatWith(
-                        TestConfig.TestForumUrl,
-                        TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}admin_hostsettings.aspx");
 
             // Modify a random setting
             var input = this.Driver.FindElement(By.XPath("//input[contains(@id,'_ImageAttachmentResizeWidth')]"));
@@ -86,10 +82,7 @@ namespace YAF.Tests.AdminTests.Settings
             this.Driver.FindElement(By.XPath("//input[contains(@id,'_Save')]")).Click();
 
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}admin_hostsettings.aspx".FormatWith(
-                        TestConfig.TestForumUrl,
-                        TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}admin_hostsettings.aspx");
 
             input = this.Driver.FindElement(By.XPath("//input[contains(@id,'_ImageAttachmentResizeWidth')]"));
 

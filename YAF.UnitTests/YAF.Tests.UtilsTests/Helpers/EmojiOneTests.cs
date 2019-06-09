@@ -26,29 +26,27 @@ namespace YAF.Tests.UtilsTests.Helpers
 {
     using NUnit.Framework;
 
-    using YAF.Utils.Helpers;
+    using YAF.Utils.Helpers.StringUtils;
 
     /// <summary>
-    /// YAF.Utils UrlHelper Tests
+    /// YAF.Utils.Helpers EmojiOne Tests
     /// </summary>
     [TestFixture]
-    public class UrlHelperTests
+    public class EmojiOneTests
     {
         /// <summary>
-        /// Count all URLs Test
+        /// The ascii to unicode test.
         /// </summary>
         [Test]
-        [Description("Count all URLs Test.")]
-        public void CountUrls_Test()
+        [Description("Ascii To Unicode Test")]
+        public void AsciiToUnicode_Test()
         {
-            const string TestMessage =
-               @"Indeed, back to the drawing board. You might be against [url=http://supplementsbook.org/ketoslim/]Ketoslim[/url] for some reason. 
-                 Read More: [url = http://supplementsbook.org/ketoslim/]http://supplementsbook.org/ketoslim/[/url]";
+            // single smiley
+            var text = @":D";
+            var expected = "😃";
+            var actual = EmojiOne.AsciiToUnicode(EmojiOne.ShortnameToUnicode(text));
 
-
-        Assert.AreEqual(
-                3,
-                UrlHelper.CountUrls(TestMessage));
+            Assert.AreEqual(expected, actual);
         }
     }
 }

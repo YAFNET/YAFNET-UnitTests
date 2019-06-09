@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -217,9 +217,9 @@ namespace YAF.Tests.Utils.Extensions
         /// <param name="sleep">The sleep.</param>
         public static void ClickAndWaitUntilVisible(this IWebDriver driver, By by, int sleep = 400)
         {
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(sleep));
+            var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(sleep));
 
-            var element = wait.Until(ExpectedConditions.ElementIsVisible(by));
+            var element = wait.Until(c => c.FindElement(by));
 
             element.Click();
 
@@ -234,7 +234,7 @@ namespace YAF.Tests.Utils.Extensions
         private static string CookieString(IWebDriver driver)
         {
             var cookies = driver.Manage().Cookies.AllCookies;
-            return string.Join("; ", cookies.Select(c => string.Format("{0}={1}", c.Name, c.Value)));
+            return string.Join("; ", cookies.Select(c => $"{c.Name}={c.Value}"));
         }
     }
 }

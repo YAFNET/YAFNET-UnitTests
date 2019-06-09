@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,8 +27,6 @@ namespace YAF.Tests.Utils.Extensions
     using OpenQA.Selenium;
     using OpenQA.Selenium.Chrome;
 
-    using YAF.Types.Extensions;
-
     /// <summary>
     /// Test Helper Class
     /// </summary>
@@ -45,7 +43,7 @@ namespace YAF.Tests.Utils.Extensions
         /// </returns>
         public static bool RegisterUser(this ChromeDriver driver, string userName, string password)
         {
-            return RegisterUser(driver, userName, "{0}@test.com".FormatWith(userName.ToLower()), password);
+            return RegisterUser(driver, userName, $"{userName.ToLower()}@test.com", password);
         }
 
         /// <summary>
@@ -60,7 +58,7 @@ namespace YAF.Tests.Utils.Extensions
         /// </returns>
         public static bool RegisterUser(this ChromeDriver driver, string userName, string email, string password)
         {
-            driver.Navigate().GoToUrl("{0}{1}register.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+            driver.Navigate().GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}register.aspx");
 
             // Check if Registrations are Disabled
             if (driver.PageSource.Contains("You tried to enter an area where you didn't have access"))
@@ -122,7 +120,7 @@ namespace YAF.Tests.Utils.Extensions
         public static bool LoginUser(this ChromeDriver driver, string userName, string userPassword)
         {
             // Login User
-            driver.Navigate().GoToUrl("{0}{1}login.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+            driver.Navigate().GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}login.aspx");
 
             // Check If User is already Logged In
             if (!driver.PageSource.Contains("Forum Login"))
@@ -131,7 +129,7 @@ namespace YAF.Tests.Utils.Extensions
 
                 driver.FindElementById("forum_ctl02_OkButton").Click();
 
-                driver.Navigate().GoToUrl("{0}{1}login.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                driver.Navigate().GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}login.aspx");
             }
 
             driver.FindElement(By.XPath("//input[contains(@id,'Login1_UserName')]")).SendKeys(userName);

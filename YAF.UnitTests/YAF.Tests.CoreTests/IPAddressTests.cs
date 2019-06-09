@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -24,12 +24,7 @@
 
 namespace YAF.Tests.CoreTests
 {
-    using System;
-
     using NUnit.Framework;
-
-    using YAF.Core.Services.CheckForSpam;
-    using YAF.Types.Extensions;
     using YAF.Utils.Helpers;
 
     /// <summary>
@@ -44,19 +39,31 @@ namespace YAF.Tests.CoreTests
         public TestContext TestContext { get; set; }
 
         /// <summary>
-        /// A test to check the Akismet API Key
+        /// A test to convert a IPv4 String in to an IP Address
         /// </summary>
         [Test]
         [Description("A test to convert a String to an IP Address")]
-        public void StringToIp_Test()
+        public void StringToIpV4_Test()
         {
             // IP v4 Address
-            //var ip = "79.228.254.119".Split('.');
+            var ip = "79.228.254.119".Split('.');
 
+            Assert.AreEqual("1340407415",
+                IPHelper.StringToIP(ip).ToString(),
+                IPHelper.StringToIP(ip).ToString());
+        }
+
+        /// <summary>
+        /// A test to convert a IPv6 String in to an IP Address
+        /// </summary>
+        [Test]
+        [Description("A test to convert a String to an IP Address")]
+        public void StringToIpV6_Test()
+        {
             // IP v6 Address
             var ip = "2001:0db8:0a0b:12f0:0000:0000:0000:0001".Split(':');
 
-            Assert.AreEqual(/*"1340407415"*/"15060037153926938625",
+            Assert.AreEqual("15060037153926938625",
                 IPHelper.StringToIP(ip).ToString(),
                 IPHelper.StringToIP(ip).ToString());
         }

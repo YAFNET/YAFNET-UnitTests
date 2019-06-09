@@ -211,10 +211,7 @@ namespace HttpSimulator
         /// </value>
         public string PhysicalApplicationPath
         {
-            get
-            {
-                return this.physicalApplicationPath;
-            }
+            get => this.physicalApplicationPath;
 
             set
             {
@@ -228,62 +225,32 @@ namespace HttpSimulator
         /// <summary>
         ///   Gets the Physical path to the requested file (used for simulation purposes).
         /// </summary>
-        public string PhysicalPath
-        {
-            get
-            {
-                return this.physicalPath;
-            }
-        }
+        public string PhysicalPath => this.physicalPath;
 
         /// <summary>
         /// Gets Port.
         /// </summary>
-        public int Port
-        {
-            get
-            {
-                return this.port;
-            }
-        }
+        public int Port => this.port;
 
         /// <summary>
         ///   Returns the text from the response to the simulated request.
         /// </summary>
-        public string ResponseText
-        {
-            get
-            {
-                return (this.builder ?? new StringBuilder()).ToString();
-            }
-        }
+        public string ResponseText => (this.builder ?? new StringBuilder()).ToString();
 
         /// <summary>
         /// Gets or sets ResponseWriter.
         /// </summary>
         public TextWriter ResponseWriter
         {
-            get
-            {
-                return this.responseWriter;
-            }
+            get => this.responseWriter;
 
-            set
-            {
-                this.responseWriter = value;
-            }
+            set => this.responseWriter = value;
         }
 
         /// <summary>
         /// Gets WorkerRequest.
         /// </summary>
-        public SimulatedHttpRequest WorkerRequest
-        {
-            get
-            {
-                return this.workerRequest;
-            }
-        }
+        public SimulatedHttpRequest WorkerRequest => this.workerRequest;
 
         #endregion
 
@@ -348,10 +315,7 @@ namespace HttpSimulator
         /// </returns>
         public HttpSimulator SetReferer(Uri referer)
         {
-            if (this.workerRequest != null)
-            {
-                this.workerRequest.SetReferer(referer);
-            }
+            this.workerRequest?.SetReferer(referer);
 
             this._referer = referer;
             return this;
@@ -367,6 +331,7 @@ namespace HttpSimulator
         {
             return this.SimulateRequest(new Uri("http://localhost/"));
         }
+
         /// <summary>
         /// Sets up the HttpContext objects to simulate a GET request.
         /// </summary>
@@ -477,7 +442,7 @@ namespace HttpSimulator
             s = s.Replace(@"\", "/");
 
             // Reduce multiple slashes in row to single.
-            string normalized = Regex.Replace(s, "(/)/+", "$1");
+            var normalized = Regex.Replace(s, "(/)/+", "$1");
 
             // Strip left.
             normalized = StripPrecedingSlashes(normalized);
@@ -560,7 +525,7 @@ namespace HttpSimulator
 
             this.SetHttpRuntimeInternals();
 
-            string query = ExtractQueryStringPart(url);
+            var query = ExtractQueryStringPart(url);
 
             if (formVariables != null)
             {
@@ -634,7 +599,7 @@ namespace HttpSimulator
         /// </returns>
         private static string ExtractQueryStringPart(Uri url)
         {
-            string query = url.Query ?? string.Empty;
+            var query = url.Query ?? string.Empty;
             return query.StartsWith("?") ? query.Substring(1) : query;
         }
 
@@ -643,10 +608,10 @@ namespace HttpSimulator
         /// </summary>
         private static void InitializeApplication()
         {
-            Type appFactoryType =
+            var appFactoryType =
                 Type.GetType(
                     "System.Web.HttpApplicationFactory, System.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a");
-            object appFactory = ReflectionHelper.GetStaticFieldValue<object>("_theApplicationFactory", appFactoryType);
+            var appFactory = ReflectionHelper.GetStaticFieldValue<object>("_theApplicationFactory", appFactoryType);
             ReflectionHelper.SetPrivateInstanceFieldValue("_state", appFactory, HttpContext.Current.Application);
         }
 
@@ -669,7 +634,7 @@ namespace HttpSimulator
                 return original;
             }
 
-            int searchIndex = original.IndexOf(search, 0, StringComparison.InvariantCultureIgnoreCase);
+            var searchIndex = original.IndexOf(search, 0, StringComparison.InvariantCultureIgnoreCase);
 
             return searchIndex < 0 ? original : original.Substring(original.IndexOf(search) + search.Length);
         }
@@ -682,14 +647,14 @@ namespace HttpSimulator
         {
             HttpContext.Current = new HttpContext(this.workerRequest);
             HttpContext.Current.Items.Clear();
-            HttpSessionState session =
+            var session =
                 (HttpSessionState)
                 ReflectionHelper.Instantiate(
                     typeof(HttpSessionState), new[] { typeof(IHttpSessionState) }, new FakeHttpSessionState());
 
             var browserCaps = new HttpBrowserCapabilities();
 
-            Hashtable values = new Hashtable(20, StringComparer.OrdinalIgnoreCase);
+            var values = new Hashtable(20, StringComparer.OrdinalIgnoreCase);
 
             values["ecmascriptversion"] = "3.0";
 
@@ -765,21 +730,21 @@ namespace HttpSimulator
             // We cheat by using reflection.
 
             // get singleton property value
-            HttpRuntime runtime = ReflectionHelper.GetStaticFieldValue<HttpRuntime>("_theRuntime", typeof(HttpRuntime));
+            var runtime = ReflectionHelper.GetStaticFieldValue<HttpRuntime>("_theRuntime", typeof(HttpRuntime));
 
             // set app path property value
             ReflectionHelper.SetPrivateInstanceFieldValue("_appDomainAppPath", runtime, this.PhysicalApplicationPath);
 
             // set app virtual path property value
             const string vpathTypeName = "System.Web.VirtualPath, System.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a";
-            object virtualPath = ReflectionHelper.Instantiate(
+            var virtualPath = ReflectionHelper.Instantiate(
                 vpathTypeName, new[] { typeof(string) }, new object[] { this.ApplicationPath });
             ReflectionHelper.SetPrivateInstanceFieldValue("_appDomainAppVPath", runtime, virtualPath);
 
             // set codegen dir property value
             ReflectionHelper.SetPrivateInstanceFieldValue("_codegenDir", runtime, this.PhysicalApplicationPath);
 
-            HostingEnvironment environment = GetHostingEnvironment();
+            var environment = GetHostingEnvironment();
             ReflectionHelper.SetPrivateInstanceFieldValue("_appPhysicalPath", environment, this.PhysicalApplicationPath);
             ReflectionHelper.SetPrivateInstanceFieldValue("_appVirtualPath", environment, virtualPath);
             ReflectionHelper.SetPrivateInstanceFieldValue("_configMapPath", environment, new ConfigMapPath(this));
@@ -913,7 +878,7 @@ namespace HttpSimulator
             /// </returns>
             public string MapPath(string siteID, string path)
             {
-                string page = StripPrecedingSlashes(RightAfter(path, this._requestSimulation.ApplicationPath));
+                var page = StripPrecedingSlashes(RightAfter(path, this._requestSimulation.ApplicationPath));
                 return Path.Combine(this._requestSimulation.PhysicalApplicationPath, page.Replace("/", @"\"));
             }
 
@@ -986,49 +951,25 @@ namespace HttpSimulator
             ///</summary>
             ///<returns> One of the <see cref="T:System.Web.HttpCookieMode"></see> values that indicate whether the application is configured for cookieless sessions. The default is <see
             ///   cref="F:System.Web.HttpCookieMode.UseCookies"></see> . </returns>
-            public HttpCookieMode CookieMode
-            {
-                get
-                {
-                    return HttpCookieMode.UseCookies;
-                }
-            }
+            public HttpCookieMode CookieMode => HttpCookieMode.UseCookies;
 
             ///<summary>
             ///  Gets a value indicating whether the session ID is embedded in the URL or stored in an HTTP cookie.
             ///</summary>
             ///<returns> true if the session is embedded in the URL; otherwise, false. </returns>
-            public bool IsCookieless
-            {
-                get
-                {
-                    return false;
-                }
-            }
+            public bool IsCookieless => false;
 
             ///<summary>
             ///  Gets a value indicating whether the session was created with the current request.
             ///</summary>
             ///<returns> true if the session was created with the current request; otherwise, false. </returns>
-            public bool IsNewSession
-            {
-                get
-                {
-                    return this.isNewSession;
-                }
-            }
+            public bool IsNewSession => this.isNewSession;
 
             ///<summary>
             ///  Gets a value indicating whether access to the collection of session-state values is synchronized (thread safe).
             ///</summary>
             ///<returns> true if access to the collection is synchronized (thread safe); otherwise, false. </returns>
-            public bool IsSynchronized
-            {
-                get
-                {
-                    return true;
-                }
-            }
+            public bool IsSynchronized => true;
 
             ///<summary>
             ///  Gets or sets the locale identifier (LCID) of the current session.
@@ -1040,49 +981,25 @@ namespace HttpSimulator
             ///  Gets the current session-state mode.
             ///</summary>
             ///<returns> One of the <see cref="T:System.Web.SessionState.SessionStateMode"></see> values. </returns>
-            public SessionStateMode Mode
-            {
-                get
-                {
-                    return SessionStateMode.InProc;
-                }
-            }
+            public SessionStateMode Mode => SessionStateMode.InProc;
 
             ///<summary>
             ///  Gets the unique session identifier for the session.
             ///</summary>
             ///<returns> The session ID. </returns>
-            public string SessionID
-            {
-                get
-                {
-                    return this.sessionID;
-                }
-            }
+            public string SessionID => this.sessionID;
 
             ///<summary>
             ///  Gets a collection of objects declared by &lt;object Runat="Server" Scope="Session"/&gt; tags within the ASP.NET application file Global.asax.
             ///</summary>
             ///<returns> An <see cref="T:System.Web.HttpStaticObjectsCollection"></see> containing objects declared in the Global.asax file. </returns>
-            public HttpStaticObjectsCollection StaticObjects
-            {
-                get
-                {
-                    return this.staticObjects;
-                }
-            }
+            public HttpStaticObjectsCollection StaticObjects => this.staticObjects;
 
             ///<summary>
             ///  Gets an object that can be used to synchronize access to the collection of session-state values.
             ///</summary>
             ///<returns> An object that can be used to synchronize access to the collection. </returns>
-            public object SyncRoot
-            {
-                get
-                {
-                    return this.syncRoot;
-                }
-            }
+            public object SyncRoot => this.syncRoot;
 
             ///<summary>
             ///  Gets and sets the time-out period (in minutes) allowed between requests before the session-state provider terminates the session.
@@ -1090,15 +1007,9 @@ namespace HttpSimulator
             ///<returns> The time-out period, in minutes. </returns>
             public int Timeout
             {
-                get
-                {
-                    return this.timeout;
-                }
+                get => this.timeout;
 
-                set
-                {
-                    this.timeout = value;
-                }
+                set => this.timeout = value;
             }
 
             #endregion
@@ -1109,13 +1020,7 @@ namespace HttpSimulator
             ///  Gets a value indicating whether the session is read-only.
             ///</summary>
             ///<returns> true if the session is read-only; otherwise, false. </returns>
-            bool IHttpSessionState.IsReadOnly
-            {
-                get
-                {
-                    return true;
-                }
-            }
+            bool IHttpSessionState.IsReadOnly => true;
 
             #endregion
 
@@ -1128,15 +1033,9 @@ namespace HttpSimulator
             ///<param name="name"> The key name of the session-state item value. </param>
             public object this[string name]
             {
-                get
-                {
-                    return this.BaseGet(name);
-                }
+                get => this.BaseGet(name);
 
-                set
-                {
-                    this.BaseSet(name, value);
-                }
+                set => this.BaseSet(name, value);
             }
 
             ///<summary>
@@ -1146,15 +1045,9 @@ namespace HttpSimulator
             ///<param name="index"> The numerical index of the session-state item value. </param>
             public object this[int index]
             {
-                get
-                {
-                    return this.BaseGet(index);
-                }
+                get => this.BaseGet(index);
 
-                set
-                {
-                    this.BaseSet(index, value);
-                }
+                set => this.BaseSet(index, value);
             }
 
             #endregion

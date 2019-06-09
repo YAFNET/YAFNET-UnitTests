@@ -135,8 +135,12 @@ namespace HttpSimulator
         /// <summary>
         /// Gets or sets a value indicating whether SkipAuthorization.
         /// </summary>
-        bool SkipAuthorization { get; [SecurityPermission(SecurityAction.Demand, ControlPrincipal = true)]
-        set; }
+        bool SkipAuthorization
+        {
+            get;
+            [SecurityPermission(SecurityAction.Demand, ControlPrincipal = true)]
+            set;
+        }
 
         /// <summary>
         /// Gets Timestamp.
@@ -151,8 +155,12 @@ namespace HttpSimulator
         /// <summary>
         /// Gets or sets User.
         /// </summary>
-        IPrincipal User { get; [SecurityPermission(SecurityAction.Demand, ControlPrincipal = true)]
-        set; }
+        IPrincipal User
+        {
+            get;
+            [SecurityPermission(SecurityAction.Demand, ControlPrincipal = true)]
+            set;
+        }
 
         #endregion
 

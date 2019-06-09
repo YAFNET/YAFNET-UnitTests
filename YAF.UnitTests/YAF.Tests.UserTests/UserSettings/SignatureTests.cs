@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -31,7 +31,6 @@ namespace YAF.Tests.UserTests.UserSettings
 
     using YAF.Tests.Utils;
     using YAF.Tests.Utils.Extensions;
-    using YAF.Types.Extensions;
 
     /// <summary>
     /// The Signature tests.
@@ -71,8 +70,7 @@ namespace YAF.Tests.UserTests.UserSettings
         public void Change_User_SignatureTest()
         {
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}cp_signature.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_signature.aspx");
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Edit Signature"),

@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -41,12 +41,12 @@ namespace YAF.Tests.UtilsTests.Helpers
         [Description("Strips all BBCodes from a string.")]
         public void StripBBCode_Test()
         {
-            const string testMessage =
+            const string TestMessage =
                 "This is a test text containing [b]bold[/b] and [i]italic[i] text and other bbcodes [img]http://test.com/testimage.jpg[/img]";
 
             Assert.AreEqual(
                 "This is a test text containing bold and italic text and other bbcodes http://test.com/testimage.jpg",
-                BBCodeHelper.StripBBCode(testMessage));
+                BBCodeHelper.StripBBCode(TestMessage));
         }
 
         /// <summary>
@@ -56,9 +56,9 @@ namespace YAF.Tests.UtilsTests.Helpers
         [Description("Strips all BBCode Quotes (including the Quote Text) from a string.")]
         public void StripBBCodeQuotes_Test()
         {
-            const string testMessage = "This is a test text containing a[quote] Quoted Message[/quote].";
+            const string TestMessage = "This is a test text containing a[quote] Quoted Message[/quote].";
 
-            Assert.AreEqual("This is a test text containing a.", BBCodeHelper.StripBBCodeQuotes(testMessage));
+            Assert.AreEqual("This is a test text containing a.", BBCodeHelper.StripBBCodeQuotes(TestMessage));
         }
 
         /// <summary>
@@ -68,12 +68,12 @@ namespace YAF.Tests.UtilsTests.Helpers
         [Description("Strips all BBCode Urls from a string.")]
         public void StripBBCodeUrls_Test()
         {
-            const string testMessage =
+            const string TestMessage =
                 "This is a test text containing an URL: [url]http://test.com/[/url] and [url=http://test.com/]test url[/url].";
 
             Assert.AreEqual(
                 "This is a test text containing an URL:  and .",
-                BBCodeHelper.StripBBCodeUrls(testMessage));
+                BBCodeHelper.StripBBCodeUrls(TestMessage));
         }
     }
 }

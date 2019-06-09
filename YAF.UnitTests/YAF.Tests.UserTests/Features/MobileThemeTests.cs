@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -31,7 +31,6 @@ namespace YAF.Tests.UserTests.Features
 
     using YAF.Tests.Utils;
     using YAF.Tests.Utils.Extensions;
-    using YAF.Types.Extensions;
 
     /// <summary>
     /// Mobile Theme Tests
@@ -62,8 +61,7 @@ namespace YAF.Tests.UserTests.Features
         public void TearDownTest()
         {
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_editprofile.aspx");
 
             // Switch Theme Back to Clean Slate
             this.Driver.SelectDropDownByValue(
@@ -84,8 +82,7 @@ namespace YAF.Tests.UserTests.Features
         public void Check_Mobile_Pages_Test()
         {
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_editprofile.aspx");
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Edit Profile"),
@@ -120,7 +117,7 @@ namespace YAF.Tests.UserTests.Features
 
             // Check the forum Category Page
             this.Driver.Navigate()
-                .GoToUrl("{0}{1}mytopics.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}mytopics.aspx");
 
             Assert.IsTrue(
                 !this.Driver.PageSource.Contains("Server Error") && !this.Driver.PageSource.Contains("Forum Error")
@@ -130,10 +127,7 @@ namespace YAF.Tests.UserTests.Features
             // Check the forum topic view Page
             this.Driver.Navigate()
                 .GoToUrl(
-                    "{0}{2}postst{1}.aspx".FormatWith(
-                        TestConfig.TestForumUrl,
-                        TestConfig.TestTopicID,
-                        TestConfig.ForumUrlRewritingPrefix));
+                    string.Format("{0}{2}postst{1}.aspx", TestConfig.TestForumUrl, TestConfig.TestTopicID, TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(
                 !this.Driver.PageSource.Contains("Server Error") && !this.Driver.PageSource.Contains("Forum Error")
@@ -143,10 +137,7 @@ namespace YAF.Tests.UserTests.Features
             // Check My Topics Page
             this.Driver.Navigate()
                 .GoToUrl(
-                    "{0}{2}topics{1}.aspx".FormatWith(
-                        TestConfig.TestForumUrl,
-                        TestConfig.TestForumID,
-                        TestConfig.ForumUrlRewritingPrefix));
+                    string.Format("{0}{2}topics{1}.aspx", TestConfig.TestForumUrl, TestConfig.TestForumID, TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(
                 !this.Driver.PageSource.Contains("Server Error") && !this.Driver.PageSource.Contains("Forum Error")
@@ -156,10 +147,7 @@ namespace YAF.Tests.UserTests.Features
             // Check the Post Message Page
             this.Driver.Navigate()
                 .GoToUrl(
-                    "{0}{2}postmessage.aspx?f={1}".FormatWith(
-                        TestConfig.TestForumUrl,
-                        TestConfig.TestForumID,
-                        TestConfig.ForumUrlRewritingPrefix));
+                    string.Format("{0}{2}postmessage.aspx?f={1}", TestConfig.TestForumUrl, TestConfig.TestForumID, TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(
                 !this.Driver.PageSource.Contains("Server Error") && !this.Driver.PageSource.Contains("Forum Error")
@@ -168,7 +156,7 @@ namespace YAF.Tests.UserTests.Features
 
             // Check the Send PM Page
             this.Driver.Navigate()
-                .GoToUrl("{0}{1}pmessage.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}pmessage.aspx");
 
             Assert.IsTrue(
                 !this.Driver.PageSource.Contains("Server Error") && !this.Driver.PageSource.Contains("Forum Error")
@@ -177,7 +165,7 @@ namespace YAF.Tests.UserTests.Features
 
             // Check the Profile Page
             this.Driver.Navigate()
-                .GoToUrl("{0}{1}profile2.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}profile2.aspx");
 
             Assert.IsTrue(
                 !this.Driver.PageSource.Contains("Server Error") && !this.Driver.PageSource.Contains("Forum Error")

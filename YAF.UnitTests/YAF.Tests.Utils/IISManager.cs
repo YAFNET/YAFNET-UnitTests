@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -26,8 +26,6 @@ namespace YAF.Tests.Utils
 {
     using Microsoft.Web.Administration;
 
-    using YAF.Types.Extensions;
-
     /// <summary>
     /// IISManager Class to modify IIS Apps
     /// </summary>
@@ -40,10 +38,10 @@ namespace YAF.Tests.Utils
         /// <param name="physicalPath">The physical path.</param>
         public static void CreateIISApplication(string applicationName, string physicalPath)
         {
-            using (ServerManager serverManager = new ServerManager())
+            using (var serverManager = new ServerManager())
             {
                 var defaultSite = serverManager.Sites[TestConfig.DefaultWebsiteName];
-                Application newApplication = defaultSite.Applications["/{0}".FormatWith(applicationName)];
+                var newApplication = defaultSite.Applications[$"/{applicationName}"];
 
                 // Remove if exists?!
                 if (newApplication != null)
@@ -53,7 +51,7 @@ namespace YAF.Tests.Utils
                 }
 
                 defaultSite = serverManager.Sites[TestConfig.DefaultWebsiteName];
-                newApplication = defaultSite.Applications.Add("/{0}".FormatWith(applicationName), physicalPath);
+                newApplication = defaultSite.Applications.Add($"/{applicationName}", physicalPath);
 
                 newApplication.ApplicationPoolName = TestConfig.TestApplicationPool;
 
@@ -68,17 +66,17 @@ namespace YAF.Tests.Utils
         /// <param name="applicationName">Name of the application.</param>
         public static void RecycleApplicationPool(string applicationName)
         {
-            ServerManager iisManager = new ServerManager();
-            Site defaultSite = iisManager.Sites["Default Web Site"];
-            var application = defaultSite.Applications["/{0}".FormatWith(applicationName)];
+            var iisManager = new ServerManager();
+            var defaultSite = iisManager.Sites["Default Web Site"];
+            var application = defaultSite.Applications[$"/{applicationName}"];
 
             if (application == null)
             {
                 return;
             }
 
-            string appPool = application.ApplicationPoolName;
-            ApplicationPool pool = iisManager.ApplicationPools[appPool];
+            var appPool = application.ApplicationPoolName;
+            var pool = iisManager.ApplicationPools[appPool];
             pool.Recycle();
         }
 
@@ -88,10 +86,10 @@ namespace YAF.Tests.Utils
         /// <param name="applicationName">Name of the application.</param>
         public static void DeleteIISApplication(string applicationName)
         {
-            using (ServerManager serverManager = new ServerManager())
+            using (var serverManager = new ServerManager())
             {
                 var defaultSite = serverManager.Sites[TestConfig.DefaultWebsiteName];
-                Application newApplication = defaultSite.Applications["/{0}".FormatWith(applicationName)];
+                var newApplication = defaultSite.Applications[$"/{applicationName}"];
 
                 // Remove
                 if (newApplication != null)

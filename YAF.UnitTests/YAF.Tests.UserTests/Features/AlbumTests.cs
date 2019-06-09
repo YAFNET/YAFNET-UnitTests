@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -33,7 +33,6 @@ namespace YAF.Tests.UserTests.Features
 
     using YAF.Tests.Utils;
     using YAF.Tests.Utils.Extensions;
-    using YAF.Types.Extensions;
 
     /// <summary>
     /// The user album tests.
@@ -73,8 +72,7 @@ namespace YAF.Tests.UserTests.Features
         public void Add_New_User_Album_Test()
         {
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}cp_profile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_profile.aspx");
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Edit Albums"),
@@ -98,7 +96,7 @@ namespace YAF.Tests.UserTests.Features
             this.Driver.FindElement(By.XPath("//input[contains(@id,'UpdateTitle')]")).Click();
 
             // Test Image
-            string filePath = Path.GetFullPath(@"..\..\testfiles\avatar.png");
+            var filePath = Path.GetFullPath(@"..\..\testfiles\avatar.png");
 
             var fileUpload = this.Driver.FindElement(By.XPath("//input[contains(@id,'_File')]"));
             fileUpload.Click();
@@ -109,7 +107,7 @@ namespace YAF.Tests.UserTests.Features
             this.Driver.FindElement(By.XPath("//input[contains(@id,'_Back')]")).ClickAndWait();
 
             Assert.IsTrue(
-                this.Driver.PageSource.Contains("{0} Album: TestAlbum".FormatWith(TestConfig.TestUserName)),
+                this.Driver.PageSource.Contains($"{TestConfig.TestUserName} Album: TestAlbum"),
                 "New Album Creating Failed");
         }
 
@@ -120,8 +118,7 @@ namespace YAF.Tests.UserTests.Features
         public void Delete_User_Album_Test()
         {
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}cp_profile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_profile.aspx");
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Edit Albums"),
@@ -147,8 +144,7 @@ namespace YAF.Tests.UserTests.Features
             this.Driver.SwitchTo().Alert().Accept();
 
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}cp_profile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_profile.aspx");
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Edit Albums"),
@@ -166,8 +162,7 @@ namespace YAF.Tests.UserTests.Features
         public void Add_Additional_Image_Test()
         {
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}cp_profile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_profile.aspx");
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Edit Albums"),
@@ -189,7 +184,7 @@ namespace YAF.Tests.UserTests.Features
             Assert.IsTrue(this.Driver.PageSource.Contains("Add/Edit Album"));
 
             // Another Test Image
-            string filePath = Path.GetFullPath(@"..\..\testfiles\testImage.jpg");
+            var filePath = Path.GetFullPath(@"..\..\testfiles\testImage.jpg");
             var fileUpload = this.Driver.FindElement(By.XPath("//input[contains(@id,'_File')]"));
             fileUpload.Click();
             fileUpload.SendKeys(filePath);
@@ -206,8 +201,7 @@ namespace YAF.Tests.UserTests.Features
         public void Delete_Image_From_Album_Test()
         {
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}cp_profile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_profile.aspx");
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Edit Albums"),
@@ -249,8 +243,7 @@ namespace YAF.Tests.UserTests.Features
         public void Set_Image_As_Cover_Test()
         {
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}cp_profile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_profile.aspx");
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Edit Albums"),
@@ -296,8 +289,7 @@ namespace YAF.Tests.UserTests.Features
         public void Remove_Image_As_Cover_Test()
         {
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}cp_profile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_profile.aspx");
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Edit Albums"),
@@ -343,8 +335,7 @@ namespace YAF.Tests.UserTests.Features
         public void Edit_Image_Caption_Test()
         {
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}cp_profile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_profile.aspx");
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Edit Albums"),
@@ -388,8 +379,7 @@ namespace YAF.Tests.UserTests.Features
         public void Edit_Album_Name_Test()
         {
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}cp_profile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_profile.aspx");
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Edit Albums"),

@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -33,7 +33,6 @@ namespace YAF.Tests.UserTests.UserSettings
 
     using YAF.Tests.Utils;
     using YAF.Tests.Utils.Extensions;
-    using YAF.Types.Extensions;
 
     /// <summary>
     /// The User Profile tests.
@@ -73,8 +72,7 @@ namespace YAF.Tests.UserTests.UserSettings
         public void Change_Forum_Language_Test()
         {
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_editprofile.aspx");
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Edit Profile"),
@@ -95,8 +93,7 @@ namespace YAF.Tests.UserTests.UserSettings
             Assert.IsTrue(this.Driver.PageSource.Contains("Angemeldet als"), "Changing Language failed");
 
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_editprofile.aspx");
 
             // Switch Language Back to English
             this.Driver.SelectDropDownByValue(By.XPath("//select[contains(@id,'_ProfileEditor_Culture')]"), "en-US");
@@ -112,8 +109,7 @@ namespace YAF.Tests.UserTests.UserSettings
         public void Change_Forum_Theme_Test()
         {
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_editprofile.aspx");
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Edit Profile"),
@@ -138,8 +134,7 @@ namespace YAF.Tests.UserTests.UserSettings
                 "Changing Forum Theme failed");
 
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_editprofile.aspx");
 
             // Switch Theme Back to Clean Slate
             this.Driver.SelectDropDownByValue(
@@ -161,8 +156,7 @@ namespace YAF.Tests.UserTests.UserSettings
         public void Change_Forum_User_TextEditor_Test()
         {
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_editprofile.aspx");
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Edit Profile"),
@@ -183,10 +177,7 @@ namespace YAF.Tests.UserTests.UserSettings
             // Check if Editor Is Correct
             this.Driver.Navigate()
                 .GoToUrl(
-                    "{0}{2}postmessage.aspx?f={1}".FormatWith(
-                        TestConfig.TestForumUrl,
-                        TestConfig.TestForumID,
-                        TestConfig.ForumUrlRewritingPrefix));
+                    string.Format("{0}{2}postmessage.aspx?f={1}", TestConfig.TestForumUrl, TestConfig.TestForumID, TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsNotNull(
                 this.Driver.ElementExists(By.XPath("//script[contains(@src,'Scripts/ckeditor/config.js')]")),
@@ -194,8 +185,7 @@ namespace YAF.Tests.UserTests.UserSettings
 
             // Switch Editor Back
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_editprofile.aspx");
 
             this.Driver.SelectDropDownByValue(By.XPath("//select[contains(@id,'ProfileEditor_ForumEditor')]"), "1");
 
@@ -205,10 +195,7 @@ namespace YAF.Tests.UserTests.UserSettings
             // Check if Editor Is Correct
             this.Driver.Navigate()
                 .GoToUrl(
-                    "{0}{2}postmessage.aspx?f={1}".FormatWith(
-                        TestConfig.TestForumUrl,
-                        TestConfig.TestForumID,
-                        TestConfig.ForumUrlRewritingPrefix));
+                    string.Format("{0}{2}postmessage.aspx?f={1}", TestConfig.TestForumUrl, TestConfig.TestForumID, TestConfig.ForumUrlRewritingPrefix));
 
             // Check if Editor Is Correct
             Assert.IsNotNull(this.Driver.FindElementByClassName("ButtonOut"), "Changing Text Editor Failed failed");
@@ -221,8 +208,7 @@ namespace YAF.Tests.UserTests.UserSettings
         public void Change_User_Email_Address_Test()
         {
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_editprofile.aspx");
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Edit Profile"),
@@ -246,16 +232,14 @@ namespace YAF.Tests.UserTests.UserSettings
             this.Driver.FindElement(By.XPath("//input[contains(@id,'_ProfileEditor_UpdateProfile')]")).Click();
 
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}cp_profile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_profile.aspx");
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains(NewEmailAddress),
                 "Email Address Changing failed, or email verification is turned on");
 
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_editprofile.aspx");
 
             // Switch Email Address back
             emailInput = this.Driver.FindElement(By.XPath("//input[contains(@id,'_ProfileEditor_Email')]"));
@@ -266,8 +250,7 @@ namespace YAF.Tests.UserTests.UserSettings
             this.Driver.FindElement(By.XPath("//input[contains(@id,'_ProfileEditor_UpdateProfile')]")).Click();
 
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}cp_profile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_profile.aspx");
 
             Assert.IsTrue(this.Driver.PageSource.Contains(oldEmailAddress), "Email Address Changing back failed");
         }
@@ -279,8 +262,7 @@ namespace YAF.Tests.UserTests.UserSettings
         public void Set_User_Birthday_Test()
         {
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_editprofile.aspx");
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Edit Profile"),
@@ -306,8 +288,7 @@ namespace YAF.Tests.UserTests.UserSettings
             this.Driver.FindElement(By.XPath("//input[contains(@id,'_ProfileEditor_UpdateProfile')]")).ClickAndWait();
 
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_editprofile.aspx");
 
             birthdayInput = this.Driver.FindElement(By.XPath("//input[contains(@id,'_ProfileEditor_Birthday')]"));
 
@@ -327,8 +308,7 @@ namespace YAF.Tests.UserTests.UserSettings
         public void Set_User_Country_And_Region_Test()
         {
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_editprofile.aspx");
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Edit Profile"),

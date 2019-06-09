@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -33,7 +33,6 @@ namespace YAF.Tests.UserTests.Content
 
     using YAF.Tests.Utils;
     using YAF.Tests.Utils.Extensions;
-    using YAF.Types.Extensions;
 
     /// <summary>
     /// The Message tests.
@@ -76,10 +75,7 @@ namespace YAF.Tests.UserTests.Content
             // Go to Post New Topic
             this.Driver.Navigate()
                 .GoToUrl(
-                    "{0}{2}postst{1}.aspx".FormatWith(
-                        TestConfig.TestForumUrl,
-                        TestConfig.TestTopicID,
-                        TestConfig.ForumUrlRewritingPrefix));
+                    string.Format("{0}{2}postst{1}.aspx", TestConfig.TestForumUrl, TestConfig.TestTopicID, TestConfig.ForumUrlRewritingPrefix));
 
             if (this.Driver.PageSource.Contains("You've passed an invalid value to the forum."))
             {
@@ -117,10 +113,7 @@ namespace YAF.Tests.UserTests.Content
             // Go to Post New Topic
             this.Driver.Navigate()
                 .GoToUrl(
-                    "{0}{2}postst{1}.aspx".FormatWith(
-                        TestConfig.TestForumUrl,
-                        TestConfig.TestTopicID,
-                        TestConfig.ForumUrlRewritingPrefix));
+                    string.Format("{0}{2}postst{1}.aspx", TestConfig.TestForumUrl, TestConfig.TestTopicID, TestConfig.ForumUrlRewritingPrefix));
 
             if (this.Driver.PageSource.Contains("You've passed an invalid value to the forum."))
             {

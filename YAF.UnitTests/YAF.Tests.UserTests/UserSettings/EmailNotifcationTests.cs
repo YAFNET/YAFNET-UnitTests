@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -83,10 +83,7 @@ namespace YAF.Tests.UserTests.UserSettings
             // Go to Test Topic
             this.Driver.Navigate()
                 .GoToUrl(
-                    "{0}{2}postst{1}.aspx".FormatWith(
-                        TestConfig.TestForumUrl,
-                        TestConfig.TestTopicID,
-                        TestConfig.ForumUrlRewritingPrefix));
+                    string.Format("{0}{2}postst{1}.aspx", TestConfig.TestForumUrl, TestConfig.TestTopicID, TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsFalse(
                 this.Driver.PageSource.Contains("You've passed an invalid value to the forum."),
@@ -107,10 +104,7 @@ namespace YAF.Tests.UserTests.UserSettings
             Assert.IsTrue(this.Driver.PageSource.Contains("You will now be"), "Watch topic failed");
 
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}cp_subscriptions.aspx".FormatWith(
-                        TestConfig.TestForumUrl,
-                        TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_subscriptions.aspx");
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Email Notification Preferences"),
@@ -128,10 +122,7 @@ namespace YAF.Tests.UserTests.UserSettings
             // Go to Test Topic
             this.Driver.Navigate()
                 .GoToUrl(
-                    "{0}{2}postst{1}.aspx".FormatWith(
-                        TestConfig.TestForumUrl,
-                        TestConfig.TestTopicID,
-                        TestConfig.ForumUrlRewritingPrefix));
+                    string.Format("{0}{2}postst{1}.aspx", TestConfig.TestForumUrl, TestConfig.TestTopicID, TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsFalse(
                 this.Driver.PageSource.Contains("You've passed an invalid value to the forum."),
@@ -157,10 +148,7 @@ namespace YAF.Tests.UserTests.UserSettings
         {
             this.Driver.Navigate()
                 .GoToUrl(
-                    "{0}{2}topics{1}.aspx".FormatWith(
-                        TestConfig.TestForumUrl,
-                        TestConfig.TestForumID,
-                        TestConfig.ForumUrlRewritingPrefix));
+                    string.Format("{0}{2}topics{1}.aspx", TestConfig.TestForumUrl, TestConfig.TestForumID, TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(this.Driver.PageSource.Contains("New Topic"), "Test Forum with that ID doesn't exists");
 
@@ -179,10 +167,7 @@ namespace YAF.Tests.UserTests.UserSettings
                 "Watch form failed");
 
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}cp_subscriptions.aspx".FormatWith(
-                        TestConfig.TestForumUrl,
-                        TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_subscriptions.aspx");
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Email Notification Preferences"),
@@ -199,10 +184,7 @@ namespace YAF.Tests.UserTests.UserSettings
         {
             this.Driver.Navigate()
                 .GoToUrl(
-                    "{0}{2}topics{1}.aspx".FormatWith(
-                        TestConfig.TestForumUrl,
-                        TestConfig.TestForumID,
-                        TestConfig.ForumUrlRewritingPrefix));
+                    string.Format("{0}{2}topics{1}.aspx", TestConfig.TestForumUrl, TestConfig.TestForumID, TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(this.Driver.PageSource.Contains("New Topic"), "Test Forum with that ID doesn't exists");
 
@@ -263,14 +245,14 @@ namespace YAF.Tests.UserTests.UserSettings
             var mail = this.TestMailServer.ReceivedEmail[0];
 
             Assert.AreEqual(
-                "{0}@test.com".FormatWith(TestConfig.TestUserName.ToLower()),
+                $"{TestConfig.TestUserName.ToLower()}@test.com",
                 mail.ToAddresses[0].ToString(),
                 "Receiver does not match");
 
             Assert.IsTrue(mail.FromAddress.ToString().Contains(TestConfig.TestForumMail), "Sender does not match");
 
             Assert.AreEqual(
-                "Topic Subscription New Post Notification (From {0})".FormatWith(TestConfig.TestApplicationName),
+                $"Topic Subscription New Post Notification (From {TestConfig.TestApplicationName})",
                 mail.Headers["Subject"],
                 "Subject does not match");
 
@@ -288,10 +270,7 @@ namespace YAF.Tests.UserTests.UserSettings
             Assert.IsTrue(TestConfig.UseTestMailServer, "This Test only works with the Test Mail Server Enabled");
 
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}cp_subscriptions.aspx".FormatWith(
-                        TestConfig.TestForumUrl,
-                        TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_subscriptions.aspx");
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Email Notification Preferences"),
@@ -307,33 +286,28 @@ namespace YAF.Tests.UserTests.UserSettings
                 this.Driver.FindElement(By.XPath("//input[contains(@id,'_SaveUser')]")).Click();
             }
 
-            var testMessage = "This is an automated Test Message generated at {0}".FormatWith(DateTime.UtcNow);
+            var testMessage = $"This is an automated Test Message generated at {DateTime.UtcNow}";
 
             Assert.IsTrue(this.SendPrivateMessage(testMessage), "Test Message Send Failed");
 
             // Check if an Email was received
-            SmtpMessage mail = this.TestMailServer.ReceivedEmail[0];
+            var mail = this.TestMailServer.ReceivedEmail[0];
 
             Assert.AreEqual(
-                "{0}@test.com".FormatWith(TestConfig.TestUserName.ToLower()),
+                $"{TestConfig.TestUserName.ToLower()}@test.com",
                 mail.ToAddresses[0].ToString(),
                 "Receiver does not match");
 
             Assert.IsTrue(mail.FromAddress.ToString().Contains(TestConfig.TestForumMail), "Sender does not match");
 
             Assert.AreEqual(
-                "New Private Message From {0} at {1}".FormatWith(
-                    TestConfig.TestUserName,
-                    TestConfig.TestApplicationName),
+                $"New Private Message From {TestConfig.TestUserName} at {TestConfig.TestApplicationName}",
                 mail.Headers["Subject"],
                 "Subject does not match");
 
             Assert.IsTrue(
                 mail.MessageParts[0].BodyView.StartsWith(
-                    "A new Private Message from {0} about {1} was send to you at {2}.".FormatWith(
-                        TestConfig.TestUserName,
-                        "Testmessage",
-                        TestConfig.TestApplicationName)),
+                    $"A new Private Message from {TestConfig.TestUserName} about {"Testmessage"} was send to you at {TestConfig.TestApplicationName}."),
                 "Body does not match");
         }
 
@@ -348,10 +322,7 @@ namespace YAF.Tests.UserTests.UserSettings
 
             // Check if Digest is available and enabled
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}cp_subscriptions.aspx".FormatWith(
-                        TestConfig.TestForumUrl,
-                        TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_subscriptions.aspx");
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Email Notification Preferences"),

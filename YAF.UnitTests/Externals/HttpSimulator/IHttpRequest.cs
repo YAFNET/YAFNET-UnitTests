@@ -69,8 +69,11 @@ namespace HttpSimulator
         /// <summary>
         /// Gets ClientCertificate.
         /// </summary>
-        HttpClientCertificate ClientCertificate { [AspNetHostingPermission(SecurityAction.Demand, Level = AspNetHostingPermissionLevel.Low)]
-        get; }
+        HttpClientCertificate ClientCertificate
+        {
+            [AspNetHostingPermission(SecurityAction.Demand, Level = AspNetHostingPermissionLevel.Low)]
+            get;
+        }
 
         /// <summary>
         /// Gets or sets ContentEncoding.
@@ -150,8 +153,11 @@ namespace HttpSimulator
         /// <summary>
         /// Gets LogonUserIdentity.
         /// </summary>
-        WindowsIdentity LogonUserIdentity { [AspNetHostingPermission(SecurityAction.Demand, Level = AspNetHostingPermissionLevel.Medium)]
-        get; }
+        WindowsIdentity LogonUserIdentity
+        {
+            [AspNetHostingPermission(SecurityAction.Demand, Level = AspNetHostingPermissionLevel.Medium)]
+            get;
+        }
 
         /// <summary>
         /// Gets Params.

@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -31,7 +31,6 @@ namespace YAF.Tests.UserTests.Features
 
     using YAF.Tests.Utils;
     using YAF.Tests.Utils.Extensions;
-    using YAF.Types.Extensions;
 
     /// <summary>
     /// The user friend tests.
@@ -74,8 +73,7 @@ namespace YAF.Tests.UserTests.Features
             this.LoginAdminUser();
 
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}cp_editbuddies.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_editbuddies.aspx");
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Pending Requests"),
@@ -83,7 +81,7 @@ namespace YAF.Tests.UserTests.Features
 
             // Go to Members Page and Find the Test User 
             this.Driver.Navigate()
-                .GoToUrl("{0}{1}members.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}members.aspx");
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Search Members"),
@@ -118,8 +116,7 @@ namespace YAF.Tests.UserTests.Features
         public void Approve_Friend_Request_Test()
         {
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}cp_editbuddies.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_editbuddies.aspx");
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Pending Requests"),
@@ -140,8 +137,7 @@ namespace YAF.Tests.UserTests.Features
         public void Deny_Friend_Request_Test()
         {
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}cp_editbuddies.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_editbuddies.aspx");
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Pending Requests"),
@@ -164,8 +160,7 @@ namespace YAF.Tests.UserTests.Features
         public void Approve_and_Add_Friend_Request_Test()
         {
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}cp_editbuddies.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_editbuddies.aspx");
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Pending Requests"),
@@ -186,8 +181,7 @@ namespace YAF.Tests.UserTests.Features
         public void Remove_Friend_Test()
         {
             this.Driver.Navigate()
-                .GoToUrl(
-                    "{0}{1}cp_editbuddies.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+                .GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}cp_editbuddies.aspx");
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Pending Requests"),

@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -24,11 +24,13 @@
 
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Threading;
+
+using NUnit.Framework;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-using NUnit.Framework;
 
 [assembly: AssemblyTitle("YAF.Tests.Utils")]
 [assembly: AssemblyDescription("")]
@@ -44,7 +46,8 @@ using NUnit.Framework;
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
 
-[assembly: RequiresSTA]
+
+[assembly: Apartment(ApartmentState.STA)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("b79415c9-f3c6-48a3-aba4-7e0e4d783ba7")]

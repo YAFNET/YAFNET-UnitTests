@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -33,7 +33,6 @@ namespace YAF.Tests.UserTests.Content
 
     using YAF.Tests.Utils;
     using YAF.Tests.Utils.Extensions;
-    using YAF.Types.Extensions;
 
     /// <summary>
     /// The topic tests.
@@ -75,16 +74,13 @@ namespace YAF.Tests.UserTests.Content
             // Go to Post New Topic
             this.Driver.Navigate()
                 .GoToUrl(
-                    "{0}{2}postmessage.aspx?f={1}".FormatWith(
-                        TestConfig.TestForumUrl,
-                        TestConfig.TestForumID,
-                        TestConfig.ForumUrlRewritingPrefix));
+                    string.Format("{0}{2}postmessage.aspx?f={1}", TestConfig.TestForumUrl, TestConfig.TestForumID, TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(this.Driver.PageSource.Contains("Post New Topic"), "Post New Topic not possible");
 
             // Create New Topic
             this.Driver.FindElement(By.XPath("//input[contains(@id,'_TopicSubjectTextBox')]"))
-                .SendKeys("Auto Created Test Topic - {0}".FormatWith(DateTime.UtcNow));
+                .SendKeys($"Auto Created Test Topic - {DateTime.UtcNow}");
 
             if (this.Driver.PageSource.Contains("Description"))
             {
