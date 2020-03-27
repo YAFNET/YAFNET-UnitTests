@@ -250,7 +250,7 @@ namespace HttpSimulator
         {
             var formText = this.formVariables.Keys.Cast<string>().Aggregate(
                 string.Empty, 
-                (current, key) => $"{current}{$"{key}={this.formVariables[key]}&"}");
+                (current, key) => $"{current}{key}={this.formVariables[key]}&");
 
             return Encoding.UTF8.GetBytes(formText);
         }

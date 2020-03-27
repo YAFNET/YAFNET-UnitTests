@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -42,18 +42,13 @@ namespace YAF.Tests.BasicTests
     public class ContainerTests
     {
         /// <summary>
-        /// Gets or sets TestContext.
-        /// </summary>
-        public TestContext TestContext { get; set; }
-
-        /// <summary>
         /// The container is available from YAF Context not in request.
         /// </summary>
         [Test]
         [Description("The container is available from yaf context not in request.")]
-        public void Container_Is_Available_From_YafContext_Not_In_Request()
+        public void Container_Is_Available_From_BoardContext_Not_In_Request()
         {
-            var serviceLocator = YafContext.Current.ServiceLocator;
+            var serviceLocator = BoardContext.Current.ServiceLocator;
 
             var exception = Record.Exception(() => serviceLocator.Get<HttpRequestBase>());
 
@@ -70,7 +65,7 @@ namespace YAF.Tests.BasicTests
         {
             var sendTask = new DigestSendTask();
 
-            YafContext.Current.ServiceLocator.Get<IInjectServices>().Inject(sendTask);
+            BoardContext.Current.ServiceLocator.Get<IInjectServices>().Inject(sendTask);
 
             sendTask.RunOnce();
         }

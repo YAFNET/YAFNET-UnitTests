@@ -31,16 +31,9 @@ namespace HttpSimulator
     /// <summary>
     /// Helper class to simplify common reflection tasks.
     /// </summary>
-    public sealed class ReflectionHelper
+    public static class ReflectionHelper
     {
         #region Constructors and Destructors
-
-        /// <summary>
-        /// Prevents a default instance of the <see cref="ReflectionHelper"/> class from being created.
-        /// </summary>
-        private ReflectionHelper()
-        {
-        }
 
         #endregion
 
@@ -62,7 +55,7 @@ namespace HttpSimulator
                 return (T)field.GetValue(source);
             }
 
-            return default(T);
+            return default;
         }
 
         /// <summary>
@@ -85,7 +78,7 @@ namespace HttpSimulator
                 return (T)field.GetValue(type);
             }
 
-            return default(T);
+            return default;
         }
 
         /// <summary>
@@ -107,7 +100,7 @@ namespace HttpSimulator
                 return (T)field.GetValue(type);
             }
 
-            return default(T);
+            return default;
         }
 
         /// <summary>

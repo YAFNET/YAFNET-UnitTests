@@ -109,26 +109,6 @@ namespace HttpSimulator
         /// </summary>
         private string physicalApplicationPath = DefaultPhysicalAppPath;
 
-        /// <summary>
-        /// The physical path.
-        /// </summary>
-        private string physicalPath = DefaultPhysicalAppPath;
-
-        /// <summary>
-        /// The port.
-        /// </summary>
-        private int port;
-
-        /// <summary>
-        /// The response writer.
-        /// </summary>
-        private TextWriter responseWriter;
-
-        /// <summary>
-        /// The worker request.
-        /// </summary>
-        private SimulatedHttpRequest workerRequest;
-
         #endregion
 
         #region Constructors and Destructors
@@ -225,12 +205,12 @@ namespace HttpSimulator
         /// <summary>
         ///   Gets the Physical path to the requested file (used for simulation purposes).
         /// </summary>
-        public string PhysicalPath => this.physicalPath;
+        public string PhysicalPath { get; private set; } = DefaultPhysicalAppPath;
 
         /// <summary>
         /// Gets Port.
         /// </summary>
-        public int Port => this.port;
+        public int Port { get; private set; }
 
         /// <summary>
         ///   Returns the text from the response to the simulated request.
@@ -240,17 +220,12 @@ namespace HttpSimulator
         /// <summary>
         /// Gets or sets ResponseWriter.
         /// </summary>
-        public TextWriter ResponseWriter
-        {
-            get => this.responseWriter;
-
-            set => this.responseWriter = value;
-        }
+        public TextWriter ResponseWriter { get; set; }
 
         /// <summary>
         /// Gets WorkerRequest.
         /// </summary>
-        public SimulatedHttpRequest WorkerRequest => this.workerRequest;
+        public SimulatedHttpRequest WorkerRequest { get; private set; }
 
         #endregion
 
@@ -277,7 +252,7 @@ namespace HttpSimulator
         public HttpSimulator SetFormVariable(string name, string value)
         {
             // TODO: Change this ordering requirement.
-            if (this.workerRequest != null)
+            if (this.WorkerRequest != null)
             {
                 throw new InvalidOperationException("Cannot set form variables after calling Simulate().");
             }
@@ -296,7 +271,7 @@ namespace HttpSimulator
         public HttpSimulator SetHeader(string name, string value)
         {
             // TODO: Change this ordering requirement.
-            if (this.workerRequest != null)
+            if (this.WorkerRequest != null)
             {
                 throw new InvalidOperationException("Cannot set headers after calling Simulate().");
             }
@@ -315,7 +290,7 @@ namespace HttpSimulator
         /// </returns>
         public HttpSimulator SetReferer(Uri referer)
         {
-            this.workerRequest?.SetReferer(referer);
+            this.WorkerRequest?.SetReferer(referer);
 
             this._referer = referer;
             return this;
@@ -517,10 +492,10 @@ namespace HttpSimulator
 
             this.ParseRequestUrl(url);
 
-            if (this.responseWriter == null)
+            if (this.ResponseWriter == null)
             {
                 this.builder = new StringBuilder();
-                this.responseWriter = new StringWriter(this.builder);
+                this.ResponseWriter = new StringWriter(this.builder);
             }
 
             this.SetHttpRuntimeInternals();
@@ -542,23 +517,23 @@ namespace HttpSimulator
                 this._headers.Add(headers);
             }
 
-            this.workerRequest = new SimulatedHttpRequest(
+            this.WorkerRequest = new SimulatedHttpRequest(
                 this.ApplicationPath, 
                 this.PhysicalApplicationPath, 
                 this.PhysicalPath, 
                 this.Page, 
                 query, 
-                this.responseWriter, 
+                this.ResponseWriter, 
                 this.Host, 
-                this.port, 
+                this.Port, 
                 httpVerb.ToString());
 
-            this.workerRequest.Form.Add(this._formVars);
-            this.workerRequest.Headers.Add(this._headers);
+            this.WorkerRequest.Form.Add(this._formVars);
+            this.WorkerRequest.Headers.Add(this._headers);
 
             if (this._referer != null)
             {
-                this.workerRequest.SetReferer(this._referer);
+                this.WorkerRequest.SetReferer(this._referer);
             }
 
             this.InitializeSession(isMobileDevice);
@@ -599,7 +574,7 @@ namespace HttpSimulator
         /// </returns>
         private static string ExtractQueryStringPart(Uri url)
         {
-            var query = url.Query ?? string.Empty;
+            var query = url.Query;
             return query.StartsWith("?") ? query.Substring(1) : query;
         }
 
@@ -645,7 +620,7 @@ namespace HttpSimulator
         /// <param name="isMobileDevice">if set to <c>true</c> [is mobile device].</param>
         private void InitializeSession(bool isMobileDevice = false)
         {
-            HttpContext.Current = new HttpContext(this.workerRequest);
+            HttpContext.Current = new HttpContext(this.WorkerRequest);
             HttpContext.Current.Items.Clear();
             var session =
                 (HttpSessionState)
@@ -716,10 +691,10 @@ namespace HttpSimulator
             }
 
             this.Host = url.Host;
-            this.port = url.Port;
+            this.Port = url.Port;
             this.LocalPath = url.LocalPath;
             this.Page = StripPrecedingSlashes(RightAfter(url.LocalPath, this.ApplicationPath));
-            this.physicalPath = Path.Combine(this.physicalApplicationPath, this.Page.Replace("/", @"\"));
+            this.PhysicalPath = Path.Combine(this.physicalApplicationPath, this.Page.Replace("/", @"\"));
         }
 
         /// <summary>
@@ -911,31 +886,6 @@ namespace HttpSimulator
         {
             #region Constants and Fields
 
-            /// <summary>
-            /// The session id.
-            /// </summary>
-            private readonly string sessionID = Guid.NewGuid().ToString();
-
-            /// <summary>
-            /// The static objects.
-            /// </summary>
-            private readonly HttpStaticObjectsCollection staticObjects = new HttpStaticObjectsCollection();
-
-            /// <summary>
-            /// The sync root.
-            /// </summary>
-            private readonly object syncRoot = new object();
-
-            /// <summary>
-            /// The is new session.
-            /// </summary>
-            private bool isNewSession = true;
-
-            /// <summary>
-            /// The timeout.
-            /// </summary>
-            private int timeout = 30; // minutes
-
             #endregion
 
             #region Public Properties
@@ -963,7 +913,7 @@ namespace HttpSimulator
             ///  Gets a value indicating whether the session was created with the current request.
             ///</summary>
             ///<returns> true if the session was created with the current request; otherwise, false. </returns>
-            public bool IsNewSession => this.isNewSession;
+            public bool IsNewSession { get; } = true;
 
             ///<summary>
             ///  Gets a value indicating whether access to the collection of session-state values is synchronized (thread safe).
@@ -987,30 +937,25 @@ namespace HttpSimulator
             ///  Gets the unique session identifier for the session.
             ///</summary>
             ///<returns> The session ID. </returns>
-            public string SessionID => this.sessionID;
+            public string SessionID { get; } = Guid.NewGuid().ToString();
 
             ///<summary>
             ///  Gets a collection of objects declared by &lt;object Runat="Server" Scope="Session"/&gt; tags within the ASP.NET application file Global.asax.
             ///</summary>
             ///<returns> An <see cref="T:System.Web.HttpStaticObjectsCollection"></see> containing objects declared in the Global.asax file. </returns>
-            public HttpStaticObjectsCollection StaticObjects => this.staticObjects;
+            public HttpStaticObjectsCollection StaticObjects { get; } = new HttpStaticObjectsCollection();
 
             ///<summary>
             ///  Gets an object that can be used to synchronize access to the collection of session-state values.
             ///</summary>
             ///<returns> An object that can be used to synchronize access to the collection. </returns>
-            public object SyncRoot => this.syncRoot;
+            public object SyncRoot { get; } = new object();
 
             ///<summary>
             ///  Gets and sets the time-out period (in minutes) allowed between requests before the session-state provider terminates the session.
             ///</summary>
             ///<returns> The time-out period, in minutes. </returns>
-            public int Timeout
-            {
-                get => this.timeout;
-
-                set => this.timeout = value;
-            }
+            public int Timeout { get; set; } = 30;
 
             #endregion
 

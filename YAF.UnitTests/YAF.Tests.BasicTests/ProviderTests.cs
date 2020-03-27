@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -36,22 +36,17 @@ namespace YAF.Tests.BasicTests
     public class ProviderTests
     {
         /// <summary>
-        /// Gets or sets TestContext.
-        /// </summary>
-        public TestContext TestContext { get; set; }
-
-        /// <summary>
         /// The test 193 default hash with incorrect salt.
         /// </summary>
         [Test]
         public void Test193DefaultHashWithIncorrectSalt()
         {
-            const string TestPasswrd = ";Stupid12";
+            const string TestPassword = ";Stupid12";
             const string ExpectedResult = "uNBoPpKz+S46wPPVCeIFyHW0lVE=";
             const string Salt = "UwB5AHMAdABlAG0ALgBCAHkAdABlAFsAXQA=";
 
             var result = YafMembershipProvider.Hash(
-                TestPasswrd,
+                TestPassword,
                 "SHA1",
                 Salt,
                 true,
@@ -69,12 +64,12 @@ namespace YAF.Tests.BasicTests
         [Test]
         public void Test193DefaultHashWithSalt()
         {
-            const string TestPasswrd = ";Stupid12";
+            const string TestPassword = ";Stupid12";
             const string ExpectedResult = "CoUcFgjFpOK1mt+vYrDtQO6IZ9I=";
             const string Salt = "9LeeEZnXUE81gAzeWFXCvw==";
 
             var result = YafMembershipProvider.Hash(
-                TestPasswrd,
+                TestPassword,
                 "SHA1",
                 Salt,
                 true,
@@ -92,11 +87,11 @@ namespace YAF.Tests.BasicTests
         [Test]
         public void Test19xPasswordHash()
         {
-            const string TestPasswrd = ";Stupid12";
+            const string TestPassword = ";Stupid12";
             const string ExpectedResult = "32ADF4DF9AE5B5184EDB8D8BA9D65AD9";
 
             var result = YafMembershipProvider.Hash(
-                TestPasswrd,
+                TestPassword,
                 "MD5",
                 string.Empty,
                 false,
@@ -114,12 +109,12 @@ namespace YAF.Tests.BasicTests
         [Test]
         public void TestSHA1MicrosoftProviderHash()
         {
-            const string TestPasswrd = ";Stupid12";
+            const string TestPassword = ";Stupid12";
             const string ExpectedResult = "8dCiTK3x/mjTG6p4uO72CzNG1mk=";
             const string Salt = "8tX6TMKiZtmA/GwOgpf6uw==";
 
             var result = YafMembershipProvider.Hash(
-                TestPasswrd,
+                TestPassword,
                 "SHA1",
                 Salt,
                 true,
@@ -137,11 +132,11 @@ namespace YAF.Tests.BasicTests
         [Test]
         public void TestSnitzPasswordHash()
         {
-            const string TestPasswrd = ";Stupid12";
+            const string TestPassword = ";Stupid12";
             const string ExpectedResult = "fa679d16ac15713a5a305f45dce4295b241f6dd38e14f92daa330d599ce77d40";
 
             var result = YafMembershipProvider.Hash(
-                TestPasswrd,
+                TestPassword,
                 "SHA256",
                 string.Empty,
                 false,
