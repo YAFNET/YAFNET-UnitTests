@@ -35,7 +35,7 @@ namespace YAF.Tests.UtilsTests.Helpers
     public class EmojiOneTests
     {
         /// <summary>
-        /// The ascii to unicode test.
+        /// The ASCII to Unicode test.
         /// </summary>
         [Test]
         [Description("Ascii To Unicode Test")]
