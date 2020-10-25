@@ -1,8 +1,8 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -24,12 +24,14 @@
 
 namespace YAF.Tests.Utils
 {
+    using System;
+
     using Microsoft.Web.Administration;
 
     /// <summary>
     /// IISManager Class to modify IIS Apps
     /// </summary>
-    public class IISManager
+    public static class IISManager
     {
         /// <summary>
         /// Creates the IIS application.
@@ -38,26 +40,25 @@ namespace YAF.Tests.Utils
         /// <param name="physicalPath">The physical path.</param>
         public static void CreateIISApplication(string applicationName, string physicalPath)
         {
-            using (var serverManager = new ServerManager())
+            var serverManager = ServerManager.OpenRemote(Environment.MachineName.ToLower());
+
+            var defaultSite = serverManager.Sites[TestConfig.DefaultWebsiteName];
+            var newApplication = defaultSite.Applications[$"/{applicationName}"];
+
+            // Remove if exists?!
+            if (newApplication != null)
             {
-                var defaultSite = serverManager.Sites[TestConfig.DefaultWebsiteName];
-                var newApplication = defaultSite.Applications[$"/{applicationName}"];
-
-                // Remove if exists?!
-                if (newApplication != null)
-                {
-                    defaultSite.Applications.Remove(newApplication);
-                    serverManager.CommitChanges();
-                }
-
-                defaultSite = serverManager.Sites[TestConfig.DefaultWebsiteName];
-                newApplication = defaultSite.Applications.Add($"/{applicationName}", physicalPath);
-
-                newApplication.ApplicationPoolName = TestConfig.TestApplicationPool;
-
+                defaultSite.Applications.Remove(newApplication);
                 serverManager.CommitChanges();
-                serverManager.Dispose();
             }
+
+            defaultSite = serverManager.Sites[TestConfig.DefaultWebsiteName];
+            newApplication = defaultSite.Applications.Add($"/{applicationName}", physicalPath);
+
+            newApplication.ApplicationPoolName = TestConfig.TestApplicationPool;
+
+            serverManager.CommitChanges();
+            serverManager.Dispose();
         }
 
         /// <summary>

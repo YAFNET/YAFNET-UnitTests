@@ -1,8 +1,8 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -37,11 +37,9 @@ namespace YAF.Tests.Utils
         /// <summary>
         /// Adds the membership provider.
         /// </summary>
-        /// <param name="providers">The providers.</param>
         /// <param name="providerName">Name of the provider.</param>
         /// <param name="provider">The provider.</param>
         public static void AddMembershipProvider(
-            this ProviderCollection providers,
             string providerName,
             MembershipProvider provider)
         {
@@ -51,11 +49,9 @@ namespace YAF.Tests.Utils
         /// <summary>
         /// Adds the role provider.
         /// </summary>
-        /// <param name="providers">The providers.</param>
         /// <param name="providerName">Name of the provider.</param>
         /// <param name="provider">The provider.</param>
         public static void AddRoleProvider(
-            this ProviderCollection providers,
             string providerName,
             RoleProvider provider)
         {
@@ -65,9 +61,8 @@ namespace YAF.Tests.Utils
         /// <summary>
         /// Removes the membership provider.
         /// </summary>
-        /// <param name="providers">The providers.</param>
         /// <param name="providerName">Name of the provider.</param>
-        public static void RemoveMembershipProvider(this ProviderCollection providers, string providerName)
+        public static void RemoveMembershipProvider(string providerName)
         {
             GetMembershipHashtable().Remove(providerName);
         }
@@ -75,9 +70,8 @@ namespace YAF.Tests.Utils
         /// <summary>
         /// Removes the role provider.
         /// </summary>
-        /// <param name="providers">The providers.</param>
         /// <param name="providerName">Name of the provider.</param>
-        public static void RemoveRoleProvider(this ProviderCollection providers, string providerName)
+        public static void RemoveRoleProvider(string providerName)
         {
             GetRolesHashtable().Remove(providerName);
         }
@@ -86,7 +80,7 @@ namespace YAF.Tests.Utils
         /// Gets the membership hash table.
         /// </summary>
         /// <returns>Returns the Membership Hash Table</returns>
-        public static Hashtable GetMembershipHashtable()
+        private static Hashtable GetMembershipHashtable()
         {
             var hashtableField = typeof(ProviderCollection).GetField(
                 "_Hashtable",
@@ -98,7 +92,7 @@ namespace YAF.Tests.Utils
         /// Gets the roles hash table.
         /// </summary>
         /// <returns>Returns the Roles Hash Table</returns>
-        public static Hashtable GetRolesHashtable()
+        private static Hashtable GetRolesHashtable()
         {
             var hashtableField = typeof(ProviderCollection).GetField(
                 "_Hashtable",

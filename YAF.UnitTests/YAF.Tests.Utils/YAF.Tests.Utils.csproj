@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ProductVersion />
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net48</TargetFramework>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
@@ -11,11 +11,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0-preview-20190606-02" />
-    <PackageReference Include="MSTest.TestAdapter" Version="2.0.0-beta4" />
-    <PackageReference Include="MSTest.TestFramework" Version="2.0.0-beta4" />
-  </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\Microsoft SQL Server\130\SDK\Assemblies\Microsoft.SqlServer.ConnectionInfo.dll</HintPath>
@@ -33,10 +28,6 @@
       <HintPath>..\..\..\..\..\..\..\..\..\..\Windows\System32\inetsrv\Microsoft.Web.Administration.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="netDumbster, Version=1.3.0.0, Culture=neutral, PublicKeyToken=4a1d8c974aa1bd1c, processorArchitecture=MSIL">
-      <HintPath>..\Externals\netDumbster.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="System.configuration" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -49,8 +40,9 @@
     <Compile Include="..\GlobalAssemblyInfo.cs" Link="Properties\GlobalAssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="netDumbster" Version="2.0.0.7" />
     <PackageReference Include="NUnit" Version="3.12.0" />
-    <PackageReference Include="Selenium.Support" Version="4.0.0-alpha01" />
-    <PackageReference Include="SharpZipLib" Version="1.1.0" />
+    <PackageReference Include="Selenium.Support" Version="4.0.0-alpha05" />
+    <PackageReference Include="SharpZipLib" Version="1.3.0" />
   </ItemGroup>
 </Project>

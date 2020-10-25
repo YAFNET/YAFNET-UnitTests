@@ -1,8 +1,8 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -26,6 +26,7 @@ namespace YAF.Tests.Utils.SetUp
 {
     using System.IO;
     using System.Net;
+    using System.Reflection;
     using System.Threading;
     using System.Xml;
 
@@ -47,12 +48,12 @@ namespace YAF.Tests.Utils.SetUp
     public class InstallBase
     {
         /// <summary>
-        /// Gets or sets the IE instance.
+        /// Gets the IE instance.
         /// </summary>
         /// <value>
         /// The IE instance.
         /// </value>
-        public ChromeDriver ChromeDriver { get; set; }
+        public ChromeDriver ChromeDriver { get; private set; }
 
         /// <summary>
         /// Gets or sets the SMTP server.
@@ -60,7 +61,7 @@ namespace YAF.Tests.Utils.SetUp
         /// <value>
         /// The SMTP server.
         /// </value>
-        public SimpleSmtpServer SmtpServer { get; set; }
+        private SimpleSmtpServer SmtpServer { get; set; }
 
         /// <summary>
         /// The Web site Set up.
@@ -73,12 +74,14 @@ namespace YAF.Tests.Utils.SetUp
             }
 
             var applicationPath = Path.Combine(TestConfig.InstallPhysicalPath, TestConfig.TestApplicationName);
-
+            
             // Delete folder
             if (Directory.Exists(applicationPath))
             {
                 Directory.Delete(applicationPath, true);
             }
+
+            var currentPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
             // Create folder
             Directory.CreateDirectory(TestConfig.InstallPhysicalPath);
@@ -89,7 +92,7 @@ namespace YAF.Tests.Utils.SetUp
             {
                 case "Local":
                     {
-                        installZip = TestConfig.LocalReleasePackageFile;
+                        installZip = Path.Combine(currentPath, TestConfig.LocalReleasePackageFile);
                     }
 
                     break;
@@ -106,7 +109,7 @@ namespace YAF.Tests.Utils.SetUp
                     break;
             }
 
-            // Exctract Install Package
+            // Extract Install Package
             var fastZip = new FastZip();
 
             fastZip.ExtractZip(
@@ -166,18 +169,15 @@ namespace YAF.Tests.Utils.SetUp
             xmlMailConfig.Save(Path.Combine(applicationPath, "mail.config"));
             
             // Copy db.config
-            File.Copy(@"..\..\testfiles\db.config", Path.Combine(applicationPath, "db.config"), true);
+            File.Copy(Path.Combine(currentPath, @"..\..\..\testfiles\db.config"), Path.Combine(applicationPath, "db.config"), true);
 
             // Inject Custom.sql file
-            File.Copy(@"..\..\testfiles\custom.sql", Path.Combine(applicationPath, "install\\custom.sql"));
+            File.Copy(Path.Combine(currentPath, @"..\..\..\testfiles\custom.sql"), Path.Combine(applicationPath, "install\\custom.sql"));
 
             Directory.CreateDirectory(Path.Combine(applicationPath, "App_Data"));
 
-            // Copy empty database file to test folder
-            File.Copy(@"..\..\testfiles\Database.mdf", Path.Combine(applicationPath, "App_Data\\Database.mdf"));
-
             // Setup DB
-            DBManager.AttachDatabase(TestConfig.TestDatabase, Path.Combine(applicationPath, "App_Data\\Database.mdf"));
+            DBManager.AttachDatabase(TestConfig.TestDatabase);
             
             if (TestConfig.UseTestMailServer)
             {
@@ -196,7 +196,7 @@ namespace YAF.Tests.Utils.SetUp
             if (TestConfig.UseTestMailServer)
             {
                 // Stop Mail Server
-                SmtpServer?.Stop();
+                this.SmtpServer?.Stop();
             }
 
             if (TestConfig.UseExistingInstallation)
@@ -252,7 +252,7 @@ namespace YAF.Tests.Utils.SetUp
 
             this.ChromeDriver.FindElementById("InstallWizard_Parameter2_Value").SendKeys(TestConfig.TestDatabase);
 
-            // Test Database Conncection
+            // Test Database Connection
             this.ChromeDriver.FindElementById("InstallWizard_btnTestDBConnection").Click();
 
             Assert.IsTrue(this.ChromeDriver.PageSource.Contains("Connection Succeeded"), "Database Connection Is Wrong");
@@ -281,7 +281,7 @@ namespace YAF.Tests.Utils.SetUp
 
                 Assert.AreEqual(
                     "The email sending appears to be working from your YAF installation.",
-                    mail.MessageParts[0].BodyView,
+                    mail.MessageParts[0].BodyData,
                     "Body does not match");
             }
 

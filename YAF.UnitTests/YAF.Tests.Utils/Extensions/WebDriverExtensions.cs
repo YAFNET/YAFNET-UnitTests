@@ -1,8 +1,8 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -48,11 +48,11 @@ namespace YAF.Tests.Utils.Extensions
         {
             if (timeoutInSeconds <= 0)
             {
-                return driver.FindElement(@by);
+                return driver.FindElement(by);
             }
 
             var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds));
-            return wait.Until(drv => drv.FindElement(@by));
+            return wait.Until(drv => drv.FindElement(by));
         }
 
         /// <summary>
@@ -134,8 +134,7 @@ namespace YAF.Tests.Utils.Extensions
         /// </summary>
         /// <param name="browser">The browser.</param>
         /// <param name="locator">The locator.</param>
-        /// <param name="label">The label.</param>
-        public static void SelectCheckBox(this IWebDriver browser, By locator, string label)
+        public static void SelectCheckBox(this IWebDriver browser, By locator)
         {
             WaitFor.ElementPresent(browser, locator);
             var checkBox = browser.FindElement(locator);
@@ -172,8 +171,8 @@ namespace YAF.Tests.Utils.Extensions
         /// <param name="localPath">The local path.</param>
         public static void DownloadFile(this IWebDriver driver, string url, string localPath)
         {
-            var client = new WebClient();
-            client.Headers[HttpRequestHeader.Cookie] = CookieString(driver);
+            var client = new WebClient { Headers = { [HttpRequestHeader.Cookie] = CookieString(driver) } };
+
             client.DownloadFile(url, localPath);
         }
 

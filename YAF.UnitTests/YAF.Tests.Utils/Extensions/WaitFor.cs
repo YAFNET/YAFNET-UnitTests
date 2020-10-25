@@ -1,8 +1,8 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -29,18 +29,37 @@ namespace YAF.Tests.Utils.Extensions
     using OpenQA.Selenium;
     using OpenQA.Selenium.Support.UI;
 
-    public class WaitFor
+    /// <summary>
+    /// The WaitFor Extensions
+    /// </summary>
+    public static class WaitFor
     {
+        /// <summary>
+        /// The element present.
+        /// </summary>
+        /// <param name="browser">
+        /// The browser.
+        /// </param>
+        /// <param name="locator">
+        /// The locator.
+        /// </param>
         public static void ElementPresent(IWebDriver browser, By locator)
         {
             Wait(browser, locator, TimeSpan.FromSeconds(10));
         }
 
-        public static void ElementPresent(IWebDriver browser, By locator, TimeSpan timeSpan)
-        {
-            Wait(browser, locator, timeSpan);
-        }
-
+        /// <summary>
+        /// The wait.
+        /// </summary>
+        /// <param name="browser">
+        /// The browser.
+        /// </param>
+        /// <param name="locator">
+        /// The locator.
+        /// </param>
+        /// <param name="timespan">
+        /// The timespan.
+        /// </param>
         private static void Wait(IWebDriver browser, By locator, TimeSpan timespan)
         {
             IWait<IWebDriver> wait = new WebDriverWait(browser, timespan);

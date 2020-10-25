@@ -1,8 +1,8 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -32,7 +32,7 @@ namespace YAF.Tests.Utils
     /// <summary>
     /// Configuration Settings
     /// </summary>
-    public class TestConfig
+    public static class TestConfig
     {
         /// <summary>
         /// Gets the test forum ID.
@@ -66,11 +66,6 @@ namespace YAF.Tests.Utils
         /// Gets the database server.
         /// </summary>
         public static string DatabaseServer => GetConfigValueAsString("YAF.DatabaseServer") ?? "(local)";
-
-        /// <summary>
-        /// Gets the install test site URL.
-        /// </summary>
-        public static string InstallTestSiteURL => $"http://localhost/{TestApplicationName}/";
 
         /// <summary>
         /// Gets the test application pool.
@@ -151,6 +146,11 @@ namespace YAF.Tests.Utils
         public static string DefaultWebsiteName => GetConfigValueAsString("YAF.DefaultWebsiteName") ?? "Default Web Site";
 
         /// <summary>
+        /// Gets Test Files Directory
+        /// </summary>
+        public static string TestFilesDirectory => GetConfigValueAsString("YAF.TestFilesDirectory") ?? "\\testfiles\\forum\\";
+
+        /// <summary>
         /// Gets Test Forum Url.
         /// </summary>
         public static string TestForumUrl =>
@@ -203,6 +203,11 @@ namespace YAF.Tests.Utils
         public static string TestForumMail => GetConfigValueAsString("YAF.TestForumMail") ?? "forum@yafnettest.com";
 
         /// <summary>
+        /// Gets the install test site URL.
+        /// </summary>
+        private static string InstallTestSiteURL => $"http://localhost/{TestApplicationName}/";
+
+        /// <summary>
         /// Gets the config value as Int32.
         /// </summary>
         /// <param name="configKey">The config key.</param>
@@ -210,11 +215,11 @@ namespace YAF.Tests.Utils
         /// <returns>
         /// Returns Boolean Value
         /// </returns>
-        public static int GetConfigValueAsInt(string configKey, int defaultValue)
+        private static int GetConfigValueAsInt(string configKey, int defaultValue)
         {
             var value = GetConfigValueAsString(configKey);
 
-            return !string.IsNullOrEmpty(value) ? value.ToLower().ToType<int>() : defaultValue;
+            return value.IsSet() ? value.ToLower().ToType<int>() : defaultValue;
         }
 
         /// <summary>
@@ -223,11 +228,11 @@ namespace YAF.Tests.Utils
         /// <param name="configKey">The config key.</param>
         /// <param name="defaultValue">if set to <c>true</c> [default value].</param>
         /// <returns>Returns Boolean Value</returns>
-        public static bool GetConfigValueAsBoolean(string configKey, bool defaultValue)
+        private static bool GetConfigValueAsBoolean(string configKey, bool defaultValue)
         {
             var value = GetConfigValueAsString(configKey);
 
-            return !string.IsNullOrEmpty(value) ? Convert.ToBoolean(value.ToLower()) : defaultValue;
+            return value.IsSet() ? Convert.ToBoolean(value.ToLower()) : defaultValue;
         }
 
         /// <summary>
@@ -235,7 +240,7 @@ namespace YAF.Tests.Utils
         /// </summary>
         /// <param name="configKey">The config key.</param>
         /// <returns>Returns String Value</returns>
-        public static string GetConfigValueAsString(string configKey)
+        private static string GetConfigValueAsString(string configKey)
         {
             return ConfigurationManager.AppSettings[configKey];
         }
