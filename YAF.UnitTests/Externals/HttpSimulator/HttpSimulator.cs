@@ -629,9 +629,7 @@ namespace HttpSimulator
 
             var browserCaps = new HttpBrowserCapabilities();
 
-            var values = new Hashtable(20, StringComparer.OrdinalIgnoreCase);
-
-            values["ecmascriptversion"] = "3.0";
+            var values = new Hashtable(20, StringComparer.OrdinalIgnoreCase) { ["ecmascriptversion"] = "3.0" };
 
             if (isMobileDevice)
             {
@@ -652,8 +650,9 @@ namespace HttpSimulator
                 values["Is Win32"] = "True";
             }
 
-            values["Version"] = "18.0";
-            values["Major Version"] = "18";
+            values["Browser"] = "YAF";
+            values["Version"] = "3.0";
+            values["Major Version"] = "3";
             values["Minor Version"] = "0";
             values["Is Beta"] = "False";
             values["Is Crawler"] = "False";
@@ -937,7 +936,7 @@ namespace HttpSimulator
             ///  Gets the unique session identifier for the session.
             ///</summary>
             ///<returns> The session ID. </returns>
-            public string SessionID { get; } = Guid.NewGuid().ToString();
+            public string SessionID { get; } = Guid.NewGuid().ToString().Remove(24);
 
             ///<summary>
             ///  Gets a collection of objects declared by &lt;object Runat="Server" Scope="Session"/&gt; tags within the ASP.NET application file Global.asax.
