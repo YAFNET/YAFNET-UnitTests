@@ -1,8 +1,8 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -48,7 +48,7 @@ namespace YAF.Tests.CoreTests.Formatting
         /// </summary>
         public FormatDateTimeTests()
         {
-            GlobalContainer.Container.Resolve<IInjectServices>().Inject(this);
+           GlobalContainer.Container.Resolve<IInjectServices>().Inject(this);
         }
 
         #endregion
@@ -61,11 +61,6 @@ namespace YAF.Tests.CoreTests.Formatting
         [Inject]
         public IServiceLocator ServiceLocator { get; set; }
 
-        /// <summary>
-        /// Gets or sets TestContext.
-        /// </summary>
-        public TestContext TestContext { get; set; }
-
         #endregion
 
         /// <summary>
@@ -75,11 +70,11 @@ namespace YAF.Tests.CoreTests.Formatting
         [Description("Format date to long test.")]
         public void Format_Date_To_Long_Test()
         {
-            var currentDateTime = new DateTime(2012, 08, 19, 20, 20, 20);
+            var currentDateTime = new DateTime(2019, 06, 13, 13, 20, 20);
 
             var dateTimeString = this.Get<IDateTime>().FormatDateLong(currentDateTime);
 
-            Assert.AreEqual("Sonntag, 19. August 2012(UTC)", dateTimeString, dateTimeString);
+            Assert.AreEqual("Donnerstag, 13. Juni 2019", dateTimeString, dateTimeString);
         }
     }
 }

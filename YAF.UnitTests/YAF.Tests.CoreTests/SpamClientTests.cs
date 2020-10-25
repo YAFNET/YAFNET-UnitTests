@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -37,11 +37,6 @@ namespace YAF.Tests.CoreTests
     public class SpamClientTests
     {
         /// <summary>
-        /// Gets or sets TestContext.
-        /// </summary>
-        public TestContext TestContext { get; set; }
-
-        /// <summary>
         /// A test to check the Akismet API Key
         /// </summary>
         [Test]
@@ -60,10 +55,10 @@ namespace YAF.Tests.CoreTests
         [Description("A Test to Check for Bot via StopForumSpam.com API")]
         public void Check_For_Bot_Test_via_StopForumSpam()
         {
-            string responseText;
             Assert.IsTrue(
-                new StopForumSpam().IsBot("84.16.230.111", "uuruznfdxw@gmail.com", "someone", out responseText),
-                "This should be a Bot" + responseText);
+                new StopForumSpam().IsBot("84.16.230.111", "uuruznfdxw@gmail.com", "someone", out var responseText),
+                "This should be a Bot{0}",
+                responseText);
         }
 
         /// <summary>
@@ -73,11 +68,10 @@ namespace YAF.Tests.CoreTests
         [Description("A Test to Check for Bot via BotScout.com API")]
         public void Check_For_Bot_Test_via_BotScout()
         {
-            string responseText;
-
             Assert.IsTrue(
-                new BotScout().IsBot("84.16.230.111", "krasnhello@mail.ru", "someone", out responseText),
-                "This should be a Bot" + responseText);
+                new BotScout().IsBot("84.16.230.111", "krasnhello@mail.ru", "someone", out var responseText),
+                "This should be a Bot{0}",
+                responseText);
         }
 
         /// <summary>
@@ -87,13 +81,12 @@ namespace YAF.Tests.CoreTests
         [Description("A Test to Check for Bot via BotScout.com API or StopForumSpam.com API")]
         public void Check_For_Bot_Test()
         {
-            string responseText, responseText2;
-            var botScoutCheck = new BotScout().IsBot("84.16.230.111", "krasnhello@mail.ru", "someone", out responseText);
+            var botScoutCheck = new BotScout().IsBot("84.16.230.111", "krasnhello@mail.ru", "someone", out _);
             var stopForumSpamCheck = new StopForumSpam().IsBot(
                 "84.16.230.111",
                 "krasnhello@mail.ru",
                 "someone",
-                out responseText2);
+                out _);
 
             Assert.IsTrue(botScoutCheck | stopForumSpamCheck, "This should be a Bot");
         }
@@ -104,9 +97,8 @@ namespace YAF.Tests.CoreTests
         [Test]
         public void Report_User_As_Bot_Test()
         {
-            string responseText, responseText2;
             var parameters =
-                $"username={"someone"}&ip_addr={"84.16.230.111"}&email={"krasnhello@mail.ru"}&api_key={"XXXXXXXXXXX"}";
+                "username=someone&ip_addr=84.16.230.111&email=krasnhello@mail.ru&api_key=XXXXXXXXXXX";
 
             var result = new HttpClient().PostRequest(
                 new Uri("http://www.stopforumspam.com/add.php"),

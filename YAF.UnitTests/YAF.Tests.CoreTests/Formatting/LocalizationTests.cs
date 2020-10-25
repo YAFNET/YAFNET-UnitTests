@@ -1,8 +1,8 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -26,7 +26,7 @@ namespace YAF.Tests.CoreTests.Formatting
 {
     using NUnit.Framework;
 
-    using YAF.Core;
+    using YAF.Core.Context;
     using YAF.Types.Interfaces;
 
     /// <summary>
@@ -36,15 +36,6 @@ namespace YAF.Tests.CoreTests.Formatting
     [Category("Formatting")]
     public class LocalizationTests
     {
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets TestContext.
-        /// </summary>
-        public TestContext TestContext { get; set; }
-
-        #endregion
-
         /// <summary>
         /// Simple test to check if the localizer works.
         /// </summary>
@@ -52,7 +43,7 @@ namespace YAF.Tests.CoreTests.Formatting
         [Description("Simple test to check if the localizer works.")]
         public void Simple_Localization_Test()
         {
-            var testMessage = YafContext.Current.Get<ILocalization>().GetText("TOOLBAR", "WELCOME_GUEST");
+            var testMessage = BoardContext.Current.Get<ILocalization>().GetText("TOOLBAR", "WELCOME_GUEST");
 
             Assert.AreEqual(
                 "Welcome Guest! To enable all features please try to register or login.",
@@ -67,9 +58,9 @@ namespace YAF.Tests.CoreTests.Formatting
         [Description("Simple test (with parameter) to check if the localizer works.")]
         public void Simple_Localization_With_Parameter_Test()
         {
-            var testMessage = YafContext.Current.Get<ILocalization>().GetTextFormatted("LOGGED_IN_AS", "TestUser");
+            var testMessage = BoardContext.Current.Get<ILocalization>().GetTextFormatted("LOGGED_IN_AS", "TestUser");
 
-            Assert.AreEqual($"Logged in as: {"TestUser"}", testMessage, testMessage);
+            Assert.AreEqual("Logged in as: TestUser", testMessage, testMessage);
         }
 
         /// <summary>
@@ -79,7 +70,7 @@ namespace YAF.Tests.CoreTests.Formatting
         [Description("Simple test to check if the localizer works (With a specific language).")]
         public void Simple_Localization_Language_Specific_Test()
         {
-            var testMessage = YafContext.Current.Get<ILocalization>()
+            var testMessage = BoardContext.Current.Get<ILocalization>()
                 .GetText("TOOLBAR", "WELCOME_GUEST", "german-du.xml");
 
             Assert.AreEqual("Willkommen, Gast!", testMessage, testMessage);
