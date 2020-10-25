@@ -30,7 +30,7 @@ namespace YAF.Tests.BasicTests
 
     using Xunit;
 
-    using YAF.Core;
+    using YAF.Core.Context;
     using YAF.Core.Tasks;
     using YAF.Types.Interfaces;
 
