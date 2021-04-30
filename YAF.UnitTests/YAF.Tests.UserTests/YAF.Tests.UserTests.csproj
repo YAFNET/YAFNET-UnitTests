@@ -39,6 +39,6 @@
     <PackageReference Include="NUnit" Version="3.12.0" />
     <PackageReference Include="Selenium.Support" Version="4.0.0-alpha01" />
     <PackageReference Include="SharpZipLib" Version="1.1.0" />
-    <PackageReference Include="WebDriver.ChromeDriver.win32" Version="2.46.0" />
+    <PackageReference Include="WebDriver.ChromeDriver.win32" Version="90.0.4430.24" />
   </ItemGroup>
 </Project>
