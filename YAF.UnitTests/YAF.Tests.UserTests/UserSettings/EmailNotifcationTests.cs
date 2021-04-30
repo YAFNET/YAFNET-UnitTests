@@ -1,8 +1,8 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2021 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -44,11 +44,6 @@ namespace YAF.Tests.UserTests.UserSettings
     [TestFixture]
     public class EmailNotificationTests : TestBase
     {
-        /// <summary>
-        /// Gets or sets TestContext.
-        /// </summary>
-        public TestContext TestContext { get; set; }
-
         /// <summary>
         /// Login User Setup
         /// </summary>
@@ -257,7 +252,7 @@ namespace YAF.Tests.UserTests.UserSettings
                 "Subject does not match");
 
             Assert.IsTrue(
-                mail.MessageParts[0].BodyView.StartsWith("There's a new post in topic \""),
+                mail.MessageParts[0].BodyData.StartsWith("There's a new post in topic \""),
                 "Body does not match");
         }
 
@@ -306,7 +301,7 @@ namespace YAF.Tests.UserTests.UserSettings
                 "Subject does not match");
 
             Assert.IsTrue(
-                mail.MessageParts[0].BodyView.StartsWith(
+                mail.MessageParts[0].BodyData.StartsWith(
                     $"A new Private Message from {TestConfig.TestUserName} about {"Testmessage"} was send to you at {TestConfig.TestApplicationName}."),
                 "Body does not match");
         }

@@ -1,8 +1,8 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2021 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -35,12 +35,12 @@ namespace YAF.Tests.AdminTests
     public class TestSetup
     {
         /// <summary>
-        /// Gets or sets the install base.
+        /// Gets the install base.
         /// </summary>
         /// <value>
         /// The install base.
         /// </value>
-        public static InstallBase _testBase { get; set; }
+        public static InstallBase TestBase { get; private set; }
 
         /// <summary>
         /// Download YAF, Create Application and setup the Database
@@ -48,9 +48,9 @@ namespace YAF.Tests.AdminTests
         [OneTimeSetUp]
         public void SetUp()
         {
-            _testBase = new InstallBase();
+            TestBase = new InstallBase();
 
-            _testBase.SetUp();
+            TestBase.SetUp();
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace YAF.Tests.AdminTests
         [OneTimeTearDown]
         public void TearDown()
         {
-            _testBase.TearDown();
+            TestBase.TearDown();
         }
     }
 }

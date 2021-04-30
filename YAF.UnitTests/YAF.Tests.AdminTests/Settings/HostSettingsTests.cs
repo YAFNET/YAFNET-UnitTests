@@ -1,8 +1,8 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2021 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -39,17 +39,12 @@ namespace YAF.Tests.AdminTests.Settings
     public class HostSettingsTests : TestBase
     {
         /// <summary>
-        /// Gets or sets TestContext.
-        /// </summary>
-        public TestContext TestContext { get; set; }
-
-        /// <summary>
         /// Login User Setup
         /// </summary>
         [OneTimeSetUp]
         public void SetUpTest()
         {
-            this.Driver = !TestConfig.UseExistingInstallation ? TestSetup._testBase.ChromeDriver : new ChromeDriver();
+            this.Driver = !TestConfig.UseExistingInstallation ? TestSetup.TestBase.ChromeDriver : new ChromeDriver();
 
             Assert.IsTrue(this.LoginAdminUser(), "Login failed");
         }
@@ -67,6 +62,7 @@ namespace YAF.Tests.AdminTests.Settings
         /// Basic test to check if the Host Settings are correctly saved
         /// </summary>
         [Test]
+        [Ignore("needs to be updated")]
         public void HostSettings_Saved_Correctly_Test()
         {
             this.Driver.Navigate()

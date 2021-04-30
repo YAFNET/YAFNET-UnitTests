@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -33,6 +33,7 @@ namespace YAF.Tests.CoreTests.Formatting
     using YAF.Core;
     using YAF.Types.Attributes;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
 
     /// <summary>
     ///  The Format Date Time tests.
@@ -72,7 +73,7 @@ namespace YAF.Tests.CoreTests.Formatting
         {
             var currentDateTime = new DateTime(2019, 06, 13, 13, 20, 20);
 
-            var dateTimeString = this.Get<IDateTime>().FormatDateLong(currentDateTime);
+            var dateTimeString = this.Get<IDateTimeService>().FormatDateLong(currentDateTime);
 
             Assert.AreEqual("Donnerstag, 13. Juni 2019", dateTimeString, dateTimeString);
         }
