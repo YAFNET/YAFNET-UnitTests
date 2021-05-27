@@ -27,7 +27,7 @@
     <Content Include="custom.sql" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.10.0-release-20210429-01" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.10.0" />
     <PackageReference Include="netDumbster" Version="2.0.0.8" />
     <PackageReference Include="NUnit" Version="3.13.2" />
     <PackageReference Include="Selenium.Support" Version="4.0.0-beta2" />
