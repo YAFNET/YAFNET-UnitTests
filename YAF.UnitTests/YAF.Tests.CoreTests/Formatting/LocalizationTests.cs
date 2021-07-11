@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -24,9 +24,15 @@
 
 namespace YAF.Tests.CoreTests.Formatting
 {
+    using Autofac;
+
+    using HttpSimulator;
+
     using NUnit.Framework;
 
-    using YAF.Core.Context;
+    using YAF.Core;
+    using YAF.Tests.Utils;
+    using YAF.Types.Attributes;
     using YAF.Types.Interfaces;
 
     /// <summary>
@@ -34,8 +40,30 @@ namespace YAF.Tests.CoreTests.Formatting
     /// </summary>
     [TestFixture]
     [Category("Formatting")]
-    public class LocalizationTests
+    public class LocalizationTests : IHaveServiceLocator
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LocalizationTests"/> class.
+        /// </summary>
+        public LocalizationTests()
+        {
+            GlobalContainer.Container.Resolve<IInjectServices>().Inject(this);
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets ServiceLocator.
+        /// </summary>
+        [Inject]
+        public IServiceLocator ServiceLocator { get; set; }
+
+        #endregion
+
         /// <summary>
         /// Simple test to check if the localizer works.
         /// </summary>
@@ -43,12 +71,15 @@ namespace YAF.Tests.CoreTests.Formatting
         [Description("Simple test to check if the localizer works.")]
         public void Simple_Localization_Test()
         {
-            var testMessage = BoardContext.Current.Get<ILocalization>().GetText("TOOLBAR", "WELCOME_GUEST");
+            using (new HttpSimulator("/", TestConfig.TestFilesDirectory).SimulateRequest())
+            {
+                var testMessage = this.Get<ILocalization>().GetText("TOOLBAR", "WELCOME_GUEST");
 
-            Assert.AreEqual(
-                "Welcome Guest! To enable all features please try to register or login.",
-                testMessage,
-                testMessage);
+                Assert.AreEqual(
+                    "Welcome Guest! To enable all features please try to register or login.",
+                    testMessage,
+                    testMessage);
+            }
         }
 
         /// <summary>
@@ -58,9 +89,13 @@ namespace YAF.Tests.CoreTests.Formatting
         [Description("Simple test (with parameter) to check if the localizer works.")]
         public void Simple_Localization_With_Parameter_Test()
         {
-            var testMessage = BoardContext.Current.Get<ILocalization>().GetTextFormatted("LOGGED_IN_AS", "TestUser");
+            using (new HttpSimulator("/", TestConfig.TestFilesDirectory).SimulateRequest())
+            {
+                var testMessage = this.Get<ILocalization>()
+                    .GetTextFormatted("LOGGED_IN_AS", "TestUser");
 
-            Assert.AreEqual("Logged in as: TestUser", testMessage, testMessage);
+                Assert.AreEqual("Logged in as: TestUser", testMessage, testMessage);
+            }
         }
 
         /// <summary>
@@ -70,10 +105,13 @@ namespace YAF.Tests.CoreTests.Formatting
         [Description("Simple test to check if the localizer works (With a specific language).")]
         public void Simple_Localization_Language_Specific_Test()
         {
-            var testMessage = BoardContext.Current.Get<ILocalization>()
-                .GetText("TOOLBAR", "WELCOME_GUEST", "german-du.xml");
+            using (new HttpSimulator("/", TestConfig.TestFilesDirectory).SimulateRequest())
+            {
+                var testMessage = this.Get<ILocalization>()
+                    .GetText("TOOLBAR", "WELCOME_GUEST", "german-du.xml");
 
-            Assert.AreEqual("Willkommen, Gast!", testMessage, testMessage);
+                Assert.AreEqual("Willkommen, Gast!", testMessage, testMessage);
+            }
         }
     }
 }

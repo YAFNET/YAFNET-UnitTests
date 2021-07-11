@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -26,12 +26,15 @@ namespace YAF.Tests.BasicTests
 {
     using System.Web;
 
+    using HttpSimulator;
+
     using NUnit.Framework;
 
     using Xunit;
 
     using YAF.Core.Context;
     using YAF.Core.Tasks;
+    using YAF.Tests.Utils;
     using YAF.Types.Interfaces;
 
     /// <summary>
@@ -63,11 +66,14 @@ namespace YAF.Tests.BasicTests
         [Ignore("Doesnt work yet")]
         public void Container_Is_Available_To_Send_Digest_In_Background()
         {
-            var sendTask = new DigestSendTask();
+            using (new HttpSimulator("/", TestConfig.TestFilesDirectory).SimulateRequest())
+            {
+                var sendTask = new DigestSendTask();
 
-            BoardContext.Current.ServiceLocator.Get<IInjectServices>().Inject(sendTask);
+                BoardContext.Current.ServiceLocator.Get<IInjectServices>().Inject(sendTask);
 
-            sendTask.RunOnce();
+                sendTask.RunOnce();
+            }
         }
     }
 }

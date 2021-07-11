@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -28,9 +28,12 @@ namespace YAF.Tests.CoreTests.Formatting
 
     using Autofac;
 
+    using HttpSimulator;
+
     using NUnit.Framework;
 
     using YAF.Core;
+    using YAF.Tests.Utils;
     using YAF.Types.Attributes;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Services;
@@ -71,11 +74,13 @@ namespace YAF.Tests.CoreTests.Formatting
         [Description("Format date to long test.")]
         public void Format_Date_To_Long_Test()
         {
-            var currentDateTime = new DateTime(2019, 06, 13, 13, 20, 20);
+            using (new HttpSimulator("/", TestConfig.TestFilesDirectory).SimulateRequest())
+            {
+                var currentDateTime = new DateTime(2019, 06, 13, 13, 20, 20);
 
-            var dateTimeString = this.Get<IDateTimeService>().FormatDateLong(currentDateTime);
-
-            Assert.AreEqual("Donnerstag, 13. Juni 2019", dateTimeString, dateTimeString);
+                var dateTimeString = this.Get<IDateTimeService>().FormatDateLong(currentDateTime);
+                Assert.AreEqual("Donnerstag, 13. Juni 2019", dateTimeString, dateTimeString);
+            }
         }
     }
 }

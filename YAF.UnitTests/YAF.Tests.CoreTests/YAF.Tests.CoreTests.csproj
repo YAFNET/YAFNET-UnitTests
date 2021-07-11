@@ -20,8 +20,8 @@
       <HintPath>..\..\YAF.NET\yafsrc\YetAnotherForum.NET\Bin\YAF.Core.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="YAF.Data.MsSql">
-      <HintPath>..\..\YAF.NET\yafsrc\YetAnotherForum.NET\Bin\YAF.Data.MsSql.dll</HintPath>
+    <Reference Include="YAF.Data.SqlServer">
+      <HintPath>..\..\YAF.NET\yafsrc\YetAnotherForum.NET\Bin\YAF.Data.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="YAF.Types, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\YAF.NET\yafsrc\YetAnotherForum.NET\Bin\YAF.Types.dll</HintPath>
@@ -42,7 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.2.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.10.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0-release-20210626-04" />
     <PackageReference Include="Moq" Version="4.16.1" />
     <PackageReference Include="NUnit" Version="3.13.2" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />

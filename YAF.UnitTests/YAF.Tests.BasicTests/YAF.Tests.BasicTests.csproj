@@ -12,6 +12,9 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="app.config" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="System.configuration" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
@@ -20,6 +23,9 @@
       <HintPath>..\..\YAF.NET\yafsrc\YetAnotherForum.NET\Bin\YAF.Core.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="YAF.Data.SqlServer">
+      <HintPath>..\..\YAF.NET\yafsrc\YetAnotherForum.NET\Bin\YAF.Data.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="YAF.Types">
       <HintPath>..\..\YAF.NET\yafsrc\YetAnotherForum.NET\Bin\YAF.Types.dll</HintPath>
@@ -30,8 +36,18 @@
     <Compile Include="..\GlobalAssemblyInfo.cs" Link="Properties\GlobalAssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.10.0" />
+    <Content Include="app.config">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="5.0.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0-release-20210626-04" />
     <PackageReference Include="NUnit" Version="3.13.2" />
     <PackageReference Include="xunit" Version="2.4.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Externals\HttpSimulator\HttpSimulator.csproj" />
+    <ProjectReference Include="..\YAF.Tests.Utils\YAF.Tests.Utils.csproj" />
   </ItemGroup>
 </Project>
