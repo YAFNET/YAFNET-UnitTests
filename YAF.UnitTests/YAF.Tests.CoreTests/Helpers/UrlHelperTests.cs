@@ -26,7 +26,7 @@ namespace YAF.Tests.UtilsTests.Helpers
 {
     using NUnit.Framework;
 
-    using YAF.Core.Utilities.Helpers;
+    using YAF.Core.Helpers;
 
     /// <summary>
     /// YAF.Utils UrlHelper Tests

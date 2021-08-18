@@ -87,7 +87,7 @@ namespace YAF.Tests.UserTests.Features
 
             this.Driver.FindElement(By.XPath("//input[contains(@id,'_SearchByUserName')]")).ClickAndWait();
 
-            var userProfileLink = this.Driver.FindElementByLinkText(TestConfig.TestUserName);
+            var userProfileLink = this.Driver.FindElement(By.LinkText(TestConfig.TestUserName));
 
             Assert.IsNotNull(userProfileLink, "User Profile Not Found");
 
@@ -117,10 +117,10 @@ namespace YAF.Tests.UserTests.Features
                 this.Driver.PageSource.Contains("Pending Requests"),
                 "My Friends function is not available for that User, or is disabled for that Forum");
 
-            this.Driver.FindElementByLinkText("Pending Requests").Click();
+            this.Driver.FindElement(By.LinkText("Pending Requests")).Click();
 
             // Select the First Request
-            this.Driver.FindElementByLinkText("Approve").Click();
+            this.Driver.FindElement(By.LinkText("Approve")).Click();
 
             Assert.IsTrue(this.Driver.PageSource.Contains("You have been added to "), "Approve Friend Failed");
         }
@@ -138,10 +138,10 @@ namespace YAF.Tests.UserTests.Features
                 this.Driver.PageSource.Contains("Pending Requests"),
                 "My Friends function is not available for that User, or is disabled for that Forum");
 
-            this.Driver.FindElementByLinkText("Pending Requests").Click();
+            this.Driver.FindElement(By.LinkText("Pending Requests")).Click();
 
             // Select the First Request
-            this.Driver.FindElementByLinkText("Deny").Click();
+            this.Driver.FindElement(By.LinkText("Deny")).Click();
 
             this.Driver.SwitchTo().Alert().Accept();
 
@@ -161,10 +161,10 @@ namespace YAF.Tests.UserTests.Features
                 this.Driver.PageSource.Contains("Pending Requests"),
                 "My Friends function is not available for that User, or is disabled for that Forum");
 
-            this.Driver.FindElementByLinkText("Pending Requests").Click();
+            this.Driver.FindElement(By.LinkText("Pending Requests")).Click();
 
             // Select the First Request
-            this.Driver.FindElementByLinkText("Approve and Add").Click();
+            this.Driver.FindElement(By.LinkText("Approve and Add")).Click();
 
             Assert.IsTrue(this.Driver.PageSource.Contains("You and "), "Approve and Add Friend Failed");
         }

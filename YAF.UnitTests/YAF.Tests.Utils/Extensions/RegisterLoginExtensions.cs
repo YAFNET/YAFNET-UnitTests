@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -64,7 +64,7 @@ namespace YAF.Tests.Utils.Extensions
             {
                 driver.FindElement(By.XPath("//a[contains(@id,'_LogOutButton')]")).ClickAndWait();
 
-                driver.FindElementById("forum_ctl02_OkButton").Click();
+                driver.FindElement(By.Id("forum_ctl02_OkButton")).Click();
 
                 driver.Navigate().GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}login.aspx");
             }
@@ -89,7 +89,7 @@ namespace YAF.Tests.Utils.Extensions
         /// <returns>
         /// If User was Registered or not
         /// </returns>
-        private static bool RegisterUser(this RemoteWebDriver driver, string userName, string email, string password)
+        private static bool RegisterUser(this IWebDriver driver, string userName, string email, string password)
         {
             driver.Navigate().GoToUrl($"{TestConfig.TestForumUrl}{TestConfig.ForumUrlRewritingPrefix}register.aspx");
 
@@ -102,7 +102,7 @@ namespace YAF.Tests.Utils.Extensions
             // Accept the Rules
             if (driver.PageSource.Contains("Forum Rules"))
             {
-                driver.FindElementById("forum_ctl04_Login1_LoginButton").Click();
+                driver.FindElement(By.Id("forum_ctl04_Login1_LoginButton")).Click();
                 driver.Navigate().Refresh();
             }
 

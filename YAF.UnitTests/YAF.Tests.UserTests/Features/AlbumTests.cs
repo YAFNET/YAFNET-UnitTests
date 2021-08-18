@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -73,7 +73,7 @@ namespace YAF.Tests.UserTests.Features
                 this.Driver.PageSource.Contains("Edit Albums"),
                 "Albums Feature is not available for that User");
 
-            this.Driver.FindElementByLinkText("Edit Albums").Click();
+            this.Driver.FindElement(By.LinkText("Edit Albums")).Click();
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Album Images"),
@@ -119,7 +119,7 @@ namespace YAF.Tests.UserTests.Features
                 this.Driver.PageSource.Contains("Edit Albums"),
                 "Albums Feature is not available for that User");
 
-            this.Driver.FindElementByLinkText("Edit Albums").Click();
+            this.Driver.FindElement(By.LinkText("Edit Albums")).Click();
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Album Images"),
@@ -145,7 +145,7 @@ namespace YAF.Tests.UserTests.Features
                 this.Driver.PageSource.Contains("Edit Albums"),
                 "Albums Feature is not available for that User");
 
-            this.Driver.FindElementByLinkText("Edit Albums").Click();
+            this.Driver.FindElement(By.LinkText("Edit Albums")).Click();
 
             Assert.IsTrue(this.Driver.PageSource.Contains("Album Images"), "Album deleting failed");
         }
@@ -163,7 +163,7 @@ namespace YAF.Tests.UserTests.Features
                 this.Driver.PageSource.Contains("Edit Albums"),
                 "Albums Feature is not available for that User");
 
-            this.Driver.FindElementByLinkText("Edit Albums").Click();
+            this.Driver.FindElement(By.LinkText("Edit Albums")).Click();
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Album Images"),
@@ -202,7 +202,7 @@ namespace YAF.Tests.UserTests.Features
                 this.Driver.PageSource.Contains("Edit Albums"),
                 "Albums Feature is not available for that User");
 
-            this.Driver.FindElementByLinkText("Edit Albums").Click();
+            this.Driver.FindElement(By.LinkText("Edit Albums")).Click();
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Album Images"),
@@ -244,7 +244,7 @@ namespace YAF.Tests.UserTests.Features
                 this.Driver.PageSource.Contains("Edit Albums"),
                 "Albums Feature is not available for that User");
 
-            this.Driver.FindElementByLinkText("Edit Albums").Click();
+            this.Driver.FindElement(By.LinkText("Edit Albums")).Click();
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Album Images"),
@@ -290,7 +290,7 @@ namespace YAF.Tests.UserTests.Features
                 this.Driver.PageSource.Contains("Edit Albums"),
                 "Albums Feature is not available for that User");
 
-            this.Driver.FindElementByLinkText("Edit Albums").Click();
+            this.Driver.FindElement(By.LinkText("Edit Albums")).Click();
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Album Images"),
@@ -336,7 +336,7 @@ namespace YAF.Tests.UserTests.Features
                 this.Driver.PageSource.Contains("Edit Albums"),
                 "Albums Feature is not available for that User");
 
-            this.Driver.FindElementByLinkText("Edit Albums").Click();
+            this.Driver.FindElement(By.LinkText("Edit Albums")).Click();
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Album Images"),
@@ -357,7 +357,7 @@ namespace YAF.Tests.UserTests.Features
                         "//span[contains(@id,'AlbumImages_spnImageOwner_0')]/descendant::span[@class='albumtitle']"));
             imageTitleSpan.Click();
 
-            var imageTitleInput = this.Driver.FindElementById(imageTitleSpan.GetAttribute("id").Replace("spn", "txt"));
+            var imageTitleInput = this.Driver.FindElement(By.Id(imageTitleSpan.GetAttribute("id").Replace("spn", "txt")));
             imageTitleInput.SendKeys("TestCaption");
 
             imageTitleInput.SendKeys(Keys.Enter);
@@ -380,7 +380,7 @@ namespace YAF.Tests.UserTests.Features
                 this.Driver.PageSource.Contains("Edit Albums"),
                 "Albums Feature is not available for that User");
 
-            this.Driver.FindElementByLinkText("Edit Albums").Click();
+            this.Driver.FindElement(By.LinkText("Edit Albums")).Click();
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Album Images"),
@@ -395,10 +395,10 @@ namespace YAF.Tests.UserTests.Features
 
             Assert.IsTrue(this.Driver.PageSource.Contains("Album Images"));
 
-            var imageTitleSpan = this.Driver.FindElementByClassName("albumtitle");
+            var imageTitleSpan = this.Driver.FindElement(By.ClassName("albumtitle"));
             imageTitleSpan.Click();
 
-            var imageTitleInput = this.Driver.FindElementById(imageTitleSpan.GetAttribute("id").Replace("spn", "txt"));
+            var imageTitleInput = this.Driver.FindElement(By.Id(imageTitleSpan.GetAttribute("id").Replace("spn", "txt")));
             imageTitleInput.Clear();
             imageTitleInput.SendKeys("TestAlbumNameRandom");
 
@@ -407,7 +407,7 @@ namespace YAF.Tests.UserTests.Features
             this.Driver.Navigate().Refresh();
 
             Assert.IsTrue(
-                this.Driver.FindElementByClassName("albumtitle").Text.Contains("TestAlbumNameRandom"),
+                this.Driver.FindElement(By.ClassName("albumtitle")).Text.Contains("TestAlbumNameRandom"),
                 "Edit Caption Failed");
         }
     }

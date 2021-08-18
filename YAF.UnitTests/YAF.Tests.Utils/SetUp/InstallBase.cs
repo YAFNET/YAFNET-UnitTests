@@ -238,33 +238,33 @@ namespace YAF.Tests.Utils.SetUp
             Thread.Sleep(5000);
 
             // Enter Config Password
-            this.ChromeDriver.FindElementById("InstallWizard_txtEnteredPassword").SendKeys(TestConfig.ConfigPassword);
-            this.ChromeDriver.FindElementById("InstallWizard_StepNavigationTemplateContainerID_StepNextButton").Click();
+            this.ChromeDriver.FindElement(By.Id("InstallWizard_txtEnteredPassword")).SendKeys(TestConfig.ConfigPassword);
+            this.ChromeDriver.FindElement(By.Id("InstallWizard_StepNavigationTemplateContainerID_StepNextButton")).Click();
 
-            this.ChromeDriver.FindElementById("InstallWizard_StepNavigationTemplateContainerID_StepPreviousButton").Click();
+            this.ChromeDriver.FindElement(By.Id("InstallWizard_StepNavigationTemplateContainerID_StepPreviousButton")).Click();
 
-            this.ChromeDriver.FindElementById("InstallWizard_rblYAFDatabase_1").Click();
+            this.ChromeDriver.FindElement(By.Id("InstallWizard_rblYAFDatabase_1")).Click();
 
             // Enter YAF Database Connection
             var serverInput = this.ChromeDriver.FindElement(By.Id("InstallWizard_Parameter1_Value"), 300);
             serverInput.Clear();
             serverInput.SendKeys(TestConfig.DatabaseServer);
 
-            this.ChromeDriver.FindElementById("InstallWizard_Parameter2_Value").SendKeys(TestConfig.TestDatabase);
+            this.ChromeDriver.FindElement(By.Id("InstallWizard_Parameter2_Value")).SendKeys(TestConfig.TestDatabase);
 
             // Test Database Connection
-            this.ChromeDriver.FindElementById("InstallWizard_btnTestDBConnection").Click();
+            this.ChromeDriver.FindElement(By.Id("InstallWizard_btnTestDBConnection")).Click();
 
             Assert.IsTrue(this.ChromeDriver.PageSource.Contains("Connection Succeeded"), "Database Connection Is Wrong");
 
-            this.ChromeDriver.FindElementById("InstallWizard_StepNavigationTemplateContainerID_StepNextButton").Click();
+            this.ChromeDriver.FindElement(By.Id("InstallWizard_StepNavigationTemplateContainerID_StepNextButton")).Click();
 
             // Test Mail Setup
-            this.ChromeDriver.FindElementById("InstallWizard_txtTestFromEmail").SendKeys(TestConfig.TestForumMail);
+            this.ChromeDriver.FindElement(By.Id("InstallWizard_txtTestFromEmail")).SendKeys(TestConfig.TestForumMail);
 
-            this.ChromeDriver.FindElementById("InstallWizard_txtTestToEmail").SendKeys("receiver@there.com");
+            this.ChromeDriver.FindElement(By.Id("InstallWizard_txtTestToEmail")).SendKeys("receiver@there.com");
 
-            this.ChromeDriver.FindElementById("InstallWizard_btnTestSmtp").Click();
+            this.ChromeDriver.FindElement(By.Id("InstallWizard_btnTestSmtp")).Click();
 
             Assert.IsTrue(
                 this.ChromeDriver.PageSource.Contains("Mail Sent. Verify it's received at your entered email address."),
@@ -286,34 +286,34 @@ namespace YAF.Tests.Utils.SetUp
             }
 
             // Now continue to Initialize Database
-            this.ChromeDriver.FindElementById("InstallWizard_StepNavigationTemplateContainerID_StepNextButton").Click();
+            this.ChromeDriver.FindElement(By.Id("InstallWizard_StepNavigationTemplateContainerID_StepNextButton")).Click();
 
             // Initialize Database
-            this.ChromeDriver.FindElementById("InstallWizard_StepNavigationTemplateContainerID_StepNextButton").Click();
+            this.ChromeDriver.FindElement(By.Id("InstallWizard_StepNavigationTemplateContainerID_StepNextButton")).Click();
 
             Thread.Sleep(3000);
 
             Assert.IsTrue(this.ChromeDriver.PageSource.Contains("Create Board"));
 
             // Board Settings
-            this.ChromeDriver.FindElementById("InstallWizard_TheForumName").SendKeys(TestConfig.TestApplicationName);
-            this.ChromeDriver.FindElementById("InstallWizard_ForumEmailAddress").SendKeys(TestConfig.TestForumMail);
+            this.ChromeDriver.FindElement(By.Id("InstallWizard_TheForumName")).SendKeys(TestConfig.TestApplicationName);
+            this.ChromeDriver.FindElement(By.Id("InstallWizard_ForumEmailAddress")).SendKeys(TestConfig.TestForumMail);
 
             // Admin User
-            this.ChromeDriver.FindElementById("InstallWizard_UserName").SendKeys(TestConfig.AdminUserName);
-            this.ChromeDriver.FindElementById("InstallWizard_AdminEmail").SendKeys(TestConfig.TestForumMail);
-            this.ChromeDriver.FindElementById("InstallWizard_Password1").SendKeys(TestConfig.AdminPassword);
-            this.ChromeDriver.FindElementById("InstallWizard_Password2").SendKeys(TestConfig.AdminPassword);
-            this.ChromeDriver.FindElementById("InstallWizard_SecurityQuestion").SendKeys(TestConfig.AdminPassword);
-            this.ChromeDriver.FindElementById("InstallWizard_SecurityAnswer").SendKeys(TestConfig.AdminPassword);
+            this.ChromeDriver.FindElement(By.Id("InstallWizard_UserName")).SendKeys(TestConfig.AdminUserName);
+            this.ChromeDriver.FindElement(By.Id("InstallWizard_AdminEmail")).SendKeys(TestConfig.TestForumMail);
+            this.ChromeDriver.FindElement(By.Id("InstallWizard_Password1")).SendKeys(TestConfig.AdminPassword);
+            this.ChromeDriver.FindElement(By.Id("InstallWizard_Password2")).SendKeys(TestConfig.AdminPassword);
+            this.ChromeDriver.FindElement(By.Id("InstallWizard_SecurityQuestion")).SendKeys(TestConfig.AdminPassword);
+            this.ChromeDriver.FindElement(By.Id("InstallWizard_SecurityAnswer")).SendKeys(TestConfig.AdminPassword);
 
-            this.ChromeDriver.FindElementById("InstallWizard_StepNavigationTemplateContainerID_StepNextButton").Click();
+            this.ChromeDriver.FindElement(By.Id("InstallWizard_StepNavigationTemplateContainerID_StepNextButton")).Click();
 
             Thread.Sleep(3000);
 
             Assert.IsTrue(this.ChromeDriver.PageSource.Contains("Setup Finished"));
 
-            this.ChromeDriver.FindElementById("InstallWizard_FinishNavigationTemplateContainerID_FinishButton").Click();
+            this.ChromeDriver.FindElement(By.Id("InstallWizard_FinishNavigationTemplateContainerID_FinishButton")).Click();
 
             Thread.Sleep(3000);
 

@@ -57,7 +57,7 @@ namespace YAF.Tests.UserTests.Authentication
             {
                 this.driver.FindElement(By.XPath("//a[contains(@id,'forum_ctl01_LogOutButton')]")).Click();
 
-                this.driver.FindElementById("forum_ctl02_OkButton").Click();
+                this.driver.FindElement(By.Id("forum_ctl02_OkButton")).Click();
 
                 Assert.IsTrue(this.driver.PageSource.Contains("Welcome Guest"), "Logout Failed");
 
@@ -106,7 +106,7 @@ namespace YAF.Tests.UserTests.Authentication
             // Accept the Rules
             if (this.driver.PageSource.Contains("Forum Rules"))
             {
-                this.driver.FindElementById("forum_ctl04_Login1_LoginButton").Click();
+                this.driver.FindElement(By.Id("forum_ctl04_Login1_LoginButton")).Click();
                 this.driver.Navigate().Refresh();
             }
 

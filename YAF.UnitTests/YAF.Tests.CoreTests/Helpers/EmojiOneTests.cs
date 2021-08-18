@@ -26,7 +26,7 @@ namespace YAF.Tests.UtilsTests.Helpers
 {
     using NUnit.Framework;
 
-    using YAF.Core.Utilities.Helpers.StringUtils;
+    using YAF.Core.Utilities.StringUtils;
 
     /// <summary>
     /// YAF.Utils.Helpers EmojiOne Tests

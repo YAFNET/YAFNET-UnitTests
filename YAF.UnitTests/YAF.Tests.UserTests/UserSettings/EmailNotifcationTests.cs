@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -85,7 +85,7 @@ namespace YAF.Tests.UserTests.UserSettings
                 "Test Topic Doesn't Exists");
 
             // Get Topic Title
-            var topicTitle = this.Driver.FindElementByClassName("currentPageLink").Text;
+            var topicTitle = this.Driver.FindElement(By.ClassName("currentPageLink")).Text;
 
             // Open Topic Options Menu
             this.Driver.FindElement(By.XPath("//a[contains(@id,'_OptionsLink')]")).Click();
@@ -148,7 +148,7 @@ namespace YAF.Tests.UserTests.UserSettings
             Assert.IsTrue(this.Driver.PageSource.Contains("New Topic"), "Test Forum with that ID doesn't exists");
 
             // Get Forum Title
-            var forumTitle = this.Driver.FindElementByClassName("currentPageLink").Text;
+            var forumTitle = this.Driver.FindElement(By.ClassName("currentPageLink")).Text;
 
             Assert.IsTrue(
                 this.Driver.PageSource.Contains("Watch Forum"),
@@ -236,7 +236,7 @@ namespace YAF.Tests.UserTests.UserSettings
             {
                 Thread.Sleep(5000);
             }
-            
+
             var mail = this.TestMailServer.ReceivedEmail[0];
 
             Assert.AreEqual(

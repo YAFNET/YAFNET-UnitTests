@@ -193,7 +193,7 @@ namespace YAF.Tests.UserTests.UserSettings
                     string.Format("{0}{2}postmessage.aspx?f={1}", TestConfig.TestForumUrl, TestConfig.TestForumID, TestConfig.ForumUrlRewritingPrefix));
 
             // Check if Editor Is Correct
-            Assert.IsNotNull(this.Driver.FindElementByClassName("ButtonOut"), "Changing Text Editor Failed failed");
+            Assert.IsNotNull(this.Driver.FindElement(By.ClassName("ButtonOut")), "Changing Text Editor Failed failed");
         }
 
         /// <summary>

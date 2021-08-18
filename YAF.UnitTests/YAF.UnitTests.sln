@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YAF.Tests.AdminTests", "YAF
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YAF.Tests.CoreTests", "YAF.Tests.CoreTests\YAF.Tests.CoreTests.csproj", "{B071B62F-2A1F-4879-BD53-60676C5741FF}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External Libaries", "External Libaries", "{D3EE5868-ADC6-4AF0-AFB3-F7F3D640D0F0}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Externals", "Externals", "{3513BF32-3DFE-4EC6-8144-B28BBFD592DA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpSimulator", "Externals\HttpSimulator\HttpSimulator.csproj", "{CE9FFE92-9A64-483C-9F11-A27F83C0E14C}"
 EndProject
@@ -65,7 +65,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{CE9FFE92-9A64-483C-9F11-A27F83C0E14C} = {D3EE5868-ADC6-4AF0-AFB3-F7F3D640D0F0}
+		{CE9FFE92-9A64-483C-9F11-A27F83C0E14C} = {3513BF32-3DFE-4EC6-8144-B28BBFD592DA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DFC182D4-9D45-4D63-9509-BAB2BE939FB6}
