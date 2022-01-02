@@ -1,13 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" language="German" code="de">
+<Resources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" language="German" code="de">
   <page name="ACTIVELOCATION">
     <Resource tag="ACTIVEUSERS">Betrachtet Aktive Benutzerliste</Resource>
     <Resource tag="ADMIN_ACCESSMASKS">Betrachtet Zugriffssmasken im Adminbereich</Resource>
     <Resource tag="ADMIN_ADMIN">Betrachtet Admin Index</Resource>
-    <Resource tag="ADMIN_ATTACHMENTS">Betrachte Anhänge</Resource>
+    <Resource tag="ADMIN_BANNEDEMAIL">Views banned Emails list</Resource>
+    <Resource tag="ADMIN_BANNEDEMAIL_EDIT">Edits banned Emails</Resource>
+    <Resource tag="ADMIN_BANNEDEMAIL_IMPORT">Imports banned Emails</Resource>
     <Resource tag="ADMIN_BANNEDIP">Betrachtet Gebannte IPs Liste</Resource>
     <Resource tag="ADMIN_BANNEDIP_EDIT">Bearbeitet Gebannte IPs</Resource>
     <Resource tag="ADMIN_BANNEDIP_IMPORT">Importiert Gebannte Ips</Resource>
+    <Resource tag="ADMIN_BANNEDNAME">Views banned Names list</Resource>
+    <Resource tag="ADMIN_BANNEDNAME_EDIT">Edits banned Names</Resource>
+    <Resource tag="ADMIN_BANNEDNAME_IMPORT">Imports banned Names</Resource>
     <Resource tag="ADMIN_BBCODE">Betrachtet BBCodes</Resource>
     <Resource tag="ADMIN_BBCODE_EDIT">Bearbeitet BBcodes</Resource>
     <Resource tag="ADMIN_BBCODE_IMPORT">Importiert BBCodes</Resource>
@@ -48,9 +53,10 @@
     <Resource tag="ADMIN_REPLACEWORDS_IMPORT">Importiert Ersatzwörter</Resource>
     <Resource tag="ADMIN_RESTARTAPP">Anwendung Neustarten</Resource>
     <Resource tag="ADMIN_RUNSQL">Führt SQL Query aus</Resource>
-    <Resource tag="ADMIN_SMILIES">Betrachtet Smileys</Resource>
-    <Resource tag="ADMIN_SMILIES_EDIT">Bearbeitet Smileys</Resource>
-    <Resource tag="ADMIN_SMILIES_IMPORT">Importiert Smileys</Resource>
+    <Resource tag="ADMIN_SPAMLOG">Views/edits the spam log</Resource>
+    <Resource tag="ADMIN_SPAMWORDS">Views spam words list</Resource>
+    <Resource tag="ADMIN_SPAMWORDS_EDIT">Edits spam words list</Resource>
+    <Resource tag="ADMIN_SPAMWORDS_IMPORT">Imports spam words</Resource>
     <Resource tag="ADMIN_TASKMANAGER">Betrachtet Aufgabenmanager</Resource>
     <Resource tag="ADMIN_TEST_DATA">Betrachtet Test Datengenerator</Resource>
     <Resource tag="ADMIN_TOPICSTATUS">Betrachtet Themen Status</Resource>
@@ -69,6 +75,7 @@
     <Resource tag="APPROVE">Genehmigt</Resource>
     <Resource tag="ATTACHMENTS">Hantiert mit Anhängen</Resource>
     <Resource tag="AVATAR">Betrachtet Avatar</Resource>
+    <Resource tag="COOKIES">Views the cookie policy page</Resource>
     <Resource tag="CP_CHANGEPASSWORD">Ändert sein Passwort</Resource>
     <Resource tag="CP_EDITALBUMIMAGES">Bearbeitet Albumbilder</Resource>
     <Resource tag="CP_EDITAVATAR">Bearbeitet sein Avatar</Resource>
@@ -125,7 +132,6 @@
     <Resource tag="RULES">Betrachtet Forum Regeln</Resource>
     <Resource tag="SEARCH">Benutzt Suche</Resource>
     <Resource tag="SHOUTBOX">Benutzt Shoutbox</Resource>
-    <Resource tag="SHOWSMILIES">Keine Daten</Resource>
     <Resource tag="TEAM">Betrachtet Teamseite</Resource>
     <Resource tag="TOPICINFORUM"> im Forum</Resource>
     <Resource tag="TOPICS">Betrachtet Themen </Resource>
@@ -168,6 +174,7 @@
     <Resource tag="ADMIN_JOINED">Registriert</Resource>
     <Resource tag="ADMIN_LOCATION">Board Ort</Resource>
     <Resource tag="ADMIN_NAME">Name</Resource>
+    <Resource tag="ADMIN_RESEND_EMAIL">Resend Email Verification</Resource>
     <Resource tag="ADMIN_UPGRADE"> und aktualisieren Sie Ihre Datenbank.</Resource>
     <Resource tag="Administration">Verwaltung</Resource>
     <Resource tag="ALL_BOARDS"> - Alle Boards - </Resource>
@@ -184,6 +191,7 @@
     <Resource tag="HEADER1">Wer ist Online</Resource>
     <Resource tag="HEADER2">Nicht verifizierte Benutzer</Resource>
     <Resource tag="HEADER3">Statistik für</Resource>
+    <Resource tag="MSG_MESSAGE_SEND">Verification Mail was send again to the User.</Resource>
     <Resource tag="MSG_VALID_DAYS">Sie sollten einen gültigen Integer-Wert für Tage eingeben.</Resource>
     <Resource tag="NUM_POSTS">Anzahl der Beiträge:</Resource>
     <Resource tag="NUM_TOPICS">Anzahl der Themen:</Resource>
@@ -194,18 +202,42 @@
     <Resource tag="TOPICS_DAY">Themen pro Tag:</Resource>
     <Resource tag="USERS_DAY">Benutzer pro Tag:</Resource>
   </page>
-  <page name="ADMIN_ATTACHMENTS">
-    <Resource tag="CONFIRM_DELETE">Diesen Anhang löschen?</Resource>
-    <Resource tag="CONTENT_TYPE">Content-Typ</Resource>
-    <Resource tag="DOWNLOADS">Downloads</Resource>
-    <Resource tag="POSTED">Geschrieben</Resource>
-    <Resource tag="TITLE">Anhänge</Resource>
+  <page name="ADMIN_BANNEDEMAIL">
+    <Resource tag="ADD_IP">Add New Email</Resource>
+    <Resource tag="IMPORT_IPS">Import Email(s)</Resource>
+    <Resource tag="MASK">Mask</Resource>
+    <Resource tag="MSG_REMOVEBAN_EMAIL">Email was successfully deleted</Resource>
+    <Resource tag="REASON">Reason</Resource>
+    <Resource tag="SINCE">Since</Resource>
+    <Resource tag="TITLE">Banned Email Addresses</Resource>
+  </page>
+  <page name="ADMIN_BANNEDEMAIL_EDIT">
+    <Resource tag="MASK">Mask:</Resource>
+    <Resource tag="MASK_HELP">The Email address to ban. You can use Regular Expressions.</Resource>
+    <Resource tag="REASON">Reason:</Resource>
+    <Resource tag="REASON_HELP">The reason why the email address was banned.</Resource>
+    <Resource tag="TITLE">Add/Edit Banned Email Address</Resource>
+    <Resource tag="TITLE_EDIT">Edit Banned Email Address</Resource>
+  </page>
+  <page name="ADMIN_BANNEDEMAIL_IMPORT">
+    <Resource tag="HEADER">Import Email Addresses List</Resource>
+    <Resource tag="IMPORT">Import List</Resource>
+    <Resource tag="IMPORT_FAILED">Failed to import! Invalid upload format specified: {0} </Resource>
+    <Resource tag="IMPORT_FILE">Select Import File:</Resource>
+    <Resource tag="IMPORT_FILE_HELP">Must be *.txt file containing an Email Address on each line</Resource>
+    <Resource tag="IMPORT_NOTHING">Nothing imported: no new email address was found in the upload.</Resource>
+    <Resource tag="IMPORT_SUCESS">{0} new email address(es) imported successfully.</Resource>
+    <Resource tag="NOTE">You can find a list of Spam Bot Email Addresses on StopForumSpam.com &lt;a href="http://www.stopforumspam.com/downloads/"&gt;http://www.stopforumspam.com/downloads/&lt;/a&gt;, that can be imported here.</Resource>
+    <Resource tag="TITLE">Import Email Addresses</Resource>
   </page>
   <page name="ADMIN_BANNEDIP">
     <Resource tag="ADD_IP">Neue Adresse hinzufügen</Resource>
     <Resource tag="BAN_BY">Gebannt durch</Resource>
+    <Resource tag="EXPORT">Export to Text File</Resource>
     <Resource tag="IMPORT_IPS">Adress(en) importieren</Resource>
     <Resource tag="MASK">Maske</Resource>
+    <Resource tag="MSG_DELETE">Delete this Banned Item?</Resource>
+    <Resource tag="MSG_REMOVEBAN_IP">IP Address or Mask '{0}' was successfully deleted</Resource>
     <Resource tag="REASON">Grund</Resource>
     <Resource tag="SINCE">Seit</Resource>
     <Resource tag="TITLE">Gesperrte IP-Adressen</Resource>
@@ -220,6 +252,7 @@
     <Resource tag="REASON">Grund:</Resource>
     <Resource tag="REASON_HELP">Der Grund warum die IP Adresse gesperrt wurde.</Resource>
     <Resource tag="TITLE">Gesperrte IP-Adresse Hinzufügen / Bearbeiten</Resource>
+    <Resource tag="TITLE_EDIT">Edit Banned IP Address</Resource>
   </page>
   <page name="ADMIN_BANNEDIP_IMPORT">
     <Resource tag="HEADER">Importieren von IP-Adressen-Listen</Resource>
@@ -229,7 +262,36 @@
     <Resource tag="IMPORT_FILE_HELP">Muss eine *.txt Datei Sein die eine IP Adress pro Zeile enthällt.</Resource>
     <Resource tag="IMPORT_NOTHING">Nichts importiert: Es wurde keine Neue IP Adresse gefunden.</Resource>
     <Resource tag="IMPORT_SUCESS">{0} neue IP Adresse(n) erfolgreich importiert.</Resource>
+    <Resource tag="NOTE">You can find a list of Spam Bot Ips on StopForumSpam.com &lt;a href="http://www.stopforumspam.com/downloads/"&gt;http://www.stopforumspam.com/downloads/&lt;/a&gt;, that can be imported here.</Resource>
     <Resource tag="TITLE">Importieren von IP-Adressen</Resource>
+  </page>
+  <page name="ADMIN_BANNEDNAME">
+    <Resource tag="ADD_IP">Add New User Name</Resource>
+    <Resource tag="IMPORT_IPS">Import Name(s)</Resource>
+    <Resource tag="MASK">Mask</Resource>
+    <Resource tag="MSG_REMOVEBAN_NAME">The user name was successfully deleted</Resource>
+    <Resource tag="REASON">Reason</Resource>
+    <Resource tag="SINCE">Since</Resource>
+    <Resource tag="TITLE">Banned Names</Resource>
+  </page>
+  <page name="ADMIN_BANNEDNAME_EDIT">
+    <Resource tag="MASK">Mask:</Resource>
+    <Resource tag="MASK_HELP">The User Name to ban. You can use Regular Expressions.</Resource>
+    <Resource tag="REASON">Reason:</Resource>
+    <Resource tag="REASON_HELP">The reason why the user name was banned.</Resource>
+    <Resource tag="TITLE">Add/Edit Banned Name</Resource>
+    <Resource tag="TITLE_EDIT">Edit Banned Name</Resource>
+  </page>
+  <page name="ADMIN_BANNEDNAME_IMPORT">
+    <Resource tag="HEADER">Import Names List</Resource>
+    <Resource tag="IMPORT">Import List</Resource>
+    <Resource tag="IMPORT_FAILED">Failed to import! Invalid upload format specified: {0} </Resource>
+    <Resource tag="IMPORT_FILE">Select Import File:</Resource>
+    <Resource tag="IMPORT_FILE_HELP">Must be *.txt file containing one Name on each line</Resource>
+    <Resource tag="IMPORT_NOTHING">Nothing imported: no new name was found in the upload.</Resource>
+    <Resource tag="IMPORT_SUCESS">{0} new name(s) imported successfully.</Resource>
+    <Resource tag="NOTE">You can find a list of Spam Bot user names on StopForumSpam.com &lt;a href="http://www.stopforumspam.com/downloads/"&gt;http://www.stopforumspam.com/downloads/&lt;/a&gt;, that can be imported here.</Resource>
+    <Resource tag="TITLE">Import Name(s)</Resource>
   </page>
   <page name="ADMIN_BBCODE">
     <Resource tag="ADD">Neuen BBCode hinzufügen</Resource>
@@ -273,6 +335,8 @@
     <Resource tag="TITLE">{0} YafBBCode Erweiterungen</Resource>
     <Resource tag="USE_MODULE">Modul verwenden:</Resource>
     <Resource tag="USE_MODULE_HELP">Verwenden Sie ein Server-Seitiges Modul (Klasse) statt den Ersetzen Regex?</Resource>
+    <Resource tag="USE_TOOLBAR">Use Toolbar:</Resource>
+    <Resource tag="USE_TOOLBAR_HELP">If enabled Show toolbar button in the Standard BBCode Editor</Resource>
   </page>
   <page name="ADMIN_BBCODE_IMPORT">
     <Resource tag="HEADER">BBCode importieren</Resource>
@@ -311,8 +375,8 @@
     <Resource tag="BOARD_EMAIL_REPORTMODS_HELP">Sollen alle Moderatoren eines Forums eine Benachrichtigung kriegen wenn ein Beitrag gemeldet wurde?</Resource>
     <Resource tag="BOARD_FILE_EXTENSIONS">Dateierweiterungen Liste ist:</Resource>
     <Resource tag="BOARD_FILE_EXTENSIONS_HELP">Ist die Liste der Dateierweiterungen erlaubt oder nicht erlaubt Dateien Dateien (weniger sicher)?</Resource>
-    <Resource tag="BOARD_JQ_THEME">jQuery-UI Skin:</Resource>
-    <Resource tag="BOARD_JQ_THEME_HELP">Das jQuery UI Skin das in diesem Board verwendet werden soll für die Reiter und das Admin Menu Accordion.</Resource>
+    <Resource tag="BOARD_JQ_THEME">jQuery UI Theme:</Resource>
+    <Resource tag="BOARD_JQ_THEME_HELP">The jQuery UI Theme to use on this board for the Tabs and Accordion.</Resource>
     <Resource tag="BOARD_MOBILE_THEME">Mobiles Skin:</Resource>
     <Resource tag="BOARD_MOBILE_THEME_HELP">Das Mobile Skin das in diesem Board verwendet wird</Resource>
     <Resource tag="BOARD_NAME">Boardname:</Resource>
@@ -327,6 +391,7 @@
     <Resource tag="BOARD_TOPIC_DEFAULT">Zeige Themen Standard:</Resource>
     <Resource tag="BOARD_TOPIC_DEFAULT_HELP">Die Standard Themen Ansicht.</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY">Copyright Entfernungsschlüssel:</Resource>
+    <Resource tag="COPYRIGHT_REMOVAL_KEY_DOWN">Purchase Removal Key</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">Entfernen Sie die Copyright-Informationen und den Link zu YAF aus der Fußzeile Ihrer gesamten Forum Domäne.  Erhältlich &lt;a href="http://yetanotherforum.net/purchase.aspx"&gt; auf der YAF.NET Website &lt;/ a&gt;.</Resource>
     <Resource tag="HEADER">Aktuelle Boardeinstellungen</Resource>
     <Resource tag="TITLE">Boardeinstellungen</Resource>
@@ -337,6 +402,7 @@
     <Resource tag="DISABLED">Deaktiviert</Resource>
     <Resource tag="NO">Nein </Resource>
     <Resource tag="SAVE">Speichern</Resource>
+    <Resource tag="TABLE_RESPONSIVE">Swipe Table to the left to Reveal More Data</Resource>
     <Resource tag="YES">Ja</Resource>
   </page>
   <page name="ADMIN_DELETEFORUM">
@@ -479,6 +545,11 @@
     <Resource tag="INITAL_MASK_HELP">Die ersten Zugriff Maske für alle Foren.</Resource>
     <Resource tag="LOCKED">Gesperrt:</Resource>
     <Resource tag="LOCKED_HELP">Wenn dieses Forum gesperrt ist, kann keiner Beiträge verfassen oder antworten.</Resource>
+    <Resource tag="MODERATE_ALL_POSTS">Moderate all Posts</Resource>
+    <Resource tag="MODERATED_COUNT">Moderate all Posts or only until a User reaches x amount of Posts</Resource>
+    <Resource tag="MODERATED_COUNT_HELP">Set it to 'Moderate all Posts' or uncheck that option to specifify the amount of post a user has to reach to be automatically appproved.</Resource>
+    <Resource tag="MODERATED_NEWTOPIC_ONLY">Moderate only new Topics but not Replies?</Resource>
+    <Resource tag="MODERATED_NEWTOPIC_ONLY_HELP">If checked only Messages of new Topics are checked but not Replies to existing Topics, otherwise all Messages needs moderation.</Resource>
     <Resource tag="MSG_CATEGORY">Sie müssen eine  Kategorie für dies Forum wählen.</Resource>
     <Resource tag="MSG_CHILD_PARENT">Die gewählte Forum kann kein Unterforum sein da es ein Hauptforum ist.</Resource>
     <Resource tag="MSG_DESCRIPTION">Sie müssen eine Beschreibung für das Forum eingeben.</Resource>
@@ -630,6 +701,7 @@
     <Resource tag="SERVER">Server:</Resource>
     <Resource tag="SERVER_HELP">Der Server in dem sich diese Gruppe befindet.</Resource>
     <Resource tag="TITLE">Hinzufügen / Bearbeiten NNTP-Forum</Resource>
+    <Resource tag="TITLE_EDIT">Edit NNTP Forum</Resource>
   </page>
   <page name="ADMIN_EDITNNTPSERVER">
     <Resource tag="MSG_SERVER_ADR">Fehlende Server-Adresse.</Resource>
@@ -645,6 +717,7 @@
     <Resource tag="NNTP_USERNAME">Benutzername:</Resource>
     <Resource tag="NNTP_USERNAME_HELP">Der Benutzername für die Anmeldung an den NNTP-Server.</Resource>
     <Resource tag="TITLE">Hinzufügen / Bearbeiten NNTP-Server</Resource>
+    <Resource tag="TITLE_EDIT">Edit NNTP Server</Resource>
   </page>
   <page name="ADMIN_EDITRANK">
     <Resource tag="ALBUMS_NUMBER">Benutzer Albenanzahl:</Resource>
@@ -681,7 +754,11 @@
   </page>
   <page name="ADMIN_EDITUSER">
     <Resource tag="ADD_POINTS">Punkte hinzufügen:</Resource>
+    <Resource tag="BAN_EMAIL_OFUSER">Ban Email Addresses of User?</Resource>
     <Resource tag="BAN_IP_OFUSER">IP-Adressen des Benutzers sperren?</Resource>
+    <Resource tag="BAN_NAME_OFUSER">Ban User Name of User?</Resource>
+    <Resource tag="BOT_REPORTED">Benutzer erfolgreich als BOT gemeldet</Resource>
+    <Resource tag="BOT_REPORTED_FAILED">Benutzer konnte nicht gemeldet werden, bitte API Key überprüfen!</Resource>
     <Resource tag="CHANGE_NEW_PASS">Neues Passwort:</Resource>
     <Resource tag="CHANGE_NEW_PASS_HELP">Neues Benutzer-Passwort.</Resource>
     <Resource tag="CHANGE_PASS">Passwort ändern</Resource>
@@ -690,6 +767,7 @@
     <Resource tag="CONFIRM_PASS">Passwort bestätigen:</Resource>
     <Resource tag="CONFIRM_PASS_HELP">Bestätigen Sie das neue Passwort.</Resource>
     <Resource tag="CURRENT_POINTS">Aktuelle Punkte:</Resource>
+    <Resource tag="DELETE_ACCOUNT">Delete this account</Resource>
     <Resource tag="DELETE_POSTS_USER">Löschen Sie alle Beiträge des Benutzers?</Resource>
     <Resource tag="ERROR_CONFIRM_PASS">Sie müssen das Kennwort bestätigen</Resource>
     <Resource tag="ERROR_NEW_PASS">Muss Neues Passwort eingeben</Resource>
@@ -697,13 +775,17 @@
     <Resource tag="ERROR_PASS_NOTMATCH">Bestätigungs Passwort stimmt nicht überein</Resource>
     <Resource tag="FACEBOOK_USER">Facebook Benutzer:</Resource>
     <Resource tag="FACEBOOK_USER_HELP">Gibt an ob der Benutzer über Facebook angemeldet ist.</Resource>
-    <Resource tag="HEAD_KILL_USER">Benutzeraktivität löschen</Resource>
+    <Resource tag="GOOGLE_USER">Google Benutzer:</Resource>
+    <Resource tag="GOOGLE_USER_HELP">Gibt an ob der Benutzer über Google angemeldet ist.</Resource>
+    <Resource tag="HEAD_KILL_USER">Kill User and Ban</Resource>
     <Resource tag="HEAD_USER_CHANGEPASS">Passwort ändern</Resource>
     <Resource tag="HEAD_USER_DETAILS">Benutzer-Details</Resource>
     <Resource tag="HEAD_USER_GROUPS">Benutzergruppen</Resource>
     <Resource tag="HEAD_USER_POINTS">Benutzer Punkte</Resource>
     <Resource tag="HEAD_USER_RESETPASS">Benutzer Passwort ändern</Resource>
-    <Resource tag="IP_ADRESSES">IP-Adressen:</Resource>
+    <Resource tag="IP_ADDRESSES">IP Addresses:</Resource>
+    <Resource tag="KILL_USER">Benutzer löschen</Resource>
+    <Resource tag="KILL_USER_CONFIRM">Alle Beiträge löschen und (optional) all IP Addressen des Benutzers bannen?</Resource>
     <Resource tag="LINK_USER_BAN">Benutzer &lt;a id="usr{0}" href="{1}"&gt;{2}&lt;/a&gt;  ist gesperrt durch die IP-Adresse</Resource>
     <Resource tag="MEMBER">Mitglied</Resource>
     <Resource tag="MSG_GUEST_APPROVED">Der Gastbenutzer muss als Genehmigt markiert sein, ansonsten funktioniert das Forum nicht korrekt.</Resource>
@@ -717,13 +799,19 @@
     <Resource tag="PASS_REQUIREMENT">{0} minimale Länge. {1} minimale nicht Alphanumerische Zeichen ($#@!).</Resource>
     <Resource tag="PASSWORD_REQUIREMENTS">Die Membership Passwort-Anforderungen:</Resource>
     <Resource tag="REMOVE_POINTS">Punkte entfernen:</Resource>
+    <Resource tag="REPORT_USER">Benuzter als BOT melden an StopForumSpam.com</Resource>
+    <Resource tag="REPORT_USER_CONFIRM">Benutzer Name, Email Adresse und IP Adresse an StopForumSpam.com als BOT melden?</Resource>
     <Resource tag="RESET_PASS">Passwort zurücksetzen</Resource>
+    <Resource tag="SEND_EMAIL">Send User Notification?</Resource>
     <Resource tag="SET_POINTS">Punkte setzen:</Resource>
+    <Resource tag="SUSPEND_ACCOUNT_USER">Suspend this account for 5 years</Resource>
+    <Resource tag="SUSPEND_OR_DELETE_ACCOUNT">Suspend or Delete this Account?</Resource>
     <Resource tag="TITLE">Benutzer "{0}" bearbeiten</Resource>
     <Resource tag="TWITTER_USER">Twitter Benutzer:</Resource>
+    <Resource tag="TWITTER_USER_HELP">Gibt an ob der Benutzer über Twitter angemeldet ist.</Resource>
     <Resource tag="USER_AVATAR">Benutzer Avatar</Resource>
     <Resource tag="USER_DETAILS">Benutzer-Details</Resource>
-    <Resource tag="USER_KILL">User Kill Aktivität</Resource>
+    <Resource tag="USER_KILL">User Kill &amp; Ban</Resource>
     <Resource tag="USER_PASS">Benutzer Passwort</Resource>
     <Resource tag="USER_PROFILE">Benutzerprofil</Resource>
     <Resource tag="USER_REPUTATION">Benutzer Reputation</Resource>
@@ -780,11 +868,18 @@
     <Resource tag="GRANTALLDELETE">Alle Löschen erlauben</Resource>
     <Resource tag="GROUPNAME">Gruppe</Resource>
     <Resource tag="HEADER">Ereignisprotokoll Zugriff für</Resource>
+    <Resource tag="LT_DEBUG">Debug</Resource>
     <Resource tag="LT_ERROR">Fehler</Resource>
     <Resource tag="LT_INFORMATION">Information</Resource>
+    <Resource tag="LT_IPBANDETECTED">Detected a Banned IP</Resource>
     <Resource tag="LT_IPBANLIFTED">IP-Verbot Abbrechen </Resource>
     <Resource tag="LT_IPBANSET">Festlegen von einem IP-Verbot</Resource>
+    <Resource tag="LT_SpamBotDetected">Spam Bot Detected</Resource>
+    <Resource tag="LT_SpamBotReported">Spam Bot Reported</Resource>
+    <Resource tag="LT_SpamMessageDetected">Spam Message Detected</Resource>
+    <Resource tag="LT_SpamMessageReported">Spam Message Reported</Resource>
     <Resource tag="LT_SQLERROR">SQL Fehler</Resource>
+    <Resource tag="LT_TRACE">Trace</Resource>
     <Resource tag="LT_USERDELETED">Löschen von Benutzern</Resource>
     <Resource tag="LT_USERSUSPENDED">Benutzer sperren</Resource>
     <Resource tag="LT_USERUNSUSPENDED">Entsperren von Benutzern</Resource>
@@ -801,6 +896,7 @@
     <Resource tag="EXPORT">Export in XML</Resource>
     <Resource tag="HEADER">Erlaubte Dateiendungen</Resource>
     <Resource tag="IMPORT">Import von XML</Resource>
+    <Resource tag="SAVE">Save Extension</Resource>
     <Resource tag="TITLE">Dateierweiterungen</Resource>
   </page>
   <page name="ADMIN_EXTENSIONS_EDIT">
@@ -810,6 +906,7 @@
     <Resource tag="MSG_ENTER">Sie müssen etwas eingeben.</Resource>
     <Resource tag="MSG_REMOVE">Entfernen Sie den Punkt in der Erweiterung.</Resource>
     <Resource tag="TITLE">Hinzufügen / Bearbeiten von Dateierweiterungen</Resource>
+    <Resource tag="TITLE_EDIT">Edit File Extension</Resource>
   </page>
   <page name="ADMIN_EXTENSIONS_IMPORT">
     <Resource tag="HEADER">Erweiterungsliste Importieren</Resource>
@@ -860,7 +957,8 @@
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS">Aktive Themen Feeds-Zugang:</Resource>
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS_HELP">Anzeige Beschränken für den Feed.</Resource>
     <Resource tag="AKISMET_KEY">Akismet API Schlüssel:</Resource>
-    <Resource tag="AKISMET_KEY_HELP">Um den Akismet SPAM Service benutzen zu können benötigen Sie einen API Schlüssel  &lt;a href="https://akismet.com/signup/"&gt;Hier anmelden&lt;a&gt;</Resource>
+    <Resource tag="AKISMET_KEY_DOWN">Sign Up here</Resource>
+    <Resource tag="AKISMET_KEY_HELP">Um den Akismet SPAM Service benutzen zu können benötigen Sie einen API Schlüssel  &lt;a href="https://akismet.com/signup/"&gt;Hier anmelden&lt;a&gt;.</Resource>
     <Resource tag="ALBUMS_PER_PAGE">Alben pro Seite:</Resource>
     <Resource tag="ALBUMS_PER_PAGE_HELP">Anzahl an Alben die pro Seite gezeigt werden.</Resource>
     <Resource tag="ALL_USERS">Alle Benutzer</Resource>
@@ -920,6 +1018,16 @@
     <Resource tag="ALLOW_USERS_POLLIMAGES_HELP">Wen aktiviert können Benutzer Bilder als Umfrage Optionen verwenden</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR">Benutzern erlauben, Text-Editor auszuwählen</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR_HELP">Benutzern erlauben, Text-Editor in den Profileinstellungen auszuwählen</Resource>
+    <Resource tag="AMOUNT_OF_SUBFORUMS">Sub Forums In Forums List:</Resource>
+    <Resource tag="AMOUNT_OF_SUBFORUMS_HELP">The amount of Sub Forums In Forums List.</Resource>
+    <Resource tag="APP_CORES">Prozessorkerne:</Resource>
+    <Resource tag="APP_CORES_HELP">Anzahl der Prozessorkerne.</Resource>
+    <Resource tag="APP_MEMORY">Anwendungspeicher:</Resource>
+    <Resource tag="APP_MEMORY_HELP">Verwendeter Anwendungspeicher.</Resource>
+    <Resource tag="APP_OS_NAME">Betriebssystem:</Resource>
+    <Resource tag="APP_OS_NAME_HELP">Betriebssystem des Servers.</Resource>
+    <Resource tag="APP_RUNTIME">.NET Runtime Version:</Resource>
+    <Resource tag="APP_RUNTIME_HELP">Die .NET Runtime Version mit der die Anwendung läuft.</Resource>
     <Resource tag="AVATAR_GALLERY">Avatar Galerie erlauben:</Resource>
     <Resource tag="AVATAR_GALLERY_HELP">Benutzer erlauben Avatare aus der Lokalen Avatar Galerie auszuwählen.</Resource>
     <Resource tag="AVATAR_HEIGHT">Avatar Höhe:</Resource>
@@ -932,6 +1040,19 @@
     <Resource tag="AVATAR_UPLOAD_HELP">Wenn aktiviert können Benutzer Avatare Hochladen.</Resource>
     <Resource tag="AVATAR_WIDTH">Avatar Breite:</Resource>
     <Resource tag="AVATAR_WIDTH_HELP">Maximale Breite für Avatare.</Resource>
+    <Resource tag="BOT_CHECK_1">StopForumSpam.com</Resource>
+    <Resource tag="BOT_CHECK_2">BotScout.com (Registrierung erforderlich)</Resource>
+    <Resource tag="BOT_CHECK_3">StopForumSpam.com &amp; BotScout.com (Registrierung erforderlich)</Resource>
+    <Resource tag="BOT_CHECK_4">StopForumSpam.com oder BotScout.com (Registrierung erforderlich)</Resource>
+    <Resource tag="BOT_CHECK_ONREGISTER">Beim Registrieren auf Bots prüfen:</Resource>
+    <Resource tag="BOT_CHECK_ONREGISTER_HELP">Wenn aktivieren wird während der Regstrierung gechecked ob der Benutzer ein SPAM Bot ist, Sie haben die Auswahl was dann passieren soll endweder wird der Benutzer blockiert oder es wird nur geloggt und der Admin per Email benachrichtigt.</Resource>
+    <Resource tag="BOT_IPBAN_ONREGISTER">Automatically Ban Ip Address of Detected Bot:</Resource>
+    <Resource tag="BOT_IPBAN_ONREGISTER_HELP">If enabled and a Bot is detected during registration, and if bot handling is set to reject Registration, the IP Address of the Bot is automatically banned.</Resource>
+    <Resource tag="BOT_MESSAGE_0">Deaktiviert</Resource>
+    <Resource tag="BOT_MESSAGE_1">Benutzer registrien aber loggen und Admin benachrichtigen</Resource>
+    <Resource tag="BOT_MESSAGE_2">Benutzer nicht registrieren</Resource>
+    <Resource tag="BOTSCOUT_KEY">BotScout.com API Schlüssel:</Resource>
+    <Resource tag="BOTSCOUT_KEY_HELP">Um den BotScout.com Bot Service benutzen zu können benötigen Sie einen API Schlüssel  &lt;a href="http://botscout.com/getkey.htm"&gt;Hier anmelden&lt;a&gt;.</Resource>
     <Resource tag="CAPTCHA_FOR_REGISTER">CAPTCHA/reCAPTCHA für die Registrierung aktivieren:</Resource>
     <Resource tag="CAPTCHA_FOR_REGISTER_HELP">Wenn der Benutzer sich im Forum registrieren will muss er ein CAPTCHA eingeben.</Resource>
     <Resource tag="CAPTCHA_GUEST_POSTING">CAPTCHA für Gastbeiträge aktivieren:</Resource>
@@ -940,9 +1061,16 @@
     <Resource tag="CAPTCHA_SIZE_HELP">Größe (Länge) des CAPTCHA zufällige alphanumerische Zeichenfolge.</Resource>
     <Resource tag="CAT_CACHE_TIMEOUT">Board Kategorien Speicher Ablaufzeit:</Resource>
     <Resource tag="CAT_CACHE_TIMEOUT_HELP">In Minuten</Resource>
+    <Resource tag="CDN_JQUERY">Use Google Hosted CDN jQuery Script File?</Resource>
+    <Resource tag="CDN_JQUERY_HELP">You can use the Google Hosted Script File, or instead use internal.</Resource>
+    <Resource tag="CDN_SCRIPTMANAGER">Use CDN Hosted Script Manager JS Files?</Resource>
+    <Resource tag="CDN_SCRIPTMANAGER_HELP">You can use the CDN Hosted Script Files, or instead use internal.</Resource>
+    <Resource tag="CHECK_FOR_BOTSPAM">Dienst für das automatische Checken von automatischen Spammern:</Resource>
+    <Resource tag="CHECK_FOR_BOTSPAM_HELP">Aktiviert / deaktiviert die automatisch Bot SPAM Kontrolle über die &lt;a href="http://stopforumspam.com/"&gt; StopForumSpam.com API &lt;/a&gt; , die BotScout.com API, oder beides zusammen. Wenn diese Option aktiviert ist, können SPAM Beiträge abgelehnt werden oder als nicht bestätigt markiert werden.</Resource>
     <Resource tag="CHECK_FOR_SPAM">SPAM Dienst für das automatische Checken von Beitragspam:</Resource>
-    <Resource tag="CHECK_FOR_SPAM_HELP">Aktiviert / deaktiviert die automatisch SPAM Kontrolle über das &lt;a href="http://blogspam.net/"&gt; BlogSpam.net API &lt;/a&gt; oder Akismet.com Service. Wenn diese Option aktiviert ist, können SPAM Beiträge abgelehnt werden oder als nicht bestätigt markiert werden.</Resource>
+    <Resource tag="CHECK_FOR_SPAM_HELP">Aktiviert / deaktiviert die automatisch SPAM Kontrolle über die &lt;a href="http://blogspam.net/"&gt; BlogSpam.net API &lt;/a&gt; oder den Akismet.com Service. Wenn diese Option aktiviert ist, können SPAM Beiträge abgelehnt werden oder als nicht bestätigt markiert werden.</Resource>
     <Resource tag="CLEAR_CACHE">Cache löschen</Resource>
+    <Resource tag="COLLAPSED">Zusammengeklappt</Resource>
     <Resource tag="COUNTRYIMAGE_TEMPLATE">Land Flagge Vorlage:</Resource>
     <Resource tag="COUNTRYIMAGE_TEMPLATE_HELP">Vorlage für die Darstellung der Landesflagge.</Resource>
     <Resource tag="CREATE_NNTPNAMES">NNTP Benutzernamen erstellen:</Resource>
@@ -961,6 +1089,8 @@
     <Resource tag="DISPLAY_POINTS_HELP">Wenn aktiviert, wird die Reputation von jedem Benutzer angezeigt.</Resource>
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH">Bildanhangs Maximale Anzeige Größe</Resource>
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH_HELP">Maximale Größe des Angehangen Bildes das Angezeigt wird. Bilder über dieser Größe werden als Links angezeigt.</Resource>
+    <Resource tag="DISPLAYNAME_MIN_LENGTH">Anzeigename Min. Länge</Resource>
+    <Resource tag="DISPLAYNAME_MIN_LENGTH_HELP">Minimale länge für Anzeigenamen.</Resource>
     <Resource tag="DYNAMIC_METATAGS">Dynamic Seiten Meta-Tags hinzufügen:</Resource>
     <Resource tag="DYNAMIC_METATAGS_HELP">Wenn diese Option aktiviert, Beschreibung und Schlüsselwörter Meta-Tags werden dynamisch für die Beitragsseiten erstellt aus den Daten des aktuellen Themas.</Resource>
     <Resource tag="EMAIL_VERIFICATION">Erfordert E-Mail Verifizierung:</Resource>
@@ -977,8 +1107,6 @@
     <Resource tag="ENABLE_DISPLAY_NAME_HELP">Wenn diese Option aktiviert, verwendet YAF den alternativen "Anzeigenamen" anstelle des Benutzernamens.</Resource>
     <Resource tag="ENABLE_HOVERCARDS">Benutzer Info Hover Karte aktivieren:</Resource>
     <Resource tag="ENABLE_HOVERCARDS_HELP">Wenn aktiviert wird eine Hover Karte (Die eine Kurzübersicht über den Benutzer zeigt) angezeigt, wenn man mit der Maus über einen Benutzernamen im Forum fährt. Es wird auch eine Karte angezeigt für den Twitter &amp; Facebook Button.</Resource>
-    <Resource tag="ENABLE_IRKOO">Use Irkoo Reputation Service:</Resource>
-    <Resource tag="ENABLE_IRKOO_HELP">Irkoo is a free service that adds user reputations to your site  Visit &lt;strong&gt;http://www.Irkoo.com&lt;/strong&gt; to get the site ID and secret key for your website.</Resource>
     <Resource tag="ENABLE_LOCATIONPATH_ERRORS">Aktivieren von Aktiver Ort Fehlerprotokollierung</Resource>
     <Resource tag="ENABLE_LOCATIONPATH_ERRORS_HELP">Wenn aktiviert, Alle Aktive Fehler werden Protokolliert</Resource>
     <Resource tag="ENABLE_RETWEET_MSG">Beitrag Retweeten Button aktivieren:</Resource>
@@ -991,6 +1119,7 @@
     <Resource tag="EVENTLOG_MAX_DAYS_HELP">Anzahl An Tagen wie lange Eintrag im Ereignis Log bleiben soll, alte Einträge werden automatisch gelöscht.</Resource>
     <Resource tag="EVENTLOG_MAX_MESSAGES">Max. Anzahl an Ereignis Log Einträgen</Resource>
     <Resource tag="EVENTLOG_MAX_MESSAGES_HELP">Max. Anzahl an Event Log Einträge, ältere werden automatisch gelöscht.</Resource>
+    <Resource tag="EXPANDED">Ausgeklappt</Resource>
     <Resource tag="EXTERN_NEWWINDOW">Externe Suchergebnisse in einem neuen Fenster:</Resource>
     <Resource tag="EXTERN_NEWWINDOW_HELP">Externe Suchergebnisse in einem neuen Fenster öffnen.</Resource>
     <Resource tag="EXTERN_SEARCH_PERMISS">Externe Suchberechtigungen:</Resource>
@@ -1002,6 +1131,8 @@
     <Resource tag="FLOOT_DELAY">Beitrags Überschwemmungs Verzögerung</Resource>
     <Resource tag="FLOOT_DELAY_HELP">Anzahl an Sekunden, bevor ein Benutzer einen weiteren Beitrag veröffentlichen kann (Gilt nicht für Admins oder Mods).</Resource>
     <Resource tag="FORBIDDEN">Verboten</Resource>
+    <Resource tag="FORUM_BASEURLMASK">Forum Base URL Mask:</Resource>
+    <Resource tag="FORUM_BASEURLMASK_HELP">The full forward-facing url to this forum.</Resource>
     <Resource tag="FORUM_EDITOR">Forum-Editor:</Resource>
     <Resource tag="FORUM_EDITOR_HELP">Wählen Sie den Standard Editor für das Forum.</Resource>
     <Resource tag="FORUM_EMAIL">Forum E-Mail Adresse:</Resource>
@@ -1014,20 +1145,21 @@
     <Resource tag="GRAVATAR_RATING_HELP">Max. Bewertung von Gravataren wenn erlaubt.</Resource>
     <Resource tag="GROUPS_TEMPLATE">Gruppen Vorlage:</Resource>
     <Resource tag="GROUPS_TEMPLATE_HELP">Vorlage für die Darstellung von Benutzer-Gruppen.</Resource>
-    <Resource tag="GUESTS_VIEW_IRKOO">Allow guests to view users' reputations:</Resource>
-    <Resource tag="GUESTS_VIEW_IRKOO_HELP">If checked, guests can view members' reputations.</Resource>
     <Resource tag="HEADER_ADVERTS">Werbeeinstellungen</Resource>
     <Resource tag="HEADER_ALBUM">Albumeinstellungen</Resource>
+    <Resource tag="HEADER_ATTACHMENTS">Attachments Settings</Resource>
     <Resource tag="HEADER_AVATARS">Avatar Einstellungen</Resource>
+    <Resource tag="HEADER_BOTSPAM">Bot Spam Einstellungen (Benuzterüberprüfung)</Resource>
     <Resource tag="HEADER_CACHE">Speichereinstellungen</Resource>
     <Resource tag="HEADER_CAPTCHA">CAPTCHA Einstellungen</Resource>
+    <Resource tag="HEADER_CDN">Scripts CDN Settings</Resource>
     <Resource tag="HEADER_DISPLAY">Darstellungs-Einstellungen</Resource>
     <Resource tag="HEADER_EDITORS">Editoren- / Formatierungseinstellungen</Resource>
     <Resource tag="HEADER_FEATURES">Funktionseinstellungen</Resource>
     <Resource tag="HEADER_GEOLOCATION">Geolocation Einstellungen</Resource>
     <Resource tag="HEADER_HOTTOPICS">Beliebte Themen Einstellungen</Resource>
+    <Resource tag="HEADER_HOVERCARD">Hover Cards Einstellungen</Resource>
     <Resource tag="HEADER_IMAGE_ATTACH">Bildanhang Einstellungen</Resource>
-    <Resource tag="HEADER_IRKOO">Irkoo Reputation Service</Resource>
     <Resource tag="HEADER_LOG">Log-Einstellungen</Resource>
     <Resource tag="HEADER_LOGIN">Login / Registrierungseinstellungen</Resource>
     <Resource tag="HEADER_LOGSCOPE">Ereignisprotokoll Anwendungsbereich</Resource>
@@ -1037,9 +1169,10 @@
     <Resource tag="HEADER_POLL">Abstimmungseinstellungen</Resource>
     <Resource tag="HEADER_REPUTATION">Reputation Einstellungen</Resource>
     <Resource tag="HEADER_SEARCH">Sucheinstellungen</Resource>
+    <Resource tag="HEADER_SERVER_INFO">Server Info</Resource>
     <Resource tag="HEADER_SETUP">Host Konfiguration</Resource>
     <Resource tag="HEADER_SHOUT">Shoutboxeinstellungen</Resource>
-    <Resource tag="HEADER_SPAM">Spam Einstellungen</Resource>
+    <Resource tag="HEADER_SPAM">Spam Einstellungen (Beitragsüberprüfung)</Resource>
     <Resource tag="HEADER_SYNDICATION">Syndication-Feed Einstellungen</Resource>
     <Resource tag="HEADER_TEMPLATES">Vorlageneinstellungen</Resource>
     <Resource tag="HOST_ADVERTS">Werbung</Resource>
@@ -1052,6 +1185,10 @@
     <Resource tag="HOST_PERMISSION">Berechtigungen</Resource>
     <Resource tag="HOST_SEARCH">Suche</Resource>
     <Resource tag="HOST_TEMPLATES">Vorlagen</Resource>
+    <Resource tag="HOVERCARD_DELAY">Hover Karte Verzögerungs Öffnungszeit (Millisekunden):</Resource>
+    <Resource tag="HOVERCARD_DELAY_HELP">Die Verzögerungszeit vor dem Öffnen der Hoverkarte, whenn der Benutzer über einen Benutzer Namen mit der Maus fährt.</Resource>
+    <Resource tag="IGNORE_SPAMCHECK_COUNT">User Post Count to be ignored from Spam Check:</Resource>
+    <Resource tag="IGNORE_SPAMCHECK_COUNT_HELP">The amount of posts a user has to have to be ignored by the spam checking.</Resource>
     <Resource tag="IMAGE_ATTACH_RESIZE">Bildanhänge verkleinern aktivieren</Resource>
     <Resource tag="IMAGE_ATTACH_RESIZE_HELP">Angehängten Bilder werden zu den Thumbnails verkleinert, falls sie zu groß sind.</Resource>
     <Resource tag="IMAGE_RESIZE_HEIGHT">Bild Max. Höhe:</Resource>
@@ -1068,12 +1205,6 @@
     <Resource tag="IP_INFOSERVICE_XMLURL_HELP">Aktivieren um Informationen über die Benutzer IPs als XML-Daten zu erhalten.</Resource>
     <Resource tag="IPINFO_ULRL">IP-Infoseite URL:</Resource>
     <Resource tag="IPINFO_ULRL_HELP">Aktivieren um Informationen über den IPs Verbleib als Web-Seite zu erhalten.</Resource>
-    <Resource tag="IRKOO_ONLY_ONTOPICPAGES">Show user reputations in user links only in topic pages:</Resource>
-    <Resource tag="IRKOO_ONLY_ONTOPICPAGES_HELP">If checked, users' reputation will be displayed only in topic pages.</Resource>
-    <Resource tag="IRKOO_SECRETKEY">Irkoo secret key:</Resource>
-    <Resource tag="IRKOO_SECRETKEY_HELP">Enter your Irkoo secret key.</Resource>
-    <Resource tag="IRKOO_SITEID">Irkoo site ID:</Resource>
-    <Resource tag="IRKOO_SITEID_HELP">Enter your Irkoo site ID.</Resource>
     <Resource tag="JOINDATE_TEMPLATE">Anmeldedatum Vorlage:</Resource>
     <Resource tag="JOINDATE_TEMPLATE_HELP">Vorlage für die Darstellung des Benutzers Anmeldedatums.</Resource>
     <Resource tag="LASTPOST_COUNT">Aktive Diskussionen Anzahl:</Resource>
@@ -1090,14 +1221,14 @@
     <Resource tag="LOG_ERROR_HELP">Application errors will be logged.</Resource>
     <Resource tag="LOG_INFORMATION">Anwendungsinfos protokollieren:</Resource>
     <Resource tag="LOG_INFORMATION_HELP">Application info messages will be logged.</Resource>
-    <Resource tag="LOG_SQLERROR">Sql Fehler protokollieren:</Resource>
-    <Resource tag="LOG_SQLERROR_HELP">Sql Fehler werden im Ereignisprotokoll gespeichert.</Resource>
     <Resource tag="LOG_SUSPENDEDANDCONTRA">Allow log when users suspended or unsuspended:</Resource>
     <Resource tag="LOG_SUSPENDEDANDCONTRA_HELP">Log when users are suspended or unsuspended.</Resource>
     <Resource tag="LOG_USERDELETED">Benutzer löschen protokollieren:</Resource>
     <Resource tag="LOG_USERDELETED_HELP">User deleting event will be logged.</Resource>
     <Resource tag="LOG_USERSUSPENDED">Allow log user suspended and unsuspended:</Resource>
     <Resource tag="LOG_USERSUSPENDED_HELP">Suspended and unsuspended events will be logged.</Resource>
+    <Resource tag="LOG_VIEWSTATEERROR">Log ViewState Exceptions:</Resource>
+    <Resource tag="LOG_VIEWSTATEERROR_HELP">ViewState Exceptions (mainly caused by SPAM Bots) will be logged.</Resource>
     <Resource tag="LOG_WARNING">Allow log Application Warnings:</Resource>
     <Resource tag="LOG_WARNING_HELP">Application warnings will be logged.</Resource>
     <Resource tag="LOGIN_REDIR_URL">Eigene Login Umleitungs URL:</Resource>
@@ -1148,6 +1279,8 @@
     <Resource tag="NOTIFICATION_MOBILE_HELP">Option um die Native Benachrichtungs Dialoge zuverwenden anstelle der Benachrichtigungsleiste bzw den Modalen Dialogen.</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT">Online Benutzer Status Speicher Ablaufzeit:</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT_HELP">Sie können eine Feinabstimmung je nach der Webseiten Aktivität (in Millisekunden)</Resource>
+    <Resource tag="PM_ATTACHMENTS">Allow attachments in Private Messages</Resource>
+    <Resource tag="PM_ATTACHMENTS_HELP">Allowes the upload and use of attachments in Private messages.</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE">Max. Dateigröße für Benutzer definierte Umfrage Bilder:</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE_HELP">Definieren Sie die Maximale Dateigröße in Kilo Bytes.</Resource>
     <Resource tag="POLLVOTING_PERIP">Umfragestimmen Abhängig von IP:</Resource>
@@ -1176,8 +1309,6 @@
     <Resource tag="RANK_TEMPLATE_HELP">Vorlage für die Darstellung des Benutzer Ranges</Resource>
     <Resource tag="RANKIMAGE_TEMPLATE">Rang Bild Vorlage:</Resource>
     <Resource tag="RANKIMAGE_TEMPLATE_HELP">Vorlage für die Darstellung des Rang Bildes.</Resource>
-    <Resource tag="RECAPTCHA_MULTI_INSTANCE">reCAPTCHA Mehrere Instanzen aktivieren:</Resource>
-    <Resource tag="RECAPTCHA_MULTI_INSTANCE_HELP">reCAPTCHA Mehrere Instanzen aktivieren (Geteilte Schlüssel).</Resource>
     <Resource tag="RECAPTCHA_PRIVATE_KEY">reCAPTCHA Privater Schlüssel:</Resource>
     <Resource tag="RECAPTCHA_PRIVATE_KEY_HELP">Geben Sie einen reCAPTCHA Privaten Schlüssel ein</Resource>
     <Resource tag="RECAPTCHA_PUBLIC_KEY">reCAPTCHA Öffentlicher Schlüssel:</Resource>
@@ -1234,6 +1365,8 @@
     <Resource tag="SERVERTIME_CORRECT_HELP">Geben Sie einen positiven oder einen negativen Wert in Minuten zwischen -720 und 720 ein. Wenn der Server UTC Zeit falsch ist:</Resource>
     <Resource tag="SHOUTBOX_COUNT">Anzahl der Shoutbox Einträge:</Resource>
     <Resource tag="SHOUTBOX_COUNT_HELP">Max. Anzahl an Einträgen die in der Shoutbox angezeigt werden sollen.</Resource>
+    <Resource tag="SHOUTBOX_DEFAULTSTATE">Shout Box Grundzustand:</Resource>
+    <Resource tag="SHOUTBOX_DEFAULTSTATE_HELP">Grundzustand der Shout Box Eingeklappt oder ausgeklappt.</Resource>
     <Resource tag="SHOW_ACTIVE_DISCUSSION">Aktive Diskussionen Anzeigen:</Resource>
     <Resource tag="SHOW_ACTIVE_DISCUSSION_HELP">Aktivieren oder Deaktivieren Anzeige der aktiven Diskussionen Liste in der Bord Hauptseite.</Resource>
     <Resource tag="SHOW_ATOM_LINKS">Atom Links anzeigen</Resource>
@@ -1242,10 +1375,16 @@
     <Resource tag="SHOW_AVATARS_TOPICLISTS_HELP">Wenn aktiviert werden in den Themen Seiten Avatarbilder angezeigt.</Resource>
     <Resource tag="SHOW_BOTS_INACTIVE">Zeige Crawlers in der Aktiven Benutzerliste:</Resource>
     <Resource tag="SHOW_BOTS_INACTIVE_HELP">Wenn aktiviert, werden Crawlers in der Aktiven Benutzerliste angezeigt.</Resource>
+    <Resource tag="SHOW_CONNECT_MESSAGE">Show Connect Message after first Message:</Resource>
+    <Resource tag="SHOW_CONNECT_MESSAGE_HELP">Whether or not to show a Connect Message after the first Message in a topic for Guests, containing login and registration links.</Resource>
+    <Resource tag="SHOW_COOKIECONSET">Show Cookie Consent Popup message</Resource>
+    <Resource tag="SHOW_COOKIECONSET_HELP">When enabled show the Cookie Accept Popup message.</Resource>
     <Resource tag="SHOW_DEL_MESSAGES">Gelöschte Beiträge zeigen:</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_HELP">Wenn aktiviert werden Beiträge die Gelöscht wurden mit einer Nachricht hinterlassen</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_TOALL">Alle Gelöschte Nachrichten zeigen:</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_TOALL_HELP">Wenn "Gelöschte Beiträge zeigen" aktivieren ist, wird diese Option, wenn aktiviert allen Benutzern die gelöschten Beiträge zeigen.&lt;br /&gt; Ansonsten werden die Gelöschten Beiträge nur den Administratoren, Moderatoren und dem Autor des Beitrags gezeigt.</Resource>
+    <Resource tag="SHOW_EDIT_MESSAGE">Show Edit Message:</Resource>
+    <Resource tag="SHOW_EDIT_MESSAGE_HELP">If enabled it shows a Note in the footer of the Message if the Message was edited (incl. the Reason and Time)</Resource>
     <Resource tag="SHOW_FORUM_JUMP">Gehe zu Forum Box Anzeigen:</Resource>
     <Resource tag="SHOW_FORUM_JUMP_HELP">Aktivieren oder deaktivieren der Anzeige Gehe zu Forum Box im Forum.</Resource>
     <Resource tag="SHOW_FORUM_STATS">Forum Statistiken anzeigen:</Resource>
@@ -1280,8 +1419,8 @@
     <Resource tag="SHOW_RSS_LINKS_HELP">Aktivieren oder deaktivieren Anzeige von RSS-Links im Forum.</Resource>
     <Resource tag="SHOW_SHOUTBOX">Shoutbox Anzeigen:</Resource>
     <Resource tag="SHOW_SHOUTBOX_HELP">Aktivieren oder deaktivieren Anzeige der Shoutbox (Chat-Modul) im Forum.</Resource>
-    <Resource tag="SHOW_SHOUTBOX_SMILIES">Zeige Shoutbox Smileys:</Resource>
-    <Resource tag="SHOW_SHOUTBOX_SMILIES_HELP">Aktivieren oder deaktivieren der Anzeige der Shoutbox (Chat-Modul) Smileys.</Resource>
+    <Resource tag="SHOW_SIMILARTOPICS">Show Similar Topics:</Resource>
+    <Resource tag="SHOW_SIMILARTOPICS_HELP">Should similar topics to be displayed at the bottom of a topic.</Resource>
     <Resource tag="SHOW_THANK_DATE">Das Datum, an dem der Benutzer sich bedankt hat:</Resource>
     <Resource tag="SHOW_THANK_DATE_HELP">Wenn diese Option aktiviert ist, können Benutzer sehen, an welchem Datum ihn für diesen Beitrag gedankt wurde. (Die Danke Funktion muss dafür zunächst aktiviert werden.)</Resource>
     <Resource tag="SHOW_TODAYS_BIRTHDAYS">Heutige Geburtstage anzeigen in den Foren Statistiken:</Resource>
@@ -1300,21 +1439,27 @@
     <Resource tag="SHOWHELP_HELP">Aktivieren oder deaktivieren Sie den Hilfe-Link im Kopf der Seite, die die Hilfeseiten anzeigt.</Resource>
     <Resource tag="SHOWTEAM">Teamseite zeigen:</Resource>
     <Resource tag="SHOWTEAM_HELP">Aktivieren oder deaktivieren der Teamseite.</Resource>
-    <Resource tag="SPAM_MESSAGE_0">Nichts tun</Resource>
-    <Resource tag="SPAM_MESSAGE_1">Beitrag als nicht genehmigt markieren</Resource>
-    <Resource tag="SPAM_MESSAGE_2">Beitrag ablehnen</Resource>
+    <Resource tag="SPAM_MESSAGE_0">Do nothing</Resource>
+    <Resource tag="SPAM_MESSAGE_1">Flag Message as Unapproved</Resource>
+    <Resource tag="SPAM_MESSAGE_2">Reject Message</Resource>
+    <Resource tag="SPAM_MESSAGE_3">Delete &amp; Ban user</Resource>
     <Resource tag="SPAM_MESSAGE_HANDLING">Handhabung von als Spam erkannten Nachrichten</Resource>
     <Resource tag="SPAM_MESSAGE_HANDLING_HELP">Wählen Sie, was mit einem Beitrag passiert der als SPAM erkannt wurde. Sie können wählen zwischen nichts tun, Beiträge als nicht genehmigt markieren, oder den Beitrag ablehnen.</Resource>
+    <Resource tag="SPAM_SERVICE_TYP_1">BlogSpam.NET API</Resource>
+    <Resource tag="SPAM_SERVICE_TYP_2">Akismet API (Needs Registration)</Resource>
+    <Resource tag="SPAM_SERVICE_TYP_3">Internal Spam Check Words</Resource>
+    <Resource tag="SPAMCHECK_ALLOWED_URLS">Allowed Number of URLs before flagged as SPAM:</Resource>
+    <Resource tag="SPAMCHECK_ALLOWED_URLS_HELP">If the user posts in one Message more then the allowed URLs the message is flagged as spam. This Check also depends how many user the posts have.</Resource>
     <Resource tag="SQL_FULLTEXT">SQL Volltext-Suche verwenden:</Resource>
     <Resource tag="SQL_FULLTEXT_HELP">Volltext SQL Server Funktion aktivieren/deaktivierten (Muss in der Datenbank aktiviert werden).</Resource>
     <Resource tag="SSL_LOGIN">SSL bei der Anmeldung verwenden:</Resource>
     <Resource tag="SSL_LOGIN_HELP">Erzwingen einer sicheren Verbindung für die Benutzer Anmeldung</Resource>
     <Resource tag="SSL_REGISTER">SSL bei der Registrierung verwenden:</Resource>
     <Resource tag="SSL_REGISTER_HELP">Erzwingen einer sicheren Verbindung für die Benutzer Registrierung.</Resource>
-    <Resource tag="SSO_AUTO_REGISTER">Neue Facebook/Twitter Benutzer autom. registrieren:</Resource>
-    <Resource tag="SSO_AUTO_REGISTER_HELP">Benutzer automatisch Registrieren wenn sie nicht existieren wenn sich jemand über Facebook oder Twitter versucht anzumelden.</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT">Forum Statistiken Speicher Ablaufzeit:</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT_HELP">In Minuten</Resource>
+    <Resource tag="STOPFORUMSPAM_KEY">StopForumSpam.com API Key:</Resource>
+    <Resource tag="STOPFORUMSPAM_KEY_HELP">In order to Report a User as Bot you need an StopForumSpam.com API Key &lt;a href="http://www.stopforumspam.com/signup"&gt;Sign Up here&lt;a&gt;.</Resource>
     <Resource tag="STYLED_NICKS">Gestylte Nicks verwenden:</Resource>
     <Resource tag="STYLED_NICKS_HELP">Wenn diese Option aktiviert, können Sie Farben, die Schriftgröße, usw. ändern für aktive Benutzer Nicknamen.</Resource>
     <Resource tag="STYLED_TOPIC_TITLES">Themen Titel Stil verwenden:</Resource>
@@ -1323,8 +1468,6 @@
     <Resource tag="THANKS_FROM_TEMPLATE_HELP">Vorlage für die Darstellung des Benutzers Danke von.</Resource>
     <Resource tag="THANKS_TO_TEMPLATE">Danke an Vorlage:</Resource>
     <Resource tag="THANKS_TO_TEMPLATE_HELP">Vorlage für die Darstellung des Benutzers Danke an.</Resource>
-    <Resource tag="TIMEAGO_INTERVAL">Relative Zeit Aktualisierungsintervall:</Resource>
-    <Resource tag="TIMEAGO_INTERVAL_HELP">Dies erlaubt es, festzulegen, wie oft die "Time Ago" Erweiterung die relative Zeit aktualisieren soll (in Millisekunden, 60000 ms = 60 Sekunden = 1 Minute).</Resource>
     <Resource tag="TITLE">Host Einstellungen</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS">Themen-Feeds Zugang:</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS_HELP">Anzeige Beschränken für den Feed.</Resource>
@@ -1354,6 +1497,13 @@
     <Resource tag="VIEWMEMBERLIST_PERMISSION_HELP">Folgenden Erlauben die Mitgliederliste anzusehen:</Resource>
     <Resource tag="VIEWPROFILE_PERMISSION">Profil Anzeigen Berechtigungen:</Resource>
     <Resource tag="VIEWPROFILE_PERMISSION_HELP">Damit können andere Benutzer Profile ansehen:</Resource>
+    <Resource tag="VIEWSHOUTBOX_PERMISSION">Shout Box Anzeigeberechtigung:</Resource>
+    <Resource tag="VIEWSHOUTBOX_PERMISSION_HELP">Anzeigeberechtigung für die Shout Box um sie für alle Benutzer (inkl. Gäste), oder nur für Registrierte Benutzer zu erlauben.</Resource>
+    <Resource tag="WELCOME_NOTIFICATION">Send User Welcome Notification:</Resource>
+    <Resource tag="WELCOME_NOTIFICATION_0">Send No Message</Resource>
+    <Resource tag="WELCOME_NOTIFICATION_1">Send as e-mail</Resource>
+    <Resource tag="WELCOME_NOTIFICATION_2">Send as private message</Resource>
+    <Resource tag="WELCOME_NOTIFICATION_HELP">If enabled you it sends a user a Welcome Mail/Private Message after successfully registration.</Resource>
     <Resource tag="WSERVICE_TOKEN">Web-Service-Token:</Resource>
     <Resource tag="WSERVICE_TOKEN_HELP">Token die verwendet werden, um sichere Web-Service-Anrufe zu tätigen. Ständig wechselnde, bis Sie Ihren Host Einstellungen  speichern.</Resource>
   </page>
@@ -1390,6 +1540,7 @@
     <Resource tag="FORUM">Forum</Resource>
     <Resource tag="GROUP">Gruppe</Resource>
     <Resource tag="NEW_FORUM">Neues Forum</Resource>
+    <Resource tag="SAVE">Save Forum</Resource>
     <Resource tag="SERVER">Server</Resource>
     <Resource tag="TITLE">NNTP Foren</Resource>
   </page>
@@ -1415,6 +1566,7 @@
     <Resource tag="DELETE_SERVER">Diesen Server löschen?</Resource>
     <Resource tag="NAME">Name</Resource>
     <Resource tag="NEW_SERVER">Neuer Server</Resource>
+    <Resource tag="SAVE_SERVER">Save Server</Resource>
     <Resource tag="TITLE">NNTP Server</Resource>
     <Resource tag="USERNAME">Benutzername</Resource>
   </page>
@@ -1493,6 +1645,8 @@
     <Resource tag="RECOVERY2">Einfach (Simple Recovery verwendet die Letzte Sicherung für die Wiederherstellung. Sie müssen regelmäßig eine Sicherung ihrer Datenbank machen.)</Resource>
     <Resource tag="RECOVERY3">Massenprotokollieren (Massenprotokolliertes Wiederherstellen ermöglicht Massenprotokollierte Vorgänge)</Resource>
     <Resource tag="REINDEX">Bei jeder Datenänderung kann Tabellen Fragmentierung auftreten. Dieser Befehl kann verwendet werden, um alle Indizes auf alle Tabellen in der Datenbank neu zu erstellen, um die Leistung zu steigern.</Resource>
+    <Resource tag="REINDEX_MSG">Please do not navigate away from this page...</Resource>
+    <Resource tag="REINDEX_TITLE">Updating Tables</Resource>
     <Resource tag="REINDEXTBL_BTN">Tabellen reindizieren</Resource>
     <Resource tag="SETRECOVERY_BTN">Wiederherstellungsmodus wählen</Resource>
     <Resource tag="SHOW_STATS">Statistische Informationen über alle YAF Tabellen Indizes anzeigen.</Resource>
@@ -1517,6 +1671,7 @@
     <Resource tag="GOOD_HELP">Regulärer Ausdrucks Anweisung. Escape Punkte mit einem vorangestellten Schrägstrich (e.g. '\.').</Resource>
     <Resource tag="MSG_REGEX_BAD">Die Regulärer Ausdrucks Anweisung die Sie eingeben haben ist ungültig.</Resource>
     <Resource tag="TITLE">Hinzufügen / Bearbeiten von Word ersetzen</Resource>
+    <Resource tag="TITLE_EDIT">Edit Word Replace</Resource>
   </page>
   <page name="ADMIN_REPLACEWORDS_IMPORT">
     <Resource tag="HEADER">Import ersetzen Wortliste</Resource>
@@ -1540,42 +1695,35 @@
     <Resource tag="SQL_COMMAND">SQL-Befehl:</Resource>
     <Resource tag="TITLE">SQL Code ausführen</Resource>
   </page>
-  <page name="ADMIN_SMILIES">
-    <Resource tag="ADD">Smiley hinzufügen</Resource>
-    <Resource tag="CODE">Code</Resource>
-    <Resource tag="COMANDS">Emotion</Resource>
-    <Resource tag="EMOTION">Emotion</Resource>
-    <Resource tag="IMPORT">Smiley Packet Importieren</Resource>
-    <Resource tag="MSG_DELETE">Dieses Smiley löschen?</Resource>
-    <Resource tag="ORDER">Reihenfolge</Resource>
-    <Resource tag="SMILEY">Smiley</Resource>
-    <Resource tag="TITLE">Smileys</Resource>
+  <page name="ADMIN_SPAMLOG">
+    <Resource tag="TITLE">Spam Ereignisprotokoll</Resource>
   </page>
-  <page name="ADMIN_SMILIES_EDIT">
-    <Resource tag="CODE">Code:</Resource>
-    <Resource tag="EMOTION">Emotion:</Resource>
-    <Resource tag="ICON">Icon:</Resource>
-    <Resource tag="MSG_CODE_BRACK">Bitte geben Sie den Code für diese Emotion in "[...]" ein.</Resource>
-    <Resource tag="MSG_CODE_LONG">Der Code für diese Emotion darf nicht Länger als 10 Zeichen lang sein.</Resource>
-    <Resource tag="MSG_CODE_MISSING">Please enter the code to use for this emotion.</Resource>
-    <Resource tag="MSG_NO_EMOTICON">Please enter an emotion for this icon.</Resource>
-    <Resource tag="MSG_NO_ICON">Please select an icon to use for this emotion.</Resource>
-    <Resource tag="MSG_SORT_NMBR">Sort order must be number between 0 and 255.</Resource>
-    <Resource tag="MSG_TOO_LONG">An emotion description is too long.</Resource>
-    <Resource tag="SELECT_SMILEY">Smiley Bild Wählen</Resource>
-    <Resource tag="SORT_ORDER">Sortierreihenfolge:</Resource>
-    <Resource tag="TITLE">Smiley Bearbeiten/Hinzufügen</Resource>
+  <page name="ADMIN_SPAMWORDS">
+    <Resource tag="ADD">Add</Resource>
+    <Resource tag="EXPORT">Export to XML</Resource>
+    <Resource tag="IMPORT">Import from XML</Resource>
+    <Resource tag="MSG_DELETE">Delete this Word?</Resource>
+    <Resource tag="NOTE">&lt;strong&gt;Note: &lt;/strong&gt; The Spam Words are used for the internal SPAM Detection, during Registration the Homepage the user is entering in the user profile is checked against the Spam Words. Also if a user Posts a new Message in the forum it will be checked against the Spam Words if 'Choose a SPAM Service for Automatically SPAM Checking' in the Host Settings is set to 'Internal Spam Check Words'.</Resource>
+    <Resource tag="SAVE">Save Word</Resource>
+    <Resource tag="SPAM">"Spam" Word (Find) Expression</Resource>
+    <Resource tag="TITLE">Spam Check Words</Resource>
   </page>
-  <page name="ADMIN_SMILIES_IMPORT">
-    <Resource tag="CHOOSE_PAK">.pak Datei wählen:</Resource>
-    <Resource tag="CHOOSE_PAK_HELP">Sie müssen das Smiley Packet entpacken und all Dateien in den Smiley Ordner hochladen (Boards/BoardNr/Images/Emoticons).</Resource>
-    <Resource tag="DELETE_EXISTING">Exestierende Smileys löschen:</Resource>
-    <Resource tag="DELETE_EXISTING_HELP">Will DELETE ALL existing smilies if you check this.</Resource>
-    <Resource tag="ERROR_SELECT_FILE">You must select a .pak file to import.</Resource>
-    <Resource tag="HEADER">Smiley Packet importien</Resource>
-    <Resource tag="IMPORT">Importieren</Resource>
-    <Resource tag="SELECT_FILE">Datei (*.pak) wählen</Resource>
-    <Resource tag="TITLE">Smileys Importieren</Resource>
+  <page name="ADMIN_SPAMWORDS_EDIT">
+    <Resource tag="MSG_REGEX_SPAM">The Regular expression statement you have entered is invalid.</Resource>
+    <Resource tag="SPAM">"Spam" Word (Find) Expression:</Resource>
+    <Resource tag="SPAM_HELP">Regular expression statement. Escape punctation with a preceding slash (e.g. '\.').</Resource>
+    <Resource tag="TITLE">Add New Spam Word</Resource>
+    <Resource tag="TITLE_EDIT">Edit Spam Word</Resource>
+  </page>
+  <page name="ADMIN_SPAMWORDS_IMPORT">
+    <Resource tag="HEADER">Import Spam Word List</Resource>
+    <Resource tag="MSG_IMPORTED">{0} new spam word(s) were imported successfully.</Resource>
+    <Resource tag="MSG_IMPORTED_FAILED">Failed to import: Import file format is different than expected.</Resource>
+    <Resource tag="MSG_IMPORTED_FAILEDX">Failed to import: {0}</Resource>
+    <Resource tag="MSG_NOTHING">Nothing imported: no new spam words were found in the upload.</Resource>
+    <Resource tag="SELECT_IMPORT">Select Import File:</Resource>
+    <Resource tag="SELECT_IMPORT_HELP">(Must be *.xml file)</Resource>
+    <Resource tag="TITLE">Import Spam Words</Resource>
   </page>
   <page name="ADMIN_TASKMANAGER">
     <Resource tag="DURATION">Dauer</Resource>
@@ -1593,6 +1741,7 @@
     <Resource tag="DEFAULT_DESCRIPTION">Status</Resource>
     <Resource tag="EXPORT">Export in XML</Resource>
     <Resource tag="HEADER">Erlaubte Dateiendungen</Resource>
+    <Resource tag="ICON">Icon</Resource>
     <Resource tag="IMPORT">Import von XML</Resource>
     <Resource tag="TITLE">Themen Status</Resource>
     <Resource tag="TOPICSTATUS_NAME">Status Name</Resource>
@@ -1603,6 +1752,7 @@
     <Resource tag="HEADER">Hinzufügen / Bearbeiten von Themen Status</Resource>
     <Resource tag="MSG_ENTER">Sie müssen etwas eingeben.</Resource>
     <Resource tag="TITLE">Hinzufügen / Bearbeiten von Themen Status</Resource>
+    <Resource tag="TITLE_EDIT">Edit Topic Status</Resource>
     <Resource tag="TOPICSTATUS_NAME">Themen Status Wert:</Resource>
     <Resource tag="TOPICSTATUS_NAME_HELP">Dieser Wert wird verwendet um das Status Icon oder die Lokalisation zu laden. Dieser Eintrag sollte in den Skin und Sprachdateien vorhanden sein.</Resource>
   </page>
@@ -1627,6 +1777,10 @@
     <Resource tag="EXPORT_XML">All Benutzer als XML Exportieren</Resource>
     <Resource tag="FACEBOOK_USER">Facebook Benutzer</Resource>
     <Resource tag="FILTER">Filtern nach Eintrittsdatum seit:</Resource>
+    <Resource tag="FILTER_BY_GROUP">Filter by Group...</Resource>
+    <Resource tag="FILTER_BY_RANK">Filter by Rank...</Resource>
+    <Resource tag="FILTER_DROPDOWN">Filter</Resource>
+    <Resource tag="FILTER_NO">[No Filter]</Resource>
     <Resource tag="HEADER">Benutzer suchen</Resource>
     <Resource tag="IMPORT">Benuter Importieren</Resource>
     <Resource tag="LAST_VISIT">Letzter Besuch</Resource>
@@ -1639,7 +1793,10 @@
     <Resource tag="RANK">Rang:</Resource>
     <Resource tag="ROLE">Rolle:</Resource>
     <Resource tag="SEARCH">Suche</Resource>
+    <Resource tag="SUSPENDED_ONLY">Show only suspended users?</Resource>
     <Resource tag="SYNC_ALL">Alle Membership Benutzer synchronisieren</Resource>
+    <Resource tag="SYNC_MSG">Please do not navigate away from this page while the sync is in progress...</Resource>
+    <Resource tag="SYNC_TITLE">Syncing Users</Resource>
     <Resource tag="TITLE">Benutzer</Resource>
     <Resource tag="TWITTER_USER">Twitter Benutzer</Resource>
     <Resource tag="USER_NAME">Benutzername</Resource>
@@ -1664,8 +1821,9 @@
   <page name="ADMINMENU">
     <Resource tag="admin_accessmasks">Zugriffsmasken</Resource>
     <Resource tag="admin_admin">Admin-Index</Resource>
-    <Resource tag="admin_attachments">Anhänge</Resource>
+    <Resource tag="admin_bannedemail">Gebannte Emails</Resource>
     <Resource tag="admin_bannedip">Gesperrte IPs</Resource>
+    <Resource tag="admin_bannedname">Gebannte Names</Resource>
     <Resource tag="admin_bbcode">BBCode Erweiterungen</Resource>
     <Resource tag="admin_boards">Boards</Resource>
     <Resource tag="admin_boardsettings">Board Einstellungen</Resource>
@@ -1693,7 +1851,8 @@
     <Resource tag="admin_replacewords">Ersetzen von Wörtern</Resource>
     <Resource tag="admin_restartapp">Anwendung neustarten</Resource>
     <Resource tag="admin_runsql">SQL Query ausführen</Resource>
-    <Resource tag="admin_smilies">Smileys</Resource>
+    <Resource tag="ADMIN_SPAMLOG">Spam Ereignisprotokoll</Resource>
+    <Resource tag="admin_spamwords">Spam Check Wörter</Resource>
     <Resource tag="admin_taskmanager">Task-Manager</Resource>
     <Resource tag="admin_test_data">Testdaten generieren</Resource>
     <Resource tag="admin_topicstatus">Topic Status</Resource>
@@ -1704,6 +1863,7 @@
     <Resource tag="Maintenance">Wartung</Resource>
     <Resource tag="NNTP">NNTP</Resource>
     <Resource tag="Settings">Einstellungen</Resource>
+    <Resource tag="Spam_Protection">Spam Schutz</Resource>
     <Resource tag="Upgrade">Upgrade</Resource>
     <Resource tag="UsersandRoles">Benutzer und Gruppen</Resource>
   </page>
@@ -1717,6 +1877,7 @@
     <Resource tag="ALBUMS_INFO">Aktuell haben Sie {0} Alben. Sie können max. {1} Alben erstellen.</Resource>
     <Resource tag="ALBUMS_NOTALLOWED">Sie dürfen keine Alben haben.</Resource>
     <Resource tag="ALBUMS_TITLE">{0} Album: {1}</Resource>
+    <Resource tag="BACK_ALBUMS">Zurück zu den Alben</Resource>
     <Resource tag="TITLE">Album Bilder</Resource>
   </page>
   <page name="APPROVE">
@@ -1727,16 +1888,24 @@
     <Resource tag="VALIDATE">Überprüfen</Resource>
   </page>
   <page name="ATTACHMENTS">
+    <Resource tag="ADD_FILES">Add file(s)...</Resource>
     <Resource tag="ALLOWED_EXTENSIONS">Erlaubte Dateitypen</Resource>
     <Resource tag="ASK_DELETE">Möchtest du diesen Anhang löschen?</Resource>
+    <Resource tag="COMPLETE_WARNING">Please wait until all Upload(s) are completed and the Dialog closes itself!</Resource>
+    <Resource tag="CONFIRM_DELETE">Delete attachment(s)?</Resource>
+    <Resource tag="CURRENT_UPLOADS">Current Attachment Uploads:</Resource>
     <Resource tag="DELETE">Löschen</Resource>
     <Resource tag="DISALLOWED_EXTENSIONS">Verbotene Dateitypen</Resource>
+    <Resource tag="DROP_HERE">Drop file(s) here</Resource>
     <Resource tag="FILEERROR">'{0}' ist kein gültiger Dateiname.</Resource>
     <Resource tag="FILENAME">Dateiname</Resource>
+    <Resource tag="NO_ATTACHMENTS">You are not having any attachments yet, to add one click on the &lt;strong&gt;Upload New File(s)&lt;/strong&gt; button</Resource>
     <Resource tag="SELECT_FILE">Bitte wähle die hochzuladende Datei aus.</Resource>
     <Resource tag="SIZE">Größe</Resource>
+    <Resource tag="START_UPLOADS">Start upload(s)</Resource>
     <Resource tag="TITLE">Anhänge</Resource>
     <Resource tag="UPLOAD">Hochladen</Resource>
+    <Resource tag="UPLOAD_NEW">Upload New File(s)</Resource>
     <Resource tag="UPLOAD_NOTE">Hinweis: max. Dateigröße eines Anhangs ist {0} KB.</Resource>
     <Resource tag="UPLOAD_TITLE">Datei Hochladen</Resource>
     <Resource tag="UPLOAD_TOOBIG">Du kannst keine Dateien anhängen, die größer als {1} KB. Ihre Dateigröße beträgt {0} KB.</Resource>
@@ -1748,6 +1917,12 @@
     <Resource tag="UP_TITLE">Zum übergeordneten Ordner gehen.</Resource>
   </page>
   <page name="BBCODEMODULE">
+    <Resource tag="ALBUMIMG_DESCRIPTION">Geben Sie hier die Album Nummer ein</Resource>
+    <Resource tag="ATTACH_DESCRIPTION">Enter a Attachment ID</Resource>
+    <Resource tag="ATTACH_NO">You have insufficient rights to see the content.</Resource>
+    <Resource tag="DAILYMOTION_DESCRIPTION">Geben Sie hier eine DailyMotion URL (http://www.dailymotion.com/video/xxxx)</Resource>
+    <Resource tag="FACEBOOK_DESCRIPTION">Enter the Url of the post or the Embed Code of the Post you want to embed</Resource>
+    <Resource tag="GOOGLEMAPS_DESCRIPTION">Geben Sie hier eine Google Maps URL ein</Resource>
     <Resource tag="HIDDENMOD_DESC">Der Inhalt dieses Beitrages ist versteckt. Nachdem Sie dem Autor DANKE Gesagt haben, und die Seite neugeladen haben, können Sie den Inhalt sehen.</Resource>
     <Resource tag="HIDDENMOD_GROUP">Sie haben nicht die nötigen Rechte den Versteckten Inhalt sehen zu können.</Resource>
     <Resource tag="HIDDENMOD_GUEST">Das Forum verlangt das Sie registriert sind und angemeldet bevor Sie die Versteckten Beiträge sehen können</Resource>
@@ -1761,12 +1936,14 @@
     <Resource tag="HIDEREPLY_DESCRIPTION">Der Inhalt wird nur angezeigt für Benutzer die in diesem Thema eine Antwort geschrieben haben.</Resource>
     <Resource tag="HIDEREPLYTHANKS_DESCRIPTION">Der Inhalt wird nur angezeigt für Benutzer die in diesem Thema eine Antwort geschrieben haben oder sich für diesen Beitrag bedankt haben.</Resource>
     <Resource tag="HIDETHANKS_DESCRIPTION">Dieser BB Code Versteckt den Inhalt bei Personen denen weniger als x mal danke gesagt wurde.</Resource>
+    <Resource tag="INSTAGRAM_DESCRIPTION">Put an Instagram Post URL in here, for example: https://www.instagram.com/p/BS2kMaZl2XO/</Resource>
     <Resource tag="SPOILERMOD_DESCRIPTION">"Spoiler"-Text hier eingeben</Resource>
     <Resource tag="SPOILERMOD_HIDE">"Spoiler"-Text verbergen</Resource>
     <Resource tag="SPOILERMOD_SHOW">"Spoiler"-Text anzeigen</Resource>
     <Resource tag="SPOILERMOD_TOOLTIP">Hier klicken, um den verborgenen Text ("Spoiler") anzuzeigen oder auszublenden</Resource>
+    <Resource tag="TWITTER_DESCRIPTION">Geben Sie hier die Status ID des Tweets ein</Resource>
     <Resource tag="UERLINKMOD_DESCRIPTION">Benutzernamen Hier eingeben</Resource>
-    <Resource tag="YOUTUBEMOD_DESCRIPTION">Hier deine YouTube-URL eintragen</Resource>
+    <Resource tag="YOUTUBEMOD_DESCRIPTION">Geben Sie hier eine YouTube URL ein</Resource>
   </page>
   <page name="BUDDY">
     <Resource tag="ADDBUDDY">Als Freund hinzufügen</Resource>
@@ -1791,6 +1968,8 @@
     <Resource tag="BUTTON_DELETE">Löschen</Resource>
     <Resource tag="BUTTON_DELETE_TT">Diese Nachricht löschen</Resource>
     <Resource tag="BUTTON_DELETEALBUM">Album löschen</Resource>
+    <Resource tag="BUTTON_DELETEATTACHMENT">Delete Attachment(s)</Resource>
+    <Resource tag="BUTTON_DELETEATTACHMENT_TT">Delete selected attachment(s)s</Resource>
     <Resource tag="BUTTON_DELETETOPIC">Thema Löschen</Resource>
     <Resource tag="BUTTON_DELETETOPIC_TT">Dieses Thema aus dem Forum löschen</Resource>
     <Resource tag="BUTTON_EDIT">Bearbeiten</Resource>
@@ -1841,8 +2020,10 @@
   <page name="COMMON">
     <Resource tag="ALBUMIMG_BBCODE">Album Bild einfügen...</Resource>
     <Resource tag="ALLOWED">Erlaubt</Resource>
+    <Resource tag="ATTACH_BBCODE">Insert an existing Attachment or upload a new File...</Resource>
     <Resource tag="BACK">Zurück</Resource>
     <Resource tag="BAD_CAPTCHA">Der eingegebene Text passt nicht zum angezeigten Sicherheitscode (Groß und Kleinschreibung beachten)</Resource>
+    <Resource tag="BAD_RECAPTCHA">Bitte wiederholen Sie die reCAPTCHA Eingabe.</Resource>
     <Resource tag="BAD_USERNAME">Der Benutzername darf kein Semikolon (;) enthalten.</Resource>
     <Resource tag="BBCODE_CODE">Code:</Resource>
     <Resource tag="BBCODE_QUOTE">Zitat:</Resource>
@@ -1870,6 +2051,10 @@
     <Resource tag="CHANGEEMAIL_SUBJECT">E-Mail geändert</Resource>
     <Resource tag="COMMON_WORDS">aus, bitte, ein, in der Lage, über, überall, nachdem alle, fast, auch bin, unter ein, und alle sind, wie, bei,, da werden, aber durch kann, kann nicht, könnte, lieber habe, zu tun, ist, entweder, sonst, je, jede, für, von, zu bekommen, bekam, hatte, hat, haben er, sie, ihr, ihn, seine, wie ich jedoch, wenn, in, in, ist, es, seine, gerade, zumindest lassen, wie, wahrscheinlich, kann mir vielleicht die meisten, muss, meiner, weder, nein, noch nicht, der, aus, oft auf, nur, oder andere, unsere, eigene, sondern sagte, sagen wir, sagt, sie sollten, da so einige, als, dass das, ihr, sie, dann gibt es diese, sie, diese, zu, Auch was, uns will, war, wir wurden, was, wann, wo, was, während, wer, wen, warum, wird mit, wäre doch, Sie, Ihre</Resource>
     <Resource tag="CONTINUE">Weiter</Resource>
+    <Resource tag="COOKIE">The {0} uses cookies. By continuing to browse this site, you are agreeing to our use of cookies.</Resource>
+    <Resource tag="COOKIE_AGREE">Close</Resource>
+    <Resource tag="COOKIE_DETAILS">More Details</Resource>
+    <Resource tag="COOKIE_HEADER">Important Information:</Resource>
     <Resource tag="COPY">Kopieren</Resource>
     <Resource tag="CUSTOM_BBCODE">Zusätzliche BB-Codes:</Resource>
     <Resource tag="DELETE">Löschen</Resource>
@@ -1899,7 +2084,9 @@
     <Resource tag="HTMLTAG_FORBIDDEN">Ihre eingegebenen Daten sollten keine HTML-Tags enthalten.</Resource>
     <Resource tag="HTMLTAG_WRONG">Ihre eingegebenen Daten enthält verbotenen {0} HTML-Tag.</Resource>
     <Resource tag="LOADING">Lade...</Resource>
+    <Resource tag="MANAGE">Manage</Resource>
     <Resource tag="MAX_ONLINE">Mitgliederrekord: {0} gleichzeitig online ({1}).</Resource>
+    <Resource tag="MENU">Menu</Resource>
     <Resource tag="MESSAGE">Nachricht</Resource>
     <Resource tag="MOBILE_FULLSITE">Volle Seite Ansehen</Resource>
     <Resource tag="MOBILE_VIEWSITE">Mobile Seite Ansehen</Resource>
@@ -1908,11 +2095,17 @@
     <Resource tag="NAME">Name</Resource>
     <Resource tag="NO">Nein</Resource>
     <Resource tag="NONE">Keine</Resource>
+    <Resource tag="NOTE">Note:</Resource>
+    <Resource tag="NOTIFICATION_ON_BOT_USER_REGISTER_EMAIL_SUBJECT">Ein SPAM BOT Benutzer hat sich im Forum {0} registriert</Resource>
     <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT">Sie haben eine Auszeichnung erhalten im {0} Forum</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">Neue Nachricht im Forum {0} Forum muss genehmigt werden.</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE">Ein Beitrag im {0} Forum wurde gemeldet</Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL">New SPAM Message on {0} Forum needs to be checked</Resource>
     <Resource tag="NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT">Registrierung im {0} Forum erfolgreich</Resource>
-    <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">Neuer Benutzer in Forum {0} angemeldet</Resource>
+    <Resource tag="NOTIFICATION_ON_SUSPENDING_USER_SUBJECT">Suspension of your {0} Forum Account</Resource>
+    <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">Ein Benutzer hat sich im Forum {0} registriert</Resource>
+    <Resource tag="NOTIFICATION_ON_WELCOME_USER_SUBJECT">Welcome to the {0} Forum</Resource>
+    <Resource tag="NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT">{0} Forum Account Update</Resource>
     <Resource tag="OK">OK</Resource>
     <Resource tag="OR">oder</Resource>
     <Resource tag="PAGES">Seiten</Resource>
@@ -1920,33 +2113,39 @@
     <Resource tag="POST">Beitrag</Resource>
     <Resource tag="POWERED_BY">Powered by</Resource>
     <Resource tag="PRIORITY">Priorität</Resource>
+    <Resource tag="PRIVACY_POLICY">Privacy Policy</Resource>
     <Resource tag="READ">Lesen</Resource>
     <Resource tag="REGMAIL_SENT">Eine Nachricht wurde verschickt. Klicke auf den in der Nachricht enthaltenen Link um fortzufahren</Resource>
     <Resource tag="REGMAIL_WILL_BE_SEND">Eine E-Mail wird nach der Registrierung gesendet. Bitte nutze den Link in der Nachricht, um dich einzuloggen.</Resource>
     <Resource tag="REPLY">Antwort</Resource>
     <Resource tag="SAVE">Speichern</Resource>
+    <Resource tag="SELECT_LOCALE_JS">
+      language:  {
+      inputTooLong: function(e) {
+      var t = e.input.length - e.maximum;
+      return "Bitte " + t + " Zeichen weniger eingeben"
+      },
+      inputTooShort: function(e) {
+      var t = e.minimum - e.input.length;
+      return "Bitte " + t + " Zeichen mehr eingeben"
+      },
+      loadingMore: function() {
+      return "Lade mehr Ergebnisse…"
+      },
+      maximumSelected: function(e) {
+      var t = "Sie können nur " + e.maximum + " Eintr";
+      return e.maximum === 1 ? t += "ag" : t += "äge", t += " auswählen", t
+      },
+      noResults: function() {
+      return "Keine Übereinstimmungen gefunden"
+      },
+      searching: function() {
+      return "Suche…"
+      }
+      }
+    </Resource>
     <Resource tag="SHOWHIDE">Zeigen/Verstecken</Resource>
     <Resource tag="SUBMIT">Abschicken</Resource>
-    <Resource tag="TIMEAGO_JS">
-      // German
-      jQuery.timeago.settings.strings = {
-      prefixAgo: "vor",
-      prefixFromNow: "in",
-      suffixAgo: "",
-      suffixFromNow: "",
-      seconds: "wenigen Sekunden",
-      minute: "etwa einer Minute",
-      minutes: "%d Minuten",
-      hour: "etwa einer Stunde",
-      hours: "%d Stunden",
-      day: "etwa einem Tag",
-      days: "%d Tagen",
-      month: "etwa einem Monat",
-      months: "%d Monaten",
-      year: "etwa einem Jahr",
-      years: "%d Jahren"
-      };
-    </Resource>
     <Resource tag="TOPIC_NOTIFICATION_SUBJECT">Mitteilung bei neuen Themen (Von {0})</Resource>
     <Resource tag="TT_ALIGNCENTER">Zentriert</Resource>
     <Resource tag="TT_ALIGNLEFT">Linksbündig</Resource>
@@ -1969,13 +2168,41 @@
     <Resource tag="UNREAD_MSG2">Sie haben {0} ungelesene Nachricht(e) in ihrem Posteingang. Möchten Sie zu ihrem Posteingang gehen?</Resource>
     <Resource tag="UPDATE">Aktualisieren</Resource>
     <Resource tag="USERNAME_TOOLONG">Benutzername oder Anzeigename kann nicht länger als {0} Zeichen lang sein.</Resource>
+    <Resource tag="USERNAME_TOOSMALL">Benutzername oder Anzeigename muss mehr als {0} Zeichen lang sein.</Resource>
     <Resource tag="VIEW_CATEGORY">Kategorie anzeigen</Resource>
     <Resource tag="VIEW_FORUM">Forum anzeigen</Resource>
     <Resource tag="VIEW_FULLINFO">Detaillierte Infos</Resource>
     <Resource tag="VIEW_TOPIC">Thema anzeigen</Resource>
+    <Resource tag="VIEW_TOPIC_STARTED_BY">Thema gestarted von {0} ansehen</Resource>
     <Resource tag="VIEW_USRPROFILE">Profil anzeigen</Resource>
     <Resource tag="VOTE">Abstimmen</Resource>
     <Resource tag="YES">Ja</Resource>
+  </page>
+  <page name="COOKIES">
+    <Resource tag="COOKIES_TEXT">
+    Cookies are small text files that are placed on your computer by websites that you visit. They are widely used in order to make websites work, or work more efficiently, as well as to provide information to the owners of the site. Depending on your access level and actions on the site, various preference based cookies may be set to enrich your experience.
+    
+    [br]
+    [b]Standard Cookies[/b][br]
+    We’re using cookies for the following purposes:
+
+    [list]
+    [*] Guest Users: Your last visit Date and Time will be saved, to indicate on your next visit which topics and message are new.
+    [*] Login: Once you login to the forum, a cookie is set containing your encrypted credentials, required to recognize you between page visits. You can disable this cookie by unchecking “Remember me” in the login form.
+    [*] Polls: Your voting options are stored as cookies. As soon as you give your voting in a poll a cookie is created.
+    [*] Session: Upon first visit of our website, the system will create a new unique session for you which will be saved using a cookie on your computer. Sessions are required to recognize users between page accesses. It is a temporary cookie which will be deleted once you close your internet browser..
+    [/list]
+
+    [b]Third Party Cookies[/b][br]
+    The site owner may set additional cookies in addition to the standard cookies above. These cookies are often used for website usage tracking, or set by embedded service providers when viewing embedded content from providers such as YouTube and Vimeo, etc.
+    
+    [br]
+
+    [b]How do I change my cookie settings?[/b][br]
+    Most web browsers allow some control of most cookies through the browser settings. To find out more about cookies, including how to see what cookies have been set and how to manage and delete them, visit [url]www.aboutcookies.org[/url] or [url]www.allaboutcookies.org.[/url]
+
+    </Resource>
+    <Resource tag="TITLE">Cookie Policy</Resource>
   </page>
   <page name="COUNTRY">
     <Resource tag="AD">Andorra</Resource>
@@ -2222,6 +2449,9 @@
     <Resource tag="CHANGE_BUTTON">Ändern</Resource>
     <Resource tag="CHANGE_SUCCESS">Passwort wurde erfolgreich abgeändert.</Resource>
     <Resource tag="CONFIRM_PASSWORD">Wiederhole das neue Passwort:</Resource>
+    <Resource tag="EMPTY_ANSWER">New Answer is requiered.</Resource>
+    <Resource tag="EMPTY_PASSWORD">Please Enter your Current Password</Resource>
+    <Resource tag="EMPTY_QUESTION">New Question is requiered.</Resource>
     <Resource tag="NEED_NEW_CONFIRM_PASSWORD">Das neue Passwort muss bestätigt werden.</Resource>
     <Resource tag="NEED_NEW_PASSWORD">Neues Passwort benötigt.</Resource>
     <Resource tag="NEED_OLD_PASSWORD">Altes Passwort benötigt.</Resource>
@@ -2232,7 +2462,14 @@
     <Resource tag="PASSWORD_INCORRECT">Das Passwort ist falsch oder das neue Passwort ist unzulässig.</Resource>
     <Resource tag="PASSWORD_NOT_COMPLEX">Es muss mindestens {1} Sonderzeichen enthalten sein.</Resource>
     <Resource tag="PASSWORD_NOT_NEW">Das Neue Password muss anders als das alte sein.</Resource>
+    <Resource tag="SECURITY_ANSWER_NEW">New Security Answer:</Resource>
+    <Resource tag="SECURITY_ANSWER_OLD">Current Password:</Resource>
+    <Resource tag="SECURITY_CHANGED">Password Question and Answer changed.</Resource>
+    <Resource tag="SECURITY_NOT_CHANGED">Change failed. Please re-enter your values and try again.</Resource>
+    <Resource tag="SECURITY_QUESTION_NEW">New Security Question:</Resource>
+    <Resource tag="SECURITY_QUESTION_OLD">Old Security Question:</Resource>
     <Resource tag="TITLE">Passwort ändern</Resource>
+    <Resource tag="TITLE_SECURITY">Change Security Question and Answer</Resource>
   </page>
   <page name="CP_EDITALBUMIMAGES">
     <Resource tag="ALBUM_TITLE">Titel</Resource>
@@ -2244,6 +2481,7 @@
     <Resource tag="ERROR_TOOBIG">Sie können Solche großen Bilder nicht Hochladen.</Resource>
     <Resource tag="IMAGES_COUNT_LIMIT">Sie haben ihr Limit erreicht. Sie können nicht mehr als {0} Bilder hinzufügen.</Resource>
     <Resource tag="IMAGES_INFO">Notiz: Aktuell enthält das Album {0} Bilder sie sind berechtigt {1} Bilder pro Album hochzuladen. Die max. Dateigröße für ein Bild ist  {2} kb</Resource>
+    <Resource tag="SELECT_FILE">Select an Image File ('.jpg', '.gif', '.png' or '.bmp') you want to upload.</Resource>
     <Resource tag="TITLE">Hinzufügen/Bearbeiten Album</Resource>
   </page>
   <page name="CP_EDITAVATAR">
@@ -2262,7 +2500,7 @@
     <Resource tag="OURAVATAR_SELECT">Wähle einen Avatar aus unserem Verzeichnis aus.</Resource>
     <Resource tag="TITLE">Avatar bearbeiten</Resource>
     <Resource tag="WARN_BIGFILE">Maximale Dateigröße eines Bildes {0} Byte.</Resource>
-    <Resource tag="WARN_File size">Die originale Dateigröße war: {0} Byte.</Resource>
+    <Resource tag="WARN_FILESIZE">Die originale Dateigröße war: {0} Byte.</Resource>
     <Resource tag="WARN_RESIZED">Die Bildgröße wurde angepasst.</Resource>
     <Resource tag="WARN_SIZE">Originalgröße Deines Bildes {0}x{1} Pixel.</Resource>
     <Resource tag="WARN_TOOBIG">Maximale Bildgröße: {0}x{1} Pixel.</Resource>
@@ -2293,7 +2531,8 @@
     <Resource tag="AIM">AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Beobachten Sie jedes Thema, in dem Sie einen Beitrag gemacht haben und empfangen E-Mail-Benachrichtigungen der Aktivitäten in diesen Themen?</Resource>
     <Resource tag="BAD_EMAIL">E-Mail-Adresse nicht zulässig.</Resource>
-    <Resource tag="BAD_FACEBOOK">Unzulässige Facebook Profile ID.</Resource>
+    <Resource tag="BAD_FACEBOOK">Unzulässige Facebook Profile URL.</Resource>
+    <Resource tag="BAD_GOOGLE">Unzulässige Google Profile URL.</Resource>
     <Resource tag="BAD_HOME">Keine zulässige Adresse für Deine Homepage.</Resource>
     <Resource tag="BAD_ICQ">Unzulässige ICQ-Daten.</Resource>
     <Resource tag="BAD_MSN">E-Mail-Adresse nicht zulässig für Dein MSN Konto.</Resource>
@@ -2308,8 +2547,11 @@
     <Resource tag="DUPLICATED_EMAIL">Die E-Mail-Adresse eingegeben haben, ist bereits im Einsatz.</Resource>
     <Resource tag="EDIT_ALBUMS">Alben bearbeiten</Resource>
     <Resource tag="EMAIL">Du musst immer eine gültige E-Mail-Adresse angeben.</Resource>
-    <Resource tag="FACEBOOK">Facebook Profil ID:</Resource>
+    <Resource tag="FACEBOOK">Facebook Profil URL:</Resource>
+    <Resource tag="FIELD_TOOLONG">{0} Länge darf nicht länder als {1} Zeichen lang sein.</Resource>
     <Resource tag="FORUM_SETTINGS">Einstellungen des Forums</Resource>
+    <Resource tag="GET_LOCATION">Get Location from IP Address</Resource>
+    <Resource tag="GOOGLE">Ihre Google Profil URL:</Resource>
     <Resource tag="HIDEME">Verstecken Sie mich aus der aktiven Nutzerliste</Resource>
     <Resource tag="HOMEPAGE">Webseite</Resource>
     <Resource tag="HOMEPAGE2">Deine Webseite:</Resource>
@@ -2335,9 +2577,7 @@
     <Resource tag="TIMEZONE2">Damit Daten und Uhrzeiten im Forum richtig angezeigt werden, musst du Deine Zeitzone angeben.</Resource>
     <Resource tag="TITLE">Profil bearbeiten</Resource>
     <Resource tag="TWITTER">Twittername:</Resource>
-    <Resource tag="TWITTER_ID">Twitter ID:</Resource>
     <Resource tag="USE_MOBILE_THEME">Mobile Forum Skin benutzen:</Resource>
-    <Resource tag="USE_SINGLESIGNON">Möchten Sie Single Sign On verwenden?&lt;br /&gt;Sie müssen oben ihre Facebook ID angeben um Sie via Facebook anzumelden, und ihren Titter Namen + Id für Twitter.</Resource>
     <Resource tag="WEBLOG2">Dein Blog:</Resource>
     <Resource tag="WHERE">Wo lebst du?</Resource>
     <Resource tag="XMPP">Jabber ID:</Resource>
@@ -2473,6 +2713,7 @@
     <Resource tag="MAIN_FORUM_ATOM">Hauptforum Atom</Resource>
     <Resource tag="MAIN_FORUM_RSS">RSS-Feed</Resource>
     <Resource tag="MARKALL">Alle Foren als gelesen markieren</Resource>
+    <Resource tag="MARKALL_MESSAGE">All forums has been marked as read</Resource>
     <Resource tag="MODERATORS">Moderatoren</Resource>
     <Resource tag="NO_FORUM_ACCESS">(Kein Zutritt)</Resource>
     <Resource tag="NO_POSTS">Keine Beiträge</Resource>
@@ -2490,12 +2731,18 @@
     <Resource tag="STATS_LASTPOST">Letzter Beitrag {0} von</Resource>
     <Resource tag="STATS_MEMBERS">Wir haben {0:N0} registrierte Mitglieder.</Resource>
     <Resource tag="STATS_POSTS">Es gibt {0:N0} Beiträge in {1:N0} Themen in {2:N0} Foren.</Resource>
+    <Resource tag="STATS_SPAM">Anti Spam Statistics</Resource>
+    <Resource tag="STATS_SPAM_BANNED">{0} Spammers Permanently Banned</Resource>
+    <Resource tag="STATS_SPAM_DENIED">{0} Spammers Denied Registration</Resource>
+    <Resource tag="STATS_SPAM_REPORTED">{0} Spammers submitted to StopForumSpam.com</Resource>
     <Resource tag="TOPICS">Themen</Resource>
     <Resource tag="UNREAD0">Du hast {0} ungelesene Nachrichten in deinem Posteingang.</Resource>
     <Resource tag="UNREAD1">Du hast {0} ungelesene Nachricht in deinem Posteingang.</Resource>
     <Resource tag="VIEWING">({0} Benutzer aktiv)</Resource>
     <Resource tag="VOTE_DOWN_TITLE">-1 Reputation dem Benutzer hinzufügen.</Resource>
     <Resource tag="VOTE_UP_TITLE">+1 Reputation dem Benutzer hinzufügen.</Resource>
+    <Resource tag="WATCHFORUM_ALL">Watch all forums</Resource>
+    <Resource tag="WATCHFORUM_ALL_HELP">Watch all forums and get Email Notifications when a new Topic is created</Resource>
   </page>
   <page name="DELETEMESSAGE">
     <Resource tag="DELETE">Löschen</Resource>
@@ -3282,7 +3529,7 @@ public class Hello1
     &lt;/td&gt;
     &lt;td&gt;
     &lt;p&gt;Wenn Sie keine Berechtigung haben den Versteckten Inhalt sehen zu können, Sehen Sie stattdessen eine Info warum Sie keine Berechtigung haben.&lt;/p&gt;
-    &lt;img src="{0}resources/images/HiddenWarnDescription.png" alt="Der Inhalt dieses Beitrages ist versteckt. Nachdem Sie dem Autor DANKE Gesagt haben, und die Seite neugeladen haben, können Sie den Inhalt sehen." title="Der Inhalt dieses Beitrages ist versteckt. Nachdem Sie dem Autor DANKE Gesagt haben, und die Seite neugeladen haben, können Sie den Inhalt sehen." /&gt;   
+    &lt;img src="{0}Content/images/HiddenWarnDescription.png" alt="Der Inhalt dieses Beitrages ist versteckt. Nachdem Sie dem Autor DANKE Gesagt haben, und die Seite neugeladen haben, können Sie den Inhalt sehen." title="Der Inhalt dieses Beitrages ist versteckt. Nachdem Sie dem Autor DANKE Gesagt haben, und die Seite neugeladen haben, können Sie den Inhalt sehen." /&gt;
     &lt;p&gt;Ansonsten als Gast sehen sie diese Info...&lt;/p&gt;
     &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Das Forum verlangt das Sie registriert sind und angemeldet bevor Sie die Versteckten Beiträge sehen können&lt;/div&gt;&lt;/div&gt;
     &lt;p&gt;Wenn Sie die ausreichene Berechtigung besitzen um den Inhalt sehen zu können dann sehen Sie einfach den Inhalt...&lt;/p&gt;&lt;br /&gt;
@@ -3312,13 +3559,13 @@ public class Hello1
     &lt;/td&gt;
     &lt;td&gt;
     &lt;p&gt;Wenn Sie keine Berechtigung haben den Versteckten Inhalt sehen zu können, Sehen Sie stattdessen eine Info warum Sie keine Berechtigung haben.&lt;/p&gt;
-    
-    &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Sie haben nicht die nötigen Rechte den Versteckten Inhalt sehen zu können.    
+
+    &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Sie haben nicht die nötigen Rechte den Versteckten Inhalt sehen zu können.
     &lt;/div&gt;&lt;/div&gt;
-    
+
     &lt;p&gt;Ansonsten als Gast sehen sie diese Info...&lt;/p&gt;
     &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Das Forum verlangt das Sie registriert sind und angemeldet bevor Sie die Versteckten Beiträge sehen können&lt;/div&gt;&lt;/div&gt;
-    
+
     &lt;p&gt;Wenn Sie die ausreichene Berechtigung besitzen um den Inhalt sehen zu können dann sehen Sie einfach den Inhalt...&lt;/p&gt;&lt;br /&gt;
     &lt;p&gt;Versteckter Inhalt&lt;/p&gt;
 	&lt;/td&gt;
@@ -3346,19 +3593,19 @@ public class Hello1
     &lt;/td&gt;
     &lt;td&gt;
     &lt;p&gt;Wenn Sie keine Berechtigung haben den Versteckten Inhalt sehen zu können, Sehen Sie stattdessen eine Info warum Sie keine Berechtigung haben.&lt;/p&gt;
-    
+
     &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;
-      &lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Versteckter Inhalt  (Sie müssen registriert sein, und ihnen muss min. 2 gedankt worden sein).    
+      &lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Versteckter Inhalt  (Sie müssen registriert sein, und ihnen muss min. 2 gedankt worden sein).
     &lt;/div&gt;&lt;/div&gt;
-    
+
     &lt;p&gt;Ansonsten als Gast sehen sie diese Info...&lt;/p&gt;
     &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Das Forum verlangt das Sie registriert sind und angemeldet bevor Sie die Versteckten Beiträge sehen können&lt;/div&gt;&lt;/div&gt;
-    
+
     &lt;p&gt;Wenn Sie die ausreichene Berechtigung besitzen um den Inhalt sehen zu können dann sehen Sie einfach den Inhalt...&lt;/p&gt;&lt;br /&gt;
     &lt;p&gt;Versteckter Inhalt&lt;/p&gt;
 	&lt;/td&gt;
   &lt;/tr&gt;
-  
+
   &lt;tr&gt;
     &lt;td class="header2" colspan="2"&gt;Hide-Posts&lt;/td&gt;
   &lt;/tr&gt;
@@ -3382,19 +3629,19 @@ public class Hello1
     &lt;/td&gt;
     &lt;td&gt;
     &lt;p&gt;Wenn Sie keine Berechtigung haben den Versteckten Inhalt sehen zu können, Sehen Sie stattdessen eine Info warum Sie keine Berechtigung haben.&lt;/p&gt;
-    
+
     &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;
-      &lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Versteckter Inhalt  (Sie müssen registriert sein,  und Sie müssen min 10 Beiträge verfasst haben).    
+      &lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Versteckter Inhalt  (Sie müssen registriert sein,  und Sie müssen min 10 Beiträge verfasst haben).
     &lt;/div&gt;&lt;/div&gt;
-    
+
     &lt;p&gt;Ansonsten als Gast sehen sie diese Info...&lt;/p&gt;
     &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Das Forum verlangt das Sie registriert sind und angemeldet bevor Sie die Versteckten Beiträge sehen können&lt;/div&gt;&lt;/div&gt;
-    
+
     &lt;p&gt;Wenn Sie die ausreichene Berechtigung besitzen um den Inhalt sehen zu können dann sehen Sie einfach den Inhalt...&lt;/p&gt;&lt;br /&gt;
     &lt;p&gt;Versteckter Inhalt&lt;/p&gt;
 	&lt;/td&gt;
   &lt;/tr&gt;
-  
+
   &lt;tr&gt;
     &lt;td class="header2" colspan="2"&gt;Hide-Reply&lt;/td&gt;
   &lt;/tr&gt;
@@ -3418,13 +3665,13 @@ public class Hello1
     &lt;/td&gt;
     &lt;td&gt;
     &lt;p&gt;Wenn Sie keine Berechtigung haben den Versteckten Inhalt sehen zu können, Sehen Sie stattdessen eine Info warum Sie keine Berechtigung haben.&lt;/p&gt;
-    
-    &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Versteckter Inhalt  (Sie müssen registriert sein,  und müssen eine Antwort in diesem Thema schreiben).    
+
+    &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Versteckter Inhalt  (Sie müssen registriert sein,  und müssen eine Antwort in diesem Thema schreiben).
     &lt;/div&gt;&lt;/div&gt;
-    
+
     &lt;p&gt;Ansonsten als Gast sehen sie diese Info...&lt;/p&gt;
     &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Das Forum verlangt das Sie registriert sind und angemeldet bevor Sie die Versteckten Beiträge sehen können&lt;/div&gt;&lt;/div&gt;
-    
+
     &lt;p&gt;Wenn Sie die ausreichene Berechtigung besitzen um den Inhalt sehen zu können dann sehen Sie einfach den Inhalt...&lt;/p&gt;&lt;br /&gt;
     &lt;p&gt;Versteckter Inhalt&lt;/p&gt;
 	&lt;/td&gt;
@@ -3452,13 +3699,13 @@ public class Hello1
     &lt;/td&gt;
     &lt;td&gt;
     &lt;p&gt;Wenn Sie keine Berechtigung haben den Versteckten Inhalt sehen zu können, Sehen Sie stattdessen eine Info warum Sie keine Berechtigung haben.&lt;/p&gt;
-    
-    &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Versteckter Inhalt  (Sie müssen registriert sein,  und müssen eine Antwort in diesem Thema schreiben, oder sich für diesen Beitrag bedanken).    
+
+    &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Versteckter Inhalt  (Sie müssen registriert sein,  und müssen eine Antwort in diesem Thema schreiben, oder sich für diesen Beitrag bedanken).
     &lt;/div&gt;&lt;/div&gt;
-    
+
     &lt;p&gt;Ansonsten als Gast sehen sie diese Info...&lt;/p&gt;
     &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Das Forum verlangt das Sie registriert sind und angemeldet bevor Sie die Versteckten Beiträge sehen können&lt;/div&gt;&lt;/div&gt;
-    
+
     &lt;p&gt;Wenn Sie die ausreichene Berechtigung besitzen um den Inhalt sehen zu können dann sehen Sie einfach den Inhalt...&lt;/p&gt;&lt;br /&gt;
     &lt;p&gt;Versteckter Inhalt&lt;/p&gt;
 	&lt;/td&gt;
@@ -3527,7 +3774,7 @@ Spoiler Content
       &lt;strong&gt;Ausgabe&lt;/strong&gt;
     &lt;/td&gt;
     &lt;td&gt;
-    &lt;style type="text/css"&gt;.yafnet .userLinkContainer{{background: url({0}resources/icons/user.png) #fff no-repeat 4px 50%;border: 1px solid #eee;padding: 4px 2px 4px 25px;margin: 3px;font-size: 80%;font-weight: bold;    background-color: #fff;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;}}.yafnet .userLinkContainer:hover{{border: 1px solid #ddd;background-color: #eee;}}
+    &lt;style type="text/css"&gt;.yafnet .userLinkContainer{{background: url({0}Content/icons/user.png) #fff no-repeat 4px 50%;border: 1px solid #eee;padding: 4px 2px 4px 25px;margin: 3px;font-size: 80%;font-weight: bold;    background-color: #fff;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;}}.yafnet .userLinkContainer:hover{{border: 1px solid #ddd;background-color: #eee;}}
 	&lt;/style&gt;
     &lt;span class="userLinkContainer"&gt;
 &lt;a href="{0}yaf_profile1234.aspx" rel="nofollow" title="View profile" target="_blank" id="UserLinkBBCodeFor1234" class="UserLinkBBCode"&gt;Benutzername&lt;/a&gt;
@@ -3613,7 +3860,7 @@ Spoiler Content
 &lt;p&gt;Außerdem kann hier die &amp;quot;Single Sign On&amp;quot; Funktion für ihr Konto aktiviert werden wenn Sie sich z.b. über Facebook anmelden möchten, dazu müssen Sie im Bereich Messenger ihre Facebook ID angeben.&lt;/p&gt;</Resource>
     <Resource tag="EDITPROFILETITLE">Benutzer Profil bearbeiten &amp; Forum Einstellungen</Resource>
     <Resource tag="FORUMSCONTENT">&lt;p&gt;&lt;strong&gt;Was ist YAF?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;YetAnotherForum.NET (YAF) ist ein Open Source Diskussion Forum für  Webseiten die mit ASP.NET laufen. Geschrieben in C#, YAF (ausgesprochen  &amp;quot;laugh&amp;quot;) ist eine einzigartige Kombination aus Open Source, Microsofts  .NET Plattform und eine Internationale Kollaboration aus .NET Entwicklern.  Wachsend und verändert sich täglich. Das YAF Projekt wird durch Jaben Cargman  geführt von Tiny Gecko. YAF läuft auf jedem Server der ASP.NET  v3.5 SP 1 und einen MS SQL Server unterstützt.  YAF ist durch GPL Lizenziert. &lt;/p&gt;
+&lt;p&gt;YetAnotherForum.NET (YAF) ist ein Open Source Diskussion Forum für  Webseiten die mit ASP.NET laufen. Geschrieben in C#, YAF (ausgesprochen  &amp;quot;laugh&amp;quot;) ist eine einzigartige Kombination aus Open Source, Microsofts  .NET Plattform und eine Internationale Kollaboration aus .NET Entwicklern.  Wachsend und verändert sich täglich. Das YAF Projekt wird durch Ingo Herbote geleteitet. YAF läuft auf jedem Server der ASP.NET  v3.5 SP 1 und einen MS SQL Server unterstützt.  YAF ist durch GPL Lizenziert. &lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Wie ist alles Strukturiert?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Ein Forum enthält verschiedene Bereiche, die sich in Foren (bestimmte  Themen) aufteilen, die Themen enthalten, die aus einzelnen Beiträgen (wo ein  Benutzer etwas schreibt) bestehen.&lt;/p&gt;
 &lt;p&gt;Die Forum Hauptseite enthält eine Liste mit Kategorien  und Foren, Statistiken und die Aktiven Themen.&lt;/p&gt;
@@ -3924,6 +4171,7 @@ Spoiler Content
     <Resource tag="MODERATED">Da du in einem moderierten Forum einen Beitrag geschrieben hast, muss zuerst ein Moderator deinen Beitrag bestätigen, damit dieser sichtbar wird.</Resource>
     <Resource tag="REGISTRATION">Eine E-Mail wurde an die angegebene Adresse geschickt. Bitte lies die darin enthaltenen Informationen, um Dich einzuloggen.</Resource>
     <Resource tag="SUSPENDED">Dein Benutzerkonto wurde temporär gesperrt. Die Sperrung wird am {0} enden.</Resource>
+    <Resource tag="SUSPENDED_REASON">&lt;br /&gt;&lt;br /&gt;For the following Reason: "{0}".</Resource>
     <Resource tag="TITLE_ACCESSDENIED">Zugriff verweigert</Resource>
     <Resource tag="TITLE_COOKIES">Cookies benötigt</Resource>
     <Resource tag="TITLE_ECMAREQUIRED">JavaScript wird benötigt</Resource>
@@ -3940,24 +4188,44 @@ Spoiler Content
     <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>
   </page>
   <page name="LOGIN">
+    <Resource tag="AUTH_CONNECT">Anmelden oder registrieren über {0}</Resource>
+    <Resource tag="AUTH_CONNECT_ACCOUNT">Einen vorhandes Forumkonto mit einem {0} Konto Verbinden. Sie müssen Sich dazu zunächst im Forum anmelden.</Resource>
+    <Resource tag="AUTH_CONNECT_FACEBOOK">&lt;strong&gt;Die Facebook Benutzer Email Adress muss mit der Forum Benutzer Email Adresse übereinstimmen um das Konto zu verbinden.&lt;/strong&gt;</Resource>
+    <Resource tag="AUTH_CONNECT_GOOGLE">&lt;strong&gt;Die Google Benutzer Email Adress muss mit der Forum Benutzer Email Adresse übereinstimmen um das Konto zu verbinden.&lt;/strong&gt;</Resource>
+    <Resource tag="AUTH_CONNECT_HELP">Anmelden oder registrieren über {0} oder ein bestehendes Konto mit {0} verbinden.</Resource>
+    <Resource tag="AUTH_CONNECT_TWITTER">&lt;strong&gt;Der Twitter Benutzer Name muss mit dem Forum Benutzer Namen übereinstimmen um das Konto zu verbinden.&lt;/strong&gt; {1}</Resource>
+    <Resource tag="AUTH_LOGIN_EXISTING">Mit einem Konto anmelden das mit {0} verbunden ist. Oder wenn kein Konto gefunden wurde wird automatisch ein neues Erstellt.</Resource>
+    <Resource tag="AUTH_NO_ACCESS_TOKEN">Zugriffstoken nicht erhalten!</Resource>
     <Resource tag="AUTO">Login merken</Resource>
     <Resource tag="BOTH_USERNAME_EMAIL">Sowohl E-Mail-Adresse als auch Benutzername müssen eingegeben werden.</Resource>
+    <Resource tag="CAPS_LOCK">Caps Lock is on</Resource>
+    <Resource tag="CONNECT_VIA">Or Connect via</Resource>
     <Resource tag="EMAIL">E-Mail-Adresse</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">Eine E-Mail mit einem neuen Passwort wurde versandt.</Resource>
     <Resource tag="FACEBOOK_LOGIN">Mit Facebook anmelden</Resource>
     <Resource tag="FORUM_LOGIN">Ins Forum einloggen</Resource>
+    <Resource tag="GOOGLE_LOGIN">Mit Google anmelden</Resource>
     <Resource tag="LOSTPASSWORD">Passwort vergessen</Resource>
     <Resource tag="PASSWORD">Passwort:</Resource>
     <Resource tag="PASSWORD_ERROR">Der eingegebene Benutzername oder das Passwort ist nicht korrekt, probiere es noch ein Mal.</Resource>
     <Resource tag="RECOVER">Passwort wiederherstellen</Resource>
     <Resource tag="RECOVER_ERROR">Fehler beim Erstellen eines neuen Passworts.</Resource>
+    <Resource tag="REGISTER_INSTEAD">Neuen Benuzter erstellen</Resource>
     <Resource tag="SENDPASSWORD">Passwort zusenden</Resource>
     <Resource tag="SSO_DEACTIVATED">Single Sign On ist derzeit vom Administrator deaktiviert!</Resource>
     <Resource tag="SSO_DEACTIVATED_BYUSER">Single Sign On ist deaktiviert für diesen Benutzer, um diese Funktion zu aktivieren müssen Sie diese in den Profil Einstellungen aktivieren.</Resource>
-    <Resource tag="SSO_FAILED">Die Facebook Anmeldung ist fehlgeschlagen, ein Benutzer mit dieser E-Mail Adresse existiert nicht.</Resource>
-    <Resource tag="SSO_ID_NOTMATCH">Die Facebook Benutzer ID stimmt nicht überein!</Resource>
-    <Resource tag="SSO_TWITTER_FAILED">Die Twitter Anmeldung ist fehlgeschlagen, ein Benutzer mit diesem Namen existiert nicht.</Resource>
-    <Resource tag="SSO_TWITTERID_NOTMATCH">Der Twitter Name und Twitter ID stimmt nicht überein!</Resource>
+    <Resource tag="SSO_FACEBOOK_FAILED">Die Facebook Anmeldung ist fehlgeschlagen, ein Benutzer mit diesem Namen existiert nicht, oder das Konto ist nicht verbunden.</Resource>
+    <Resource tag="SSO_FACEBOOK_FAILED2">The Facebook Login failed, an user account with the same email address as the facebook account already exists, please try to connect you your forum account instead.</Resource>
+    <Resource tag="SSO_FACEBOOK_FAILED3">The Facebook Login failed, because the user does not provide a email address for the account.</Resource>
+    <Resource tag="SSO_FACEBOOKNAME_NOTMATCH">Die Email adress muss mit der Forum Email Adress identisch sein!</Resource>
+    <Resource tag="SSO_FAILED">Registrierungen sind nicht erlaubt.</Resource>
+    <Resource tag="SSO_GOOGLE_FAILED">Die Google Anmeldung ist fehlgeschlagen, ein Benutzer mit diesem Namen existiert nicht, oder das Konto ist nicht verbunden.</Resource>
+    <Resource tag="SSO_GOOGLE_FAILED2">The Google Login failed, an user account with the same email address as the Google account already exists, please try to connect you your forum account instead.</Resource>
+    <Resource tag="SSO_GOOGLENAME_NOTMATCH">Die Email adress muss mit der Forum Email Adress identisch sein!</Resource>
+    <Resource tag="SSO_ID_NOTMATCH">Die Facebook Benutzer is nicht verbunden oder wurde nicht gefunden!</Resource>
+    <Resource tag="SSO_TWITTER_FAILED">Die Twitter Anmeldung ist fehlgeschlagen, ein Benutzer mit diesem Namen existiert nicht, oder das Konto ist nicht verbunden.</Resource>
+    <Resource tag="SSO_TWITTER_FAILED2">The Twitter Login failed, an user account with the same user name as the Twitter account already exists, please try to connect you your forum account instead.</Resource>
+    <Resource tag="SSO_TWITTERNAME_NOTMATCH">Der Twitter Benutzer Namen muss mit dem Forum Benutzernamen identisch sein!</Resource>
     <Resource tag="TITLE">Einloggen</Resource>
     <Resource tag="TWITTER_DM">Sie haben weitere Informationen für Ihr Benutzerkonto als Private Nachricht im Forum erhalten.</Resource>
     <Resource tag="TWITTER_DM_ACCOUNT">Ihr Konto im Forum {0}: Username "{1}" Password "{2}"</Resource>
@@ -3986,14 +4254,25 @@ Spoiler Content
     <Resource tag="USERNAME">Benutzername</Resource>
   </page>
   <page name="MESSAGEHISTORY">
+    <Resource tag="COMPARE_TITLE">Message Edit History Post Comparsion</Resource>
+    <Resource tag="COMPARE_VERSIONS">Versionen vergleichen</Resource>
+    <Resource tag="CONFIRM_RESTORE">Are you really want to restore that Message version?</Resource>
     <Resource tag="CURRENTMESSAGE">Aktuelle Ausgabe</Resource>
     <Resource tag="EDITED">Bearbeitet:</Resource>
     <Resource tag="EDITEDBY">Bearbeitet von:</Resource>
+    <Resource tag="EDITEDBY_MOD">Bearbeited durch einen Moderator</Resource>
     <Resource tag="EDITEREASON">Bearbeitungsgrund:</Resource>
-    <Resource tag="GOMODERATE">Weiter Moderieren</Resource>
-    <Resource tag="HISTORYSTART">Verlauf Ausgaben</Resource>
+    <Resource tag="MESSAGE_EDITEDAT">Beitrag editiert am</Resource>
+    <Resource tag="MESSAGE_RESTORED">Message was successfully restored!</Resource>
+    <Resource tag="NEW">Neu</Resource>
+    <Resource tag="NOTHING_SELECTED">Unverändert</Resource>
+    <Resource tag="OLD">Alt</Resource>
     <Resource tag="ORIGINALMESSAGE">Originale Ausgabe</Resource>
     <Resource tag="POSTED">Veröffentlicht:</Resource>
+    <Resource tag="RESTORE_MESSAGE">Version wiederherstellen</Resource>
+    <Resource tag="SELECT_BOTH">Please select one old and one new Message</Resource>
+    <Resource tag="SELECT_DIFFERENT">Sie müssen zwei verschiedene Versionen auswählen um vergleichen zu können</Resource>
+    <Resource tag="TEXT_CHANGES">Text änderungen</Resource>
     <Resource tag="TITLE">Nachrichten Verlauf</Resource>
     <Resource tag="TOMESSAGE">Gehe zu Nachricht</Resource>
   </page>
@@ -4018,8 +4297,11 @@ Spoiler Content
     <Resource tag="LASTPOST">Letzter Beitrag</Resource>
     <Resource tag="MEMBERS">Mitglieder</Resource>
     <Resource tag="MODERATEINDEX_TITLE">Beiträge Moderieren die Gemeldet wurden oder noch nicht freigeschaltet sind</Resource>
+    <Resource tag="MOVE_TO_DIFFERENT">The forum you want to move the topic(s) must be different then the current forum.</Resource>
+    <Resource tag="MOVED">Topic(s) Moved</Resource>
     <Resource tag="NO_POSTS">Keine Beiträge</Resource>
     <Resource tag="NOMODERATION">Derzeit gibt es keine  Beiträge die freigeschaltet werden müssen. Und auch keine Beiträge die Gemeldet wurden.</Resource>
+    <Resource tag="NOTHING">You need to select atleast one topic</Resource>
     <Resource tag="REMOVE">entfernen</Resource>
     <Resource tag="REPLIES">Antworten</Resource>
     <Resource tag="TITLE">Moderieren</Resource>
@@ -4194,6 +4476,8 @@ Spoiler Content
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">Ankündigung</Resource>
     <Resource tag="ASK_POLL_DELETE">Wirklich die Umfrage löschen?</Resource>
+    <Resource tag="BLOG_PASSWORD">Blog Password:</Resource>
+    <Resource tag="BLOG_POST">Post to blog?</Resource>
     <Resource tag="CANCEL_TITLE">Beitrag bearbeiten/erstellen abbrechen</Resource>
     <Resource tag="DESCRIPTION">Beschreibung:</Resource>
     <Resource tag="EDIT">Beitrag bearbeiten</Resource>
@@ -4218,8 +4502,6 @@ Spoiler Content
     <Resource tag="REPLY">Eine Antwort schreiben</Resource>
     <Resource tag="SAVE">Senden</Resource>
     <Resource tag="SAVE_TITLE">Beitrag veröffentlichen/aktualisieren</Resource>
-    <Resource tag="SMILIES_HEADER">[b]Smiley Hinzufügen[/b]</Resource>
-    <Resource tag="SMILIES_MORE">Mehr Smileys...</Resource>
     <Resource tag="SPAM_MESSAGE">Ihr Beitrag wurde abgelehnt dar er als SPAM erkannt wurde!</Resource>
     <Resource tag="STATUS">Status:</Resource>
     <Resource tag="STICKY">Wichtig</Resource>
@@ -4266,6 +4548,9 @@ Spoiler Content
     <Resource tag="FACEBOOK_TITLE">{0}'s Facebook Profil besuchen</Resource>
     <Resource tag="FACEBOOK_TOPIC">Thema mögen</Resource>
     <Resource tag="FORUM_JUMP">Das Forum wechseln</Resource>
+    <Resource tag="GO_TO_ANSWER">Go to the topic answer</Resource>
+    <Resource tag="GOOGLE">Google+</Resource>
+    <Resource tag="GOOGLE_TITLE">{0}'s Google+ Profil besuchen</Resource>
     <Resource tag="GOOGLEPLUS_TOPIC">Thema auf Google+ teilen</Resource>
     <Resource tag="GROUPS">Gruppe</Resource>
     <Resource tag="HOME">www</Resource>
@@ -4288,6 +4573,14 @@ Spoiler Content
     <Resource tag="LINKBACK_TOPIC">LinkBack Themen URL</Resource>
     <Resource tag="LINKBACK_TOPIC_PROMT">Verwenden Sie die URL unten, wenn Sie die URL von diesem Thema auf einer anderen Webseite teilen wollen.</Resource>
     <Resource tag="LOCATION">Wohnort</Resource>
+    <Resource tag="MANAGE_POST">Manage Message</Resource>
+    <Resource tag="MANAGE_TOPIC">Manage Topic</Resource>
+    <Resource tag="MARK_ANSWER">Mark As Answer</Resource>
+    <Resource tag="MARK_ANSWER_REMOVE">Remove As Answer</Resource>
+    <Resource tag="MARK_ANSWER_REMOVE_TITLE">Unmark this Message as answer</Resource>
+    <Resource tag="MARK_ANSWER_TITLE">Mark this Message as answer</Resource>
+    <Resource tag="MESSAGE_ANSWER">Answer</Resource>
+    <Resource tag="MESSAGE_ANSWER_HELP">Marked as answer</Resource>
     <Resource tag="MESSAGEDELETED_MOD">Beitrag wurde vom Moderator gelöscht.</Resource>
     <Resource tag="MESSAGEDELETED_USER">Beitrag wurde vom Benutzer gelöscht.</Resource>
     <Resource tag="MSN">MSN</Resource>
@@ -4309,6 +4602,7 @@ Spoiler Content
     <Resource tag="QUICKREPLY">Schnelles Antworten</Resource>
     <Resource tag="QUICKREPLY_HIDE">Schnelles Antworten: Formular ausblenden</Resource>
     <Resource tag="QUICKREPLY_SHOW">Schnelles Antworten: Formular anzeigen</Resource>
+    <Resource tag="QUOTE_SELECTED">Quote Selected Message</Resource>
     <Resource tag="RANK">Rang</Resource>
     <Resource tag="REDDIT_TOPIC">Thema an Reddit übermitteln</Resource>
     <Resource tag="REP_VOTE_DOWN_MSG">Sie haben erfolgreich {0} -1 Reputation abgezogen.</Resource>
@@ -4317,11 +4611,12 @@ Spoiler Content
     <Resource tag="REPORTEDFEEDBACK">Danke, dass du den Beitrag gemeldet hast</Resource>
     <Resource tag="REPORTPOST">Diesen Beitrag melden</Resource>
     <Resource tag="REPORTPOST_TITLE">Beitrag Melden</Resource>
-    <Resource tag="REPUTATION">Reputation</Resource>
+    <Resource tag="REPUTATION">Ansehen</Resource>
     <Resource tag="RETWEET_TOPIC">Thema retweeten</Resource>
     <Resource tag="RSSTOPIC">RSS-Feed</Resource>
     <Resource tag="SHARE">Teilen</Resource>
     <Resource tag="SHARE_TOOLTIP">Dieses Thema via E-Mail, Twitter, Google+, Facebook, Digg, Reddit oder Tumblr verbreiten</Resource>
+    <Resource tag="SIMILAR_TOPICS">Ähnliche Themen</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
     <Resource tag="SKYPE_TITLE"> {0} via Skype kontaktieren</Resource>
     <Resource tag="STATISTICS">Statistik</Resource>
@@ -4341,7 +4636,10 @@ Spoiler Content
     <Resource tag="TOGGLEPOST">Zeige/Verstecke Beiträge</Resource>
     <Resource tag="TOGGLEUSERPOSTS_HIDE">Verstecke Benutzer Beiträge</Resource>
     <Resource tag="TOGGLEUSERPOSTS_SHOW">Zeige Benutzer Beiträge</Resource>
+    <Resource tag="TOOLS">Tools</Resource>
     <Resource tag="TOP">Zurück zum Anfang</Resource>
+    <Resource tag="TOPIC_STARTER">Topic Starter</Resource>
+    <Resource tag="TOPIC_STARTER_HELP">Indicates that this user has started this topic</Resource>
     <Resource tag="TOPICBROWSERS">Benutzer, die gerade dieses Thema lesen</Resource>
     <Resource tag="TOTAL">Gesamt</Resource>
     <Resource tag="TUMBLR_TOPIC">Mitteilen auf Tumblr</Resource>
@@ -4390,10 +4688,12 @@ Spoiler Content
     <Resource tag="ERROR_FORUMMODERATORS">Moderatoren können nicht gesperrt werden.</Resource>
     <Resource tag="ERROR_GUESTACCOUNT">Das Gastkonto kann nicht gesperrt werden.</Resource>
     <Resource tag="FACEBOOK">Facebook Profil:</Resource>
+    <Resource tag="FORUM_ACCESS">Forum Access</Resource>
     <Resource tag="GENDER">Geschlecht:</Resource>
     <Resource tag="GENDER0">nicht angegeben</Resource>
     <Resource tag="GENDER1">Männlich</Resource>
     <Resource tag="GENDER2">Weiblich</Resource>
+    <Resource tag="GOOGLE">Google+ Profil:</Resource>
     <Resource tag="GROUPS">Gruppen:</Resource>
     <Resource tag="HOURS">Stunden</Resource>
     <Resource tag="ICQ">ICQ-Nummer:</Resource>
@@ -4418,11 +4718,17 @@ Spoiler Content
     <Resource tag="REALNAME">Echter Name:</Resource>
     <Resource tag="REGION">Region:</Resource>
     <Resource tag="REMOVESUSPENSION">Sperre aufheben</Resource>
-    <Resource tag="REPUTATION_RECEIVED">Numer of Reputation received from other users</Resource>
+    <Resource tag="REPUTATION_RECEIVED">Reputation</Resource>
     <Resource tag="SEARCHUSER">Alle Beiträge des Mitglieds anschauen</Resource>
     <Resource tag="SKYPE">Skype ID:</Resource>
+    <Resource tag="SOCIAL_MEDIA">Social Media</Resource>
     <Resource tag="STATISTICS">Statistik</Resource>
     <Resource tag="SUSPEND">Sperren</Resource>
+    <Resource tag="SUSPEND_BY">Suspended By:</Resource>
+    <Resource tag="SUSPEND_CURRENT">Current Suspension</Resource>
+    <Resource tag="SUSPEND_INFO">&lt;strong&gt;NOTE&lt;/strong&gt; The Suspension is based on the Users current Date and Time which is Now: {0}.</Resource>
+    <Resource tag="SUSPEND_NEW">New Suspension</Resource>
+    <Resource tag="SUSPEND_REASON">Suspend Reason:</Resource>
     <Resource tag="SUSPEND_USER">Benutzer sperren:</Resource>
     <Resource tag="THANKSFROM">Anzahl der Danksagungen</Resource>
     <Resource tag="THANKSTOPOSTS">Anzahl der Beiträge für die der Benutzer gedankt wurde</Resource>
@@ -4559,6 +4865,8 @@ Spoiler Content
     <Resource tag="ALREADY_REGISTERED_DISPLAYNAME">Ihr Anzeigename wird bereits verwendet.</Resource>
     <Resource tag="BAD_EMAIL">Die E-Mailadresse hat ein falsches Format.</Resource>
     <Resource tag="BAD_PASSWORD">Wähle bitte ein komplexeres Passwort mit Sonderzeichen und Zahlen</Resource>
+    <Resource tag="BASIC_ACCOUNT">Benuzterkonto</Resource>
+    <Resource tag="BOT_MESSAGE">Entschuldigen Sie bitte aber Spammer sind nicht erlaubt im Forum!</Resource>
     <Resource tag="CONFIRM_PASSWORD">Passwortbestätigung</Resource>
     <Resource tag="CONTINUE">Weiter</Resource>
     <Resource tag="CREATE_USER">Benutzer registrieren</Resource>
@@ -4572,6 +4880,7 @@ Spoiler Content
     <Resource tag="INVALID_QUESTION">Bitte gib eine andere Frage ein.</Resource>
     <Resource tag="INVALID_USERNAME">Bitte wähle eine anderen Benutzernamen</Resource>
     <Resource tag="LOCATION">Wohnort</Resource>
+    <Resource tag="LOGIN_INSTEAD">Mit einenem Bestehenden Benutzer anmelden</Resource>
     <Resource tag="NEED_ANSWER">Die Antwort für die Sicherheitsfrage wird benötigt.</Resource>
     <Resource tag="NEED_DISPLAYNAME">Anzeigename wird benötigt.</Resource>
     <Resource tag="NEED_EMAIL">E-Mail-Adresse wird benötigt</Resource>
@@ -4580,19 +4889,26 @@ Spoiler Content
     <Resource tag="NEED_QUESTION">Die Sicherheitsfrage wird benötigt.</Resource>
     <Resource tag="NEED_USERNAME">Der Benutzername muss angegeben werden.</Resource>
     <Resource tag="PASSWORD">Passwort</Resource>
+    <Resource tag="PASSWORD_GOOD">Good Password!</Resource>
+    <Resource tag="PASSWORD_MIN">Password must be {0} characters long.</Resource>
+    <Resource tag="PASSWORD_NOTMATCH">Password and Confirm Password do not match!</Resource>
     <Resource tag="PASSWORD_REQUIREMENTS_TITLE">Anforderungen an das Passwort</Resource>
     <Resource tag="PASSWORD_REQUIREMENTS_WARN">Mindestens {0} Zeichen benötigt, davon müssen mindestens {1} Zeichen ein Sonderzeichen (z.B: $#@!) sein.</Resource>
+    <Resource tag="PASSWORD_STRONGER">Make your password stronger with more capital letters, more numbers and special characters!</Resource>
+    <Resource tag="PASSWORD_WEAK">Weak Password, try using numbers and capital letters.</Resource>
     <Resource tag="PREFERENCES">Einstellungen</Resource>
     <Resource tag="PROFILE">Profil Informationen</Resource>
     <Resource tag="RECAPTCHA_BADSETTING">Recapture Einstellungen sind falsch. Bitte Informieren Sie die Administratoren darüber.</Resource>
     <Resource tag="RECATCHA_BADWORDS">Eingabe Falsch! Bitte erneut versuchen.</Resource>
     <Resource tag="REGISTER">Registrieren</Resource>
+    <Resource tag="REGISTER_AUTH">Über {0} registrieren</Resource>
     <Resource tag="RETYPE_PASSWORD">Passwort Wiederholung</Resource>
     <Resource tag="SECURITY_ANSWER">Antwort auf diese Frage</Resource>
     <Resource tag="SECURITY_QUESTION">Sicherheitsfrage (bei Passwortverlust)</Resource>
     <Resource tag="TERMS_AND_CONDITIONS_TITLE">Nutzungsbedingungen</Resource>
     <Resource tag="TIMEZONE">Zeitzone</Resource>
-    <Resource tag="TITLE">Neuen Benutzer registrieren</Resource>
+    <Resource tag="TITLE">Benutzer registrieren</Resource>
+    <Resource tag="TITLE2">Neuen Benutzer registrieren</Resource>
     <Resource tag="USERNAME">Benutzername</Resource>
     <Resource tag="USERNAME_LENGTH_WARN">Benutzername darf mehr als {0} Zeichen haben.</Resource>
     <Resource tag="VERIFICATION_EMAIL_SUBJECT">Bestätigung der Anmeldedaten für {0}</Resource>
@@ -4641,18 +4957,163 @@ Spoiler Content
     <Resource tag="ACCEPT">Ich bin mit diesen Regeln einverstanden</Resource>
     <Resource tag="DECLINE">Ich bin mit diesen Regeln nicht einverstanden</Resource>
     <Resource tag="RULES_TEXT">
-[size=5]Die Administratoren und Moderatoren dieses Forums bemühen sich, Beiträge mit fragwürdigem Inhalt so schnell wie möglich zu bearbeiten oder ganz zu löschen, aber es ist nicht möglich, jede einzelne Nachricht zu überprüfen. Du bestätigst mit Absenden dieser Einverständniserklärung, dass du akzeptierst, dass jeder Beitrag in diesem Forum die Meinung des Urhebers wiedergibt und dass die Administratoren, Moderatoren und Betreiber dieses Forums nur für ihre eigenen Beiträge verantwortlich sind.
+      [size=7][b]Rules[/b][/size][br]
+      It is impossible for owners and operators of this forum to confirm the validity of all posts on this forum. Posts reflect the views and opinion of the author, but not necessarily of the forum owners and operators. If you feel that a posted message is questionable, you are encouraged to notify an administrator of this forum immediately.
 
-Du verpflichtest dich, keine beleidigenden, obszönen, vulgären, verleumdenden, gewaltverherrlichenden oder aus anderen Gründen strafbaren Inhalte in diesem Forum zu veröffentlichen. Verstöße gegen diese Regel führen zu sofortiger und permanenter Sperrung, wir behalten uns vor Verbindungsdaten u.ä. an die strafverfolgenden Behörden weiterzugeben. 
+      [br]You agree not to post any abusive, vulgar, obscene, hateful, slanderous, threatening, sexually-oriented or any other material that may violate any applicable laws. Doing so may lead to you being permanently banned from this forum. Note that all IP addresses are logged and may aid in enforcing these conditions.
 
-Du räumst den Betreibern, Administratoren und Moderatoren dieses Forums das Recht ein, Beiträge nach eigenem Ermessen zu entfernen, zu bearbeiten, zu verschieben oder zu sperren. Du stimmst zu, dass die im Rahmen der Registrierung erhobenen Daten in einer Datenbank gespeichert werden.
+      [br]You agree that the owners and operators of this forum have the right to remove, edit, move or close any topic at any time should they see fit. As a user you agree to any information you have entered above being stored in a database. While this information will not be disclosed to any third party without your consent the owners and operators cannot be held responsible for any hacking attempt that may lead to the data being compromised.
 
-Dieses System verwendet Cookies, um Informationen auf deinem Computer zu speichern. Diese Cookies enthalten keine der oben angegebenen Informationen, sondern dienen ausschließlich deinem Komfort. Deine Mail-Adresse wird nur zur Bestätigung der Registrierung und ggf. zum Versand eines neuen Passwortes verwandt.
+      [br]You agree not to use any automated tools for registering and/or posting on this bulletin board. By failing to obey this rule you would be granting us permission to repeatedly query your web server.
 
-Du verpflichtest Dich keine automatischen Tools, Skripte, Browser Addons usw. zum Anmelden an diesem Forum bzw. zum Schreiben von Beiträgen in diesem Forum zu benutzen.
+      [br][size=7][b]Privacy Policy[/b][/size][br]
 
-Durch das Abschließen der Registrierung stimmst Du diesen Nutzungsbedingungen zu.
-[/size]
+      [br][size=6][b]1. An overview of data protection[/b][/size][br]
+
+      [br][size=5][b]General information[/b][/size][br]
+      The following information will provide you with an easy to navigate overview of what will happen with your personal data when you visit our website. The term “personal data” comprises all data that can be used to personally identify you. For detailed information about the subject matter of data protection, please consult our Data Protection Declaration, which we have included beneath this copy.
+
+      [br][size=5][b]Data recording on our website[/b][/size][br]
+
+      [br][b]Who is the responsible party for the recording of data on this website (i.e. the “controller”)?[/b][br]
+
+      [br]The data on this website is processed by the operator of the website, whose contact information is available under section “Information about the responsible party” on this website.
+
+      [br][b]How do we record your data?[/b][br]
+
+      [br]We collect your data as a result of your sharing of your data with us. This may, for instance be information you enter into our contact form.
+
+      [br]Our IT systems automatically record other data when you visit our website. This data comprises primarily technical information (e.g. web browser, operating system or time the site was accessed). This information is recorded automatically when you access our website.
+
+      [br][b]What are the purposes we use your data for?[/b][br]
+
+      [br]A portion of the information is generated to guarantee the error free provision of the website. Other data may be used to analyse your user patterns.
+
+      [br][b]What rights do you have as far as your information is concerned?[/b][br]
+
+      [br]You have the right to receive information about the source, recipients and purposes of your archived personal data at any time without having to pay a fee for such disclosures. You also have the right to demand that your data are rectified, blocked or eradicated. Please do not hesitate to contact us at any time under the address disclosed in section “Information about the responsible party” on this website if you have questions about this or any other data protection related issues. You also have the right to log a complaint with the competent supervising agency.
+
+      [br][br]
+
+      [br]Moreover, under certain circumstances, you have the right to demand the restriction of the processing of your personal data. For details, please consult the Data Protection Declaration under section “Right to demand processing restrictions.”
+
+      [br][size=6][b]2. General information and mandatory information[/b][/size][br]
+      [br][size=5][b]Data protection[/b][/size][br]
+      [br]The operators of this website and its pages take the protection of your personal data very seriously. Hence, we handle your personal data as confidential information and in compliance with the statutory data protection regulations and this Data Protection Declaration.
+
+      [br]Whenever you use this website, a variety of personal information will be collected. Personal data comprises data that can be used to personally identify you. This Data Protection Declaration explains which data we collect as well as the purposes we use this data for. It also explains how, and for which purpose the information is collected.
+
+      [br]We herewith advise you that the transmission of data via the Internet (i.e. through e-mail communications) may be prone to security gaps. It is not possible to completely protect data against third party access.
+
+      [br][size=5][b]Information about the responsible party (referred to as the “controller” in the GDPR)[/b][/size][br]
+      [br]The data processing controller on this website is:
+
+      [br][br]
+      {0}
+      [br][br]
+
+      [br]The controller is the natural person or legal entity that single-handedly or jointly with others makes decisions as to the purposes of and resources for the processing of personal data (e.g. names, e-mail addresses, etc.).
+
+      [br][size=5][b]Revocation of your consent to the processing of data[/b][/size][br]
+      [br]A wide range of data processing transactions are possible only subject to your express consent. You can also revoke at any time any consent you have already given us. To do so, all you are required to do is sent us an informal notification via e-mail. This shall be without prejudice to the lawfulness of any data collection that occurred prior to your revocation.
+
+      [br][size=5][b]Right to object to the collection of data in special cases; right to object to direct advertising (Art. 21 GDPR)[/b][/size][br]
+
+      [br][b]In the event that data are processed on the basis of Art. 6 Sect. 1 lit. e or f GDPR, you have the right to at any time object to the processing of your personal data based on grounds arising from your unique situation. This also applies to any profiling based on these provisions. To determine the legal basis, on which any processing of data is based, please consult this Data Protection Declaration. If you log an objection, we will no longer process your affected personal data, unless we are in a position to present compelling protection worthy grounds for the processing of your data, that outweigh your interests, rights and freedoms or if the purpose of the processing is the claiming, exercising or defence of legal entitlements (objection pursuant to Art. 21 Sect. 1 GDPR).[/b]
+      [/b]
+
+
+      [br][b]If your personal data is being processed in order to engage in direct advertising, you have the right to at any time object to the processing of your affected personal data for the purposes of such advertising. This also applies to profiling to the extent that it is affiliated with such direct advertising. If you object, your personal data will subsequently no longer be used for direct advertising purposes (objection pursuant to Art. 21 Sect. 2 GDPR).[/b]
+
+      [br][size=5][b]Right to log a complaint with the competent supervisory agency[/b][/size][br]
+      [br]In the event of violations of the GDPR, data subjects are entitled to log a complaint with a supervisory agency, in particular in the member state where they usually maintain their domicile, place of work or at the place where the alleged violation occurred. The right to log a complaint is in effect regardless of any other administrative or court proceedings available as legal recourses.
+
+      [br][size=5][b]Right to data portability[/b][/size][br]
+      [br]You have the right to demand that we hand over any data we automatically process on the basis of your consent or in order to fulfil a contract be handed over to you or a third party in a commonly used, machine readable format. If you should demand the direct transfer of the data to another controller, this will be done only if it is technically feasible.
+
+      [br][size=5][b]Information about, blockage, rectification and eradication of data[/b][/size][br]
+      [br]Within the scope of the applicable statutory provisions, you have the right to at any time demand information about your archived personal data, their source and recipients as well as the purpose of the processing of your data. You may also have a right to have your data rectified, blocked or eradicated. If you have questions about this subject matter or any other questions about personal data, please do not hesitate to contact us at any time at the address provided in section “Information about the responsible party”.
+
+      [br][size=5][b]Right to demand processing restrictions[/b][/size][br]
+      [br]You have the right to demand the imposition of restrictions as far as the processing of your personal data is concerned. To do so, you may contact us at any time at the address provided in section “Information about the responsible party”. The right to demand restriction of processing applies in the following cases:
+
+      [list]
+      [*]In the event that you should dispute the correctness of your data archived by us, we will usually need some time to verify this claim. During the time that this investigation is ongoing, you have the right to demand that we restrict the processing of your personal data.
+      [*]If the processing of your personal data was/is conducted in an unlawful manner, you have the option to demand the restriction of the processing of your data in lieu of demanding the eradication of this data.
+      [*]If we do not need your personal data any longer and you need it to exercise, defend or claim legal entitlements, you have the right to demand the restriction of the processing of your personal data instead of its eradication.
+      [*]If you have raised an objection pursuant to Art. 21 Sect. 1 GDPR, your rights and our rights will have to be weighed against each other. As long as it has not been determined whose interests prevail, you have the right to demand a restriction of the processing of your personal data.
+      [/list]
+
+      [br]If you have restricted the processing of your personal data, these data – with the exception of their archiving – may be processed only subject to your consent or to claim, exercise or defend legal entitlements or to protect the rights of other natural persons or legal entities or for important public interest reasons cited by the European Union or a member state of the EU.
+
+      [br][size=6][b]3. Recording of data on our website[/b][/size][br]
+
+      [br][size=5][b]Cookies[/b][/size][br]
+      [br]In some instances, our website and its pages use so-called cookies. Cookies do not cause any damage to your computer and do not contain viruses. The purpose of cookies is to make our website more user friendly, effective and more secure. Cookies are small text files that are placed on your computer and stored by your browser.
+      [br]
+
+      [br]Most of the cookies we use are so-called “session cookies.” They are automatically deleted after your leave our site. Other cookies will remain archived on your device until you delete them. These cookies enable us to recognise your browser the next time you visit our website.
+      [br]
+
+      [br]You can adjust the settings of your browser to make sure that you are notified every time cookies are placed and to enable you to accept cookies only in specific cases or to exclude the acceptance of cookies for specific situations or in general and to activate the automatic deletion of cookies when you close your browser. If you deactivate cookies, the functions of this website may be limited.
+
+      [br]
+      [br]Cookies that are required for the performance of the electronic communications transaction or to provide certain functions you want to use (e.g. the shopping cart function), are stored on the basis of Art. 6 Sect. 1 lit. f GDPR. The website operator has a legitimate interest in storing cookies to ensure the technically error free and optimised provision of the operator’s services. If other cookies (e.g. cookies for the analysis of your browsing patterns) should be stored, they are addressed separately in this Data Protection Declaration.
+
+      [br][size=5][b]Server log files[/b][/size][br]
+      [br]The provider of this website and its pages automatically collects and stores information in so-called server log files, which your browser communicates to us automatically. The information comprises:
+
+      [list]
+      [*]The type and version of browser used
+      [*]The used operating system
+      [*]Referrer URL
+      [*]The hostname of the accessing computer
+      [*]The time of the server inquiry
+      [*]The IP address
+      [/list]
+
+      [br]This data is not merged with other data sources.
+      [br]
+
+      [br]This data is recorded on the basis of Art. 6 Sect. 1 lit. f GDPR. The operator of the website has a legitimate interest in the technically error free depiction and the optimization of the operator’s website. In order to achieve this, server log files must be recorded.
+
+      [br][size=5][b]Registration on this board[/b][/size][br]
+      [br]You have the option to register on our website to be able to use additional website functions. We shall use the data you enter only for the purpose of using the respective offer or service you have registered for. The required information we request at the time of registration must be entered in full. Otherwise we shall reject the registration.
+      [br]
+
+      [br]To notify you of any important changes to the scope of our portfolio or in the event of technical modifications, we shall use the e-mail address provided during the registration process.
+
+      [br]The basis for the processing of data is Art. 6 Sect. 1 lit. b GDPR, which permits the processing of data for the fulfilment of a contract or for pre-contractual actions.
+
+      [br]The data recorded during the registration process shall be stored by us as long as you are registered on our website. Subsequently, such data shall be deleted. This shall be without prejudice to mandatory statutory retention obligations.
+
+      [br][size=6][b]4. Plug-ins and Tools[/b][/size][br]
+      [br][size=5][b]Google reCAPTCHA[/b][/size][br]
+      [br]We use “Google reCAPTCHA” (hereinafter referred to as “reCAPTCHA”) on our websites. The provider is Google Inc., 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA (“Google”).
+
+      [br]
+      [br]The purpose of reCAPTCHA is to determine whether data entered on our websites (e.g. information entered into a contact form) is being provided by a human user or by an automated program. To determine this, reCAPTCHA analyses the behaviour of the website visitors based on a variety of parameters. This analysis is triggered automatically as soon as the website visitor enters the site. For this analysis, reCAPTCHA evaluates a variety of data (e.g. IP address, time the website visitor spent on the site or cursor movements initiated by the user). The data tracked during such analyses are forwarded to Google.
+      [br]
+      [br]reCAPTCHA analyses run entirely in the background. Website visitors are not alerted that an analysis is underway.
+      [br]
+      [br]The data is processed on the basis of Art. 6 Sect. 1 lit. f GDPR. It is in the website operators legitimate interest, to protect the operator’s web content against misuse by automated industrial espionage systems and against SPAM.
+      [br]
+      [br]For more information about Google reCAPTCHA and to review the Data Privacy Declaration of Google, please follow these link: [url]https://policies.google.com/privacy?hl=en[/url].
+
+      [br][size=5][b]BlogSpam.net[/b][/size][br]
+      [br]This Service if enabled sends the user name and message to the service to determine if the message is spam.
+
+      [br][size=5][b]Akismet[/b][/size][br]
+      [br]This Service, if enabled sends the user name and message to the service to determine if the message is spam.
+      [br][url=https://automattic.com/privacy/]Privacy Policy[/url].
+
+      [br][size=5][b]StopForumSpam[/b][/size][br]
+      [br]This Service, if enabled passes the user name, email address and IP address of the registering member to the service to determine the likelihood a registering account is a spam source.
+      [br][url=https://www.stopforumspam.com/gdpr]Privacy Policy[/url].
+
+      [br][size=5][b]BotScout[/b][/size][br]
+      [br]This Service, if enabled passes the user name, email address and IP address of the registering member to the service to determine the likelihood a registering account is a spam source.
+      [br][url=http://botscout.com/w3c/]Privacy Policy[/url].
     </Resource>
     <Resource tag="TITLE">Regeln und Hinweise für dieses Forum</Resource>
   </page>
@@ -4661,11 +5122,13 @@ Durch das Abschließen der Registrierung stimmst Du diesen Nutzungsbedingungen z
     <Resource tag="BTNSEARCH">Suchen</Resource>
     <Resource tag="BTNSEARCH_EXTERNAL">{0} Suche</Resource>
     <Resource tag="BY">von</Resource>
+    <Resource tag="KEYWORDS">Stichwort</Resource>
     <Resource tag="LOADING_SEARCH">Suchergebnisse werden geladen ...</Resource>
     <Resource tag="MATCH_ALL">Alle Begriffe müssen vorkommen</Resource>
     <Resource tag="MATCH_ANY">Nur ein Begriff muss vorkommen</Resource>
     <Resource tag="MATCH_EXACT">Eindeutige Übereinstimmung</Resource>
     <Resource tag="NO_SEARCH_RESULTS">[b]Keine Suchergebnisse.[/b]</Resource>
+    <Resource tag="POST_AND_TITLE">Komplete Beiträge durchsuchen</Resource>
     <Resource tag="POSTED">Geschrieben:</Resource>
     <Resource tag="POSTEDBY">Geschrieben von Benutzer</Resource>
     <Resource tag="POSTS">Zu suchende Begriffe innerhalb eines Beitrags</Resource>
@@ -4676,7 +5139,12 @@ Durch das Abschließen der Registrierung stimmst Du diesen Nutzungsbedingungen z
     <Resource tag="RESULTS">Ergebnisse</Resource>
     <Resource tag="SEARCH_CRITERIA_ERROR_MAX">Suchtexte müssen weniger als {0} Zeichen haben und mit den Regeln des Forums übereinstimmen (Siehe FAQ).</Resource>
     <Resource tag="SEARCH_CRITERIA_ERROR_MIN">Suchtexte müssen mindestens {0} Zeichen lang sein und mit den Regeln des Forums übereinstimmen (Siehe FAQ).</Resource>
+    <Resource tag="SEARCH_IN">Suche in Foren</Resource>
+    <Resource tag="SEARCH_OPTIONS">Such Optionen</Resource>
+    <Resource tag="SEARCH_RESULTS">Suchresultate pro Seite</Resource>
+    <Resource tag="SEARCH_TITLEORBOTH">Search entire Posts or Titles only</Resource>
     <Resource tag="TITLE">Suche</Resource>
+    <Resource tag="TITLE_ONLY">Nur Titel durchsuchen</Resource>
     <Resource tag="TOPIC">Thema:</Resource>
   </page>
   <page name="SHOUTBOX">
@@ -4686,13 +5154,6 @@ Durch das Abschließen der Registrierung stimmst Du diesen Nutzungsbedingungen z
     <Resource tag="MUSTBELOGGEDIN">Sie müssen eingeloggt sein um die Shoutbox benutzen zu können.</Resource>
     <Resource tag="SUBMIT">Absenden</Resource>
     <Resource tag="TITLE">ShoutBox (Mini-Chat)</Resource>
-  </page>
-  <page name="SHOWSMILIES">
-    <Resource tag="CLOSE_WINDOW">Fenster Schließen</Resource>
-    <Resource tag="HEADER_CODE">Code</Resource>
-    <Resource tag="HEADER_MEANING">Meint</Resource>
-    <Resource tag="HEADER_SMILE">Smiley</Resource>
-    <Resource tag="TITLE">Verfügbare Smileys</Resource>
   </page>
   <page name="TEAM">
     <Resource tag="ADMINS">Admins</Resource>
@@ -4752,6 +5213,16 @@ Hallo!
 
 {link}
     </Resource>
+    <Resource tag="NOTIFICATION_ON_BOT_USER_REGISTER">
+      Hallo,
+
+      ein neuer Benutzer hat sich im Forum {forumname} angemeldet (ACHTUNG der Benutzer wurde vom System als möglichen SPAM BOT identifiziert):
+
+      Benutzername: {user}
+      E-Mail: {email}
+
+      Admin-Link: {adminlink}
+    </Resource>
     <Resource tag="NOTIFICATION_ON_FACEBOOK_REGISTER">
       Hallo {user}.
 
@@ -4761,7 +5232,18 @@ Hallo!
 	  Automatisch generiertes Passwort: {pass}
 	  Automatisch generierte Sicherheits Antwort: {answer}
       E-Mail: {email} (Bitte ändern Sie nicht ihre E-Mail Adresse, ansonsten können Sie sich nicht mehr über Facebook anmelden)
-	  
+
+    </Resource>
+    <Resource tag="NOTIFICATION_ON_GOOGLE_REGISTER">
+      Hallo {user}.
+
+      Sie haben sich erfolgreich im forum {forumname} über Google registriert:
+
+      Benutzername: {user}
+      Automatisch generiertes Passwort: {pass}
+      Automatisch generierte Sicherheits Antwort: {answer}
+      E-Mail: {email} (Bitte ändern Sie nicht ihre E-Mail Adresse, ansonsten können Sie sich nicht mehr über Google anmelden)
+
     </Resource>
     <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_TEXT">
       Hallo {user}.
@@ -4770,15 +5252,20 @@ Hallo!
     </Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL_TEXT">
 		Eine neue Nachricht muß bestätigt werden die im forum {forumname} geschrieben wurde:
-		
+
 		Administration Link: {adminlink}
 	</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE_TEXT">
       Ein Beitrag wurde durch {reporter} gemeldet mit der folgenden Begründung: {reason}
-	  
+
 Der Beitrag wurde im {forumname} forum veröffentlicht.
-      
+
       Administrations Link: {adminlink}
+   </Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL_TEXT">
+      A new message (posted in the {forumname} forum) was detected as SPAM, needs to be checked:
+
+      Administration Link: {adminlink}
    </Resource>
     <Resource tag="NOTIFICATION_ON_REGISTER">
       Hallo {user}.
@@ -4791,6 +5278,30 @@ Der Beitrag wurde im {forumname} forum veröffentlicht.
       E-Mail: {email}
 
     </Resource>
+    <Resource tag="NOTIFICATION_ON_SUSPENDING_ENDED_USER">
+    Hello {user},
+
+    The suspension of your forum account has ended or was lifted.
+
+    Thanks!
+    The {forumname} Team
+    {forumurl}
+
+  </Resource>
+    <Resource tag="NOTIFICATION_ON_SUSPENDING_USER">
+    Hello {user},
+
+    Your forum account on the {forumname} forum has been temporarily suspended.
+
+    This suspension is due to end on {suspendedUntil}.
+
+    For the following Reason: '{suspendReason}'
+
+    Thanks!
+    The {forumname} Team
+    {forumurl}
+
+  </Resource>
     <Resource tag="NOTIFICATION_ON_TWITTER_REGISTER">
       Hallo {user}.
 
@@ -4800,45 +5311,99 @@ Der Beitrag wurde im {forumname} forum veröffentlicht.
 	  Automatisch generiertes Passwort: {pass}
 	  Automatisch generierte Sicherheits Antwort: {answer}
       E-Mail: {email} (Bitte ändern umgehend ihre E-Mail Adresse.)
-	  
+
     </Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER">
 Hallo,
 
 ein neuer Benutzer hat sich im Forum {forumname} angemeldet:
-		
+
 Benutzername: {user}
 E-Mail: {email}
-		
+
 Admin-Link: {adminlink}
 	</Resource>
+    <Resource tag="NOTIFICATION_ON_WELCOME_USER">
+    Hello {user},
+
+    You have been successfully registered on the {forumname} forum. You're all ready to go!
+
+    Before posting, consider other ways of finding information:
+
+    - Use the help pages to find out how the forum works
+    - Try the Forum Search, often times your questions are already been answered
+    - Do not post any abusive, vulgar, obscene, hateful, slanderous, threatening, sexually-oriented or any other material that may violate any applicable laws.
+    Doing so may lead to you being permanently banned from this forum. Note that all IP addresses are logged and may aid in enforcing these conditions.
+
+    Thanks!
+    The {forumname} Team
+    {forumurl}
+
+  </Resource>
+    <Resource tag="NOTIFICATION_ROLE_ASSIGNMENT">
+     Hello {user},
+
+     Your user account on the {forumname} forum has has been recently updated to include access to the following Group(s):
+     
+     {roles}
+
+     Thanks!
+     The {forumname} Team
+     {forumurl}
+
+   </Resource>
+    <Resource tag="NOTIFICATION_ROLE_UNASSIGNMENT">
+     Hello {user},
+
+     Your user account on the {forumname} forum  has been recently updated to restrict access to the following Groups(s):
+     
+     {roles}
+
+     Thanks!
+     The {forumname} Team
+     {forumurl}
+
+   </Resource>
     <Resource tag="PASSWORDRETRIEVAL_HTML">
-&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
-&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
-&lt;head&gt;
-&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
-&lt;title&gt;Wiederherstellung des Passworts&lt;/title&gt;
-&lt;style type="text/css"&gt;
-&lt;!--
-.style1 {font-family: Verdana, Arial, Helvetica, sans-serif}
---&gt;
-&lt;/style&gt;
-&lt;/head&gt;&lt;body&gt;
-&lt;p class="style1"&gt; Ein neues Passwort wurde für Dich bei &lt;b&gt;{forumname}&lt;/b&gt; auf &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt; erzeugt.&lt;/p&gt;
-&lt;p class="style1"&gt; Logge Dich bitte auf der Webseite neu ein:&lt;/p&gt;
-&lt;blockquote&gt;&lt;span class="style1"&gt;
-Benutzername: &lt;b&gt;{username}&lt;/b&gt;&lt;br /&gt;
-Passwort: &lt;b&gt;{password}&lt;/b&gt;&lt;/span&gt;&lt;/blockquote&gt;
-&lt;/body&gt;
-&lt;/html&gt;
+      &lt;!DOCTYPE html&gt;
+
+      &lt;html lang="en" xmlns="http://www.w3.org/1999/xhtml"&gt;
+      &lt;head&gt;
+      &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+      &lt;title&gt;Password Retrieval&lt;/title&gt;
+      &lt;style type="text/css"&gt;
+      &lt;!--
+      .style1 {
+      font-family: Verdana, Arial, Helvetica, sans-serif;
+      }
+      --&gt;
+      &lt;/style&gt;
+      &lt;/head&gt;
+      &lt;body&gt;
+      &lt;p class="style1"&gt;Hello {username},&lt;/p&gt;
+      &lt;p class="style1"&gt;You or someone (with the IP Address: {ipaddress}) has requested to reset your password because you have forgotten your password.&lt;/p&gt;
+      &lt;p class="style1"&gt;A new password has been generated for you on &lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;.&lt;/p&gt;
+      &lt;p class="style1"&gt;Please return to the site and login using the following information:&lt;/p&gt;
+      &lt;blockquote&gt;
+      &lt;span class="style1"&gt;
+      User Name: &lt;strong&gt;{username}&lt;/strong&gt;&lt;br /&gt;
+      Password: &lt;strong&gt;{password}&lt;/strong&gt;
+      &lt;/span&gt;
+      &lt;/blockquote&gt;
+      &lt;/body&gt;
+      &lt;/html&gt;
     </Resource>
     <Resource tag="PASSWORDRETRIEVAL_TEXT">
-Ein neues Passwort wurde für Dich bei {forumname} auf {forumlink} erzeugt.
+      Hello {username},
 
-Logge Dich bitte auf der Webseite neu ein:
+      You or someone (with the IP Address: {ipaddress}) has requested to reset your password because you have forgotten your password.
 
-Benutzername: {username}
-Passwort: {password}
+      A new password has been generated for you on {forumname} at {forumlink}.
+
+      Please return to the site and login using the following information:
+
+      User Name: {username}
+      Password: {password}
     </Resource>
     <Resource tag="PMNOTIFICATION_HTML" />
     <Resource tag="PMNOTIFICATION_TEXT">
@@ -4855,6 +5420,10 @@ Eine neue Antwort wurde im Thema {topic} auf {forumname} geschrieben.
 Um die Antwort zu lesen, öffne diesen Link mit Deinem Browser:
 
 {link}
+
+      You can manage your subscriptions here:
+
+      {subscriptionlink}
     </Resource>
     <Resource tag="VERIFYEMAIL_HTML" />
     <Resource tag="VERIFYEMAIL_TEXT">
@@ -4870,39 +5439,6 @@ Der Bestätigungscode lautet
 
 {forumname} auf {forumlink}
     </Resource>
-  </page>
-  <page name="TIMEZONES">
-    <Resource tag="NAME_UTC">(UTC)</Resource>
-    <Resource tag="UTC0">(UTC) Casablanca, Dublin, Edinburgh, London, Lissabon, Monrovia</Resource>
-    <Resource tag="UTC1">(UTC+1:00) Berlin, Brüssel, Kristiansund, Madrid, Paris, Rom, Warschau</Resource>
-    <Resource tag="UTC-1">(UTC-1:00) Azoren, Kapverdische Inseln</Resource>
-    <Resource tag="UTC10">(UTC+10:00) Melbourne, Papua Neu Guinea, Sydney, Wladiwostok</Resource>
-    <Resource tag="UTC-10">(UTC-10:00) Hawaii</Resource>
-    <Resource tag="UTC11">(UTC+11:00) Magadan, Neukaledionien, Salomonen</Resource>
-    <Resource tag="UTC-11">(UTC-11:00) Midway Inseln, Samoa</Resource>
-    <Resource tag="UTC12">(UTC+12:00) Auckland, Wellington, Fidschi, Marshall-Inseln</Resource>
-    <Resource tag="UTC-12">(UTC-12:00) Enitwetok, Kwajalien (Datumsgrenze Westen)</Resource>
-    <Resource tag="UTC2">(UTC+2:00) Kaliningrad, Süd Afrika</Resource>
-    <Resource tag="UTC-2">(UTC-2:00) Mittelatlantik, Ascention, St Helena</Resource>
-    <Resource tag="UTC3">(UTC+3:00) Bagdad, Er Riad, Moskau, Nairobi</Resource>
-    <Resource tag="UTC-3">(UTC-3:00) Brasilien, Buenos Aires, Georgetown, Falkland Inseln</Resource>
-    <Resource tag="UTC3.5">(UTC+3:30) Teheran</Resource>
-    <Resource tag="UTC-3.5">(UTC-3:30) Neufundland</Resource>
-    <Resource tag="UTC4">(UTC+4:00) Abu Dhabi, Baku, Muskat, Tbilisi</Resource>
-    <Resource tag="UTC-4">(UTC-4:00) Atlantische Zeit (Kanada), Caracas, La Paz</Resource>
-    <Resource tag="UTC4.5">(UTC+4:30) Kabul</Resource>
-    <Resource tag="UTC5">(UTC+5:00) Jekaterinburg, Islamabad, Karatschi, Taschkent</Resource>
-    <Resource tag="UTC-5">(UTC-5:00) Eastern Time (US &amp; Kanada), Bogota, Lima, Quito</Resource>
-    <Resource tag="UTC5.5">(UTC+5:30) Mumbay, Kolkata, Madras, Neu-Delhi</Resource>
-    <Resource tag="UTC6">(UTC+6:00) Almaty, Colomba, Dhaka</Resource>
-    <Resource tag="UTC-6">(UTC-6:00) Central Time (US &amp; Kanada), Mexico City</Resource>
-    <Resource tag="UTC7">(UTC+7:00) Bangkok, Hanoi, Jakarta</Resource>
-    <Resource tag="UTC-7">(UTC-7:00) Arizona</Resource>
-    <Resource tag="UTC8">(UTC+8:00) Peking, Hong Kong, Perth, Singapur, Taipeh</Resource>
-    <Resource tag="UTC-8">(UTC-8:00) Pacific Time (US &amp; Kanada)</Resource>
-    <Resource tag="UTC9">(UTC+9:00) Osaka, Sapporo, Seoul, Tokio, Jakutsk</Resource>
-    <Resource tag="UTC-9">(UTC-9:00) Alaska</Resource>
-    <Resource tag="UTC9.5">(UTC+9:30) Adelaide, Darwin</Resource>
   </page>
   <page name="TOOLBAR">
     <Resource tag="ACTIVETOPICS">Aktive Themen</Resource>
@@ -4922,6 +5458,7 @@ Der Bestätigungscode lautet
     <Resource tag="INBOX_TITLE">Öffnet Ihren den Private Nachrichten Posteingang.</Resource>
     <Resource tag="LOGGED_IN_AS">Angemeldet als: {0}</Resource>
     <Resource tag="LOGIN">Anmelden</Resource>
+    <Resource tag="LOGIN_CONNECT">Login to your {0} forum account</Resource>
     <Resource tag="LOGIN_TITLE">Öffnet das Anmelden Fenster.</Resource>
     <Resource tag="LOGOUT">Abmelden</Resource>
     <Resource tag="LOGOUT_QUESTION">Möchtest du dich wirklich abmelden?</Resource>
@@ -4929,6 +5466,7 @@ Der Bestätigungscode lautet
     <Resource tag="MEMBERS">Mitglieder</Resource>
     <Resource tag="MEMBERS_TITLE">Öffnet die die Mitgliederliste.</Resource>
     <Resource tag="MODERATE">Moderieren</Resource>
+    <Resource tag="MODERATE_NEW">({0} Need Moderating)</Resource>
     <Resource tag="MODERATE_TITLE">Öffnet die Moderieren Seite wo sie alle Unbestätigten und gemeldeten Beiträge ansehen können.</Resource>
     <Resource tag="MYALBUMS">Meine Alben</Resource>
     <Resource tag="MYALBUMS_TITLE">Öffnet die Alben Seite mit ihren Alben.</Resource>
@@ -4938,6 +5476,7 @@ Der Bestätigungscode lautet
     <Resource tag="MYTOPICS_TITLE">Öffnet die Seite mit den Aktiven Themen und ihren Favorisierten Themen.</Resource>
     <Resource tag="NEWPM">({0} neue Nachricht(en))</Resource>
     <Resource tag="REGISTER">Registrieren</Resource>
+    <Resource tag="REGISTER_CONNECT">or Register a new forum account</Resource>
     <Resource tag="REGISTER_TITLE">Öffnet das Registrierungsformular.</Resource>
     <Resource tag="SEARCH">Suche</Resource>
     <Resource tag="SEARCH_TITLE">Forum Suche benutzen.</Resource>
@@ -4946,6 +5485,7 @@ Der Bestätigungscode lautet
     <Resource tag="TEAM_TITLE">Öffnet die Team Seite, die alle Mods und Admins zeigt.</Resource>
     <Resource tag="UNREADTOPICS">Es gibt {0} Themen mit ungelesenen Beiträgen</Resource>
     <Resource tag="WELCOME_GUEST">Willkommen, Gast!</Resource>
+    <Resource tag="WELCOME_GUEST_CONNECT">Wanna join the discussion?! </Resource>
     <Resource tag="WELCOME_GUEST_FULL">Willkommen Gast! Um alle Funktionen zu aktivieren müssen Sie sich </Resource>
     <Resource tag="WELCOME_GUEST_NO">Willkommen Gast! Sie können sich &lt;strong&gt;nicht&lt;/strong&gt; anmelden oder registrieren.</Resource>
   </page>
@@ -4978,6 +5518,7 @@ Der Bestätigungscode lautet
     <Resource tag="LASTPOST">Letzter Beitrag</Resource>
     <Resource tag="MARKREAD">Dieses Forum als gelesen markieren</Resource>
     <Resource tag="NO_POSTS">Keine Beiträge</Resource>
+    <Resource tag="NO_TOPICS">The Forum currently has no Topics</Resource>
     <Resource tag="OK_TT">Dieses Forum durchsuchen</Resource>
     <Resource tag="POSTS">Beiträge</Resource>
     <Resource tag="REPLIES">Antworten</Resource>

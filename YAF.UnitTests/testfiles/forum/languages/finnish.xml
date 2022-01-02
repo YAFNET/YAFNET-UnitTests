@@ -1,13 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" language="Finnish" code="fi">
+<Resources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" language="Finnish" code="fi">
   <page name="ACTIVELOCATION">
     <Resource tag="ACTIVEUSERS">Views Active Users list</Resource>
     <Resource tag="ADMIN_ACCESSMASKS">Views access masks in admin section</Resource>
     <Resource tag="ADMIN_ADMIN">Views admin index</Resource>
-    <Resource tag="ADMIN_ATTACHMENTS">Views attachments</Resource>
+    <Resource tag="ADMIN_BANNEDEMAIL">Views banned Emails list</Resource>
+    <Resource tag="ADMIN_BANNEDEMAIL_EDIT">Edits banned Emails</Resource>
+    <Resource tag="ADMIN_BANNEDEMAIL_IMPORT">Imports banned Emails</Resource>
     <Resource tag="ADMIN_BANNEDIP">Views banned IPs list</Resource>
     <Resource tag="ADMIN_BANNEDIP_EDIT">Edits banned IPs</Resource>
     <Resource tag="ADMIN_BANNEDIP_IMPORT">Imports banned ips</Resource>
+    <Resource tag="ADMIN_BANNEDNAME">Views banned Names list</Resource>
+    <Resource tag="ADMIN_BANNEDNAME_EDIT">Edits banned Names</Resource>
+    <Resource tag="ADMIN_BANNEDNAME_IMPORT">Imports banned Names</Resource>
     <Resource tag="ADMIN_BBCODE">Views BBCodes</Resource>
     <Resource tag="ADMIN_BBCODE_EDIT">Edits BBcodes</Resource>
     <Resource tag="ADMIN_BBCODE_IMPORT">Imports BBCodes</Resource>
@@ -48,9 +53,10 @@
     <Resource tag="ADMIN_REPLACEWORDS_IMPORT">Imports replace words</Resource>
     <Resource tag="ADMIN_RESTARTAPP">Restarts application</Resource>
     <Resource tag="ADMIN_RUNSQL">Runs SQL query</Resource>
-    <Resource tag="ADMIN_SMILIES">Views smilies</Resource>
-    <Resource tag="ADMIN_SMILIES_EDIT">Adits smilies</Resource>
-    <Resource tag="ADMIN_SMILIES_IMPORT">Imports smilies</Resource>
+    <Resource tag="ADMIN_SPAMLOG">Views/edits the spam log</Resource>
+    <Resource tag="ADMIN_SPAMWORDS">Views spam words list</Resource>
+    <Resource tag="ADMIN_SPAMWORDS_EDIT">Edits spam words list</Resource>
+    <Resource tag="ADMIN_SPAMWORDS_IMPORT">Imports spam words</Resource>
     <Resource tag="ADMIN_TASKMANAGER">Views/manages task manager</Resource>
     <Resource tag="ADMIN_TEST_DATA">Views/edits test data generator</Resource>
     <Resource tag="ADMIN_TOPICSTATUS">Views admin topic status</Resource>
@@ -69,6 +75,7 @@
     <Resource tag="APPROVE">Approves</Resource>
     <Resource tag="ATTACHMENTS">Handles attachments</Resource>
     <Resource tag="AVATAR">Views avatar</Resource>
+    <Resource tag="COOKIES">Views the cookie policy page</Resource>
     <Resource tag="CP_CHANGEPASSWORD">Changes password</Resource>
     <Resource tag="CP_EDITALBUMIMAGES">Edits album images</Resource>
     <Resource tag="CP_EDITAVATAR">Edits his avatar</Resource>
@@ -125,7 +132,6 @@
     <Resource tag="RULES">Views forum rules</Resource>
     <Resource tag="SEARCH">Uses search</Resource>
     <Resource tag="SHOUTBOX">Uses shoutbox</Resource>
-    <Resource tag="SHOWSMILIES">No data</Resource>
     <Resource tag="TEAM">Views team page</Resource>
     <Resource tag="TOPICINFORUM"> in forum </Resource>
     <Resource tag="TOPICS">Views topic </Resource>
@@ -168,6 +174,7 @@
     <Resource tag="ADMIN_JOINED">Joined</Resource>
     <Resource tag="ADMIN_LOCATION">Board Location</Resource>
     <Resource tag="ADMIN_NAME">Name</Resource>
+    <Resource tag="ADMIN_RESEND_EMAIL">Resend Email Verification</Resource>
     <Resource tag="ADMIN_UPGRADE"> and update your database.</Resource>
     <Resource tag="Administration">Administration</Resource>
     <Resource tag="ALL_BOARDS"> - All Boards - </Resource>
@@ -184,6 +191,7 @@
     <Resource tag="HEADER1">Who is Online</Resource>
     <Resource tag="HEADER2">Unverified Users</Resource>
     <Resource tag="HEADER3">Statistics for</Resource>
+    <Resource tag="MSG_MESSAGE_SEND">Verification Mail was send again to the User.</Resource>
     <Resource tag="MSG_VALID_DAYS">You should enter a valid integer value for days.</Resource>
     <Resource tag="NUM_POSTS">Number of posts:</Resource>
     <Resource tag="NUM_TOPICS">Number of topics:</Resource>
@@ -194,18 +202,42 @@
     <Resource tag="TOPICS_DAY">Topics per day:</Resource>
     <Resource tag="USERS_DAY">Users per day:</Resource>
   </page>
-  <page name="ADMIN_ATTACHMENTS">
-    <Resource tag="CONFIRM_DELETE">Delete this attachment?</Resource>
-    <Resource tag="CONTENT_TYPE">Content Type</Resource>
-    <Resource tag="DOWNLOADS">Downloads</Resource>
-    <Resource tag="POSTED">Posted</Resource>
-    <Resource tag="TITLE">Attachments</Resource>
+  <page name="ADMIN_BANNEDEMAIL">
+    <Resource tag="ADD_IP">Add New Email</Resource>
+    <Resource tag="IMPORT_IPS">Import Email(s)</Resource>
+    <Resource tag="MASK">Mask</Resource>
+    <Resource tag="MSG_REMOVEBAN_EMAIL">Email was successfully deleted</Resource>
+    <Resource tag="REASON">Reason</Resource>
+    <Resource tag="SINCE">Since</Resource>
+    <Resource tag="TITLE">Banned Email Addresses</Resource>
+  </page>
+  <page name="ADMIN_BANNEDEMAIL_EDIT">
+    <Resource tag="MASK">Mask:</Resource>
+    <Resource tag="MASK_HELP">The Email address to ban. You can use Regular Expressions.</Resource>
+    <Resource tag="REASON">Reason:</Resource>
+    <Resource tag="REASON_HELP">The reason why the email address was banned.</Resource>
+    <Resource tag="TITLE">Add/Edit Banned Email Address</Resource>
+    <Resource tag="TITLE_EDIT">Edit Banned Email Address</Resource>
+  </page>
+  <page name="ADMIN_BANNEDEMAIL_IMPORT">
+    <Resource tag="HEADER">Import Email Addresses List</Resource>
+    <Resource tag="IMPORT">Import List</Resource>
+    <Resource tag="IMPORT_FAILED">Failed to import! Invalid upload format specified: {0} </Resource>
+    <Resource tag="IMPORT_FILE">Select Import File:</Resource>
+    <Resource tag="IMPORT_FILE_HELP">Must be *.txt file containing an Email Address on each line</Resource>
+    <Resource tag="IMPORT_NOTHING">Nothing imported: no new email address was found in the upload.</Resource>
+    <Resource tag="IMPORT_SUCESS">{0} new email address(es) imported successfully.</Resource>
+    <Resource tag="NOTE">You can find a list of Spam Bot Email Addresses on StopForumSpam.com &lt;a href="http://www.stopforumspam.com/downloads/"&gt;http://www.stopforumspam.com/downloads/&lt;/a&gt;, that can be imported here.</Resource>
+    <Resource tag="TITLE">Import Email Addresses</Resource>
   </page>
   <page name="ADMIN_BANNEDIP">
-    <Resource tag="ADD_IP">Add New Adress</Resource>
+    <Resource tag="ADD_IP">Add New Address</Resource>
     <Resource tag="BAN_BY">Banned By</Resource>
-    <Resource tag="IMPORT_IPS">Import Adress(es)</Resource>
+    <Resource tag="EXPORT">Export to Text File</Resource>
+    <Resource tag="IMPORT_IPS">Import Address(es)</Resource>
     <Resource tag="MASK">Mask</Resource>
+    <Resource tag="MSG_DELETE">Delete this Banned Item?</Resource>
+    <Resource tag="MSG_REMOVEBAN_IP">IP Address or Mask '{0}' was successfully deleted</Resource>
     <Resource tag="REASON">Reason</Resource>
     <Resource tag="SINCE">Since</Resource>
     <Resource tag="TITLE">Banned IP Addresses</Resource>
@@ -216,20 +248,50 @@
     <Resource tag="INVALID_SECTION">"{0}" is not a valid IP section value.</Resource>
     <Resource tag="INVALID_VALUE">One of the IP section does not have a value. Valid values are 0-255 or "*" for a wildcard.</Resource>
     <Resource tag="MASK">Mask:</Resource>
-    <Resource tag="MASK_HELP">The ip address to ban. You can use wildcards (127.0.0.*).</Resource>
+    <Resource tag="MASK_HELP">The ip address to ban. You can use wild cards (127.0.0.*).</Resource>
     <Resource tag="REASON">Reason:</Resource>
     <Resource tag="REASON_HELP">The reason why the ip was banned.</Resource>
     <Resource tag="TITLE">Add/Edit Banned IP Address</Resource>
+    <Resource tag="TITLE_EDIT">Edit Banned IP Address</Resource>
   </page>
   <page name="ADMIN_BANNEDIP_IMPORT">
     <Resource tag="HEADER">Import IP Addresses List</Resource>
     <Resource tag="IMPORT">Import List</Resource>
     <Resource tag="IMPORT_FAILED">Failed to import! Invalid upload format specified: {0} </Resource>
     <Resource tag="IMPORT_FILE">Select Import File:</Resource>
-    <Resource tag="IMPORT_FILE_HELP">Must be *.txt file containting Ip Adresses on each line</Resource>
+    <Resource tag="IMPORT_FILE_HELP">Must be *.txt file containing an Ip Address on each line</Resource>
     <Resource tag="IMPORT_NOTHING">Nothing imported: no new ip address was found in the upload.</Resource>
-    <Resource tag="IMPORT_SUCESS">{0} new ip adress(es) imported successfully.</Resource>
+    <Resource tag="IMPORT_SUCESS">{0} new ip address(es) imported successfully.</Resource>
+    <Resource tag="NOTE">You can find a list of Spam Bot Ips on StopForumSpam.com &lt;a href="http://www.stopforumspam.com/downloads/"&gt;http://www.stopforumspam.com/downloads/&lt;/a&gt;, that can be imported here.</Resource>
     <Resource tag="TITLE">Import IP Addresses</Resource>
+  </page>
+  <page name="ADMIN_BANNEDNAME">
+    <Resource tag="ADD_IP">Add New User Name</Resource>
+    <Resource tag="IMPORT_IPS">Import Name(s)</Resource>
+    <Resource tag="MASK">Mask</Resource>
+    <Resource tag="MSG_REMOVEBAN_NAME">The user name was successfully deleted</Resource>
+    <Resource tag="REASON">Reason</Resource>
+    <Resource tag="SINCE">Since</Resource>
+    <Resource tag="TITLE">Banned Names</Resource>
+  </page>
+  <page name="ADMIN_BANNEDNAME_EDIT">
+    <Resource tag="MASK">Mask:</Resource>
+    <Resource tag="MASK_HELP">The User Name to ban. You can use Regular Expressions.</Resource>
+    <Resource tag="REASON">Reason:</Resource>
+    <Resource tag="REASON_HELP">The reason why the user name was banned.</Resource>
+    <Resource tag="TITLE">Add/Edit Banned Name</Resource>
+    <Resource tag="TITLE_EDIT">Edit Banned Name</Resource>
+  </page>
+  <page name="ADMIN_BANNEDNAME_IMPORT">
+    <Resource tag="HEADER">Import Names List</Resource>
+    <Resource tag="IMPORT">Import List</Resource>
+    <Resource tag="IMPORT_FAILED">Failed to import! Invalid upload format specified: {0} </Resource>
+    <Resource tag="IMPORT_FILE">Select Import File:</Resource>
+    <Resource tag="IMPORT_FILE_HELP">Must be *.txt file containing one Name on each line</Resource>
+    <Resource tag="IMPORT_NOTHING">Nothing imported: no new name was found in the upload.</Resource>
+    <Resource tag="IMPORT_SUCESS">{0} new name(s) imported successfully.</Resource>
+    <Resource tag="NOTE">You can find a list of Spam Bot user names on StopForumSpam.com &lt;a href="http://www.stopforumspam.com/downloads/"&gt;http://www.stopforumspam.com/downloads/&lt;/a&gt;, that can be imported here.</Resource>
+    <Resource tag="TITLE">Import Name(s)</Resource>
   </page>
   <page name="ADMIN_BBCODE">
     <Resource tag="ADD">Add new BBCode</Resource>
@@ -273,6 +335,8 @@
     <Resource tag="TITLE">{0} YafBBCode Extensions</Resource>
     <Resource tag="USE_MODULE">Use Module:</Resource>
     <Resource tag="USE_MODULE_HELP">Use server-side module (class) instead of replace regex?</Resource>
+    <Resource tag="USE_TOOLBAR">Use Toolbar:</Resource>
+    <Resource tag="USE_TOOLBAR_HELP">If enabled Show toolbar button in the Standard BBCode Editor</Resource>
   </page>
   <page name="ADMIN_BBCODE_IMPORT">
     <Resource tag="HEADER">Import Custom BBCode</Resource>
@@ -327,6 +391,7 @@
     <Resource tag="BOARD_TOPIC_DEFAULT">Show Topic Default:</Resource>
     <Resource tag="BOARD_TOPIC_DEFAULT_HELP">The default board show topic interval selection.</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY">Copyright Removal Key:</Resource>
+    <Resource tag="COPYRIGHT_REMOVAL_KEY_DOWN">Purchase Removal Key</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">Remove the copyright information and link back to YAF from the footer of your entire forum domain. Available&lt;a href="http://yetanotherforum.net/purchase.aspx"&gt;from YAF.NET site&lt;/a&gt;. </Resource>
     <Resource tag="HEADER">Current Board Settings</Resource>
     <Resource tag="TITLE">Board Settings</Resource>
@@ -337,6 +402,7 @@
     <Resource tag="DISABLED">Disabled</Resource>
     <Resource tag="NO">No</Resource>
     <Resource tag="SAVE">Save</Resource>
+    <Resource tag="TABLE_RESPONSIVE">Swipe Table to the left to Reveal More Data</Resource>
     <Resource tag="YES">Yes</Resource>
   </page>
   <page name="ADMIN_DELETEFORUM">
@@ -479,6 +545,11 @@
     <Resource tag="INITAL_MASK_HELP">The initial access mask for all forums.</Resource>
     <Resource tag="LOCKED">Locked:</Resource>
     <Resource tag="LOCKED_HELP">If the forum is locked, no one can post or reply in this forum.</Resource>
+    <Resource tag="MODERATE_ALL_POSTS">Moderate all Posts</Resource>
+    <Resource tag="MODERATED_COUNT">Moderate all Posts or only until a User reaches x amount of Posts</Resource>
+    <Resource tag="MODERATED_COUNT_HELP">Set it to 'Moderate all Posts' or uncheck that option to specifify the amount of post a user has to reach to be automatically appproved.</Resource>
+    <Resource tag="MODERATED_NEWTOPIC_ONLY">Moderate only new Topics but not Replies?</Resource>
+    <Resource tag="MODERATED_NEWTOPIC_ONLY_HELP">If checked only Messages of new Topics are checked but not Replies to existing Topics, otherwise all Messages needs moderation.</Resource>
     <Resource tag="MSG_CATEGORY">You must select a category for the forum.</Resource>
     <Resource tag="MSG_CATEGORY">You must enter an number value from 0 to 32767 for sort order.</Resource>
     <Resource tag="MSG_CHILD_PARENT">The chosen forum cannot be child forum as it's a parent.</Resource>
@@ -632,6 +703,7 @@
     <Resource tag="SERVER">Server:</Resource>
     <Resource tag="SERVER_HELP">What server this groups is located.</Resource>
     <Resource tag="TITLE">Add/Edit NNTP Forum</Resource>
+    <Resource tag="TITLE_EDIT">Edit NNTP Forum</Resource>
   </page>
   <page name="ADMIN_EDITNNTPSERVER">
     <Resource tag="MSG_SERVER_ADR">Missing server address.</Resource>
@@ -647,6 +719,7 @@
     <Resource tag="NNTP_USERNAME">User Name:</Resource>
     <Resource tag="NNTP_USERNAME_HELP">The user name used to log on to the nntp server.</Resource>
     <Resource tag="TITLE">Add/Edit NNTP Server</Resource>
+    <Resource tag="TITLE_EDIT">Edit NNTP Server</Resource>
   </page>
   <page name="ADMIN_EDITRANK">
     <Resource tag="ALBUMS_NUMBER">User Albums Number:</Resource>
@@ -683,7 +756,11 @@
   </page>
   <page name="ADMIN_EDITUSER">
     <Resource tag="ADD_POINTS">Add Points:</Resource>
+    <Resource tag="BAN_EMAIL_OFUSER">Ban Email Addresses of User?</Resource>
     <Resource tag="BAN_IP_OFUSER">Ban IP Addresses of User?</Resource>
+    <Resource tag="BAN_NAME_OFUSER">Ban User Name of User?</Resource>
+    <Resource tag="BOT_REPORTED">User Successfully Reported as Bot</Resource>
+    <Resource tag="BOT_REPORTED_FAILED">User Reporting was not successfull, please check your API Key!</Resource>
     <Resource tag="CHANGE_NEW_PASS">New Password:</Resource>
     <Resource tag="CHANGE_NEW_PASS_HELP">New user password.</Resource>
     <Resource tag="CHANGE_PASS">Change Password</Resource>
@@ -692,6 +769,7 @@
     <Resource tag="CONFIRM_PASS">Confirm Password:</Resource>
     <Resource tag="CONFIRM_PASS_HELP">Confirm the new password.</Resource>
     <Resource tag="CURRENT_POINTS">Current Points:</Resource>
+    <Resource tag="DELETE_ACCOUNT">Delete this account</Resource>
     <Resource tag="DELETE_POSTS_USER">Delete all Posts for User?</Resource>
     <Resource tag="ERROR_CONFIRM_PASS">Must Enter a Confirm Password</Resource>
     <Resource tag="ERROR_NEW_PASS">Must Enter New Password</Resource>
@@ -699,13 +777,18 @@
     <Resource tag="ERROR_PASS_NOTMATCH">Confirmation password does not match</Resource>
     <Resource tag="FACEBOOK_USER">Facebook User:</Resource>
     <Resource tag="FACEBOOK_USER_HELP">Indicates if the User is logged in via Facebook.</Resource>
-    <Resource tag="HEAD_KILL_USER">Kill User's Activity</Resource>
+    <Resource tag="GOOGLE_USER">Google User:</Resource>
+    <Resource tag="GOOGLE_USER_HELP">Indicates if the User is logged in via Google.</Resource>
+    <Resource tag="HEAD_KILL_USER">Kill User and Ban</Resource>
     <Resource tag="HEAD_USER_CHANGEPASS">Change Password</Resource>
     <Resource tag="HEAD_USER_DETAILS">User Details</Resource>
     <Resource tag="HEAD_USER_GROUPS">User Groups</Resource>
     <Resource tag="HEAD_USER_POINTS">User Points</Resource>
     <Resource tag="HEAD_USER_RESETPASS">Reset/Change User Password</Resource>
+    <Resource tag="IP_ADDRESSES">IP Addresses:</Resource>
     <Resource tag="IP_ADRESSES">IP Addresses:</Resource>
+    <Resource tag="KILL_USER">Kill User</Resource>
+    <Resource tag="KILL_USER_CONFIRM">Delete all posts by and (optionally) ban IP addresses used by this user?</Resource>
     <Resource tag="LINK_USER_BAN">User &lt;a id="usr{0}" href="{1}"&gt;{2}&lt;/a&gt;  is banned by IP</Resource>
     <Resource tag="MEMBER">Member</Resource>
     <Resource tag="MSG_GUEST_APPROVED">The Guest user must be marked as Approved or your forum will be unstable.</Resource>
@@ -719,13 +802,19 @@
     <Resource tag="PASS_REQUIREMENT">{0} minimum length. {1} minimum non-alphanumeric characters ($#@!).</Resource>
     <Resource tag="PASSWORD_REQUIREMENTS">Membership Password Requirements:</Resource>
     <Resource tag="REMOVE_POINTS">Remove Points:</Resource>
+    <Resource tag="REPORT_USER">Report User as BOT to StopForumSpam.com</Resource>
+    <Resource tag="REPORT_USER_CONFIRM">Report User Name, Email Address and IP Address to StopForumSpam.com as BOT?</Resource>
     <Resource tag="RESET_PASS">Reset Password</Resource>
+    <Resource tag="SEND_EMAIL">Send User Notification?</Resource>
     <Resource tag="SET_POINTS">Set Points:</Resource>
+    <Resource tag="SUSPEND_ACCOUNT_USER">Suspend this account for 5 years</Resource>
+    <Resource tag="SUSPEND_OR_DELETE_ACCOUNT">Suspend or Delete this Account?</Resource>
     <Resource tag="TITLE">Edit User "{0}"</Resource>
     <Resource tag="TWITTER_USER">Twitter User:</Resource>
+    <Resource tag="TWITTER_USER_HELP">Indicates if the User is logged in via Twitter.</Resource>
     <Resource tag="USER_AVATAR">User Avatar</Resource>
     <Resource tag="USER_DETAILS">User Details</Resource>
-    <Resource tag="USER_KILL">User Kill Activity</Resource>
+    <Resource tag="USER_KILL">User Kill &amp; Ban</Resource>
     <Resource tag="USER_PASS">User Password</Resource>
     <Resource tag="USER_PROFILE">User Profile</Resource>
     <Resource tag="USER_REPUTATION">User Reputation</Resource>
@@ -785,11 +874,18 @@
     <Resource tag="GRANTALLDELETE">Grant All Delete</Resource>
     <Resource tag="GROUPNAME">Role</Resource>
     <Resource tag="HEADER">Event Log Access For</Resource>
+    <Resource tag="LT_DEBUG">Debug</Resource>
     <Resource tag="LT_ERROR">Errors</Resource>
     <Resource tag="LT_INFORMATION">Information</Resource>
+    <Resource tag="LT_IPBANDETECTED">Detected a Banned IP</Resource>
     <Resource tag="LT_IPBANLIFTED">Canceling IP ban</Resource>
     <Resource tag="LT_IPBANSET">Setting IP ban</Resource>
+    <Resource tag="LT_SpamBotDetected">Spam Bot Detected</Resource>
+    <Resource tag="LT_SpamBotReported">Spam Bot Reported</Resource>
+    <Resource tag="LT_SpamMessageDetected">Spam Message Detected</Resource>
+    <Resource tag="LT_SpamMessageReported">Spam Message Reported</Resource>
     <Resource tag="LT_SQLERROR">Sql Errors</Resource>
+    <Resource tag="LT_TRACE">Trace</Resource>
     <Resource tag="LT_USERDELETED">Deleting users</Resource>
     <Resource tag="LT_USERSUSPENDED">Suspending users</Resource>
     <Resource tag="LT_USERUNSUSPENDED">Unsuspending users</Resource>
@@ -806,6 +902,7 @@
     <Resource tag="EXPORT">Export to XML</Resource>
     <Resource tag="HEADER">Allowed File Extensions</Resource>
     <Resource tag="IMPORT">Import from XML</Resource>
+    <Resource tag="SAVE">Save Extension</Resource>
     <Resource tag="TITLE">File Extensions</Resource>
   </page>
   <page name="ADMIN_EXTENSIONS_EDIT">
@@ -815,6 +912,7 @@
     <Resource tag="MSG_ENTER">You must enter something.</Resource>
     <Resource tag="MSG_REMOVE">Remove the period in the extension.</Resource>
     <Resource tag="TITLE">Add/Edit File Extensions</Resource>
+    <Resource tag="TITLE_EDIT">Edit File Extension</Resource>
   </page>
   <page name="ADMIN_EXTENSIONS_IMPORT">
     <Resource tag="HEADER">Import Extension List</Resource>
@@ -867,7 +965,8 @@
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS">Active Topics Feeds Access:</Resource>
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS_HELP">Restrict display of active topics feeds.</Resource>
     <Resource tag="AKISMET_KEY">Akismet API Key:</Resource>
-    <Resource tag="AKISMET_KEY_HELP">To Use the Akismet comment SPAM Service you need an API Key &lt;a href="https://akismet.com/signup/"&gt;Sign Up here&lt;a&gt;</Resource>
+    <Resource tag="AKISMET_KEY_DOWN">Sign Up here</Resource>
+    <Resource tag="AKISMET_KEY_HELP">To Use the Akismet comment SPAM Service you need an API Key &lt;a href="https://akismet.com/signup/"&gt;Sign Up here&lt;a&gt;.</Resource>
     <Resource tag="ALBUMS_PER_PAGE">Albums Per Page:</Resource>
     <Resource tag="ALBUMS_PER_PAGE_HELP">Number of albums to show per page.</Resource>
     <Resource tag="ALL_USERS">All Users</Resource>
@@ -884,7 +983,7 @@
     <Resource tag="ALLOW_FORUMS_DUPLICATENAME">Allow Forums With Same Name:</Resource>
     <Resource tag="ALLOW_FORUMS_DUPLICATENAME_HELP">If checked forums with duplicated names can be created.</Resource>
     <Resource tag="ALLOW_GRAVATARS">Allow Gravatars:</Resource>
-    <Resource tag="ALLOW_GRAVATARS_HELP">Automatically use users Gavatars if they exist (note: may require additional processing).</Resource>
+    <Resource tag="ALLOW_GRAVATARS_HELP">Automatically use users Gravatars if they exist (note: may require additional processing).</Resource>
     <Resource tag="ALLOW_GUESTS_VIEWPOLL">Allow Guests View Poll Options:</Resource>
     <Resource tag="ALLOW_GUESTS_VIEWPOLL_HELP">If enabled Guests can see poll choices.</Resource>
     <Resource tag="ALLOW_HIDE_POLLRESULTS">Allow Users Hide Poll Results:</Resource>
@@ -927,6 +1026,16 @@
     <Resource tag="ALLOW_USERS_POLLIMAGES_HELP">If enabled Users can add images as poll options.</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR">Allow users to pick text editor</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR_HELP">Allow users to pick text editor in their profiles.</Resource>
+    <Resource tag="AMOUNT_OF_SUBFORUMS">Sub Forums In Forums List:</Resource>
+    <Resource tag="AMOUNT_OF_SUBFORUMS_HELP">The amount of Sub Forums In Forums List.</Resource>
+    <Resource tag="APP_CORES">Processor Cores:</Resource>
+    <Resource tag="APP_CORES_HELP">Number of Processor cores.</Resource>
+    <Resource tag="APP_MEMORY">Application memory:</Resource>
+    <Resource tag="APP_MEMORY_HELP">Application memory used.</Resource>
+    <Resource tag="APP_OS_NAME">Operating System:</Resource>
+    <Resource tag="APP_OS_NAME_HELP">What version of operating system is running.</Resource>
+    <Resource tag="APP_RUNTIME">.NET Runtime Version:</Resource>
+    <Resource tag="APP_RUNTIME_HELP">What .NET Runtime is running.</Resource>
     <Resource tag="AVATAR_GALLERY">Allow Avatar Gallery:</Resource>
     <Resource tag="AVATAR_GALLERY_HELP">Can users select an Avatar from the local Avatar Gallery.</Resource>
     <Resource tag="AVATAR_HEIGHT">Avatar Height:</Resource>
@@ -939,6 +1048,19 @@
     <Resource tag="AVATAR_UPLOAD_HELP">Can users upload avatars to their profile.</Resource>
     <Resource tag="AVATAR_WIDTH">Avatar Width:</Resource>
     <Resource tag="AVATAR_WIDTH_HELP">Maximum width for avatars.</Resource>
+    <Resource tag="BOT_CHECK_1">StopForumSpam.com</Resource>
+    <Resource tag="BOT_CHECK_2">BotScout.com (Needs Registration)</Resource>
+    <Resource tag="BOT_CHECK_3">StopForumSpam.com &amp; BotScout.com (Needs Registration)</Resource>
+    <Resource tag="BOT_CHECK_4">StopForumSpam.com or BotScout.com (Needs Registration)</Resource>
+    <Resource tag="BOT_CHECK_ONREGISTER">Handling of Bots during Registration:</Resource>
+    <Resource tag="BOT_CHECK_ONREGISTER_HELP">If enabled it detects Spammers during the Registration, you can set to Block that user or simply log it and send a Message to the Admins.</Resource>
+    <Resource tag="BOT_IPBAN_ONREGISTER">Automatically Ban Ip Address of Detected Bot:</Resource>
+    <Resource tag="BOT_IPBAN_ONREGISTER_HELP">If enabled and a Bot is detected during registration, and if bot handling is set to reject Registration, the IP Address of the Bot is automatically banned.</Resource>
+    <Resource tag="BOT_MESSAGE_0">Do nothing</Resource>
+    <Resource tag="BOT_MESSAGE_1">Approve User &amp; Log User &amp; Send Admin an Email</Resource>
+    <Resource tag="BOT_MESSAGE_2">Block User</Resource>
+    <Resource tag="BOTSCOUT_KEY">BotScout.com API Key:</Resource>
+    <Resource tag="BOTSCOUT_KEY_HELP">To Use the BotScout Bot Service you need an API Key &lt;a href="http://botscout.com/getkey.htm"&gt;Sign Up here&lt;a&gt;.</Resource>
     <Resource tag="CAPTCHA_FOR_REGISTER">Enable CAPTCHA/reCAPTCHA for Register:</Resource>
     <Resource tag="CAPTCHA_FOR_REGISTER_HELP">Require users to enter the CAPTCHA when they register for the forum.</Resource>
     <Resource tag="CAPTCHA_GUEST_POSTING">Enable CAPTCHA for Guest Posting:</Resource>
@@ -947,9 +1069,16 @@
     <Resource tag="CAPTCHA_SIZE_HELP">Size (length) of the CAPTCHA random alphanumeric string.</Resource>
     <Resource tag="CAT_CACHE_TIMEOUT">Board Categories Cache Timeout:</Resource>
     <Resource tag="CAT_CACHE_TIMEOUT_HELP">In minutes</Resource>
+    <Resource tag="CDN_JQUERY">Use Google Hosted CDN jQuery Script File?</Resource>
+    <Resource tag="CDN_JQUERY_HELP">You can use the Google Hosted Script File, or instead use internal.</Resource>
+    <Resource tag="CDN_SCRIPTMANAGER">Use CDN Hosted Script Manager JS Files?</Resource>
+    <Resource tag="CDN_SCRIPTMANAGER_HELP">You can use the CDN Hosted Script Files, or instead use internal.</Resource>
+    <Resource tag="CHECK_FOR_BOTSPAM">Choose a Service for Automatically User Bot Checking:</Resource>
+    <Resource tag="CHECK_FOR_BOTSPAM_HELP">Enables/disables automatically Bot SPAM Checking via the &lt;a href="http://stopforumspam.com/"&gt;StopForumSpam.com API&lt;/a&gt; , BotScout.com API, or both together.</Resource>
     <Resource tag="CHECK_FOR_SPAM">Choose a SPAM Service for Automatically SPAM Checking:</Resource>
     <Resource tag="CHECK_FOR_SPAM_HELP">Enables/disables automatically SPAM Checking via the &lt;a href="http://blogspam.net/"&gt;BlogSpam.net API&lt;/a&gt; or Akismet.com. If enabled SPAM Post gets rejected if detected.</Resource>
     <Resource tag="CLEAR_CACHE">Clear Cache</Resource>
+    <Resource tag="COLLAPSED">Collapsed</Resource>
     <Resource tag="COUNTRYIMAGE_TEMPLATE">Country image template:</Resource>
     <Resource tag="COUNTRYIMAGE_TEMPLATE_HELP">Template for rendering country image.</Resource>
     <Resource tag="CREATE_NNTPNAMES">Create NNTP user names:</Resource>
@@ -968,6 +1097,8 @@
     <Resource tag="DISPLAY_POINTS_HELP">If checked, the Reputation of the User will be displayed for each user.</Resource>
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH">Image Attachment Display Threshold:</Resource>
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH_HELP">Maximum size of picture attachment to display as picture. Pictures over this size will be displayed as links.</Resource>
+    <Resource tag="DISPLAYNAME_MIN_LENGTH">Display Name Min. Length</Resource>
+    <Resource tag="DISPLAYNAME_MIN_LENGTH_HELP">Minium Length for Display Names.</Resource>
     <Resource tag="DYNAMIC_METATAGS">Add Dynamic Page Meta Tags:</Resource>
     <Resource tag="DYNAMIC_METATAGS_HELP">If checked, description and keywords meta tags will be created dynamically on the post pages.</Resource>
     <Resource tag="EMAIL_VERIFICATION">Require Email Verification:</Resource>
@@ -984,8 +1115,6 @@
     <Resource tag="ENABLE_DISPLAY_NAME_HELP">If checked, YAF uses an alternative "Display Name" instead of the UserName.</Resource>
     <Resource tag="ENABLE_HOVERCARDS">Enable User Info Hover Cards:</Resource>
     <Resource tag="ENABLE_HOVERCARDS_HELP">If enabled it shows an Hover Card (Which shows some quick info about the user) when you hover an user name. This will also show an Hover Card on the Twitter &amp; Facebook Profile Button.</Resource>
-    <Resource tag="ENABLE_IRKOO">Use Irkoo Reputation Service:</Resource>
-    <Resource tag="ENABLE_IRKOO_HELP">Irkoo is a free service that adds user reputations to your site  Visit &lt;strong&gt;http://www.Irkoo.com&lt;/strong&gt; to get the site ID and secret key for your website.</Resource>
     <Resource tag="ENABLE_LOCATIONPATH_ERRORS">Enable Active Location Error Log:</Resource>
     <Resource tag="ENABLE_LOCATIONPATH_ERRORS_HELP">If checked, all active location path errors are logged.</Resource>
     <Resource tag="ENABLE_RETWEET_MSG">Enable Retweet Message Button:</Resource>
@@ -998,6 +1127,7 @@
     <Resource tag="EVENTLOG_MAX_DAYS_HELP">Max number of days for event log. Older ones will be deleted</Resource>
     <Resource tag="EVENTLOG_MAX_MESSAGES">Max event log message</Resource>
     <Resource tag="EVENTLOG_MAX_MESSAGES_HELP">Max number of event log messages. Outdated will be deleted.</Resource>
+    <Resource tag="EXPANDED">Expanded</Resource>
     <Resource tag="EXTERN_NEWWINDOW">External Search Results In A New Window:</Resource>
     <Resource tag="EXTERN_NEWWINDOW_HELP">Show External Search Results In A New Window.</Resource>
     <Resource tag="EXTERN_SEARCH_PERMISS">External Search Permissions:</Resource>
@@ -1009,6 +1139,8 @@
     <Resource tag="FLOOT_DELAY">Post Flood Delay:</Resource>
     <Resource tag="FLOOT_DELAY_HELP">Number of seconds before another post can be entered (Does not apply to admins or mods).</Resource>
     <Resource tag="FORBIDDEN">Forbidden</Resource>
+    <Resource tag="FORUM_BASEURLMASK">Forum Base URL Mask:</Resource>
+    <Resource tag="FORUM_BASEURLMASK_HELP">The full forward-facing url to this forum.</Resource>
     <Resource tag="FORUM_EDITOR">Forum Editor:</Resource>
     <Resource tag="FORUM_EDITOR_HELP">Select global editor type for your forum. To use the HTML editors (FCK and FreeTextBox) the .bin file must be in the \bin directory and the proper support files must be put in \editors.</Resource>
     <Resource tag="FORUM_EMAIL">Forum Email:</Resource>
@@ -1021,20 +1153,21 @@
     <Resource tag="GRAVATAR_RATING_HELP">Max. rating of Gravatar if allowed.</Resource>
     <Resource tag="GROUPS_TEMPLATE">Groups template:</Resource>
     <Resource tag="GROUPS_TEMPLATE_HELP">Template for rendering user's groups.</Resource>
-    <Resource tag="GUESTS_VIEW_IRKOO">Allow guests to view users' reputations:</Resource>
-    <Resource tag="GUESTS_VIEW_IRKOO_HELP">If checked, guests can view members' reputations.</Resource>
     <Resource tag="HEADER_ADVERTS">Advert Settings</Resource>
     <Resource tag="HEADER_ALBUM">Album Settings</Resource>
+    <Resource tag="HEADER_ATTACHMENTS">Attachments Settings</Resource>
     <Resource tag="HEADER_AVATARS">Avatar Settings</Resource>
+    <Resource tag="HEADER_BOTSPAM">Bot Spam Settings (User Checking)</Resource>
     <Resource tag="HEADER_CACHE">Cache Settings</Resource>
     <Resource tag="HEADER_CAPTCHA">CAPTCHA Settings</Resource>
+    <Resource tag="HEADER_CDN">Scripts CDN Settings</Resource>
     <Resource tag="HEADER_DISPLAY">Display Settings</Resource>
     <Resource tag="HEADER_EDITORS">Editing/Formatting Settings</Resource>
     <Resource tag="HEADER_FEATURES">Feature Settings</Resource>
     <Resource tag="HEADER_GEOLOCATION">Geolocation Settings</Resource>
     <Resource tag="HEADER_HOTTOPICS">Hot (Popular) Topic Settings</Resource>
+    <Resource tag="HEADER_HOVERCARD">Hover Cards Settings</Resource>
     <Resource tag="HEADER_IMAGE_ATTACH">Image Attachment &amp; Resize Settings</Resource>
-    <Resource tag="HEADER_IRKOO">Irkoo Reputation Service</Resource>
     <Resource tag="HEADER_LOG">Log settings</Resource>
     <Resource tag="HEADER_LOGIN">Login/Registration Settings</Resource>
     <Resource tag="HEADER_LOGSCOPE">Log scope</Resource>
@@ -1044,9 +1177,10 @@
     <Resource tag="HEADER_POLL">Poll Settings</Resource>
     <Resource tag="HEADER_REPUTATION">Reputation Settings</Resource>
     <Resource tag="HEADER_SEARCH">Search Settings</Resource>
+    <Resource tag="HEADER_SERVER_INFO">Server Info</Resource>
     <Resource tag="HEADER_SETUP">Host Setup</Resource>
     <Resource tag="HEADER_SHOUT">Shoutbox Settings</Resource>
-    <Resource tag="HEADER_SPAM">Spam Settings</Resource>
+    <Resource tag="HEADER_SPAM">Spam Settings (Content Checking)</Resource>
     <Resource tag="HEADER_SYNDICATION">Syndication Feed Settings</Resource>
     <Resource tag="HEADER_TEMPLATES">Template Settings</Resource>
     <Resource tag="HOST_ADVERTS">Adverts</Resource>
@@ -1059,6 +1193,10 @@
     <Resource tag="HOST_PERMISSION">Permission</Resource>
     <Resource tag="HOST_SEARCH">Search</Resource>
     <Resource tag="HOST_TEMPLATES">Templates</Resource>
+    <Resource tag="HOVERCARD_DELAY">Hover Card opening Delay (Milliseconds):</Resource>
+    <Resource tag="HOVERCARD_DELAY_HELP">The Delay before opening the Hover Card when a user hovers over a user name.</Resource>
+    <Resource tag="IGNORE_SPAMCHECK_COUNT">User Post Count to be ignored from Spam Check:</Resource>
+    <Resource tag="IGNORE_SPAMCHECK_COUNT_HELP">The amount of posts a user has to have to be ignored by the spam checking.</Resource>
     <Resource tag="IMAGE_ATTACH_RESIZE">Enable Image Attachment Resize:</Resource>
     <Resource tag="IMAGE_ATTACH_RESIZE_HELP">Attached images will be resized to thumbnails if they are too large.</Resource>
     <Resource tag="IMAGE_RESIZE_HEIGHT">Image Resize Max Height:</Resource>
@@ -1075,12 +1213,6 @@
     <Resource tag="IP_INFOSERVICE_XMLURL_HELP">Set it to get details about user IPs as XML data.</Resource>
     <Resource tag="IPINFO_ULRL">IP Info Page URL:</Resource>
     <Resource tag="IPINFO_ULRL_HELP">Set it to get details about IPs whereabouts as web page.</Resource>
-    <Resource tag="IRKOO_ONLY_ONTOPICPAGES">Show user reputations in user links only in topic pages:</Resource>
-    <Resource tag="IRKOO_ONLY_ONTOPICPAGES_HELP">If checked, users' reputation will be displayed only in topic pages.</Resource>
-    <Resource tag="IRKOO_SECRETKEY">Irkoo secret key:</Resource>
-    <Resource tag="IRKOO_SECRETKEY_HELP">Enter your Irkoo secret key.</Resource>
-    <Resource tag="IRKOO_SITEID">Irkoo site ID:</Resource>
-    <Resource tag="IRKOO_SITEID_HELP">Enter your Irkoo site ID.</Resource>
     <Resource tag="JOINDATE_TEMPLATE">Join date template:</Resource>
     <Resource tag="JOINDATE_TEMPLATE_HELP">Template for rendering user's join date.</Resource>
     <Resource tag="LASTPOST_COUNT">Active Discussions Count:</Resource>
@@ -1097,14 +1229,14 @@
     <Resource tag="LOG_ERROR_HELP">Application errors will be logged.</Resource>
     <Resource tag="LOG_INFORMATION">Allow log Application Info:</Resource>
     <Resource tag="LOG_INFORMATION_HELP">Application info messages will be logged.</Resource>
-    <Resource tag="LOG_SQLERROR">Allow log Sql Errors:</Resource>
-    <Resource tag="LOG_SQLERROR_HELP">Sql errors will be logged.</Resource>
     <Resource tag="LOG_SUSPENDEDANDCONTRA">Allow log when users suspended or unsuspended:</Resource>
     <Resource tag="LOG_SUSPENDEDANDCONTRA_HELP">Log when users are suspended or unsuspended.</Resource>
     <Resource tag="LOG_USERDELETED">Allow log user deleting event:</Resource>
     <Resource tag="LOG_USERDELETED_HELP">User deleting event will be logged.</Resource>
     <Resource tag="LOG_USERSUSPENDED">Allow log user suspended and unsuspended:</Resource>
     <Resource tag="LOG_USERSUSPENDED_HELP">Suspended and unsuspended events will be logged.</Resource>
+    <Resource tag="LOG_VIEWSTATEERROR">Log ViewState Exceptions:</Resource>
+    <Resource tag="LOG_VIEWSTATEERROR_HELP">ViewState Exceptions (mainly caused by SPAM Bots) will be logged.</Resource>
     <Resource tag="LOG_WARNING">Allow log Application Warnings:</Resource>
     <Resource tag="LOG_WARNING_HELP">Application warnings will be logged.</Resource>
     <Resource tag="LOGIN_REDIR_URL">Custom Login Redirect Url:</Resource>
@@ -1155,6 +1287,8 @@
     <Resource tag="NOTIFICATION_MOBILE_HELP">Option to Show Native Notifcation Dialogs on Mobile Devices.</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT">Online User Status Cache Timeout:</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT_HELP">You can fine-tune it depending on your site activity (in milliseconds)</Resource>
+    <Resource tag="PM_ATTACHMENTS">Allow attachments in Private Messages</Resource>
+    <Resource tag="PM_ATTACHMENTS_HELP">Allowes the upload and use of attachments in Private messages.</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE">Poll Image File size:</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE_HELP">Max. file size for poll images in KB.</Resource>
     <Resource tag="POLLVOTING_PERIP">Poll Votes Dependent on IP:</Resource>
@@ -1183,12 +1317,10 @@
     <Resource tag="RANK_TEMPLATE_HELP">Template for rendering user's rank.</Resource>
     <Resource tag="RANKIMAGE_TEMPLATE">Rank image template:</Resource>
     <Resource tag="RANKIMAGE_TEMPLATE_HELP">Template for rendering rank image.</Resource>
-    <Resource tag="RECAPTCHA_MULTI_INSTANCE">Enable reCAPTCHA Multiple Instances:</Resource>
-    <Resource tag="RECAPTCHA_MULTI_INSTANCE_HELP">Enable reCAPTCHA Recapture Multiple Instances(shared keys).</Resource>
-    <Resource tag="RECAPTCHA_PRIVATE_KEY">reCAPTCHA Private Key:</Resource>
-    <Resource tag="RECAPTCHA_PRIVATE_KEY_HELP">Enter a reCAPTCHA Private Key</Resource>
-    <Resource tag="RECAPTCHA_PUBLIC_KEY">reCAPTCHA Public Key:</Resource>
-    <Resource tag="RECAPTCHA_PUBLIC_KEY_HELP">Enter a reCAPTCHA Public Key.</Resource>
+    <Resource tag="RECAPTCHA_PRIVATE_KEY">reCAPTCHA Secret Key:</Resource>
+    <Resource tag="RECAPTCHA_PRIVATE_KEY_HELP">Enter a reCAPTCHA Secret Key</Resource>
+    <Resource tag="RECAPTCHA_PUBLIC_KEY">reCAPTCHA Site Key:</Resource>
+    <Resource tag="RECAPTCHA_PUBLIC_KEY_HELP">Enter a reCAPTCHA Site Key.</Resource>
     <Resource tag="REFERRER_CHECK">Enable Url Referrer Security Check:</Resource>
     <Resource tag="REFERRER_CHECK_HELP">Validates all POSTs are from the same domain as the referring domain (No cross domain POSTs).</Resource>
     <Resource tag="REG_USERS">Registered Users</Resource>
@@ -1197,7 +1329,7 @@
     <Resource tag="REMOVE_NESTED_QUOTES">Remove Nested Quotes:</Resource>
     <Resource tag="REMOVE_NESTED_QUOTES_HELP">Automatically remove nested [quote] tags from replies.</Resource>
     <Resource tag="REPLACE_CACHE_TIMEOUT">Replace Rules Cache Timeout:</Resource>
-    <Resource tag="REPLACE_CACHE_TIMEOUT_HELP"> Smilies, BB code, bad words, etc. (in minutes)</Resource>
+    <Resource tag="REPLACE_CACHE_TIMEOUT_HELP">sBB code, bad words, etc. (in minutes)</Resource>
     <Resource tag="REPORT_POST_PERMISSION">Report Post Permissions:</Resource>
     <Resource tag="REPORT_POST_PERMISSION_HELP">Allow reporting posts to:</Resource>
     <Resource tag="REPUTATION_ALLOWNEGATIVE">Allow Negative Reputation:</Resource>
@@ -1241,6 +1373,8 @@
     <Resource tag="SERVERTIME_CORRECT_HELP">Enter a positive or a negative value in minutes between -720 and 720, if the server UTC time value is incorrect: </Resource>
     <Resource tag="SHOUTBOX_COUNT">Shoutbox Message Count:</Resource>
     <Resource tag="SHOUTBOX_COUNT_HELP">The Number of Messages that will be shown in the shoutbox.</Resource>
+    <Resource tag="SHOUTBOX_DEFAULTSTATE">Shout Box Default State:</Resource>
+    <Resource tag="SHOUTBOX_DEFAULTSTATE_HELP">The Default State for the Shout Box if it should be collapsed or expanded (Note: the State is saved as cookie, if you change the value you need to delete the cookie to see the changes).</Resource>
     <Resource tag="SHOW_ACTIVE_DISCUSSION">Show Active Discussions:</Resource>
     <Resource tag="SHOW_ACTIVE_DISCUSSION_HELP">Enable or disable display of active discussions list on board index page.</Resource>
     <Resource tag="SHOW_ATOM_LINKS">Show Atom Links:</Resource>
@@ -1249,10 +1383,16 @@
     <Resource tag="SHOW_AVATARS_TOPICLISTS_HELP">If this is checked, the topic pages will show avatar graphics.</Resource>
     <Resource tag="SHOW_BOTS_INACTIVE">Show Crawlers In Active Lists:</Resource>
     <Resource tag="SHOW_BOTS_INACTIVE_HELP">If checked, Crawlers will be displayed In Active Lists.</Resource>
+    <Resource tag="SHOW_CONNECT_MESSAGE">Show Connect Message after first Message:</Resource>
+    <Resource tag="SHOW_CONNECT_MESSAGE_HELP">Whether or not to show a Connect Message after the first Message in a topic for Guests, containing login and registration links.</Resource>
+    <Resource tag="SHOW_COOKIECONSET">Show Cookie Consent Popup message</Resource>
+    <Resource tag="SHOW_COOKIECONSET_HELP">When enabled show the Cookie Accept Popup message.</Resource>
     <Resource tag="SHOW_DEL_MESSAGES">Show Deleted Messages:</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_HELP">If this is checked, messages that are deleted will leave with some notes</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_TOALL">Show Deleted Messages to All:</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_TOALL_HELP">If Show Deleted Messages is checked above, checking this will force showing the delete message stub to all users.&lt;br /&gt; If it remains unchecked, the deleted message stub will only show to administrators, moderators, and the owner of the deleted message.</Resource>
+    <Resource tag="SHOW_EDIT_MESSAGE">Show Edit Message:</Resource>
+    <Resource tag="SHOW_EDIT_MESSAGE_HELP">If enabled it shows a Note in the footer of the Message if the Message was edited (incl. the Reason and Time)</Resource>
     <Resource tag="SHOW_FORUM_JUMP">Show Forum Jump Box:</Resource>
     <Resource tag="SHOW_FORUM_JUMP_HELP">Enable or disable display of the Forum Jump Box throughout the forum.</Resource>
     <Resource tag="SHOW_FORUM_STATS">Show Forum Statistics:</Resource>
@@ -1287,8 +1427,8 @@
     <Resource tag="SHOW_RSS_LINKS_HELP">Enable or disable display of RSS links throughout the forum.</Resource>
     <Resource tag="SHOW_SHOUTBOX">Show Shoutbox:</Resource>
     <Resource tag="SHOW_SHOUTBOX_HELP">Enable or disable display of the Shoutbox (Chat Module) in the forum page.</Resource>
-    <Resource tag="SHOW_SHOUTBOX_SMILIES">Show Shoutbox Smiles:</Resource>
-    <Resource tag="SHOW_SHOUTBOX_SMILIES_HELP">Enable or disable display of the Shoutbox (Chat Module) smiles.</Resource>
+    <Resource tag="SHOW_SIMILARTOPICS">Show Similar Topics:</Resource>
+    <Resource tag="SHOW_SIMILARTOPICS_HELP">Should similar topics to be displayed at the bottom of a topic.</Resource>
     <Resource tag="SHOW_THANK_DATE">Show The Date on Which Users Have Thanked Posts:</Resource>
     <Resource tag="SHOW_THANK_DATE_HELP">If checked users can see on which date posts have been thanked. (Thanks Mod must be enabled first.)</Resource>
     <Resource tag="SHOW_TODAYS_BIRTHDAYS">Show Todays Birthdays in Forum Info:</Resource>
@@ -1310,18 +1450,24 @@
     <Resource tag="SPAM_MESSAGE_0">Do nothing</Resource>
     <Resource tag="SPAM_MESSAGE_1">Flag Message as Unapproved</Resource>
     <Resource tag="SPAM_MESSAGE_2">Reject Message</Resource>
+    <Resource tag="SPAM_MESSAGE_3">Delete &amp; Ban user</Resource>
     <Resource tag="SPAM_MESSAGE_HANDLING">Handling of as SPAM Detected Messages</Resource>
     <Resource tag="SPAM_MESSAGE_HANDLING_HELP">Choose what to do when a Message was detected a SPAM, You can choose between Do Nothing, Flag Message as Unapproved, or reject the Message.</Resource>
+    <Resource tag="SPAM_SERVICE_TYP_1">BlogSpam.NET API</Resource>
+    <Resource tag="SPAM_SERVICE_TYP_2">Akismet API (Needs Registration)</Resource>
+    <Resource tag="SPAM_SERVICE_TYP_3">Internal Spam Check Words</Resource>
+    <Resource tag="SPAMCHECK_ALLOWED_URLS">Allowed Number of URLs before flagged as SPAM:</Resource>
+    <Resource tag="SPAMCHECK_ALLOWED_URLS_HELP">If the user posts in one Message more then the allowed URLs the message is flagged as spam. This Check also depends how many user the posts have.</Resource>
     <Resource tag="SQL_FULLTEXT">Use SQL Full Text Search:</Resource>
     <Resource tag="SQL_FULLTEXT_HELP">Toggle use of FULLTEXT SQL Server support on searches.</Resource>
     <Resource tag="SSL_LOGIN">Use SSL while logging in:</Resource>
     <Resource tag="SSL_LOGIN_HELP">Enforce a secure connection for users to log in.</Resource>
     <Resource tag="SSL_REGISTER">Use SSL while registering:</Resource>
     <Resource tag="SSL_REGISTER_HELP">Enforce a secure connection for users to register.</Resource>
-    <Resource tag="SSO_AUTO_REGISTER">Register New Facebook/Twitter User automatically:</Resource>
-    <Resource tag="SSO_AUTO_REGISTER_HELP">Register User automatically that are trying to login thru Facebook or Twitter</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT">Forum Statistics Cache Timeout:</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT_HELP">In minutes</Resource>
+    <Resource tag="STOPFORUMSPAM_KEY">StopForumSpam.com API Key:</Resource>
+    <Resource tag="STOPFORUMSPAM_KEY_HELP">In order to Report a User as Bot you need an StopForumSpam.com API Key &lt;a href="http://www.stopforumspam.com/signup"&gt;Sign Up here&lt;a&gt;.</Resource>
     <Resource tag="STYLED_NICKS">Use styled nicks:</Resource>
     <Resource tag="STYLED_NICKS_HELP">If checked, you can use colors, font size change etc. for active users nicks.</Resource>
     <Resource tag="STYLED_TOPIC_TITLES">Use styled Topic Titles:</Resource>
@@ -1330,8 +1476,6 @@
     <Resource tag="THANKS_FROM_TEMPLATE_HELP">Template for rendering user's thanks from.</Resource>
     <Resource tag="THANKS_TO_TEMPLATE">Thanks To template:</Resource>
     <Resource tag="THANKS_TO_TEMPLATE_HELP">Template for rendering user's thanks to.</Resource>
-    <Resource tag="TIMEAGO_INTERVAL">Relative Time Refresh Interval:</Resource>
-    <Resource tag="TIMEAGO_INTERVAL_HELP">This allows to set how often the "Time Ago" library should refresh the relative time (In Milliseconds, 60000 ms = 60 seconds = 1 minute).</Resource>
     <Resource tag="TITLE">Host Settings</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS">Topics Feeds Access:</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS_HELP">Restrict display of topics feeds.</Resource>
@@ -1361,6 +1505,13 @@
     <Resource tag="VIEWMEMBERLIST_PERMISSION_HELP">Allow viewing of members list to:</Resource>
     <Resource tag="VIEWPROFILE_PERMISSION">Profile Viewing Permissions:</Resource>
     <Resource tag="VIEWPROFILE_PERMISSION_HELP">Allow viewing of other users' profiles to:</Resource>
+    <Resource tag="VIEWSHOUTBOX_PERMISSION">Shout Box View Permission:</Resource>
+    <Resource tag="VIEWSHOUTBOX_PERMISSION_HELP">View Permission for the Shout Box to allow for all Users (Including Guests) or only registered users.</Resource>
+    <Resource tag="WELCOME_NOTIFICATION">Send User Welcome Notification:</Resource>
+    <Resource tag="WELCOME_NOTIFICATION_0">Send No Message</Resource>
+    <Resource tag="WELCOME_NOTIFICATION_1">Send as e-mail</Resource>
+    <Resource tag="WELCOME_NOTIFICATION_2">Send as private message</Resource>
+    <Resource tag="WELCOME_NOTIFICATION_HELP">If enabled you it sends a user a Welcome Mail/Private Message after successfully registration.</Resource>
     <Resource tag="WSERVICE_TOKEN">Web Service Token:</Resource>
     <Resource tag="WSERVICE_TOKEN_HELP">Token used to make secure web service calls. Constantly changing until you save your host settings.</Resource>
   </page>
@@ -1397,6 +1548,7 @@
     <Resource tag="FORUM">Forum</Resource>
     <Resource tag="GROUP">Group</Resource>
     <Resource tag="NEW_FORUM">New Forum</Resource>
+    <Resource tag="SAVE">Save Forum</Resource>
     <Resource tag="SERVER">Server</Resource>
     <Resource tag="TITLE">NNTP Forums</Resource>
   </page>
@@ -1432,6 +1584,7 @@
     <Resource tag="DELETE_SERVER">Delete this server?</Resource>
     <Resource tag="NAME">Name</Resource>
     <Resource tag="NEW_SERVER">New Server</Resource>
+    <Resource tag="SAVE_SERVER">Save Server</Resource>
     <Resource tag="TITLE">NNTP Servers</Resource>
     <Resource tag="USERNAME">User Name</Resource>
   </page>
@@ -1510,6 +1663,8 @@
     <Resource tag="RECOVERY2">Simple (Simple Recovery allows the database to be recovered to the most recent backup.You need to backup your DB regularly.)</Resource>
     <Resource tag="RECOVERY3">Bulk-Logged (Bulk-Logged Recovery allows bulk-logged operations.)</Resource>
     <Resource tag="REINDEX">With any data modification operations, table fragmentation can occur. This command can be used to rebuild all the indexes on all the tables in database to boost performance.</Resource>
+    <Resource tag="REINDEX_MSG">Please do not navigate away from this page...</Resource>
+    <Resource tag="REINDEX_TITLE">Updating Tables</Resource>
     <Resource tag="REINDEXTBL_BTN">Reindex tables</Resource>
     <Resource tag="SETRECOVERY_BTN">Set recovery mode</Resource>
     <Resource tag="SHOW_STATS">Show statistical information about YAF table indexes.</Resource>
@@ -1534,6 +1689,7 @@
     <Resource tag="GOOD_HELP">Regular expression statement. Escape punctation with a preceding slash (e.g. '\.').</Resource>
     <Resource tag="MSG_REGEX_BAD">The Regular expression statement you have entered is invalid.</Resource>
     <Resource tag="TITLE">Add/Edit Word Replace</Resource>
+    <Resource tag="TITLE_EDIT">Edit Word Replace</Resource>
   </page>
   <page name="ADMIN_REPLACEWORDS_IMPORT">
     <Resource tag="HEADER">Import Replace Word List</Resource>
@@ -1557,42 +1713,35 @@
     <Resource tag="SQL_COMMAND">SQL Command:</Resource>
     <Resource tag="TITLE">Run SQL Code</Resource>
   </page>
-  <page name="ADMIN_SMILIES">
-    <Resource tag="ADD">Add Smiley</Resource>
-    <Resource tag="CODE">Code</Resource>
-    <Resource tag="COMANDS">Emotion</Resource>
-    <Resource tag="EMOTION">Emotion</Resource>
-    <Resource tag="IMPORT">Import Smiley Pack</Resource>
-    <Resource tag="MSG_DELETE">Delete this smiley?</Resource>
-    <Resource tag="ORDER">Order</Resource>
-    <Resource tag="SMILEY">Smiley</Resource>
-    <Resource tag="TITLE">Smilies</Resource>
+  <page name="ADMIN_SPAMLOG">
+    <Resource tag="TITLE">Spam Event Log</Resource>
   </page>
-  <page name="ADMIN_SMILIES_EDIT">
-    <Resource tag="CODE">Code:</Resource>
-    <Resource tag="EMOTION">Emotion:</Resource>
-    <Resource tag="ICON">Icon:</Resource>
-    <Resource tag="MSG_CODE_BRACK">Please enter the code to use for this emotion in square brackets.</Resource>
-    <Resource tag="MSG_CODE_LONG">The code to use for this emotion should not be more then 10 symbols.</Resource>
-    <Resource tag="MSG_CODE_MISSING">Please enter the code to use for this emotion.</Resource>
-    <Resource tag="MSG_NO_EMOTICON">Please enter an emotion for this icon.</Resource>
-    <Resource tag="MSG_NO_ICON">Please select an icon to use for this emotion.</Resource>
-    <Resource tag="MSG_SORT_NMBR">Sort order must be number between 0 and 255.</Resource>
-    <Resource tag="MSG_TOO_LONG">An emotion description is too long.</Resource>
-    <Resource tag="SELECT_SMILEY">Select Smiley Image</Resource>
-    <Resource tag="SORT_ORDER">Sort Order:</Resource>
-    <Resource tag="TITLE">Add/Edit Smiley</Resource>
+  <page name="ADMIN_SPAMWORDS">
+    <Resource tag="ADD">Add</Resource>
+    <Resource tag="EXPORT">Export to XML</Resource>
+    <Resource tag="IMPORT">Import from XML</Resource>
+    <Resource tag="MSG_DELETE">Delete this Word?</Resource>
+    <Resource tag="NOTE">&lt;strong&gt;Note: &lt;/strong&gt; The Spam Words are used for the internal SPAM Detection, during Registration the Homepage the user is entering in the user profile is checked against the Spam Words. Also if a user Posts a new Message in the forum it will be checked against the Spam Words if 'Choose a SPAM Service for Automatically SPAM Checking' in the Host Settings is set to 'Internal Spam Check Words'.</Resource>
+    <Resource tag="SAVE">Save Word</Resource>
+    <Resource tag="SPAM">"Spam" Word (Find) Expression</Resource>
+    <Resource tag="TITLE">Spam Check Words</Resource>
   </page>
-  <page name="ADMIN_SMILIES_IMPORT">
-    <Resource tag="CHOOSE_PAK">Choose .pak file:</Resource>
-    <Resource tag="CHOOSE_PAK_HELP">You'll have to unpack the smiley package and upload all files to your smiley directory (Boards/BoardNo/Images/Emoticons).</Resource>
-    <Resource tag="DELETE_EXISTING">Delete existing smilies:</Resource>
-    <Resource tag="DELETE_EXISTING_HELP">Will delete all existing smilies if you check this.</Resource>
-    <Resource tag="ERROR_SELECT_FILE">You must select a .pak file to import.</Resource>
-    <Resource tag="HEADER">Import Smiley Pack</Resource>
-    <Resource tag="IMPORT">Import</Resource>
-    <Resource tag="SELECT_FILE">Select File (*.pak)</Resource>
-    <Resource tag="TITLE">Smilies Import</Resource>
+  <page name="ADMIN_SPAMWORDS_EDIT">
+    <Resource tag="MSG_REGEX_SPAM">The Regular expression statement you have entered is invalid.</Resource>
+    <Resource tag="SPAM">"Spam" Word (Find) Expression:</Resource>
+    <Resource tag="SPAM_HELP">Regular expression statement. Escape punctation with a preceding slash (e.g. '\.').</Resource>
+    <Resource tag="TITLE">Add New Spam Word</Resource>
+    <Resource tag="TITLE_EDIT">Edit Spam Word</Resource>
+  </page>
+  <page name="ADMIN_SPAMWORDS_IMPORT">
+    <Resource tag="HEADER">Import Spam Word List</Resource>
+    <Resource tag="MSG_IMPORTED">{0} new spam word(s) were imported successfully.</Resource>
+    <Resource tag="MSG_IMPORTED_FAILED">Failed to import: Import file format is different than expected.</Resource>
+    <Resource tag="MSG_IMPORTED_FAILEDX">Failed to import: {0}</Resource>
+    <Resource tag="MSG_NOTHING">Nothing imported: no new spam words were found in the upload.</Resource>
+    <Resource tag="SELECT_IMPORT">Select Import File:</Resource>
+    <Resource tag="SELECT_IMPORT_HELP">(Must be *.xml file)</Resource>
+    <Resource tag="TITLE">Import Spam Words</Resource>
   </page>
   <page name="ADMIN_TASKMANAGER">
     <Resource tag="DURATION">Duration</Resource>
@@ -1610,6 +1759,7 @@
     <Resource tag="DEFAULT_DESCRIPTION">Status</Resource>
     <Resource tag="EXPORT">Export to XML</Resource>
     <Resource tag="HEADER">Allowed File Extensions</Resource>
+    <Resource tag="ICON">Icon</Resource>
     <Resource tag="IMPORT">Import from XML</Resource>
     <Resource tag="TITLE">Topic Status</Resource>
     <Resource tag="TOPICSTATUS_NAME">Status Name</Resource>
@@ -1620,6 +1770,7 @@
     <Resource tag="HEADER">Add/Edit Topic Status</Resource>
     <Resource tag="MSG_ENTER">You must enter something.</Resource>
     <Resource tag="TITLE">Add/Edit Topic Status</Resource>
+    <Resource tag="TITLE_EDIT">Edit Topic Status</Resource>
     <Resource tag="TOPICSTATUS_NAME">Topic Status Value:</Resource>
     <Resource tag="TOPICSTATUS_NAME_HELP">This is the Value that is used to retrieve the Topic Status Icon and/or Text. That needs to be defined in the Theme Files and languages.</Resource>
   </page>
@@ -1644,6 +1795,10 @@
     <Resource tag="EXPORT_XML">Export All User(s) as Xml</Resource>
     <Resource tag="FACEBOOK_USER">Facebook User</Resource>
     <Resource tag="FILTER">Filter by join date since:</Resource>
+    <Resource tag="FILTER_BY_GROUP">Filter by Group...</Resource>
+    <Resource tag="FILTER_BY_RANK">Filter by Rank...</Resource>
+    <Resource tag="FILTER_DROPDOWN">Filter</Resource>
+    <Resource tag="FILTER_NO">[No Filter]</Resource>
     <Resource tag="HEADER">Search Users</Resource>
     <Resource tag="IMPORT">Import User(s)</Resource>
     <Resource tag="LAST_VISIT">Last Visit</Resource>
@@ -1656,7 +1811,10 @@
     <Resource tag="RANK">Rank:</Resource>
     <Resource tag="ROLE">Role:</Resource>
     <Resource tag="SEARCH">Search</Resource>
+    <Resource tag="SUSPENDED_ONLY">Show only suspended users?</Resource>
     <Resource tag="SYNC_ALL">Sync All Membership Users</Resource>
+    <Resource tag="SYNC_MSG">Please do not navigate away from this page while the sync is in progress...</Resource>
+    <Resource tag="SYNC_TITLE">Syncing Users</Resource>
     <Resource tag="TITLE">Users</Resource>
     <Resource tag="TWITTER_USER">Twitter User</Resource>
     <Resource tag="USER_NAME">User Name</Resource>
@@ -1681,8 +1839,9 @@
   <page name="ADMINMENU">
     <Resource tag="admin_accessmasks">Access Masks</Resource>
     <Resource tag="admin_admin">Admin Index</Resource>
-    <Resource tag="admin_attachments">Attachments</Resource>
+    <Resource tag="admin_bannedemail">Banned Emails</Resource>
     <Resource tag="admin_bannedip">Banned IPs</Resource>
+    <Resource tag="admin_bannedname">Banned Names</Resource>
     <Resource tag="admin_bbcode">BBCode Extensions</Resource>
     <Resource tag="admin_boards">Boards</Resource>
     <Resource tag="admin_boardsettings">Board Settings</Resource>
@@ -1710,7 +1869,8 @@
     <Resource tag="admin_replacewords">Replace Words</Resource>
     <Resource tag="admin_restartapp">Restart App</Resource>
     <Resource tag="admin_runsql">Run SQL Query</Resource>
-    <Resource tag="admin_smilies">Smiles</Resource>
+    <Resource tag="ADMIN_SPAMLOG">Spam Event Log</Resource>
+    <Resource tag="admin_spamwords">Spam Check Words</Resource>
     <Resource tag="admin_taskmanager">Task Manager</Resource>
     <Resource tag="admin_test_data">Create Test Data</Resource>
     <Resource tag="admin_topicstatus">Topic Status</Resource>
@@ -1721,6 +1881,7 @@
     <Resource tag="Maintenance">Maintenance</Resource>
     <Resource tag="NNTP">NNTP</Resource>
     <Resource tag="Settings">Settings</Resource>
+    <Resource tag="Spam_Protection">Spam Protection</Resource>
     <Resource tag="Upgrade">Upgrade</Resource>
     <Resource tag="UsersandRoles">Users and Roles</Resource>
   </page>
@@ -1734,6 +1895,7 @@
     <Resource tag="ALBUMS_INFO">Currently you have {0} Album(s). You can have max. {1} Album(s).</Resource>
     <Resource tag="ALBUMS_NOTALLOWED">You are not allowed to have Albums.</Resource>
     <Resource tag="ALBUMS_TITLE">{0} Album: {1}</Resource>
+    <Resource tag="BACK_ALBUMS">Go Back to Albums</Resource>
     <Resource tag="TITLE">Album Images</Resource>
   </page>
   <page name="APPROVE">
@@ -1744,17 +1906,25 @@
     <Resource tag="VALIDATE">Varmista</Resource>
   </page>
   <page name="ATTACHMENTS">
+    <Resource tag="ADD_FILES">Add file(s)...</Resource>
     <Resource tag="ALLOWED_EXTENSIONS">Allowed File Types</Resource>
     <Resource tag="ASK_DELETE">Poista liitetiedosto?</Resource>
+    <Resource tag="COMPLETE_WARNING">Please wait until all Upload(s) are completed and the Dialog closes itself!</Resource>
+    <Resource tag="CONFIRM_DELETE">Delete attachment(s)?</Resource>
+    <Resource tag="CURRENT_UPLOADS">Current Attachment Uploads:</Resource>
     <Resource tag="DELETE">Poista</Resource>
     <Resource tag="DISALLOWED_EXTENSIONS">Disallowed File Types</Resource>
+    <Resource tag="DROP_HERE">Drop file(s) here</Resource>
     <Resource tag="ERROR_TOOBIG">Et voi ladata näin isoa tiedostoa.</Resource>
     <Resource tag="FILEERROR">'{0}' ei ole hyväksytty tiedostomuoto.</Resource>
     <Resource tag="FILENAME">Tiedostonimi</Resource>
+    <Resource tag="NO_ATTACHMENTS">You are not having any attachments yet, to add one click on the &lt;strong&gt;Upload New File(s)&lt;/strong&gt; button</Resource>
     <Resource tag="SELECT_FILE">Valitse ladattava tiedosto.</Resource>
     <Resource tag="SIZE">Koko</Resource>
+    <Resource tag="START_UPLOADS">Start upload(s)</Resource>
     <Resource tag="TITLE">Liitetiedostot</Resource>
     <Resource tag="UPLOAD">Lataa</Resource>
+    <Resource tag="UPLOAD_NEW">Upload New File(s)</Resource>
     <Resource tag="UPLOAD_NOTE">Note: Max. File Size of an Attachment is {0} KB.</Resource>
     <Resource tag="UPLOAD_TITLE">Lataa tiedosto</Resource>
     <Resource tag="UPLOAD_TOOBIG">You cannot attach files that bigger than {1} KB. Your File size is {0} KB.</Resource>
@@ -1766,6 +1936,12 @@
     <Resource tag="UP_TITLE">Go to the Parent Folder.</Resource>
   </page>
   <page name="BBCODEMODULE">
+    <Resource tag="ALBUMIMG_DESCRIPTION">Enter a Album Image Number</Resource>
+    <Resource tag="ATTACH_DESCRIPTION">Enter a Attachment ID</Resource>
+    <Resource tag="ATTACH_NO">You have insufficient rights to see the content.</Resource>
+    <Resource tag="DAILYMOTION_DESCRIPTION">Enter Dailymotion Url (http://www.dailymotion.com/video/xxxx)</Resource>
+    <Resource tag="FACEBOOK_DESCRIPTION">Enter the Url of the post or the Embed Code of the Post you want to embed</Resource>
+    <Resource tag="GOOGLEMAPS_DESCRIPTION">Enter Google Maps Url</Resource>
     <Resource tag="HIDDENMOD_DESC">The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post</Resource>
     <Resource tag="HIDDENMOD_GROUP">You have insufficient rights to see the hidden content.</Resource>
     <Resource tag="HIDDENMOD_GUEST">This board requires you to be registered and logged-in before you can view hidden messages.</Resource>
@@ -1779,10 +1955,12 @@
     <Resource tag="HIDEREPLY_DESCRIPTION">The tag hides content from people until they replied in the same thread.</Resource>
     <Resource tag="HIDEREPLYTHANKS_DESCRIPTION">The tag hides content from people until they either reply in the same thread or press the thank you button for the post.</Resource>
     <Resource tag="HIDETHANKS_DESCRIPTION">The tag hides content from people who have below then X thanks received.</Resource>
+    <Resource tag="INSTAGRAM_DESCRIPTION">Put an Instagram Post URL in here, for example: https://www.instagram.com/p/BS2kMaZl2XO/</Resource>
     <Resource tag="SPOILERMOD_DESCRIPTION">Put Spoiler Text in Here</Resource>
     <Resource tag="SPOILERMOD_HIDE">Hide Spoiler</Resource>
     <Resource tag="SPOILERMOD_SHOW">Show Spoiler</Resource>
     <Resource tag="SPOILERMOD_TOOLTIP">Click here to show or hide the hidden text (also known as a spoiler)</Resource>
+    <Resource tag="TWITTER_DESCRIPTION">Enter the Status ID of the Tweet you want to embed</Resource>
     <Resource tag="UERLINKMOD_DESCRIPTION">Put User Name Here</Resource>
     <Resource tag="YOUTUBEMOD_DESCRIPTION">Put YouTube URL in Here</Resource>
   </page>
@@ -1809,6 +1987,8 @@
     <Resource tag="BUTTON_DELETE">Delete</Resource>
     <Resource tag="BUTTON_DELETE_TT">Delete this Post</Resource>
     <Resource tag="BUTTON_DELETEALBUM">Delete Album</Resource>
+    <Resource tag="BUTTON_DELETEATTACHMENT">Delete Attachment(s)</Resource>
+    <Resource tag="BUTTON_DELETEATTACHMENT_TT">Delete selected attachment(s)s</Resource>
     <Resource tag="BUTTON_DELETETOPIC">Delete Topic</Resource>
     <Resource tag="BUTTON_DELETETOPIC_TT">Delete this topic</Resource>
     <Resource tag="BUTTON_EDIT">Edit</Resource>
@@ -1859,8 +2039,10 @@
   <page name="COMMON">
     <Resource tag="ALBUMIMG_BBCODE">Insert Album Image...</Resource>
     <Resource tag="ALLOWED">Allowed</Resource>
+    <Resource tag="ATTACH_BBCODE">Insert an existing Attachment or upload a new File...</Resource>
     <Resource tag="BACK">Back</Resource>
     <Resource tag="BAD_CAPTCHA">Text Entered Did Not Match Text In Security Image.</Resource>
+    <Resource tag="BAD_RECAPTCHA">Please re-enter the reCAPTCHA.</Resource>
     <Resource tag="BAD_USERNAME">Username cannot contain semi-colons (;).</Resource>
     <Resource tag="BBCODE_CODE">Code:</Resource>
     <Resource tag="BBCODE_QUOTE">Quote:</Resource>
@@ -1868,7 +2050,7 @@
     <Resource tag="BBCODE_QUOTEPOSTED_TT">Go to Quoted Post</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} wrote:</Resource>
     <Resource tag="CAL_JQ_CULTURE">fi</Resource>
-    <Resource tag="CAL_JQ_CULTURE_DFORMAT">MM/dd/YY</Resource>
+    <Resource tag="CAL_JQ_CULTURE_DFORMAT">MM/dd/YYYY</Resource>
     <Resource tag="CAL_JQ_TT">Click here to choose date</Resource>
     <Resource tag="CAN_DELETE">[b]Voit[/b] poistaa omia viestejä tällä alueella.</Resource>
     <Resource tag="CAN_EDIT">[b]Voit[/b] muokata omia viestejäsi tällä alueella.</Resource>
@@ -1888,6 +2070,10 @@
     <Resource tag="CHANGEEMAIL_SUBJECT">Changed Email</Resource>
     <Resource tag="COMMON_WORDS">out,please,a,able,about,across,after,all,almost,also,am,among,an,and,any,are,as,at,be,because,been,but,by,can,cannot,could,dear,did,do,does,either,else,ever,every,for,from,get,got,had,has,have,he,her,hers,him,his,how,however,i,if,in,into,is,it,its,just,least,let,like,likely,may,me,might,most,must,my,neither,no,nor,not,of,off,often,on,only,or,other,our,own,rather,said,say,says,she,should,since,so,some,than,that,the,their,them,then,there,these,they,this,tis,to,too,twas,us,wants,was,we,were,what,when,where,which,while,who,whom,why,will,with,would,yet,you,your</Resource>
     <Resource tag="CONTINUE">Continue</Resource>
+    <Resource tag="COOKIE">The {0} uses cookies. By continuing to browse this site, you are agreeing to our use of cookies.</Resource>
+    <Resource tag="COOKIE_AGREE">Close</Resource>
+    <Resource tag="COOKIE_DETAILS">More Details</Resource>
+    <Resource tag="COOKIE_HEADER">Important Information:</Resource>
     <Resource tag="COPY">Copy</Resource>
     <Resource tag="CUSTOM_BBCODE">More BBCode</Resource>
     <Resource tag="DELETE">Delete</Resource>
@@ -1896,8 +2082,8 @@
     <Resource tag="EDIT">Edit</Resource>
     <Resource tag="EMAILVERIFICATION_SUBJECT">{0} Email Verification</Resource>
     <Resource tag="EXTERNALUSER">(External User)</Resource>
-    <Resource tag="FONT_COLOR">Font Color:</Resource>
-    <Resource tag="FONT_SIZE">Font Size:</Resource>
+    <Resource tag="FONT_COLOR">Font Color</Resource>
+    <Resource tag="FONT_SIZE">Font Size</Resource>
     <Resource tag="FOR">For</Resource>
     <Resource tag="FORMAT_DATE_LONG">ddd, MMM d yyyy HH:mm:ss</Resource>
     <Resource tag="FORMAT_DATE_SHORT">d.M.yyyy</Resource>
@@ -1917,7 +2103,9 @@
     <Resource tag="HTMLTAG_FORBIDDEN">Your input data should not contain HTML tags.</Resource>
     <Resource tag="HTMLTAG_WRONG">Your input data contains forbidden {0} HTML tag.</Resource>
     <Resource tag="LOADING">Loading...</Resource>
+    <Resource tag="MANAGE">Manage</Resource>
     <Resource tag="MAX_ONLINE">Eniten käyttäjiä ({0}) oli linjoilla {1}.</Resource>
+    <Resource tag="MENU">Menu</Resource>
     <Resource tag="MESSAGE">Message</Resource>
     <Resource tag="MOBILE_FULLSITE">View Full Site</Resource>
     <Resource tag="MOBILE_VIEWSITE">View Mobile Site</Resource>
@@ -1926,11 +2114,17 @@
     <Resource tag="NAME">Name</Resource>
     <Resource tag="NO">No</Resource>
     <Resource tag="NONE">None</Resource>
-    <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT">You have been award on the {0} Forum</Resource>
+    <Resource tag="NOTE">Note:</Resource>
+    <Resource tag="NOTIFICATION_ON_BOT_USER_REGISTER_EMAIL_SUBJECT">New SPAM BOT User Registered on {0} Forum</Resource>
+    <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT">you have been awarded on the {0} Forum</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">New Message on {0} Forum Needs to be Approved</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE">A Message on {0} Forum was reported</Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL">New SPAM Message on {0} Forum needs to be checked</Resource>
     <Resource tag="NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT">Registration on {0} Forum successfully</Resource>
+    <Resource tag="NOTIFICATION_ON_SUSPENDING_USER_SUBJECT">Suspension of your {0} Forum Account</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">New User Registered on {0} Forum</Resource>
+    <Resource tag="NOTIFICATION_ON_WELCOME_USER_SUBJECT">Welcome to the {0} Forum</Resource>
+    <Resource tag="NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT">{0} Forum Account Update</Resource>
     <Resource tag="OK">OK</Resource>
     <Resource tag="OR">or</Resource>
     <Resource tag="PAGES">Pages</Resource>
@@ -1938,16 +2132,38 @@
     <Resource tag="POST">Post</Resource>
     <Resource tag="POWERED_BY">Keskustelualueen voiman takaa</Resource>
     <Resource tag="PRIORITY">Priority</Resource>
+    <Resource tag="PRIVACY_POLICY">Privacy Policy</Resource>
     <Resource tag="READ">Read</Resource>
     <Resource tag="REGMAIL_SENT">Posti on lähetetty. Tarkista postilaatikkosi ja klikkaa linkkiä viestissä.</Resource>
     <Resource tag="REGMAIL_WILL_BE_SEND">Rekisteröinnin yhteydessä lähetetään sähköpostia sinulle. Ennen kuin voit kirjautua sisään, tulee sinun varmistaa sähköpostin toimivuus seuraamalla postissa olevaa linkkiä.</Resource>
     <Resource tag="REPLY">Reply</Resource>
     <Resource tag="SAVE">Tallenna</Resource>
+    <Resource tag="SELECT_LOCALE_JS">
+      language:  {
+                inputTooLong: function(e) {
+                    var t = e.input.length - e.maximum;
+                    return "Ole hyvä ja anna " + t + " merkkiä vähemmän"
+                },
+                inputTooShort: function(e) {
+                    var t = e.minimum - e.input.length;
+                    return "Ole hyvä ja anna " + t + " merkkiä lisää"
+                },
+                loadingMore: function() {
+                    return "Ladataan lisää tuloksia…"
+                },
+                maximumSelection: function(e) {
+                    return "Voit valita ainoastaan " + e.maximum + " kpl"
+                },
+                noResults: function() {
+                    return "Ei tuloksia"
+                },
+                searching: function() {
+                    return "Searching…"
+                }
+          }
+  </Resource>
     <Resource tag="SHOWHIDE">Show/Hide</Resource>
     <Resource tag="SUBMIT">Submit</Resource>
-    <Resource tag="TIMEAGO_JS">
-      // defaults to english... no need for localization.
-    </Resource>
     <Resource tag="TOPIC_NOTIFICATION_SUBJECT">Topic Subscription New Post Notification (From {0})</Resource>
     <Resource tag="TT_ALIGNCENTER">Center Justify</Resource>
     <Resource tag="TT_ALIGNLEFT">Left Justify</Resource>
@@ -1970,13 +2186,41 @@
     <Resource tag="UNREAD_MSG2">You have {0} unread message(s) in your Inbox. Would You Like to go to your Inbox now?</Resource>
     <Resource tag="UPDATE">Update</Resource>
     <Resource tag="USERNAME_TOOLONG">User Name or Display User Name cannot be more than {0} characters.</Resource>
+    <Resource tag="USERNAME_TOOSMALL">User Name or Display User Name must be more than {0} characters.</Resource>
     <Resource tag="VIEW_CATEGORY">View category</Resource>
     <Resource tag="VIEW_FORUM">View forum</Resource>
     <Resource tag="VIEW_FULLINFO">View full info</Resource>
     <Resource tag="VIEW_TOPIC">View topic</Resource>
+    <Resource tag="VIEW_TOPIC_STARTED_BY">View topic started by {0}</Resource>
     <Resource tag="VIEW_USRPROFILE">View profile</Resource>
     <Resource tag="VOTE">Vote</Resource>
     <Resource tag="YES">Yes</Resource>
+  </page>
+  <page name="COOKIES">
+    <Resource tag="COOKIES_TEXT">
+    Cookies are small text files that are placed on your computer by websites that you visit. They are widely used in order to make websites work, or work more efficiently, as well as to provide information to the owners of the site. Depending on your access level and actions on the site, various preference based cookies may be set to enrich your experience.
+    
+    [br]
+    [b]Standard Cookies[/b][br]
+    We’re using cookies for the following purposes:
+
+    [list]
+    [*] Guest Users: Your last visit Date and Time will be saved, to indicate on your next visit which topics and message are new.
+    [*] Login: Once you login to the forum, a cookie is set containing your encrypted credentials, required to recognize you between page visits. You can disable this cookie by unchecking “Remember me” in the login form.
+    [*] Polls: Your voting options are stored as cookies. As soon as you give your voting in a poll a cookie is created.
+    [*] Session: Upon first visit of our website, the system will create a new unique session for you which will be saved using a cookie on your computer. Sessions are required to recognize users between page accesses. It is a temporary cookie which will be deleted once you close your internet browser..
+    [/list]
+
+    [b]Third Party Cookies[/b][br]
+    The site owner may set additional cookies in addition to the standard cookies above. These cookies are often used for website usage tracking, or set by embedded service providers when viewing embedded content from providers such as YouTube and Vimeo, etc.
+    
+    [br]
+
+    [b]How do I change my cookie settings?[/b][br]
+    Most web browsers allow some control of most cookies through the browser settings. To find out more about cookies, including how to see what cookies have been set and how to manage and delete them, visit [url]www.aboutcookies.org[/url] or [url]www.allaboutcookies.org.[/url]
+
+    </Resource>
+    <Resource tag="TITLE">Cookie Policy</Resource>
   </page>
   <page name="COUNTRY">
     <Resource tag="AD">Andorra</Resource>
@@ -2223,6 +2467,9 @@
     <Resource tag="CHANGE_BUTTON">Submit</Resource>
     <Resource tag="CHANGE_SUCCESS">Password has been successfully changed.</Resource>
     <Resource tag="CONFIRM_PASSWORD">Confirm New Password:</Resource>
+    <Resource tag="EMPTY_ANSWER">New Answer is requiered.</Resource>
+    <Resource tag="EMPTY_PASSWORD">Please Enter your Current Password</Resource>
+    <Resource tag="EMPTY_QUESTION">New Question is requiered.</Resource>
     <Resource tag="NEED_NEW_CONFIRM_PASSWORD">New Confirm Password is required.</Resource>
     <Resource tag="NEED_NEW_PASSWORD">New Password is required.</Resource>
     <Resource tag="NEED_OLD_PASSWORD">Old Password is required.</Resource>
@@ -2233,7 +2480,14 @@
     <Resource tag="PASSWORD_INCORRECT">Password incorrect or New Password invalid.</Resource>
     <Resource tag="PASSWORD_NOT_COMPLEX">Non-alphanumeric characters required: {1}.</Resource>
     <Resource tag="PASSWORD_NOT_NEW">New Password must be different from the old one.</Resource>
+    <Resource tag="SECURITY_ANSWER_NEW">New Security Answer:</Resource>
+    <Resource tag="SECURITY_ANSWER_OLD">Current Password:</Resource>
+    <Resource tag="SECURITY_CHANGED">Password Question and Answer changed.</Resource>
+    <Resource tag="SECURITY_NOT_CHANGED">Change failed. Please re-enter your values and try again.</Resource>
+    <Resource tag="SECURITY_QUESTION_NEW">New Security Question:</Resource>
+    <Resource tag="SECURITY_QUESTION_OLD">Old Security Question:</Resource>
     <Resource tag="TITLE">Change Password</Resource>
+    <Resource tag="TITLE_SECURITY">Change Security Question and Answer</Resource>
   </page>
   <page name="CP_EDITALBUMIMAGES">
     <Resource tag="ALBUM_TITLE">Title</Resource>
@@ -2245,6 +2499,7 @@
     <Resource tag="ERROR_TOOBIG">You cannot upload images that big.</Resource>
     <Resource tag="IMAGES_COUNT_LIMIT">Your image limit is reached. You can add no more then {0} images.</Resource>
     <Resource tag="IMAGES_INFO">Note: Currently this Album contains {0} Image(s) you are allowed to have {1} images for each album. The max. filesize for an Image is {2} kb</Resource>
+    <Resource tag="SELECT_FILE">Select an Image File ('.jpg', '.gif', '.png' or '.bmp') you want to upload.</Resource>
     <Resource tag="TITLE">Add/Edit Album</Resource>
   </page>
   <page name="CP_EDITAVATAR">
@@ -2263,7 +2518,7 @@
     <Resource tag="OURAVATAR_SELECT">Click Here to Select an Avatar</Resource>
     <Resource tag="TITLE">Modify Avatar</Resource>
     <Resource tag="WARN_BIGFILE">The size of your image can't be more than {0} bytes.</Resource>
-    <Resource tag="WARN_File size">The size of your image was {0} bytes.</Resource>
+    <Resource tag="WARN_FILESIZE">The size of your image was {0} bytes.</Resource>
     <Resource tag="WARN_RESIZED">The image was resized to fit.</Resource>
     <Resource tag="WARN_SIZE">The size of your image was {0}x{1} pixels.</Resource>
     <Resource tag="WARN_TOOBIG">Image size can't be larger than {0}x{1} pixels.</Resource>
@@ -2294,7 +2549,8 @@
     <Resource tag="AIM">Your AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Watch every topic in which you have made a post and receive email notifications of activities in those topics?</Resource>
     <Resource tag="BAD_EMAIL">Annoit virheellisen sähköpostiosoitteen.</Resource>
-    <Resource tag="BAD_FACEBOOK">You have entered an illegal value as Facebook Profile ID.</Resource>
+    <Resource tag="BAD_FACEBOOK">You have entered an incorrect URL as Facebook Profile.</Resource>
+    <Resource tag="BAD_GOOGLE">You have entered an illegal value as Google Profile URL.</Resource>
     <Resource tag="BAD_HOME">Annoit virheellisen osoitteen kotisivuille.</Resource>
     <Resource tag="BAD_ICQ">Annoit virheellisen ICQ -numeron.</Resource>
     <Resource tag="BAD_MSN">Annoit virheellisen sähköpostiosoitteen MSN -tiliin.</Resource>
@@ -2309,8 +2565,11 @@
     <Resource tag="DUPLICATED_EMAIL">The e-mail address you have entered is already in use.</Resource>
     <Resource tag="EDIT_ALBUMS">Edit Albums</Resource>
     <Resource tag="EMAIL">Sähköpostin on aina oltava toimiva.</Resource>
-    <Resource tag="FACEBOOK">Your Facebook Profile ID:</Resource>
+    <Resource tag="FACEBOOK">Your Facebook Profile URL:</Resource>
+    <Resource tag="FIELD_TOOLONG">{0} length cannot be more than {1} characters.</Resource>
     <Resource tag="FORUM_SETTINGS">Keskustelualueen asetukset</Resource>
+    <Resource tag="GET_LOCATION">Get Location from IP Address</Resource>
+    <Resource tag="GOOGLE">Your Google Profile URL:</Resource>
     <Resource tag="HIDEME">Hide me from active users</Resource>
     <Resource tag="HOMEPAGE">Kotisivu</Resource>
     <Resource tag="HOMEPAGE2">Kotisivujen osoite:</Resource>
@@ -2336,9 +2595,7 @@
     <Resource tag="TIMEZONE2">nähdäksesi ajat oikein, tarvitsemme tietoomme aikavyöhykkeesi.</Resource>
     <Resource tag="TITLE">Muokkaa profiilia</Resource>
     <Resource tag="TWITTER">Your Twitter Name:</Resource>
-    <Resource tag="TWITTER_ID">Your Twitter Id:</Resource>
     <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
-    <Resource tag="USE_SINGLESIGNON">Did you want to Use Single Sign On?&lt;br /&gt;You need to have Set Up the Facebook Profile ID above for Facebook Login and Twitter Id + Twitter Name for Twitter Login.</Resource>
     <Resource tag="WEBLOG2">Blogisi:</Resource>
     <Resource tag="WHERE">Missä asut?</Resource>
     <Resource tag="XMPP">Your Jabber ID:</Resource>
@@ -2475,12 +2732,13 @@
     <Resource tag="MAIN_FORUM_ATOM">Main Forum Atom</Resource>
     <Resource tag="MAIN_FORUM_RSS">Main Forum RSS</Resource>
     <Resource tag="MARKALL">Merkitse kaikki alueet luetuksi</Resource>
+    <Resource tag="MARKALL_MESSAGE">All forums has been marked as read</Resource>
     <Resource tag="MODERATORS">Moderaattorit</Resource>
     <Resource tag="NO_FORUM_ACCESS">(Ei pääsyä)</Resource>
     <Resource tag="NO_POSTS">Ei viestejä</Resource>
     <Resource tag="ONDATE">on {0}</Resource>
     <Resource tag="POSTS">Viestejä</Resource>
-    <Resource tag="RECENT_ONLINE_USERS">{0} Users where online within the last 24 hours, and {1} within the last 30 days.</Resource>
+    <Resource tag="RECENT_ONLINE_USERS">{0} Users were online within the last 24 hours, and {1} within the last 30 days.</Resource>
     <Resource tag="RECENT_USERS">Recent Users</Resource>
     <Resource tag="RSSICONTOOLTIPACTIVE">Subscribe to active topics via RSS.</Resource>
     <Resource tag="RSSICONTOOLTIPFAVORITE">Subscribe to your favorite topics via RSS.</Resource>
@@ -2489,15 +2747,21 @@
     <Resource tag="STATS">Tilastotietoa</Resource>
     <Resource tag="STATS_BIRTHDAYS">Today's Birthdays: </Resource>
     <Resource tag="STATS_LASTMEMBER">Uusin jäsen on</Resource>
-    <Resource tag="STATS_LASTPOST">Viimeisin viesti on kirjoitettu {0}, lähettäjänä {1}.</Resource>
+    <Resource tag="STATS_LASTPOST">Viimeisin viesti {0} mennessä</Resource>
     <Resource tag="STATS_MEMBERS">Keskustelualueella on {0:N0} rekisteröitynyttä jäsentä.</Resource>
     <Resource tag="STATS_POSTS">Keskustelualueella on {0:N0} viestiä, {1:N0} aihetta ja {2:N0} aluetta.</Resource>
+    <Resource tag="STATS_SPAM">Anti Spam Statistics</Resource>
+    <Resource tag="STATS_SPAM_BANNED">{0} Spammers Permanently Banned</Resource>
+    <Resource tag="STATS_SPAM_DENIED">{0} Spammers Denied Registration</Resource>
+    <Resource tag="STATS_SPAM_REPORTED">{0} Spammers submitted to StopForumSpam.com</Resource>
     <Resource tag="TOPICS">Aiheita</Resource>
     <Resource tag="UNREAD0">Sinulla on {0} lukematonta yksityisviestiä.</Resource>
     <Resource tag="UNREAD1">Sinulla on {0} lukematonta yksityisviestiä.</Resource>
     <Resource tag="VIEWING">({0} lukemassa)</Resource>
     <Resource tag="VOTE_DOWN_TITLE">Remove -1 of the Users Reputation</Resource>
     <Resource tag="VOTE_UP_TITLE">Add +1 to the Users Reputation.</Resource>
+    <Resource tag="WATCHFORUM_ALL">Watch all forums</Resource>
+    <Resource tag="WATCHFORUM_ALL_HELP">Watch all forums and get Email Notifications when a new Topic is created</Resource>
   </page>
   <page name="DELETEMESSAGE">
     <Resource tag="DELETE">Delete</Resource>
@@ -3296,7 +3560,7 @@ public class Hello1
     &lt;/td&gt;
     &lt;td&gt;
     &lt;p&gt;If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content&lt;/p&gt;
-    &lt;img src="{0}resources/images/HiddenWarnDescription.png" alt="The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post" title="The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post" /&gt;   
+    &lt;img src="{0}Content/images/HiddenWarnDescription.png" alt="The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post" title="The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post" /&gt;   
     &lt;p&gt;Otherwise as Guest you see a Info Message&lt;/p&gt;
     &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;This board requires you to be registered and logged-in before you can view hidden messages.&lt;/div&gt;&lt;/div&gt;
     &lt;p&gt;If you do have access to see the Content you simply see the Hidden Content&lt;/p&gt;&lt;br /&gt;
@@ -3535,7 +3799,7 @@ Spoiler Content
       &lt;strong&gt;Output&lt;/strong&gt;
     &lt;/td&gt;
     &lt;td&gt;
-    &lt;style type="text/css"&gt;.yafnet .userLinkContainer{{background: url({0}resources/icons/user.png) #fff no-repeat 4px 50%;border: 1px solid #eee;padding: 4px 2px 4px 25px;margin: 3px;font-size: 80%;font-weight: bold;    background-color: #fff;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;}}.yafnet .userLinkContainer:hover{{border: 1px solid #ddd;background-color: #eee;}}
+    &lt;style type="text/css"&gt;.yafnet .userLinkContainer{{background: url({0}Content/icons/user.png) #fff no-repeat 4px 50%;border: 1px solid #eee;padding: 4px 2px 4px 25px;margin: 3px;font-size: 80%;font-weight: bold;    background-color: #fff;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;}}.yafnet .userLinkContainer:hover{{border: 1px solid #ddd;background-color: #eee;}}
 	&lt;/style&gt;
     &lt;span class="userLinkContainer"&gt;
 &lt;a href="{0}yaf_profile1234.aspx" rel="nofollow" title="View profile" target="_blank" id="UserLinkBBCodeFor12224" class="UserLinkBBCode"&gt;Username&lt;/a&gt;
@@ -3583,7 +3847,7 @@ Spoiler Content
 &lt;ul&gt;
   &lt;li&gt;&lt;strong&gt;Approve&lt;/strong&gt; - You Become Friend of the User who requests it &lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;Deny&lt;/strong&gt; - Reject the request&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt; Approve and Add - &lt;/strong&gt;You become Friend of the User who requests it, and also the User becomes a Body in your List.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt; Approve and Add - &lt;/strong&gt;You become Friend of the User who requests it, and also the User becomes a Friend in your List.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;Remove Friend&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;To remove a Friend from Your List go to your 'My Friends' page. On the Tab 'Friend List' Click on the Button 'Remove Friend' of the User you want to remove&lt;/p&gt;
@@ -3626,7 +3890,7 @@ Spoiler Content
 </Resource>
     <Resource tag="EDITPROFILETITLE">Editing User Profile &amp; Forum Settings</Resource>
     <Resource tag="FORUMSCONTENT">&lt;p&gt;&lt;strong&gt;What is YAF?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;YetAnotherForum.NET (YAF) is The Open Source Discussion Forum for sites running ASP.NET. 100% written in C#, YAF (pronounced like &amp;quot;laugh&amp;quot;) is a unique combination of Open Source, Microsoft's .NET platform and an international collaboration of the .NET developer community. Growing and changing daily, the YAF project is led by Jaben Cargman of Tiny Gecko. YAF runs on any web server that supports ASP.NET v2.0 (and above) and SQL Server. YAF is licensed under GPL.&lt;/p&gt;
+&lt;p&gt;YetAnotherForum.NET (YAF) is The Open Source Discussion Forum for sites running ASP.NET. 100% written in C#, YAF (pronounced like &amp;quot;laugh&amp;quot;) is a unique combination of Open Source, Microsoft's .NET platform and an international collaboration of the .NET developer community. Growing and changing daily, the YAF project is led by Ingo Herbote. YAF runs on any web server that supports ASP.NET v4.0 (and above) and SQL Server. YAF is licensed under Apache 2.0.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How is all of this structured?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;A Forum contains various areas, which themselves contain forums (more specific subject areas) which contain topics  which are made up of individual messages (where a user writes something).&lt;/p&gt;
 &lt;p&gt;The Forums home page has a list of categories and forums, with basic statistics for each, including the number of topics and messages, and which member posted the most recent message.&lt;/p&gt;
@@ -3974,49 +4238,61 @@ Spoiler Content
     <Resource tag="MODERATED">Koska kirjoitit viestin moderoidulle alueelle, moderaattorin pitää hyväksyä viestisi ennen kuin se tulee näkyväksi.</Resource>
     <Resource tag="REGISTRATION">An email has been sent to the email address you supplied. Please read the instructions in the email to log in.</Resource>
     <Resource tag="SUSPENDED">Tilisi on väliaikaisesti jäähyllä. Jäähy päättyy {0}.</Resource>
+    <Resource tag="SUSPENDED_REASON">&lt;br /&gt;&lt;br /&gt;For the following Reason: "{0}".</Resource>
     <Resource tag="TITLE_ACCESSDENIED">Access Denied</Resource>
     <Resource tag="TITLE_COOKIES">Requires cookies</Resource>
     <Resource tag="TITLE_ECMAREQUIRED">JavaScript required</Resource>
     <Resource tag="TITLE_ECMAVERSION">JavaScript version</Resource>
     <Resource tag="TITLE_EXCEPTION">Information</Resource>
     <Resource tag="TITLE_FAILURE">Failure</Resource>
-    <Resource tag="TITLE_HOSTADMINPERMISSIONSREQUIRED">Host Admin permissions reqired!</Resource>
+    <Resource tag="TITLE_HOSTADMINPERMISSIONSREQUIRED">Host Admin permissions required!</Resource>
     <Resource tag="TITLE_INVALID">Invalid</Resource>
     <Resource tag="TITLE_MODERATED">Information</Resource>
     <Resource tag="TITLE_REGISTRATION">Thanks</Resource>
     <Resource tag="TITLE_SUSPENDED">Suspended</Resource>
   </page>
-  <page name="IRKOO">
-    <Resource tag="MIN_VOTE_DOWN">Vote Down requires %min_rating% reputation</Resource>
-    <Resource tag="MIN_VOTE_UP">Vote Up requires %min_rating% reputation</Resource>
-    <Resource tag="NOT_AUTHORIZED">Please login to vote</Resource>
-    <Resource tag="SELF">You cannot vote for your message</Resource>
-    <Resource tag="USER_REPUTATION">Users Reputation</Resource>
-    <Resource tag="VOTE_DOWN">Vote Down</Resource>
-    <Resource tag="VOTE_UP">Vote Up</Resource>
-  </page>
   <page name="LANGUAGE">
     <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>
   </page>
   <page name="LOGIN">
+    <Resource tag="AUTH_CONNECT">Login or Register with {0}</Resource>
+    <Resource tag="AUTH_CONNECT_ACCOUNT">Connect an Existing forums account with your {0} account You need to login thru the forums first. {1}</Resource>
+    <Resource tag="AUTH_CONNECT_FACEBOOK">&lt;strong&gt;The Facebook email address must match the forum user email address to connect the user.&lt;/strong&gt;</Resource>
+    <Resource tag="AUTH_CONNECT_GOOGLE">&lt;strong&gt;The Google email address must match the forum user email address to connect the user.&lt;/strong&gt;</Resource>
+    <Resource tag="AUTH_CONNECT_HELP">Login or Register with {0} or connect an existing User Account with {0}.</Resource>
+    <Resource tag="AUTH_CONNECT_TWITTER">&lt;strong&gt;The Twitter user name must match the forum user name to connect the user.&lt;/strong&gt;</Resource>
+    <Resource tag="AUTH_LOGIN_EXISTING">Login with an user Account that is connected with {0}. Or if no account is found a new account will be automatically created in the forums.</Resource>
+    <Resource tag="AUTH_NO_ACCESS_TOKEN">Could not get access_token!</Resource>
     <Resource tag="AUTO">Kirjaudu automaattisesti:</Resource>
     <Resource tag="BOTH_USERNAME_EMAIL">Sekä käyttäjätunnus että sähköpostiosoite pitää antaa.</Resource>
+    <Resource tag="CAPS_LOCK">Caps Lock is on</Resource>
+    <Resource tag="CONNECT_VIA">Or Connect via</Resource>
     <Resource tag="EMAIL">Sähköpostiosoite</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">Sähköpostiisi on lähetetty uusi salasana.</Resource>
     <Resource tag="FACEBOOK_LOGIN">Login with Facebook</Resource>
     <Resource tag="FORUM_LOGIN">Kirjaudu</Resource>
+    <Resource tag="GOOGLE_LOGIN">Login with Google</Resource>
     <Resource tag="LOSTPASSWORD">Hukkunut salasana</Resource>
     <Resource tag="PASSWORD">Salasana:</Resource>
     <Resource tag="PASSWORD_ERROR">Käyttäjätunnus tai salasana on virheellinen. Yritä uudestaan.</Resource>
     <Resource tag="RECOVER">Hukkunut salasana</Resource>
     <Resource tag="RECOVER_ERROR">Uuden salasanan luonnin yhteydessä tapahtui virhe.</Resource>
+    <Resource tag="REGISTER_INSTEAD">Register Instead as new User</Resource>
     <Resource tag="SENDPASSWORD">Lähetä salasana</Resource>
     <Resource tag="SSO_DEACTIVATED">Single Sign On is currently deactivated by the Administrator!</Resource>
     <Resource tag="SSO_DEACTIVATED_BYUSER">Single Sign On is deactivated for that User, you need to activate it in your Profile Settings to use that feature.</Resource>
-    <Resource tag="SSO_FAILED">The Facebook Login failed, a User with that Email Address doesn't  exists.</Resource>
-    <Resource tag="SSO_ID_NOTMATCH">The Facebook User ID does not match!</Resource>
+    <Resource tag="SSO_FACEBOOK_FAILED">The Facebook Login failed, User does not exists, or the account is not connected.</Resource>
+    <Resource tag="SSO_FACEBOOK_FAILED2">The Facebook Login failed, an user account with the same email address as the facebook account already exists, please try to connect you your forum account instead.</Resource>
+    <Resource tag="SSO_FACEBOOK_FAILED3">The Facebook Login failed, because the user does not provide a email address for the account.</Resource>
+    <Resource tag="SSO_FACEBOOKNAME_NOTMATCH">The Facebook email address must match the Forum email adress!</Resource>
+    <Resource tag="SSO_FAILED">New Registrations are disabled.</Resource>
+    <Resource tag="SSO_GOOGLE_FAILED">The Google Login failed, User does not exists, or the account is not connected.</Resource>
+    <Resource tag="SSO_GOOGLE_FAILED2">The Google Login failed, an user account with the same email address as the Google account already exists, please try to connect you your forum account instead.</Resource>
+    <Resource tag="SSO_GOOGLENAME_NOTMATCH">The Google email address must match the Forum email adress!</Resource>
+    <Resource tag="SSO_ID_NOTMATCH">The User Account is not connected or not found</Resource>
     <Resource tag="SSO_TWITTER_FAILED">The Twitter Login failed, User does not exists.</Resource>
-    <Resource tag="SSO_TWITTERID_NOTMATCH">The Twitter ID and Twitter Name does not match!</Resource>
+    <Resource tag="SSO_TWITTER_FAILED2">The Twitter Login failed, an user account with the same user name as the Twitter account already exists, please try to connect you your forum account instead.</Resource>
+    <Resource tag="SSO_TWITTERNAME_NOTMATCH">The Twitter User Name must match the Forum Username!</Resource>
     <Resource tag="TITLE">Kirjaudu</Resource>
     <Resource tag="TWITTER_DM">You have received further Information to your new Account as Private Message on the Forum.</Resource>
     <Resource tag="TWITTER_DM_ACCOUNT">Your {0} Forum Account Information: Username "{1}" Password "{2}"</Resource>
@@ -4045,14 +4321,27 @@ Spoiler Content
     <Resource tag="USERNAME">Käyttäjätunnus</Resource>
   </page>
   <page name="MESSAGEHISTORY">
+    <Resource tag="COMPARE_TITLE">Message Edit History Post Comparsion</Resource>
+    <Resource tag="COMPARE_VERSIONS">Compare versions</Resource>
+    <Resource tag="CONFIRM_RESTORE">Are you really want to restore that Message version?</Resource>
     <Resource tag="CURRENTMESSAGE">Current edition</Resource>
     <Resource tag="EDITED">Edited:</Resource>
     <Resource tag="EDITEDBY">Edited by:</Resource>
+    <Resource tag="EDITEDBY_MOD">Edited By an Moderator</Resource>
     <Resource tag="EDITEREASON">Edit reason:</Resource>
     <Resource tag="GOMODERATE">Continue moderate</Resource>
     <Resource tag="HISTORYSTART">History editions</Resource>
+    <Resource tag="MESSAGE_EDITEDAT">Message Edited at </Resource>
+    <Resource tag="MESSAGE_RESTORED">Message was successfully restored!</Resource>
+    <Resource tag="NEW">New</Resource>
+    <Resource tag="NOTHING_SELECTED">Nothing selected</Resource>
+    <Resource tag="OLD">Old</Resource>
     <Resource tag="ORIGINALMESSAGE">Original edition</Resource>
     <Resource tag="POSTED">Posted:</Resource>
+    <Resource tag="RESTORE_MESSAGE">Restore Version</Resource>
+    <Resource tag="SELECT_BOTH">Please select one old and one new Message</Resource>
+    <Resource tag="SELECT_DIFFERENT">You must select two different versions to make a valid comparison.</Resource>
+    <Resource tag="TEXT_CHANGES">Text Changes</Resource>
     <Resource tag="TITLE">Message History</Resource>
     <Resource tag="TOMESSAGE">Go to message</Resource>
   </page>
@@ -4077,8 +4366,11 @@ Spoiler Content
     <Resource tag="LASTPOST">Viimeisin viesti</Resource>
     <Resource tag="MEMBERS">Käyttäjät</Resource>
     <Resource tag="MODERATEINDEX_TITLE">Moderate Reported Posts and Not Approved Posts</Resource>
+    <Resource tag="MOVE_TO_DIFFERENT">The forum you want to move the topic(s) must be different then the current forum.</Resource>
+    <Resource tag="MOVED">Topic(s) Moved</Resource>
     <Resource tag="NO_POSTS">Ei viestejä</Resource>
     <Resource tag="NOMODERATION">Currently there are no Posts that need approval. And there are also no Posts that were reported.</Resource>
+    <Resource tag="NOTHING">You need to select atleast one topic</Resource>
     <Resource tag="REMOVE">Poista</Resource>
     <Resource tag="REPLIES">Vastauksia</Resource>
     <Resource tag="TITLE">Moderointi</Resource>
@@ -4258,6 +4550,8 @@ Spoiler Content
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">Ilmoitus</Resource>
     <Resource tag="ASK_POLL_DELETE">Do you really want to remove poll from this topic?</Resource>
+    <Resource tag="BLOG_PASSWORD">Blog Password:</Resource>
+    <Resource tag="BLOG_POST">Post to blog?</Resource>
     <Resource tag="CANCEL_TITLE">Cancel Message editing/creating</Resource>
     <Resource tag="DESCRIPTION">Description:</Resource>
     <Resource tag="EDIT">Muokkaa viestiä</Resource>
@@ -4282,8 +4576,6 @@ Spoiler Content
     <Resource tag="REPLY">Vastaa aiheeseen</Resource>
     <Resource tag="SAVE">Lähetä</Resource>
     <Resource tag="SAVE_TITLE">Post/Edit the Message</Resource>
-    <Resource tag="SMILIES_HEADER">[b]Lisää hymiö[/b]</Resource>
-    <Resource tag="SMILIES_MORE">More Smilies...</Resource>
     <Resource tag="SPAM_MESSAGE">Your Message was rejected because it was detected as SPAM!</Resource>
     <Resource tag="STATUS">Status:</Resource>
     <Resource tag="STICKY">Tiedote</Resource>
@@ -4331,6 +4623,9 @@ Spoiler Content
     <Resource tag="FACEBOOK_TITLE">Visit {0}'s Facebook Profile</Resource>
     <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
     <Resource tag="FORUM_JUMP">Siirry alueelle </Resource>
+    <Resource tag="GO_TO_ANSWER">Go to the topic answer</Resource>
+    <Resource tag="GOOGLE">Google+</Resource>
+    <Resource tag="GOOGLE_TITLE">Visit {0}'s Google+ Profile</Resource>
     <Resource tag="GOOGLEPLUS_TOPIC">Share Topic on Google+</Resource>
     <Resource tag="GROUPS">Ryhmät</Resource>
     <Resource tag="HOME">WWW</Resource>
@@ -4353,6 +4648,14 @@ Spoiler Content
     <Resource tag="LINKBACK_TOPIC">LinkBack Topic URL</Resource>
     <Resource tag="LINKBACK_TOPIC_PROMT">Use the URL below if you want to LinkBack the topic URL on another website.</Resource>
     <Resource tag="LOCATION">Paikka</Resource>
+    <Resource tag="MANAGE_POST">Manage Message</Resource>
+    <Resource tag="MANAGE_TOPIC">Manage Topic</Resource>
+    <Resource tag="MARK_ANSWER">Mark As Answer</Resource>
+    <Resource tag="MARK_ANSWER_REMOVE">Remove As Answer</Resource>
+    <Resource tag="MARK_ANSWER_REMOVE_TITLE">Unmark this Message as answer</Resource>
+    <Resource tag="MARK_ANSWER_TITLE">Mark this Message as answer</Resource>
+    <Resource tag="MESSAGE_ANSWER">Answer</Resource>
+    <Resource tag="MESSAGE_ANSWER_HELP">Marked as answer</Resource>
     <Resource tag="MESSAGEDELETED_MOD">Message was deleted by Moderator.</Resource>
     <Resource tag="MESSAGEDELETED_USER">Message was deleted by User.</Resource>
     <Resource tag="MSN">MSN</Resource>
@@ -4374,6 +4677,7 @@ Spoiler Content
     <Resource tag="QUICKREPLY">Quick Reply</Resource>
     <Resource tag="QUICKREPLY_HIDE">Hide Quick Reply</Resource>
     <Resource tag="QUICKREPLY_SHOW">Show Quick Reply</Resource>
+    <Resource tag="QUOTE_SELECTED">Quote Selected Message</Resource>
     <Resource tag="RANK">Taso</Resource>
     <Resource tag="REDDIT_TOPIC">Reddit this Topic</Resource>
     <Resource tag="REP_VOTE_DOWN_MSG">You have successfully removed -1 Reputation to {0}.</Resource>
@@ -4387,6 +4691,7 @@ Spoiler Content
     <Resource tag="RSSTOPIC">RSS -syöte</Resource>
     <Resource tag="SHARE">Share</Resource>
     <Resource tag="SHARE_TOOLTIP">Share this Topic via Email, Twitter, Google+, Facebook, Digg, Reddit or Tumblr.</Resource>
+    <Resource tag="SIMILAR_TOPICS">Similar Topics</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
     <Resource tag="SKYPE_TITLE">Contact {0} via Skype</Resource>
     <Resource tag="STATISTICS">Tietoa</Resource>
@@ -4406,7 +4711,10 @@ Spoiler Content
     <Resource tag="TOGGLEPOST">Show/Hide Post</Resource>
     <Resource tag="TOGGLEUSERPOSTS_HIDE">Hide User Posts</Resource>
     <Resource tag="TOGGLEUSERPOSTS_SHOW">Show User Posts</Resource>
+    <Resource tag="TOOLS">Tools</Resource>
     <Resource tag="TOP">Takaisin ylös</Resource>
+    <Resource tag="TOPIC_STARTER">Topic Starter</Resource>
+    <Resource tag="TOPIC_STARTER_HELP">Indicates that this user has started this topic</Resource>
     <Resource tag="TOPICBROWSERS">Käyttäjät lukemassa tätä aihetta</Resource>
     <Resource tag="TOTAL">Total</Resource>
     <Resource tag="TUMBLR_TOPIC">Share on Tumblr</Resource>
@@ -4455,10 +4763,12 @@ Spoiler Content
     <Resource tag="ERROR_FORUMMODERATORS">Et voi laittaa moderaattoria jäähylle.</Resource>
     <Resource tag="ERROR_GUESTACCOUNT">Et voi laittaa vieras-tiliä jäähylle.</Resource>
     <Resource tag="FACEBOOK">Facebook Profile:</Resource>
+    <Resource tag="FORUM_ACCESS">Forum Access</Resource>
     <Resource tag="GENDER">Sukupuoli:</Resource>
     <Resource tag="GENDER0">Määrittelemätön</Resource>
     <Resource tag="GENDER1">Mies</Resource>
     <Resource tag="GENDER2">Nainen</Resource>
+    <Resource tag="GOOGLE">Google+ Profile:</Resource>
     <Resource tag="GROUPS">Ryhmät:</Resource>
     <Resource tag="HOURS">tuntia</Resource>
     <Resource tag="ICQ">ICQ-numero:</Resource>
@@ -4486,8 +4796,14 @@ Spoiler Content
     <Resource tag="REPUTATION_RECEIVED">Numer of Reputation received from other users</Resource>
     <Resource tag="SEARCHUSER">View All Posts by User</Resource>
     <Resource tag="SKYPE">Skype(tm) ID:</Resource>
+    <Resource tag="SOCIAL_MEDIA">Social Media</Resource>
     <Resource tag="STATISTICS">Tilastotietoa</Resource>
     <Resource tag="SUSPEND">Laita jäähylle</Resource>
+    <Resource tag="SUSPEND_BY">Suspended By:</Resource>
+    <Resource tag="SUSPEND_CURRENT">Current Suspension</Resource>
+    <Resource tag="SUSPEND_INFO">&lt;strong&gt;NOTE&lt;/strong&gt; The Suspension is based on the Users current Date and Time which is Now: {0}.</Resource>
+    <Resource tag="SUSPEND_NEW">New Suspension</Resource>
+    <Resource tag="SUSPEND_REASON">Suspend Reason:</Resource>
     <Resource tag="SUSPEND_USER">Suspend User:</Resource>
     <Resource tag="THANKSFROM">Number of thanks</Resource>
     <Resource tag="THANKSTOPOSTS">Number of posts for which this user was thanked</Resource>
@@ -4624,6 +4940,8 @@ Spoiler Content
     <Resource tag="ALREADY_REGISTERED_DISPLAYNAME">Your display name is already registered.</Resource>
     <Resource tag="BAD_EMAIL">Syötit virheellisen sähköpostiosoitteen.</Resource>
     <Resource tag="BAD_PASSWORD">Please pick a more complex password that includes punctuation (!?) or numbers.</Resource>
+    <Resource tag="BASIC_ACCOUNT">Account</Resource>
+    <Resource tag="BOT_MESSAGE">Sorry Spammers are not allowed in the Forum!</Resource>
     <Resource tag="CONFIRM_PASSWORD">Confirm Password</Resource>
     <Resource tag="CONTINUE">Continue</Resource>
     <Resource tag="CREATE_USER">Create User</Resource>
@@ -4637,6 +4955,7 @@ Spoiler Content
     <Resource tag="INVALID_QUESTION">Please pick a different question.</Resource>
     <Resource tag="INVALID_USERNAME">Please pick a different username.</Resource>
     <Resource tag="LOCATION">Paikka</Resource>
+    <Resource tag="LOGIN_INSTEAD">Already Signed Up? Click Sign In to login your account.</Resource>
     <Resource tag="NEED_ANSWER">Security answer is required.</Resource>
     <Resource tag="NEED_DISPLAYNAME">Display Name is required.</Resource>
     <Resource tag="NEED_EMAIL">E-mail is required.</Resource>
@@ -4645,19 +4964,26 @@ Spoiler Content
     <Resource tag="NEED_QUESTION">Security question is required.</Resource>
     <Resource tag="NEED_USERNAME">Käyttäjätunnus on pakollinen.</Resource>
     <Resource tag="PASSWORD">Salasana</Resource>
+    <Resource tag="PASSWORD_GOOD">Good Password!</Resource>
+    <Resource tag="PASSWORD_MIN">Password must be {0} characters long.</Resource>
+    <Resource tag="PASSWORD_NOTMATCH">Password and Confirm Password do not match!</Resource>
     <Resource tag="PASSWORD_REQUIREMENTS_TITLE">Password Requirements</Resource>
     <Resource tag="PASSWORD_REQUIREMENTS_WARN">{0} min length. {1} minimum non-alphanumeric characters ($#@!).</Resource>
+    <Resource tag="PASSWORD_STRONGER">Make your password stronger with more capital letters, more numbers and special characters!</Resource>
+    <Resource tag="PASSWORD_WEAK">Weak Password, try using numbers and capital letters.</Resource>
     <Resource tag="PREFERENCES">Forumin asetukset</Resource>
     <Resource tag="PROFILE">Profiilin tiedot</Resource>
     <Resource tag="RECAPTCHA_BADSETTING">Recapture settings are bad. Report it to administration.</Resource>
     <Resource tag="RECATCHA_BADWORDS">You are wrong! Try again.</Resource>
     <Resource tag="REGISTER">Rekisteröidy</Resource>
+    <Resource tag="REGISTER_AUTH">Register with {0}</Resource>
     <Resource tag="RETYPE_PASSWORD">Varmista salasana</Resource>
     <Resource tag="SECURITY_ANSWER">Security Answer</Resource>
     <Resource tag="SECURITY_QUESTION">Security Question</Resource>
     <Resource tag="TERMS_AND_CONDITIONS_TITLE">Terms and Conditions</Resource>
     <Resource tag="TIMEZONE">Aikavyöhyke</Resource>
     <Resource tag="TITLE">Rekisteröi uusi käyttäjä</Resource>
+    <Resource tag="TITLE2">Register a new account</Resource>
     <Resource tag="USERNAME">Käyttäjätunnus</Resource>
     <Resource tag="USERNAME_LENGTH_WARN">User name should not contain more than {0} characters.</Resource>
     <Resource tag="VERIFICATION_EMAIL_SUBJECT">Registration Verification for {0} Forum</Resource>
@@ -4706,17 +5032,164 @@ Spoiler Content
     <Resource tag="ACCEPT">I agree to these Rules and Policies</Resource>
     <Resource tag="DECLINE">I do not agree to these Rules and Policies</Resource>
     <Resource tag="RULES_TEXT">
-      [size=5]It is impossible for owners and operators of this forum to confirm the validity of all posts on this forum. Posts reflect the views and opinion of the author, but not necessarily of the forum owners and operators. If you feel that a posted message is questionable, you are encouraged to notify an administrator of this forum immediately.
+      [size=7][b]Rules[/b][/size][br]
+      It is impossible for owners and operators of this forum to confirm the validity of all posts on this forum. Posts reflect the views and opinion of the author, but not necessarily of the forum owners and operators. If you feel that a posted message is questionable, you are encouraged to notify an administrator of this forum immediately.
 
-      You agree not to post any abusive, vulgar, obscene, hateful, slanderous, threatening, sexually-oriented or any other material that may violate any applicable laws. Doing so may lead to you being permanently banned from this forum. Note that all IP addresses are logged and may aid in enforcing these conditions.
+      [br]You agree not to post any abusive, vulgar, obscene, hateful, slanderous, threatening, sexually-oriented or any other material that may violate any applicable laws. Doing so may lead to you being permanently banned from this forum. Note that all IP addresses are logged and may aid in enforcing these conditions.
 
-      You agree that the owners and operators of this forum have the right to remove, edit, move or close any topic at any time should they see fit. As a user you agree to any information you have entered above being stored in a database. While this information will not be disclosed to any third party without your consent the owners and operators cannot	be held responsible for any hacking attempt that may lead to the data being compromised.
+      [br]You agree that the owners and operators of this forum have the right to remove, edit, move or close any topic at any time should they see fit. As a user you agree to any information you have entered above being stored in a database. While this information will not be disclosed to any third party without your consent the owners and operators cannot be held responsible for any hacking attempt that may lead to the data being compromised.
 
-      This forum system uses cookies to store information on your local computer. These cookies do not contain any of the information	you have entered above; they serve only to improve your viewing pleasure. The e-mail address is used only for confirming your	registration details and password (and for sending new passwords should you forget your current one).
+      [br]You agree not to use any automated tools for registering and/or posting on this bulletin board. By failing to obey this rule you would be granting us permission to repeatedly query your web server.
 
-      You agree not to use any automated tools for registering and/or posting on this bulletin board. By failing to obey this rule you would be granting us permission to repeatedly query your web server.[/size]
+      [br][size=7][b]Privacy Policy[/b][/size][br]
 
-      [center][size=6][b]By clicking "Agree" below you will to be bound by the terms and conditions for using this forum.[/b][/size][/center]
+      [br][size=6][b]1. An overview of data protection[/b][/size][br]
+
+      [br][size=5][b]General information[/b][/size][br]
+      The following information will provide you with an easy to navigate overview of what will happen with your personal data when you visit our website. The term “personal data” comprises all data that can be used to personally identify you. For detailed information about the subject matter of data protection, please consult our Data Protection Declaration, which we have included beneath this copy.
+
+      [br][size=5][b]Data recording on our website[/b][/size][br]
+
+      [br][b]Who is the responsible party for the recording of data on this website (i.e. the “controller”)?[/b][br]
+
+      [br]The data on this website is processed by the operator of the website, whose contact information is available under section “Information about the responsible party” on this website.
+
+      [br][b]How do we record your data?[/b][br]
+
+      [br]We collect your data as a result of your sharing of your data with us. This may, for instance be information you enter into our contact form.
+
+      [br]Our IT systems automatically record other data when you visit our website. This data comprises primarily technical information (e.g. web browser, operating system or time the site was accessed). This information is recorded automatically when you access our website.
+
+      [br][b]What are the purposes we use your data for?[/b][br]
+
+      [br]A portion of the information is generated to guarantee the error free provision of the website. Other data may be used to analyse your user patterns.
+
+      [br][b]What rights do you have as far as your information is concerned?[/b][br]
+
+      [br]You have the right to receive information about the source, recipients and purposes of your archived personal data at any time without having to pay a fee for such disclosures. You also have the right to demand that your data are rectified, blocked or eradicated. Please do not hesitate to contact us at any time under the address disclosed in section “Information about the responsible party” on this website if you have questions about this or any other data protection related issues. You also have the right to log a complaint with the competent supervising agency.
+
+      [br][br]
+
+      [br]Moreover, under certain circumstances, you have the right to demand the restriction of the processing of your personal data. For details, please consult the Data Protection Declaration under section “Right to demand processing restrictions.”
+
+      [br][size=6][b]2. General information and mandatory information[/b][/size][br]
+      [br][size=5][b]Data protection[/b][/size][br]
+      [br]The operators of this website and its pages take the protection of your personal data very seriously. Hence, we handle your personal data as confidential information and in compliance with the statutory data protection regulations and this Data Protection Declaration.
+
+      [br]Whenever you use this website, a variety of personal information will be collected. Personal data comprises data that can be used to personally identify you. This Data Protection Declaration explains which data we collect as well as the purposes we use this data for. It also explains how, and for which purpose the information is collected.
+
+      [br]We herewith advise you that the transmission of data via the Internet (i.e. through e-mail communications) may be prone to security gaps. It is not possible to completely protect data against third party access.
+
+      [br][size=5][b]Information about the responsible party (referred to as the “controller” in the GDPR)[/b][/size][br]
+      [br]The data processing controller on this website is:
+
+
+      [br][br]
+      {0}
+      [br][br]
+
+      [br]The controller is the natural person or legal entity that single-handedly or jointly with others makes decisions as to the purposes of and resources for the processing of personal data (e.g. names, e-mail addresses, etc.).
+
+      [br][size=5][b]Revocation of your consent to the processing of data[/b][/size][br]
+      [br]A wide range of data processing transactions are possible only subject to your express consent. You can also revoke at any time any consent you have already given us. To do so, all you are required to do is sent us an informal notification via e-mail. This shall be without prejudice to the lawfulness of any data collection that occurred prior to your revocation.
+
+      [br][size=5][b]Right to object to the collection of data in special cases; right to object to direct advertising (Art. 21 GDPR)[/b][/size][br]
+
+      [br][b]In the event that data are processed on the basis of Art. 6 Sect. 1 lit. e or f GDPR, you have the right to at any time object to the processing of your personal data based on grounds arising from your unique situation. This also applies to any profiling based on these provisions. To determine the legal basis, on which any processing of data is based, please consult this Data Protection Declaration. If you log an objection, we will no longer process your affected personal data, unless we are in a position to present compelling protection worthy grounds for the processing of your data, that outweigh your interests, rights and freedoms or if the purpose of the processing is the claiming, exercising or defence of legal entitlements (objection pursuant to Art. 21 Sect. 1 GDPR).[/b]
+      [/b]
+
+
+      [br][b]If your personal data is being processed in order to engage in direct advertising, you have the right to at any time object to the processing of your affected personal data for the purposes of such advertising. This also applies to profiling to the extent that it is affiliated with such direct advertising. If you object, your personal data will subsequently no longer be used for direct advertising purposes (objection pursuant to Art. 21 Sect. 2 GDPR).[/b]
+
+      [br][size=5][b]Right to log a complaint with the competent supervisory agency[/b][/size][br]
+      [br]In the event of violations of the GDPR, data subjects are entitled to log a complaint with a supervisory agency, in particular in the member state where they usually maintain their domicile, place of work or at the place where the alleged violation occurred. The right to log a complaint is in effect regardless of any other administrative or court proceedings available as legal recourses.
+
+      [br][size=5][b]Right to data portability[/b][/size][br]
+      [br]You have the right to demand that we hand over any data we automatically process on the basis of your consent or in order to fulfil a contract be handed over to you or a third party in a commonly used, machine readable format. If you should demand the direct transfer of the data to another controller, this will be done only if it is technically feasible.
+
+      [br][size=5][b]Information about, blockage, rectification and eradication of data[/b][/size][br]
+      [br]Within the scope of the applicable statutory provisions, you have the right to at any time demand information about your archived personal data, their source and recipients as well as the purpose of the processing of your data. You may also have a right to have your data rectified, blocked or eradicated. If you have questions about this subject matter or any other questions about personal data, please do not hesitate to contact us at any time at the address provided in section “Information about the responsible party”.
+
+      [br][size=5][b]Right to demand processing restrictions[/b][/size][br]
+      [br]You have the right to demand the imposition of restrictions as far as the processing of your personal data is concerned. To do so, you may contact us at any time at the address provided in section “Information about the responsible party”. The right to demand restriction of processing applies in the following cases:
+
+      [list]
+      [*]In the event that you should dispute the correctness of your data archived by us, we will usually need some time to verify this claim. During the time that this investigation is ongoing, you have the right to demand that we restrict the processing of your personal data.
+      [*]If the processing of your personal data was/is conducted in an unlawful manner, you have the option to demand the restriction of the processing of your data in lieu of demanding the eradication of this data.
+      [*]If we do not need your personal data any longer and you need it to exercise, defend or claim legal entitlements, you have the right to demand the restriction of the processing of your personal data instead of its eradication.
+      [*]If you have raised an objection pursuant to Art. 21 Sect. 1 GDPR, your rights and our rights will have to be weighed against each other. As long as it has not been determined whose interests prevail, you have the right to demand a restriction of the processing of your personal data.
+      [/list]
+
+      [br]If you have restricted the processing of your personal data, these data – with the exception of their archiving – may be processed only subject to your consent or to claim, exercise or defend legal entitlements or to protect the rights of other natural persons or legal entities or for important public interest reasons cited by the European Union or a member state of the EU.
+
+      [br][size=6][b]3. Recording of data on our website[/b][/size][br]
+
+      [br][size=5][b]Cookies[/b][/size][br]
+      [br]In some instances, our website and its pages use so-called cookies. Cookies do not cause any damage to your computer and do not contain viruses. The purpose of cookies is to make our website more user friendly, effective and more secure. Cookies are small text files that are placed on your computer and stored by your browser.
+      [br]
+
+      [br]Most of the cookies we use are so-called “session cookies.” They are automatically deleted after your leave our site. Other cookies will remain archived on your device until you delete them. These cookies enable us to recognise your browser the next time you visit our website.
+      [br]
+
+      [br]You can adjust the settings of your browser to make sure that you are notified every time cookies are placed and to enable you to accept cookies only in specific cases or to exclude the acceptance of cookies for specific situations or in general and to activate the automatic deletion of cookies when you close your browser. If you deactivate cookies, the functions of this website may be limited.
+
+      [br]
+      [br]Cookies that are required for the performance of the electronic communications transaction or to provide certain functions you want to use (e.g. the shopping cart function), are stored on the basis of Art. 6 Sect. 1 lit. f GDPR. The website operator has a legitimate interest in storing cookies to ensure the technically error free and optimised provision of the operator’s services. If other cookies (e.g. cookies for the analysis of your browsing patterns) should be stored, they are addressed separately in this Data Protection Declaration.
+
+      [br][size=5][b]Server log files[/b][/size][br]
+      [br]The provider of this website and its pages automatically collects and stores information in so-called server log files, which your browser communicates to us automatically. The information comprises:
+
+      [list]
+      [*]The type and version of browser used
+      [*]The used operating system
+      [*]Referrer URL
+      [*]The hostname of the accessing computer
+      [*]The time of the server inquiry
+      [*]The IP address
+      [/list]
+
+      [br]This data is not merged with other data sources.
+      [br]
+
+      [br]This data is recorded on the basis of Art. 6 Sect. 1 lit. f GDPR. The operator of the website has a legitimate interest in the technically error free depiction and the optimization of the operator’s website. In order to achieve this, server log files must be recorded.
+
+      [br][size=5][b]Registration on this board[/b][/size][br]
+      [br]You have the option to register on our website to be able to use additional website functions. We shall use the data you enter only for the purpose of using the respective offer or service you have registered for. The required information we request at the time of registration must be entered in full. Otherwise we shall reject the registration.
+      [br]
+
+      [br]To notify you of any important changes to the scope of our portfolio or in the event of technical modifications, we shall use the e-mail address provided during the registration process.
+
+      [br]The basis for the processing of data is Art. 6 Sect. 1 lit. b GDPR, which permits the processing of data for the fulfilment of a contract or for pre-contractual actions.
+
+      [br]The data recorded during the registration process shall be stored by us as long as you are registered on our website. Subsequently, such data shall be deleted. This shall be without prejudice to mandatory statutory retention obligations.
+
+      [br][size=6][b]4. Plug-ins and Tools[/b][/size][br]
+      [br][size=5][b]Google reCAPTCHA[/b][/size][br]
+      [br]We use “Google reCAPTCHA” (hereinafter referred to as “reCAPTCHA”) on our websites. The provider is Google Inc., 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA (“Google”).
+
+      [br]
+      [br]The purpose of reCAPTCHA is to determine whether data entered on our websites (e.g. information entered into a contact form) is being provided by a human user or by an automated program. To determine this, reCAPTCHA analyses the behaviour of the website visitors based on a variety of parameters. This analysis is triggered automatically as soon as the website visitor enters the site. For this analysis, reCAPTCHA evaluates a variety of data (e.g. IP address, time the website visitor spent on the site or cursor movements initiated by the user). The data tracked during such analyses are forwarded to Google.
+      [br]
+      [br]reCAPTCHA analyses run entirely in the background. Website visitors are not alerted that an analysis is underway.
+      [br]
+      [br]The data is processed on the basis of Art. 6 Sect. 1 lit. f GDPR. It is in the website operators legitimate interest, to protect the operator’s web content against misuse by automated industrial espionage systems and against SPAM.
+      [br]
+      [br]For more information about Google reCAPTCHA and to review the Data Privacy Declaration of Google, please follow these link: [url]https://policies.google.com/privacy?hl=en[/url].
+
+      [br][size=5][b]BlogSpam.net[/b][/size][br]
+      [br]This Service if enabled sends the user name and message to the service to determine if the message is spam.
+
+      [br][size=5][b]Akismet[/b][/size][br]
+      [br]This Service, if enabled sends the user name and message to the service to determine if the message is spam.
+      [br][url=https://automattic.com/privacy/]Privacy Policy[/url].
+
+      [br][size=5][b]StopForumSpam[/b][/size][br]
+      [br]This Service, if enabled passes the user name, email address and IP address of the registering member to the service to determine the likelihood a registering account is a spam source.
+      [br][url=https://www.stopforumspam.com/gdpr]Privacy Policy[/url].
+
+      [br][size=5][b]BotScout[/b][/size][br]
+      [br]This Service, if enabled passes the user name, email address and IP address of the registering member to the service to determine the likelihood a registering account is a spam source.
+      [br][url=http://botscout.com/w3c/]Privacy Policy[/url].
     </Resource>
     <Resource tag="TITLE">Forum Rules and Policies</Resource>
   </page>
@@ -4725,11 +5198,13 @@ Spoiler Content
     <Resource tag="BTNSEARCH">Etsi</Resource>
     <Resource tag="BTNSEARCH_EXTERNAL">Search {0}</Resource>
     <Resource tag="BY">kirjoittaja</Resource>
+    <Resource tag="KEYWORDS">Keyword(s)</Resource>
     <Resource tag="LOADING_SEARCH">Loading Search Results...</Resource>
     <Resource tag="MATCH_ALL">täsmäämällä kaikki sanat</Resource>
     <Resource tag="MATCH_ANY">millä tahansa hakusanalla</Resource>
     <Resource tag="MATCH_EXACT">täsmälleen annetulla hakusanalla</Resource>
     <Resource tag="NO_SEARCH_RESULTS">[b]Haulla ei löytynyt yhtään viestiä.[/b]</Resource>
+    <Resource tag="POST_AND_TITLE">Search Entire Posts</Resource>
     <Resource tag="POSTED">Lähetetty:</Resource>
     <Resource tag="POSTEDBY">hae käyttäjän viestejä</Resource>
     <Resource tag="POSTS">hae viesteistä</Resource>
@@ -4740,7 +5215,12 @@ Spoiler Content
     <Resource tag="RESULTS">Tulokset</Resource>
     <Resource tag="SEARCH_CRITERIA_ERROR_MAX">Search texts must be less than {0} character long and compliant with forum rules for search (see forum FAQ for more info).</Resource>
     <Resource tag="SEARCH_CRITERIA_ERROR_MIN">Search texts must be at least {0} character long and compliant with forum rules for search (see forum FAQ for more info).</Resource>
+    <Resource tag="SEARCH_IN">Search in Forum(s)</Resource>
+    <Resource tag="SEARCH_OPTIONS">Search Options</Resource>
+    <Resource tag="SEARCH_RESULTS">Search Results per Page</Resource>
+    <Resource tag="SEARCH_TITLEORBOTH">Search entire Posts or Titles only</Resource>
     <Resource tag="TITLE">Haku</Resource>
+    <Resource tag="TITLE_ONLY">Search Titles Only</Resource>
     <Resource tag="TOPIC">Aihe:</Resource>
   </page>
   <page name="SHOUTBOX">
@@ -4750,13 +5230,6 @@ Spoiler Content
     <Resource tag="MUSTBELOGGEDIN">You must be logged in to use the shoutbox.</Resource>
     <Resource tag="SUBMIT">Submit</Resource>
     <Resource tag="TITLE">ShoutBox</Resource>
-  </page>
-  <page name="SHOWSMILIES">
-    <Resource tag="CLOSE_WINDOW">Close Window</Resource>
-    <Resource tag="HEADER_CODE">Code</Resource>
-    <Resource tag="HEADER_MEANING">Meaning</Resource>
-    <Resource tag="HEADER_SMILE">Smile</Resource>
-    <Resource tag="TITLE">Available Smilies</Resource>
   </page>
   <page name="TEAM">
     <Resource tag="ADMINS">Administrators</Resource>
@@ -4816,24 +5289,45 @@ Hello!
 
 {link}
 </Resource>
+    <Resource tag="NOTIFICATION_ON_BOT_USER_REGISTER">
+      Hello!
+
+      A new user has registered on the {forumname} forum (Be Aware the SPAM BOT Protection System has detected the user as possible BOT!):
+
+      User Name: {user}
+      User Email: {email}
+
+      Administration Link: {adminlink}
+    </Resource>
     <Resource tag="NOTIFICATION_ON_FACEBOOK_REGISTER">
       Hello {user}.
 
-      You have been successfully Registred on the {forumname} forum thru Facebook:
+      You have been successfully registered on the {forumname} forum using Facebook Login:
 
       User Name: {user}
 	  Auto Generated Password: {pass}
 	  Auto Generated Security Answer: {answer}
-      User Email: {email} (Please dont change your email, or you are unable to login with facebook)
+      User Email: {email} (Please don't change your email, or you are unable to login with facebook)
+	  
+    </Resource>
+    <Resource tag="NOTIFICATION_ON_GOOGLE_REGISTER">
+      Hello {user}.
+
+      You have been successfully registered on the {forumname} forum using Google Login:
+
+      User Name: {user}
+	  Auto Generated Password: {pass}
+	  Auto Generated Security Answer: {answer}
+      User Email: {email} (Please don't change your email, or you are unable to login with Google)
 	  
     </Resource>
     <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_TEXT">
     Hello {user}.
 
-    Congratulations you have been award with the {medalname} on the {forumname} forum.
+    Congratulations you have been awarded with the {medalname} on the {forumname} forum.
   </Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL_TEXT">
-		A new message that needs your approved has been posted in the {forumname} forum:
+		A new message that needs to be approved has been posted in the {forumname} forum:
 		
 		Administration Link: {adminlink}
 	</Resource>
@@ -4844,10 +5338,15 @@ The Message was posted in the {forumname} forum.
       
       Administration Link: {adminlink}
    </Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL_TEXT">
+      A new message (posted in the {forumname} forum) was detected as SPAM, needs to be checked:
+      
+      Administration Link: {adminlink}
+   </Resource>
     <Resource tag="NOTIFICATION_ON_REGISTER">
       Hello {user}.
 
-      You have been successfully Registred on the {forumname} forum:
+      You have been successfully registered on the {forumname} forum:
 
       User Name: {user}
 	  Auto Generated Password: {pass}
@@ -4855,10 +5354,34 @@ The Message was posted in the {forumname} forum.
       User Email: {email}
 	  
     </Resource>
+    <Resource tag="NOTIFICATION_ON_SUSPENDING_ENDED_USER">
+    Hello {user},
+
+    The suspension of your forum account has ended or was lifted.
+
+    Thanks!
+    The {forumname} Team
+    {forumurl}
+
+  </Resource>
+    <Resource tag="NOTIFICATION_ON_SUSPENDING_USER">
+    Hello {user},
+
+    Your forum account on the {forumname} forum has been temporarily suspended.
+    
+    This suspension is due to end on {suspendedUntil}.
+
+    For the following Reason: '{suspendReason}'
+
+    Thanks!
+    The {forumname} Team
+    {forumurl}
+
+  </Resource>
     <Resource tag="NOTIFICATION_ON_TWITTER_REGISTER">
       Hello {user}.
 
-      You have been successfully Registred on the {forumname} forum thru Twitter:
+      You have been successfully registered on the {forumname} forum using Twitter Login:
 
       User Name: {user}
 	  Auto Generated Password: {pass}
@@ -4876,34 +5399,88 @@ The Message was posted in the {forumname} forum.
 		
 		Administration Link: {adminlink}
 	</Resource>
+    <Resource tag="NOTIFICATION_ON_WELCOME_USER">
+    Hello {user},
+
+    You have been successfully registered on the {forumname} forum. You're all ready to go!
+
+    Before posting, consider other ways of finding information:
+
+    - Use the help pages to find out how the forum works
+    - Try the Forum Search, often times your questions are already been answered
+    - Do not post any abusive, vulgar, obscene, hateful, slanderous, threatening, sexually-oriented or any other material that may violate any applicable laws.
+    Doing so may lead to you being permanently banned from this forum. Note that all IP addresses are logged and may aid in enforcing these conditions.
+
+    Thanks!
+    The {forumname} Team
+    {forumurl}
+
+  </Resource>
+    <Resource tag="NOTIFICATION_ROLE_ASSIGNMENT">
+     Hello {user},
+
+     Your user account on the {forumname} forum has has been recently updated to include access to the following Group(s):
+     
+     {roles}
+
+     Thanks!
+     The {forumname} Team
+     {forumurl}
+
+   </Resource>
+    <Resource tag="NOTIFICATION_ROLE_UNASSIGNMENT">
+     Hello {user},
+
+     Your user account on the {forumname} forum  has been recently updated to restrict access to the following Groups(s):
+     
+     {roles}
+
+     Thanks!
+     The {forumname} Team
+     {forumurl}
+
+   </Resource>
     <Resource tag="PASSWORDRETRIEVAL_HTML">
-&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
-&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
-&lt;head&gt;
-&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
-&lt;title&gt;Password Retrieval&lt;/title&gt;
-&lt;style type="text/css"&gt;
-&lt;!--
-.style1 {font-family: Verdana, Arial, Helvetica, sans-serif}
---&gt;
-&lt;/style&gt;
-&lt;/head&gt;&lt;body&gt;
-&lt;p class="style1"&gt; A new password has been generated for you on &lt;b&gt;{forumname}&lt;/b&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;.&lt;/p&gt;
-&lt;p class="style1"&gt; Please return to the site and log in using the following information:&lt;/p&gt;
-&lt;blockquote&gt;&lt;span class="style1"&gt;
-User Name: &lt;b&gt;{username}&lt;/b&gt;&lt;br /&gt;
-Password: &lt;b&gt;{password}&lt;/b&gt;&lt;/span&gt;&lt;/blockquote&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</Resource>
+      &lt;!DOCTYPE html&gt;
+
+      &lt;html lang="en" xmlns="http://www.w3.org/1999/xhtml"&gt;
+      &lt;head&gt;
+      &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+      &lt;title&gt;Password Retrieval&lt;/title&gt;
+      &lt;style type="text/css"&gt;
+      &lt;!--
+      .style1 {
+      font-family: Verdana, Arial, Helvetica, sans-serif;
+      }
+      --&gt;
+      &lt;/style&gt;
+      &lt;/head&gt;
+      &lt;body&gt;
+      &lt;p class="style1"&gt;Hello {username},&lt;/p&gt;
+      &lt;p class="style1"&gt;You or someone (with the IP Address: {ipaddress}) has requested to reset your password because you have forgotten your password.&lt;/p&gt;
+      &lt;p class="style1"&gt;A new password has been generated for you on &lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;.&lt;/p&gt;
+      &lt;p class="style1"&gt;Please return to the site and login using the following information:&lt;/p&gt;
+      &lt;blockquote&gt;
+      &lt;span class="style1"&gt;
+      User Name: &lt;strong&gt;{username}&lt;/strong&gt;&lt;br /&gt;
+      Password: &lt;strong&gt;{password}&lt;/strong&gt;
+      &lt;/span&gt;
+      &lt;/blockquote&gt;
+      &lt;/body&gt;
+      &lt;/html&gt;
+    </Resource>
     <Resource tag="PASSWORDRETRIEVAL_TEXT">
-A new password has been generated for you on {forumname} at {forumlink}.
+      Hello {username},
 
-Please return to the site and log in using the following information:
+      You or someone (with the IP Address: {ipaddress}) has requested to reset your password because you have forgotten your password.
 
-User Name: {username}
-Password: {password}
-</Resource>
+      A new password has been generated for you on {forumname} at {forumlink}.
+
+      Please return to the site and login using the following information:
+
+      User Name: {username}
+      Password: {password}
+    </Resource>
     <Resource tag="PMNOTIFICATION_HTML" />
     <Resource tag="PMNOTIFICATION_TEXT">
 A new Private Message from {fromuser} about {subject} was send to you at {forumname}.
@@ -4914,12 +5491,16 @@ To read the message, open the following link in your browser:
 </Resource>
     <Resource tag="TOPICPOST_HTML" />
     <Resource tag="TOPICPOST_TEXT">
-A new message has been posted in the thread {topic} at {forumname}.
+      A new message has been posted in the thread {topic} at {forumname}.
 
-To read the message, open the following link in your browser:
+      To read the message, open the following link in your browser:
 
-{link}
-</Resource>
+      {link}
+
+      You can manage your subscriptions here:
+
+      {subscriptionlink}
+    </Resource>
     <Resource tag="VERIFYEMAIL_HTML" />
     <Resource tag="VERIFYEMAIL_TEXT">
 You have requested to join {forumname}, but before you can join your email address must be verified.
@@ -4934,39 +5515,6 @@ Your approval key is:
 
 Visit {forumname} at {forumlink}
 </Resource>
-  </page>
-  <page name="TIMEZONES">
-    <Resource tag="NAME_UTC">(UTC)</Resource>
-    <Resource tag="UTC0">(UTC) Casablanca, Dublin, Edinburgh, London, Lisbon, Monrovia</Resource>
-    <Resource tag="UTC1">(UTC+1:00) Berlin, Brussels, Kristiansund, Madrid, Paris, Rome, Warsaw</Resource>
-    <Resource tag="UTC-1">(UTC-1:00) Azores, Cape Verde Islands</Resource>
-    <Resource tag="UTC10">(UTC+10:00) Melbourne, Papua New Guinea, Sydney, Vladivostok</Resource>
-    <Resource tag="UTC-10">(UTC-10:00) Hawaii</Resource>
-    <Resource tag="UTC11">(UTC+11:00) Magadan, New Caledonia, Solomon Islands</Resource>
-    <Resource tag="UTC-11">(UTC-11:00) Midway Island, Samoa</Resource>
-    <Resource tag="UTC12">(UTC+12:00) Auckland, Wellington, Fiji, Marshall Island</Resource>
-    <Resource tag="UTC-12">(UTC-12:00) Eniwetok, Kwajalein</Resource>
-    <Resource tag="UTC2">(UTC+2:00) Jerusalem, Kaliningrad, South Africa</Resource>
-    <Resource tag="UTC-2">(UTC-2:00) Ascension</Resource>
-    <Resource tag="UTC3">(UTC+3:00) Baghdad, Riyadh, Moscow, Nairobi</Resource>
-    <Resource tag="UTC-3">(UTC-3:00) Brazil, Buenos Aires, Georgetown, Falkland Is.</Resource>
-    <Resource tag="UTC3.5">(UTC+3:30) Tehran</Resource>
-    <Resource tag="UTC-3.5">(UTC-3:30) Newfoundland</Resource>
-    <Resource tag="UTC4">(UTC+4:00) Adu Dhabi, Baku, Muscat, Tbilisi</Resource>
-    <Resource tag="UTC-4">(UTC-4:00) Atlantic Time (Canada), Caracas, La Paz</Resource>
-    <Resource tag="UTC4.5">(UTC+4:30) Kabul</Resource>
-    <Resource tag="UTC5">(UTC+5:00) Ekaterinburg, Islamabad, Karachi, Tashkent</Resource>
-    <Resource tag="UTC-5">(UTC-5:00) Eastern Time (US &amp; Canada), Bogota, Lima, Quito</Resource>
-    <Resource tag="UTC5.5">(UTC+5:30) Bombay, Calcutta, Madras, New Delhi</Resource>
-    <Resource tag="UTC6">(UTC+6:00) Almaty, Colomba, Dhaka</Resource>
-    <Resource tag="UTC-6">(UTC-6:00) Central Time (US &amp; Canada), Mexico City</Resource>
-    <Resource tag="UTC7">(UTC+7:00) Bangkok, Hanoi, Jakarta</Resource>
-    <Resource tag="UTC-7">(UTC-7:00) Arizona</Resource>
-    <Resource tag="UTC8">(UTC+8:00) Beijing, Hong Kong, Perth, Singapore, Taipei</Resource>
-    <Resource tag="UTC-8">(UTC-8:00) Pacific Time (US &amp; Canada)</Resource>
-    <Resource tag="UTC9">(UTC+9:00) Osaka, Sapporo, Seoul, Tokyo, Yakutsk</Resource>
-    <Resource tag="UTC-9">(UTC-9:00) Alaska</Resource>
-    <Resource tag="UTC9.5">(UTC+9:30) Adelaide, Darwin</Resource>
   </page>
   <page name="TOOLBAR">
     <Resource tag="ACTIVETOPICS">Aktiiviset aiheet</Resource>
@@ -4986,6 +5534,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="INBOX_TITLE">Shows Private Messages Inbox.</Resource>
     <Resource tag="LOGGED_IN_AS">Käyttäjä: {0}</Resource>
     <Resource tag="LOGIN">Kirjaudu</Resource>
+    <Resource tag="LOGIN_CONNECT">Login to your {0} forum account</Resource>
     <Resource tag="LOGIN_TITLE">Shows the Login Control to the Forum.</Resource>
     <Resource tag="LOGOUT">Kirjaudu ulos</Resource>
     <Resource tag="LOGOUT_QUESTION">Are you sure you want to logout?</Resource>
@@ -4993,6 +5542,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="MEMBERS">Käyttäjät</Resource>
     <Resource tag="MEMBERS_TITLE">Opens the Member list page.</Resource>
     <Resource tag="MODERATE">Moderointi</Resource>
+    <Resource tag="MODERATE_NEW">({0} Need Moderating)</Resource>
     <Resource tag="MODERATE_TITLE">Shows the Moderate Page where you can view unapproved and reported Posts..</Resource>
     <Resource tag="MYALBUMS">My Albums</Resource>
     <Resource tag="MYALBUMS_TITLE">Shows the Albums Page which shows all your albums.</Resource>
@@ -5002,6 +5552,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="MYTOPICS_TITLE">Shows the Active and Favorite Topics.</Resource>
     <Resource tag="NEWPM">({0} Unread)</Resource>
     <Resource tag="REGISTER">Rekisteröidy</Resource>
+    <Resource tag="REGISTER_CONNECT">or Register a new forum account</Resource>
     <Resource tag="REGISTER_TITLE">Shows the Registration Form.</Resource>
     <Resource tag="SEARCH">Etsi</Resource>
     <Resource tag="SEARCH_TITLE">Use the Forum Search.</Resource>
@@ -5010,6 +5561,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="TEAM_TITLE">Shows the Team Page which shows all Moderators and Admins..</Resource>
     <Resource tag="UNREADTOPICS">There are {0} Topic(s) with unread Messages</Resource>
     <Resource tag="WELCOME_GUEST">Tervetuloa vieras</Resource>
+    <Resource tag="WELCOME_GUEST_CONNECT">Wanna join the discussion?! </Resource>
     <Resource tag="WELCOME_GUEST_FULL">Welcome Guest! To enable all features please </Resource>
     <Resource tag="WELCOME_GUEST_NO">Welcome Guest! You can &lt;strong&gt;not&lt;/strong&gt; login or register.</Resource>
   </page>
@@ -5042,6 +5594,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="LASTPOST">Viimeinen viesti</Resource>
     <Resource tag="MARKREAD">Merkitse tämä alue luetuksi</Resource>
     <Resource tag="NO_POSTS">Ei viestejä</Resource>
+    <Resource tag="NO_TOPICS">The Forum currently has no Topics</Resource>
     <Resource tag="OK_TT">Search this Forum</Resource>
     <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REPLIES">Vastauksia</Resource>
