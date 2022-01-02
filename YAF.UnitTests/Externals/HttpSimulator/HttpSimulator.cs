@@ -82,17 +82,17 @@ namespace HttpSimulator
         /// <summary>
         /// The _form vars.
         /// </summary>
-        private readonly NameValueCollection _formVars = new NameValueCollection();
+        private readonly NameValueCollection formVars = new NameValueCollection();
 
         /// <summary>
-        /// The _headers.
+        /// The headers.
         /// </summary>
-        private readonly NameValueCollection _headers = new NameValueCollection();
+        private readonly NameValueCollection headers = new NameValueCollection();
 
         /// <summary>
-        /// The _referer.
+        /// The referer.
         /// </summary>
-        private Uri _referer;
+        private Uri referer;
 
         /// <summary>
         /// The application path.
@@ -257,7 +257,7 @@ namespace HttpSimulator
                 throw new InvalidOperationException("Cannot set form variables after calling Simulate().");
             }
 
-            this._formVars.Add(name, value);
+            this.formVars.Add(name, value);
 
             return this;
         }
@@ -276,7 +276,7 @@ namespace HttpSimulator
                 throw new InvalidOperationException("Cannot set headers after calling Simulate().");
             }
 
-            this._headers.Add(name, value);
+            this.headers.Add(name, value);
 
             return this;
         }
@@ -292,7 +292,7 @@ namespace HttpSimulator
         {
             this.WorkerRequest?.SetReferer(referer);
 
-            this._referer = referer;
+            this.referer = referer;
             return this;
         }
 
@@ -504,17 +504,17 @@ namespace HttpSimulator
 
             if (formVariables != null)
             {
-                this._formVars.Add(formVariables);
+                this.formVars.Add(formVariables);
             }
 
-            if (this._formVars.Count > 0)
+            if (this.formVars.Count > 0)
             {
                 httpVerb = HttpVerb.POST; // Need to enforce this.
             }
 
             if (headers != null)
             {
-                this._headers.Add(headers);
+                this.headers.Add(headers);
             }
 
             this.WorkerRequest = new SimulatedHttpRequest(
@@ -528,12 +528,12 @@ namespace HttpSimulator
                 this.Port, 
                 httpVerb.ToString());
 
-            this.WorkerRequest.Form.Add(this._formVars);
-            this.WorkerRequest.Headers.Add(this._headers);
+            this.WorkerRequest.Form.Add(this.formVars);
+            this.WorkerRequest.Headers.Add(this.headers);
 
-            if (this._referer != null)
+            if (this.referer != null)
             {
-                this.WorkerRequest.SetReferer(this._referer);
+                this.WorkerRequest.SetReferer(this.referer);
             }
 
             this.InitializeSession(isMobileDevice);

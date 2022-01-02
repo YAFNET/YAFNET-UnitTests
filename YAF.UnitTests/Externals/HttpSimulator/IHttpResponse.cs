@@ -35,7 +35,7 @@ namespace HttpSimulator
     #endregion
 
     /// <summary>
-    /// The i http response.
+    /// The HttpResponse interface.
     /// </summary>
     public interface IHttpResponse
     {

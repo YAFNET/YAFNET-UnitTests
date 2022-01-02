@@ -42,25 +42,6 @@ namespace HttpSimulator
         /// <summary>
         /// Returns the value of the private member specified.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="fieldName">Name of the member.</param>
-        /// <param name="source">The object that contains the member.</param>
-        /// <returns></returns>
-        public static T GetPrivateInstanceFieldValue<T>(string fieldName, object source)
-        {
-            var field = source.GetType().GetField(
-                fieldName, BindingFlags.GetField | BindingFlags.NonPublic | BindingFlags.Instance);
-            if (field != null)
-            {
-                return (T)field.GetValue(source);
-            }
-
-            return default;
-        }
-
-        /// <summary>
-        /// Returns the value of the private member specified.
-        /// </summary>
         /// <typeparam name="T">
         /// </typeparam>
         /// <param name="fieldName">
@@ -79,42 +60,6 @@ namespace HttpSimulator
             }
 
             return default;
-        }
-
-        /// <summary>
-        /// Returns the value of the private member specified.
-        /// </summary>
-        /// <typeparam name="T">
-        /// </typeparam>
-        /// <param name="fieldName">
-        /// Name of the member. 
-        /// </param>
-        /// <param name="typeName">
-        /// </param>
-        public static T GetStaticFieldValue<T>(string fieldName, string typeName)
-        {
-            var type = Type.GetType(typeName, true);
-            var field = type.GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Static);
-            if (field != null)
-            {
-                return (T)field.GetValue(type);
-            }
-
-            return default;
-        }
-
-        /// <summary>
-        /// The instantiate.
-        /// </summary>
-        /// <param name="typeName">
-        /// The type name.
-        /// </param>
-        /// <returns>
-        /// The instantiate.
-        /// </returns>
-        public static object Instantiate(string typeName)
-        {
-            return Instantiate(typeName, null, null);
         }
 
         /// <summary>
@@ -162,122 +107,6 @@ namespace HttpSimulator
         }
 
         /// <summary>
-        /// Invokes a non-public static method.
-        /// </summary>
-        /// <typeparam name="TReturn">The type of the return.</typeparam>
-        /// <param name="type">The type.</param>
-        /// <param name="methodName">Name of the method.</param>
-        /// <param name="parameters">The parameters.</param>
-        /// <returns></returns>
-        public static TReturn InvokeNonPublicMethod<TReturn>(Type type, string methodName, params object[] parameters)
-        {
-            var paramTypes = Array.ConvertAll(parameters, o => o.GetType());
-
-            var method = type.GetMethod(
-                methodName, BindingFlags.NonPublic | BindingFlags.Static, null, paramTypes, null);
-            if (method == null)
-            {
-                throw new ArgumentException($"Could not find a method with the name '{methodName}'", "method");
-            }
-
-            return (TReturn)method.Invoke(null, parameters);
-        }
-
-        /// <summary>
-        /// The invoke non public method.
-        /// </summary>
-        /// <typeparam name="TReturn">The type of the return.</typeparam>
-        /// <param name="source">The source.</param>
-        /// <param name="methodName">The method name.</param>
-        /// <param name="parameters">The parameters.</param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentException">
-        ///   </exception>
-        public static TReturn InvokeNonPublicMethod<TReturn>(
-            object source, string methodName, params object[] parameters)
-        {
-            var paramTypes = Array.ConvertAll(parameters, o => o.GetType());
-
-            var method = source.GetType().GetMethod(
-                methodName, BindingFlags.NonPublic | BindingFlags.Instance, null, paramTypes, null);
-            if (method == null)
-            {
-                throw new ArgumentException($"Could not find a method with the name '{methodName}'", "method");
-            }
-
-            return (TReturn)method.Invoke(source, parameters);
-        }
-
-        /// <summary>
-        /// The invoke non public property.
-        /// </summary>
-        /// <typeparam name="TReturn">The type of the return.</typeparam>
-        /// <param name="source">The source.</param>
-        /// <param name="propertyName">The property name.</param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentException">
-        ///   </exception>
-        public static TReturn InvokeNonPublicProperty<TReturn>(object source, string propertyName)
-        {
-            var propertyInfo = source.GetType().GetProperty(
-                propertyName, BindingFlags.NonPublic | BindingFlags.Instance, null, typeof(TReturn), new Type[0], null);
-            if (propertyInfo == null)
-            {
-                throw new ArgumentException($"Could not find a propertyName with the name '{propertyName}'", "propertyName");
-            }
-
-            return (TReturn)propertyInfo.GetValue(source, null);
-        }
-
-        /// <summary>
-        /// The invoke non public property.
-        /// </summary>
-        /// <param name="source">The source.</param>
-        /// <param name="propertyName">The property name.</param>
-        /// <returns>
-        /// The invoke non public property.
-        /// </returns>
-        /// <exception cref="ArgumentException">
-        ///   </exception>
-        public static object InvokeNonPublicProperty(object source, string propertyName)
-        {
-            var propertyInfo = source.GetType().GetProperty(
-                propertyName, BindingFlags.NonPublic | BindingFlags.Instance);
-            if (propertyInfo == null)
-            {
-                throw new ArgumentException($"Could not find a propertyName with the name '{propertyName}'", "propertyName");
-            }
-
-            return propertyInfo.GetValue(source, null);
-        }
-
-        /// <summary>
-        /// The invoke property.
-        /// </summary>
-        /// <param name="source">
-        /// The source.
-        /// </param>
-        /// <param name="propertyName">
-        /// The property name.
-        /// </param>
-        /// <typeparam name="TReturn">
-        /// </typeparam>
-        /// <returns>
-        /// </returns>
-        /// <exception cref="ArgumentException">
-        /// </exception>
-        public static TReturn InvokeProperty<TReturn>(object source, string propertyName)
-        {
-            var propertyInfo = source.GetType().GetProperty(propertyName);
-            if (propertyInfo == null)
-            {
-                throw new ArgumentException($"Could not find a propertyName with the name '{propertyName}'", "propertyName");
-            }
-
-            return (TReturn)propertyInfo.GetValue(source, null);
-        }
-
-        /// <summary>
         /// Returns the value of the private member specified.
         /// </summary>
         /// <param name="memberName">
@@ -299,43 +128,6 @@ namespace HttpSimulator
             }
 
             field.SetValue(source, value);
-        }
-
-        /// <summary>
-        /// Sets the value of the private static member.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="fieldName">Name of the field.</param>
-        /// <param name="type">The type.</param>
-        /// <param name="value">The value.</param>
-        public static void SetStaticFieldValue<T>(string fieldName, Type type, T value)
-        {
-            var field = type.GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Static);
-            if (field == null)
-            {
-                throw new ArgumentException($"Could not find the private instance field '{fieldName}'");
-            }
-
-            field.SetValue(null, value);
-        }
-
-        /// <summary>
-        /// Sets the value of the private static member.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="fieldName">Name of the field.</param>
-        /// <param name="typeName">Name of the type.</param>
-        /// <param name="value">The value.</param>
-        public static void SetStaticFieldValue<T>(string fieldName, string typeName, T value)
-        {
-            var type = Type.GetType(typeName, true);
-            var field = type.GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Static);
-            if (field == null)
-            {
-                throw new ArgumentException($"Could not find the private instance field '{fieldName}'");
-            }
-
-            field.SetValue(null, value);
         }
 
         #endregion

@@ -41,24 +41,24 @@ namespace HttpSimulator
         #region Constants and Fields
 
         /// <summary>
-        /// The _host.
+        /// The host.
         /// </summary>
-        private readonly string _host;
+        private readonly string host;
 
         /// <summary>
         /// The _physical file path.
         /// </summary>
-        private readonly string _physicalFilePath;
+        private readonly string physicalFilePath;
 
         /// <summary>
-        /// The _port.
+        /// The port.
         /// </summary>
-        private readonly int _port;
+        private readonly int port;
 
         /// <summary>
-        /// The _verb.
+        /// The verb.
         /// </summary>
-        private readonly string _verb;
+        private readonly string verb;
 
         /// <summary>
         /// The form variables.
@@ -71,14 +71,9 @@ namespace HttpSimulator
         private readonly NameValueCollection headers = new NameValueCollection();
 
         /// <summary>
-        /// The _browser.
+        /// The referer.
         /// </summary>
-        private HttpBrowserCapabilities _browser;
-
-        /// <summary>
-        /// The _referer.
-        /// </summary>
-        private Uri _referer;
+        private Uri referer;
 
         #endregion
 
@@ -117,26 +112,26 @@ namespace HttpSimulator
         {
             if (host == null)
             {
-                throw new ArgumentNullException("host", "Host cannot be null.");
+                throw new ArgumentNullException(nameof(host), "Host cannot be null.");
             }
 
             if (host.Length == 0)
             {
-                throw new ArgumentException("Host cannot be empty.", "host");
+                throw new ArgumentException("Host cannot be empty.", nameof(host));
             }
 
             if (applicationPath == null)
             {
                 throw new ArgumentNullException(
-                    "applicationPath", "Can't create a request with a null application path. Try empty string.");
+                    nameof(applicationPath), "Can't create a request with a null application path. Try empty string.");
             }
 
-            this._host = host;
-            this._verb = verb;
-            this._port = port;
-            this._physicalFilePath = physicalFilePath;
+            this.host = host;
+            this.verb = verb;
+            this.port = port;
+            this.physicalFilePath = physicalFilePath;
 
-            this._browser = new HttpBrowserCapabilities();
+            //this.browser = new HttpBrowserCapabilities();
         }
 
         #endregion
@@ -175,7 +170,7 @@ namespace HttpSimulator
         /// The get app path translated.
         /// </summary>
         /// <returns>
-        /// The get app path translated.
+        /// The <see cref="string"/>.
         /// </returns>
         public override string GetAppPathTranslated()
         {
@@ -187,11 +182,11 @@ namespace HttpSimulator
         /// The get file path translated.
         /// </summary>
         /// <returns>
-        /// The get file path translated.
+        /// The <see cref="string"/>.
         /// </returns>
         public override string GetFilePathTranslated()
         {
-            return this._physicalFilePath;
+            return this.physicalFilePath;
         }
 
         /// <summary>
@@ -202,7 +197,7 @@ namespace HttpSimulator
         /// </returns>
         public override string GetHttpVerbName()
         {
-            return this._verb;
+            return this.verb;
         }
 
         /// <summary>
@@ -212,21 +207,19 @@ namespace HttpSimulator
         /// The index.
         /// </param>
         /// <returns>
-        /// The get known request header.
+        /// The <see cref="string"/>.
         /// </returns>
         public override string GetKnownRequestHeader(int index)
         {
-            if (index == 0x24)
+            switch (index)
             {
-                return this._referer == null ? string.Empty : this._referer.ToString();
+                case 0x24:
+                    return this.referer == null ? string.Empty : this.referer.ToString();
+                case 12 when this.verb == "POST":
+                    return "application/x-www-form-urlencoded";
+                default:
+                    return base.GetKnownRequestHeader(index);
             }
-
-            if (index == 12 && this._verb == "POST")
-            {
-                return "application/x-www-form-urlencoded";
-            }
-
-            return base.GetKnownRequestHeader(index);
         }
 
         /// <summary>
@@ -237,7 +230,7 @@ namespace HttpSimulator
         /// </returns>
         public override int GetLocalPort()
         {
-            return this._port;
+            return this.port;
         }
 
         /// <summary>
@@ -263,7 +256,7 @@ namespace HttpSimulator
         /// </returns>
         public override string GetServerName()
         {
-            return this._host;
+            return this.host;
         }
 
         /// <summary>
@@ -325,7 +318,7 @@ namespace HttpSimulator
         /// </param>
         internal void SetReferer(Uri referer)
         {
-            this._referer = referer;
+            this.referer = referer;
         }
 
         #endregion
